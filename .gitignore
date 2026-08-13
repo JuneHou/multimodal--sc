@@ -1,0 +1,35 @@
+# ---------------------------------------------------------------------------
+# PhysioNet-restricted data must NEVER reach a commit.
+# Everything derived from MIMIC-III / MIMIC-IV / MIMIC-IV-Note is credentialed
+# access. Embedding caches and parquet/pickle intermediates are derived data
+# and are just as restricted as the raw tables.
+# ---------------------------------------------------------------------------
+data/
+results/
+figures/
+
+# Collaborator-shared satellite dataset (REAP / Hurricane Helene, exported
+# from Yujuan Gao's Dropbox): ~425 MB of GeoTIFF chips and her pipeline
+# outputs — large binaries, and not ours to redistribute. Already matched by
+# the unanchored `data/` rule above; listed explicitly so the exclusion
+# survives even if that rule is ever narrowed. Verified with
+# `git check-ignore -v REAP/data/...`.
+REAP/data/
+
+# Local absolute paths to credentialed data roots.
+# config/paths.example.yaml IS committable and is deliberately not ignored.
+# NOTE the leading `**/`: a pattern containing a slash is anchored to the repo
+# root, so a bare `config/paths.yaml` would NOT match
+# `preliminary/config/paths.yaml`. Verified with `git check-ignore`.
+**/config/paths.yaml
+
+# Python
+__pycache__/
+*.pyc
+
+# Embedding cache (content-addressed note text -> vectors: derived MIMIC data)
+.emb_cache/
+
+# Serialized intermediates
+*.parquet
+*.pkl

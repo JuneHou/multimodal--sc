@@ -1,0 +1,30 @@
+# Path configuration for the preliminary latent-synthetic-control study.
+#
+# This is the COMMITTABLE template. Copy it to config/paths.yaml and edit for
+# your machine:
+#     cp config/paths.example.yaml config/paths.yaml
+#
+# config/paths.yaml is gitignored because it names local absolute locations of
+# PhysioNet credentialed data. This example file contains no data, only paths.
+
+# --- Raw MIMIC roots (PhysioNet credentialed; read-only) -------------------
+mimic3_root: /data/wang/junh/datasets/physionet.org/files/mimiciii/1.4
+mimic4_root: /data/wang/junh/datasets/physionet.org/files/mimiciv/2.2
+mimic4_note_root: /data/wang/junh/datasets/physionet.org/files/mimic-iv-note/2.2
+
+# --- Source repo that mimic/src/vendored/ was copied from -------------------
+# Reference only. Vendored code is a self-contained copy; nothing imports from
+# here at runtime. Recorded so a reader can diff against the original.
+source_repo: /data/wang/junh/githubs/moa-clinical-rag
+
+# --- Derived / output locations (all gitignored) ---------------------------
+# These are the MIMIC study's locations, under preliminary/mimic/. They are the
+# only ones this file names.
+#
+# The sibling studies manage their own output directories and do not read these
+# keys: preliminary/observable/ writes to observable/{results,figures}/, and
+# preliminary/latent/ will write to latent/{data,results,figures}/. Both import
+# code from preliminary/mimic/src/ but keep their artifacts separate.
+derived_dir: /data/wang/junh/githubs/latent-synthetic-control/preliminary/mimic/data/derived
+results_dir: /data/wang/junh/githubs/latent-synthetic-control/preliminary/mimic/results
+figures_dir: /data/wang/junh/githubs/latent-synthetic-control/preliminary/mimic/figures

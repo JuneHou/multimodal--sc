@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Synthetic control: three-paper background</title>
+  <!--
+    Source of truth for this deck. Future extensions: edit this file.
+    Companion live canvas (Cursor only):
+    ~/.cursor/projects/data-wang-junh/canvases/synthetic-control-background.canvas.tsx
+    Open in a browser. Keys: ← →, Home/End. Click the pills or Previous/Next.
+  -->
+  <style>
+    :root {
+      --bg: #f7f6f2;
+      --fg: #1c1b18;
+      --muted: #5c5a54;
+      --faint: #8a877e;
+      --line: #d9d6cc;
+      --card: #ffffff;
+      --accent: #1f4e79;
+      --warn-bg: #f4ead6;
+      --danger-bg: #f3e2dc;
+      --info-bg: #e7eef4;
+      --ok-bg: #e6efe8;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; }
+    body {
+      font-family: "Iowan Old Style", "Palatino Linotype", Palatino, "Times New Roman", serif;
+      background: var(--bg);
+      color: var(--fg);
+    }
+    .shell {
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 20px 28px 16px;
+    }
+    .top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--line);
+    }
+    .kicker {
+      font-size: 13px;
+      letter-spacing: 0.02em;
+      color: var(--muted);
+      font-weight: 600;
+      font-family: ui-sans-serif, system-ui, sans-serif;
+    }
+    .pills { display: flex; gap: 6px; flex-wrap: wrap; margin-left: auto; }
+    .pill {
+      border: 1px solid var(--line);
+      background: var(--card);
+      color: var(--muted);
+      font: 12px/1.2 ui-sans-serif, system-ui, sans-serif;
+      padding: 5px 9px;
+      border-radius: 999px;
+      cursor: pointer;
+    }
+    .pill.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .stage { flex: 1; padding: 22px 0 12px; }
+    h1 { font-size: 28px; line-height: 1.2; font-weight: 650; margin: 0 0 12px; }
+    h2 { font-size: 18px; margin: 16px 0 8px; }
+    h3 { font-size: 16px; margin: 0 0 6px; }
+    p { margin: 0 0 10px; line-height: 1.45; font-size: 16.5px; }
+    .muted { color: var(--muted); }
+    .small { font-size: 13px; color: var(--faint); }
+    .grid { display: grid; gap: 14px; }
+    .c2 { grid-template-columns: 1fr 1fr; }
+    .c3 { grid-template-columns: 1fr 1fr 1fr; }
+    .c4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+    .c5 { grid-template-columns: repeat(5, 1fr); }
+    .flow { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin: 8px 0 4px; }
+    .flow-box {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px 10px 12px;
+      min-height: 118px;
+    }
+    .flow-box .n {
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      font-size: 11px;
+      color: var(--accent);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+    .flow-box h3 { margin: 4px 0 6px; font-size: 15px; }
+    .flow-box p { font-size: 13.5px; margin: 0; color: var(--muted); }
+    .ok { background: var(--ok-bg); }
+    .src { font-size: 12px; color: var(--faint); margin-top: 8px; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px 16px;
+    }
+    .card h3 { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 13px; color: var(--muted); text-transform: none; }
+    .stat { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; }
+    .stat b { display: block; font-size: 26px; }
+    .stat span { font-size: 13px; color: var(--muted); font-family: ui-sans-serif, system-ui, sans-serif; }
+    .callout { border-radius: 8px; padding: 12px 14px; margin-top: 8px; }
+    .callout strong { display: block; margin-bottom: 4px; }
+    .info { background: var(--info-bg); }
+    .warn { background: var(--warn-bg); }
+    .danger { background: var(--danger-bg); }
+    .neutral { background: var(--card); border: 1px solid var(--line); }
+    table { width: 100%; border-collapse: collapse; background: var(--card); font-size: 15px; }
+    th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+    th { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 12px; color: var(--muted); font-weight: 600; }
+    svg { display: block; width: 100%; height: auto; }
+    .nav {
+      display: flex;
+      align-items: center;
+      padding-top: 10px;
+      border-top: 1px solid var(--line);
+      font-family: ui-sans-serif, system-ui, sans-serif;
+    }
+    button {
+      font: 13px ui-sans-serif, system-ui, sans-serif;
+      padding: 7px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--line);
+      background: var(--card);
+      cursor: pointer;
+    }
+    button.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+    button:disabled { opacity: 0.4; cursor: default; }
+    .count { color: var(--faint); font-size: 13px; }
+    .grow { flex: 1; }
+    @media (max-width: 760px) {
+      .c2, .c3, .c4, .c5, .flow { grid-template-columns: 1fr; }
+      h1 { font-size: 22px; }
+      .flow-box { min-height: 0; }
+    }
+    @media print {
+      .top, .nav { display: none; }
+      .slide { break-after: page; display: block !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="top">
+      <div class="kicker">Synthetic control · three papers, then scalar to embedding</div>
+      <div class="pills" id="pills"></div>
+    </div>
+    <div class="stage" id="stage"></div>
+    <div class="nav">
+      <button id="prev" type="button">Previous</button>
+      <div class="grow"></div>
+      <div class="count" id="count"></div>
+      <div class="grow"></div>
+      <button id="next" class="primary" type="button">Next</button>
+    </div>
+  </div>
+
+  <template id="s0">
+    <h1>Synthetic control: estimating the untreated path</h1>
+    <p class="muted">How three papers build a counterfactual for a single treated unit — from interpretable donor weights, to bias correction when the hull fails, to using time order that classical synthetic control ignores.</p>
+    <div class="grid c3">
+      <div class="stat"><b>2010</b><span>ADH · California tobacco</span></div>
+      <div class="stat"><b>2021</b><span>Ben-Michael et al. · ASCM</span></div>
+      <div class="stat"><b>2026</b><span>Rho et al. · TASC</span></div>
+    </div>
+    <div class="callout info"><strong>The question that does not change</strong>After an intervention, we observe the treated unit. The causal effect is that path minus Y(0): what would have happened without the intervention. Y(0) is never observed, so it must be constructed.</div>
+  </template>
+
+  <template id="s1">
+    <h1>Paper 1 · the problem to solve</h1>
+    <p>Abadie, Diamond, and Hainmueller (2010) study California’s 1988 tobacco control program. After the intervention we see California’s smoking rate. To isolate the program’s effect we need the untreated case: a California that never passed the law.</p>
+    <div class="grid c2">
+      <div>
+        <h2>What we observe</h2>
+        <p>The treated unit after T0 follows Y(1). Donors never receive the intervention, so their whole path is Y(0).</p>
+        <p class="muted">California after 1988 is the factual series. Other states are the pool of possible comparisons.</p>
+      </div>
+      <div>
+        <h2>What we need</h2>
+        <p>The missing counterfactual Y(0) for the treated unit after T0. The effect is the gap: observed California minus synthetic California.</p>
+        <p class="muted">A naive comparison (California vs. the rest of the US) confounds the law with pre-existing differences.</p>
+      </div>
+    </div>
+    <svg viewBox="0 0 640 168" role="img" aria-label="Treated path versus missing untreated path">
+      <line x1="48" y1="132" x2="600" y2="132" stroke="#8a877e" />
+      <line x1="320" y1="20" x2="320" y2="132" stroke="#5c5a54" stroke-dasharray="4 4" />
+      <text x="328" y="18" fill="#8a877e" font-size="11" font-family="ui-sans-serif, system-ui, sans-serif">intervention T0</text>
+      <text x="48" y="162" fill="#8a877e" font-size="11" font-family="ui-sans-serif, system-ui, sans-serif">pre-period · match</text>
+      <text x="344" y="162" fill="#8a877e" font-size="11" font-family="ui-sans-serif, system-ui, sans-serif">post-period · Y(0) is missing</text>
+      <polyline fill="none" stroke="#1c1b18" stroke-width="2.5" points="48,88 120,80 200,84 320,70 400,48 500,40 600,36" />
+      <polyline fill="none" stroke="#1f4e79" stroke-width="2.5" stroke-dasharray="6 4" points="320,70 400,78 500,86 600,92" />
+      <text x="530" y="32" fill="#1c1b18" font-size="11" font-family="ui-sans-serif, system-ui, sans-serif">observed Y(1)</text>
+      <text x="508" y="108" fill="#1f4e79" font-size="11" font-family="ui-sans-serif, system-ui, sans-serif">missing Y(0)</text>
+    </svg>
+    <p class="small">Schematic: the solid line is what we see; the dashed line is the untreated path synthetic control must construct. The vertical gap after T0 is the estimated effect.</p>
+    <div class="callout neutral"><strong>Why this is harder than a regression of Y on X</strong>We are not predicting California from covariates in the usual sense. We are imputing a missing potential outcome from other real places, and the construction itself has to be a credible “what if.”</div>
+  </template>
+
+  <template id="s2">
+    <h1>Why ordinary regression is a poor synthetic unit</h1>
+    <p>One could regress California’s pre-period outcomes on the donor states and use those coefficients as weights. ADH reject that as the primary estimator for two linked reasons.</p>
+    <div class="grid c2">
+      <div class="card">
+        <h3>Lack of interpretation</h3>
+        <p>Least squares freely assigns negative coefficients. A weight of −3.7 on one state and +4.2 on another is not a recipe for a place. The “synthetic California” cannot be read as a mixture of real donors.</p>
+        <p class="muted">The causal claim then hides inside an algebraic fit rather than in a transparent donor list.</p>
+      </div>
+      <div class="card">
+        <h3>Unrealistic extrapolation</h3>
+        <p>Negative and large weights leave the range of observed donor data. The estimator invents a comparison unit that does not exist — a combination no actual state could occupy.</p>
+        <p class="muted">If the treated unit is unusual, regression will still produce a number. That number need not correspond to any real untreated path.</p>
+      </div>
+    </div>
+    <div class="callout warn"><strong>The design constraint that follows</strong>The synthetic unit should be a weighted average of real untreated donors, not an unconstrained linear projection. That is the move from regression to synthetic control.</div>
+  </template>
+
+  <template id="s3">
+    <h1>Paper 1 · method and the convex-hull constraints</h1>
+    <p>Choose donor weights that match California’s pre-treatment path (and covariates), then hold those weights fixed after 1988. The post-period weighted donor average is synthetic California — the estimate of Y(0).</p>
+    <h2>Two constraints that define the convex hull</h2>
+    <div class="grid c2">
+      <div class="card">
+        <h3>1. Non-negative weights · w ≥ 0</h3>
+        <p>No shorting a donor. Every state that enters the synthetic unit enters with a positive share. This restores interpretability: California ≈ 0.33 Utah + 0.23 Nevada + …</p>
+      </div>
+      <div class="card">
+        <h3>2. Weights sum to one · Σw = 1</h3>
+        <p>The synthetic unit is a convex combination, not a scaled or shifted projection. It must sit inside the cloud of real donors, not outside it.</p>
+      </div>
+    </div>
+    <div class="grid c2" style="margin-top:12px">
+      <div>
+        <h3>Inside the hull · SC can match</h3>
+        <svg viewBox="0 0 280 160" role="img" aria-label="Treated unit inside the donor convex hull">
+          <polygon points="40,120 90,40 200,36 250,100 180,140" fill="#e7eef4" stroke="#d9d6cc" />
+          <circle cx="40" cy="120" r="4" fill="#5c5a54" /><circle cx="90" cy="40" r="4" fill="#5c5a54" />
+          <circle cx="200" cy="36" r="4" fill="#5c5a54" /><circle cx="250" cy="100" r="4" fill="#5c5a54" />
+          <circle cx="180" cy="140" r="4" fill="#5c5a54" /><circle cx="120" cy="90" r="4" fill="#5c5a54" />
+          <circle cx="160" cy="70" r="4" fill="#5c5a54" /><circle cx="150" cy="88" r="6" fill="#1f4e79" />
+          <text x="12" y="18" fill="#8a877e" font-size="11" font-family="ui-sans-serif, system-ui, sans-serif">donors · treated unit (accent)</text>
+        </svg>
+        <p class="muted">A convex combination of donors can reproduce the treated pre-path.</p>
+      </div>
+      <div>
+        <h3>Outside the hull · SC cannot</h3>
+        <svg viewBox="0 0 280 160" role="img" aria-label="Treated unit outside the donor convex hull">
+          <polygon points="40,120 90,40 200,36 250,100 180,140" fill="#e7eef4" stroke="#d9d6cc" />
+          <circle cx="40" cy="120" r="4" fill="#5c5a54" /><circle cx="90" cy="40" r="4" fill="#5c5a54" />
+          <circle cx="200" cy="36" r="4" fill="#5c5a54" /><circle cx="250" cy="100" r="4" fill="#5c5a54" />
+          <circle cx="180" cy="140" r="4" fill="#5c5a54" /><circle cx="120" cy="90" r="4" fill="#5c5a54" />
+          <circle cx="160" cy="70" r="4" fill="#5c5a54" /><circle cx="248" cy="28" r="6" fill="#1f4e79" />
+          <text x="12" y="18" fill="#8a877e" font-size="11" font-family="ui-sans-serif, system-ui, sans-serif">ceiling / extreme treated unit</text>
+        </svg>
+        <p class="muted">No non-negative, summing-to-one weights can reach the treated unit. That is the ceiling-state failure.</p>
+      </div>
+    </div>
+    <div class="callout danger"><strong>The price of staying inside the hull</strong>If the treated unit is extreme — a ceiling state, an outlier on the pre-period path — no convex blend of donors can match it. Pre-treatment fit fails, and ADH’s rule is not to use synthetic control in that case. That hole is what paper 2 fills.</div>
+  </template>
+
+  <template id="s4">
+    <h1>Paper 2 · Augmented Synthetic Control (2021)</h1>
+    <p>Ben-Michael, Feller, and Rothstein keep classical SCM as the starting point. They do not return to unconstrained regression. They bias-correct SCM when pre-treatment match is imperfect — the typical case when the treated unit sits near or outside the donor hull.</p>
+    <h2>Two stages</h2>
+    <div class="grid c2">
+      <div class="card">
+        <h3>Stage 1 · fit ordinary SCM</h3>
+        <p>Estimate simplex weights exactly as in paper 1. If pre-period fit is already excellent, stop: ASCM ≈ SCM.</p>
+        <p class="muted">This remains the interpretable baseline. The correction is added only for leftover imbalance.</p>
+      </div>
+      <div class="card">
+        <h3>Stage 2 · ridge bias correction</h3>
+        <p>Among donors, fit a ridge outcome model: how post-period Y relates to pre-period X. Use it to estimate the bias implied by residual pre-period mismatch, then subtract that bias from the SCM estimate.</p>
+        <p class="muted">Equivalently, Ridge ASCM weights = SCM weights + a ridge correction that may be slightly negative.</p>
+      </div>
+    </div>
+    <h2>What “allowing negative weights” actually means</h2>
+    <p>Donors are still real units. Negative weights do let the synthetic unit leave the convex hull — that is the point, so extreme units can be matched. The ridge penalty λ penalizes distance from the original SCM weights, so extrapolation is limited rather than free. Unconstrained regression has no such tether.</p>
+    <div class="callout info"><strong>The knob</strong>λ interpolates between “stay inside the hull” (SCM) and “leave it just enough to improve pre-fit” (ASCM). That is why this is the natural next estimator when a treated site cannot be written as a convex blend of a small donor pool.</div>
+  </template>
+
+  <template id="s5">
+    <h1>Paper 3 · Time-Aware Synthetic Control (2026)</h1>
+    <p>Rho, Illick, Narasipura, Abadie, Hsu, and Misra address a different limitation than ASCM. Classical SC, PCA-based robust SC, and matrix completion are permutation-invariant in pre-intervention time: shuffling the dates does not change the estimate. Trend information is wasted.</p>
+    <h2>Method</h2>
+    <div class="grid c2">
+      <div>
+        <h3>State-space model</h3>
+        <p>A low-dimensional latent state evolves with a stable trend: x(t) = A x(t−1) + noise. Observations are a low-rank readout: y(t) = H x(t) + noise. Parameters are learned on the pre-period only, with EM, a Kalman filter, and an RTS smoother.</p>
+        <p class="muted">This is a branch from the SC / latent-factor family, not a return to unconstrained regression, and not a continuation of ASCM’s hull problem.</p>
+      </div>
+      <div>
+        <h3>Infinite observation variance</h3>
+        <p>For counterfactual inference, the treated unit’s post-intervention outcomes are treated as missing. Their observation-noise variance is set to infinity, so the Kalman gain on that coordinate is zero.</p>
+        <p class="muted">This is not ASCM-style debiasing of poor pre-fit. It stops contaminated post-treatment Y from updating the latent state. Donors’ post-period data and the learned trend A still inform Ŷ(0).</p>
+      </div>
+    </div>
+    <div class="callout warn"><strong>When this helps — and when it does not</strong>TASC is useful when a consistent trend exists and observations are noisy. It does not preserve readable simplex weights. If the trend is weak, or if there is only a single pre-period composite, there is no time order to exploit and ordinary SC remains the right starting point.</div>
+  </template>
+
+  <template id="s6">
+    <h1>How the three papers sit together</h1>
+    <table>
+      <thead>
+        <tr><th>Paper</th><th>Problem it attacks</th><th>What it keeps</th><th>What it gives up</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>ADH 2010</td>
+          <td>Regression extrapolates; weights unreadable</td>
+          <td>Simplex weights; a blend of real donors</td>
+          <td>Cannot fit units outside the convex hull</td>
+        </tr>
+        <tr>
+          <td>ASCM 2021</td>
+          <td>Poor pre-fit / treated unit outside the hull</td>
+          <td>SCM as the base, then a small correction</td>
+          <td>Some negative weights; limited extrapolation</td>
+        </tr>
+        <tr>
+          <td>TASC 2026</td>
+          <td>Time order is ignored by SC / PCA / matrix completion</td>
+          <td>Latent-factor / low-rank SC idea</td>
+          <td>Simplex weights; needs a real time trend</td>
+        </tr>
+      </tbody>
+    </table>
+    <h2>One-line takeaway</h2>
+    <p>Paper 1 invents the interpretable untreated twin. Paper 2 repairs that twin when the treated unit cannot sit inside the donor hull. Paper 3 keeps the SC idea but uses time dynamics instead of a static weighted average — a different branch, useful only once a genuine pre-period time series exists.</p>
+  </template>
+
+  <template id="s7">
+    <h1>From a scalar path to an embedding as the SC input</h1>
+    <p>Classical synthetic control matches a short numeric series — California’s smoking rate, or GDP. The project’s extra claim is that a <em>learned representation</em> can stand in for that pre-state: if a unit is really 0.9 A + 0.1 B in the embedding, the same simplex program should return those weights.</p>
+    <div class="grid c2">
+      <div class="card">
+        <h3>What ADH was designed for</h3>
+        <p>A handful of interpretable numbers over calendar time. The solver matches that path, then carries the weights forward as Y(0).</p>
+        <p class="muted">The method never required the outcome to be one-dimensional, but every canonical example is a scalar (or a few covariates), not a 768-d network vector.</p>
+      </div>
+      <div class="card">
+        <h3>What we need to show first</h3>
+        <p>That convex-mixture geometry still exists in a text embedding of real clinical notes — otherwise fitted weights on Helene chips or image embeddings are decoration.</p>
+        <p class="muted">Real patients have no true mix, so the test plants the recipe, hides it, and grades recovery. That is a necessary condition for embedding-SC, not a treatment-effect estimate.</p>
+      </div>
+    </div>
+    <div class="callout info"><strong>The operational question (final report §1)</strong>If the true mixing weight is 0.9, does the method recover ≈ 0.9 — in a latent space learned from clinical text?</div>
+    <p class="src">Sources: FINAL_REPORT_latent_recovery_2026-08-11.md §1; experiment_walkthrough_2026-08-11.md Steps 0–1. Numbers on the next slides are from latent/results/ artifacts, cross-checked in results_report.ipynb.</p>
+  </template>
+
+  <template id="s8">
+    <h1>Workflow — plant the recipe, hide it, score recovery</h1>
+    <p>n2c2 2018 Track 1 / i2b2 2014 longitudinal corpus: <strong>288 patients, 1,264 notes</strong> (mean 4.4 per patient). Same simplex estimator as paper 1: minimize ‖z − Σ wⱼ zⱼ‖² subject to wⱼ ≥ 0, Σ wⱼ = 1. Nothing is trained in this loop.</p>
+    <div class="flow">
+      <div class="flow-box">
+        <div class="n">L0</div>
+        <h3>Parse</h3>
+        <p>Each XML → date-sorted notes. t is the index after sorting, not file order. Counts asserted against an independent inventory.</p>
+      </div>
+      <div class="flow-box">
+        <div class="n">L1</div>
+        <h3>Embed</h3>
+        <p>Each note → a 768-d unit vector. Primary: Qwen3-Embedding-8B (MRL). Second arm: BioLORD-2023. Same note twice is bit-identical.</p>
+      </div>
+      <div class="flow-box">
+        <div class="n">L2 · H1</div>
+        <h3>Plant</h3>
+        <p>z = Σ w* · (note vector). Two shapes: dominant 0.9/0.1, and a diffuse Dirichlet mix. Real notes, manufactured recipe.</p>
+      </div>
+      <div class="flow-box">
+        <div class="n">Solve</div>
+        <h3>Simplex QP</h3>
+        <p>Hand the solver only z and a donor pool. solve_simplex_qp (SLSQP, Gram form) — the paper-1 estimator, reused unchanged.</p>
+      </div>
+      <div class="flow-box">
+        <div class="n">Score</div>
+        <h3>Recovery</h3>
+        <p>L1(ŵ, w*), ŵ_max vs 0.9, top-1 donor hit rate. 500 replicates/cell, seed 0, 2,000 bootstrap resamples.</p>
+      </div>
+    </div>
+    <h2>Three ways the claim can die (run before quoting 0.884)</h2>
+    <div class="grid c3">
+      <div class="card">
+        <h3>Oracle gate</h3>
+        <p>Pool = exactly the true donors. If recovery fails here, stop. Passed: max mean L1 = 1.46×10⁻⁵ (bar 0.01).</p>
+      </div>
+      <div class="card">
+        <h3>All-donors + LP uniqueness</h3>
+        <p>Pool = 1,263 records so true donors are present. Unconstrained solution set is 494-dimensional; nonnegativity collapses it to a single LP-certified point = w*.</p>
+      </div>
+      <div class="card">
+        <h3>Invalid digit-string run</h3>
+        <p>Same battery on billing-code “text.” Mean top-3 cosine 0.991 vs 0.710 on n2c2 prose. The test can fail; later success is not automatic.</p>
+      </div>
+    </div>
+    <p class="src">Walkthrough Steps 3–5; parse_report n_patients=288, n_records=1264; n2c2_weight_recovery_summary.json verdicts.oracle_gate; uniqueness_check.json affine_solution_dim=494; n2c2_l1_report.json neighbour_profile_overlap (0.7102 vs 0.9908).</p>
+  </template>
+
+  <template id="s9">
+    <h1>H1 result — a planted 0.9 is recoverable in the embedding</h1>
+    <p>Decision cell, frozen before the run: K=5 donors, m=50 retrieval pool, σ=0, Qwen3-768, dominant 0.9/0.1 mix. Encoder chosen by the pre-registered rule (lower Dirichlet L1): Qwen3 0.452 vs BioLORD 0.732.</p>
+    <div class="grid c3">
+      <div class="stat ok"><b>0.884</b><span>recovered ŵ_max (planted 0.9)</span></div>
+      <div class="stat ok"><b>0.016</b><span>error [0.0155, 0.0166] · bar ≤ 0.10</span></div>
+      <div class="stat ok"><b>100%</b><span>top-1 donor found · bar ≥ 90%</span></div>
+    </div>
+    <table>
+      <thead>
+        <tr><th>Check</th><th>Number</th><th>What it means</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Dominant-weight cell (above)</td>
+          <td>ŵ_max 0.884; top-1 100%</td>
+          <td>Supported on the 0.9 question (6× inside the ±0.10 bar)</td>
+        </tr>
+        <tr>
+          <td>Diffuse mix, same cell</td>
+          <td>mean L1(ŵ, w*) = 0.452</td>
+          <td>Missed the support bar ≤ 0.30. Formal H1 verdict: <strong>neither</strong></td>
+        </tr>
+        <tr>
+          <td>Oracle pool (true donors handed over)</td>
+          <td>L1 ≈ 1.5×10⁻⁵</td>
+          <td>Geometry can identify the recipe when the donors are visible</td>
+        </tr>
+        <tr>
+          <td>m = all (1,263), true donors present</td>
+          <td>mean L1 ≤ 2.6×10⁻⁵; LP-unique</td>
+          <td>Exact to solver precision. Max off-support mass ≤ 1.7×10⁻¹²; all 20 LP targets a single point</td>
+        </tr>
+        <tr>
+          <td>m = 50 retrieval</td>
+          <td>2.66 of 5 true donors (diffuse); all 5 in 1.0% of those replicates; 0% in the 0.9 family</td>
+          <td>The m=50 QP is strictly convex — unique, but uniquely wrong when donors are missing</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="callout info"><strong>What 0.884 measures, and what it does not</strong>If a note is truly a 90/10 blend of others, the simplex solver can see that from the 768-d vectors. It does not estimate a treatment effect, and it does not show that embedding dimensions replace years of GDP. Uniqueness is solved by pool size; leftover H1 error is retrieval.</div>
+    <p class="src">n2c2_weight_recovery_summary.json verdicts.qwen3 (ŵ_max 0.88399, err 0.01603 [0.01549, 0.01659], top1 1.0, Dirichlet L1 0.4520); pool_contains_true_donors_m50_sigma0.qwen3_K5_dirichlet 2.658 / frac 0.01; uniqueness_check.json max_offsupport_mass 1.68×10⁻¹². Notebook validation cell: report 0.884 = artifact 0.884.</p>
+  </template>
+
+  <template id="s10">
+    <h1>Failures sit in replaceable components — the geometry is sound</h1>
+    <table>
+      <thead>
+        <tr><th>Test</th><th>Result (artifact)</th><th>Assigned cause</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>H1 core + uniqueness</td>
+          <td>0.9 → 0.884; exact and LP-unique when donors are present</td>
+          <td>Causal geometry in the text latent is sound</td>
+        </tr>
+        <tr>
+          <td>H1 diffuse / m=50</td>
+          <td>2.66 of 5 true donors found</td>
+          <td>Retrieval, not the simplex</td>
+        </tr>
+        <tr>
+          <td>H2 bag vs latent</td>
+          <td>Weight cosine 0.425 (v1) → 0.422 (NegEx v2); top-1 agreement 1.3× null vs a 3× bar. Refuted</td>
+          <td>Fixed representations of the same notes tell different mixing stories. 287 patients, T0=1, m=50</td>
+        </tr>
+        <tr>
+          <td>H3 generation</td>
+          <td>Perplexity ratio 0.983; cycle rank 2 / 1,265 — but median 84% 8-gram overlap with a donor. Do not quote as support</td>
+          <td>Stand-in decoder copies rather than blends</td>
+        </tr>
+        <tr>
+          <td>H4 severity interpolation</td>
+          <td>Refuted (mean Spearman 0.14 logistic / 0.10 LLM judge, both &lt; 0.3). Copy of the MET note jumps from 0.02 at α=0.50 to 0.64 at α=0.75</td>
+          <td>Same decoder: it switches records instead of interpolating</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="callout warn"><strong>For the project goal</strong>This licenses an embedding as a legal SC <em>input</em> — the same operation as matching on GDP, in higher dimension. Helene still has to be scored as DiD vs estimated-weight SC on a real shock. n2c2 does not replace that comparison, and a prompted decoder’s fluency cannot grade the weights.</div>
+    <p class="src">FINAL_REPORT §5–6; n2c2_cross_space_summary.json 0.42507 and _v2.json 0.42152, top1_ratio_vs_null 1.333; l3_summary.json ratio_of_medians 0.9828, median_rank 2; copy_diagnostic.json l3 pooled median 0.8351, l4 by_alpha met_median 0.0168 → 0.6375; l4_summary.json verdict.refuted, mean_spearman 0.143 / 0.101.</p>
+  </template>
+
+  <script>
+    const LABELS = ["Title", "The problem", "Why not regression", "Paper 1 · method", "Paper 2 · ASCM", "Paper 3 · TASC", "How they sit", "Scalar → embedding", "Workflow", "H1 results", "What failed"];
+    const n = LABELS.length;
+    let i = 0;
+    const stage = document.getElementById("stage");
+    const pills = document.getElementById("pills");
+    const prev = document.getElementById("prev");
+    const next = document.getElementById("next");
+    const count = document.getElementById("count");
+
+    LABELS.forEach((label, k) => {
+      const b = document.createElement("button");
+      b.className = "pill";
+      b.type = "button";
+      b.textContent = label;
+      b.addEventListener("click", () => go(k));
+      pills.appendChild(b);
+    });
+
+    function go(k) {
+      i = Math.max(0, Math.min(n - 1, k));
+      const tpl = document.getElementById("s" + i);
+      stage.replaceChildren(tpl.content.cloneNode(true));
+      [...pills.children].forEach((el, j) => el.classList.toggle("active", j === i));
+      prev.disabled = i === 0;
+      next.disabled = i === n - 1;
+      count.textContent = (i + 1) + " / " + n;
+      history.replaceState(null, "", "#s" + i);
+    }
+
+    prev.addEventListener("click", () => go(i - 1));
+    next.addEventListener("click", () => go(i + 1));
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight" || e.key === "PageDown") go(i + 1);
+      if (e.key === "ArrowLeft" || e.key === "PageUp") go(i - 1);
+      if (e.key === "Home") go(0);
+      if (e.key === "End") go(n - 1);
+    });
+
+    const hash = parseInt((location.hash.match(/s(\d+)/) || [])[1], 10);
+    go(Number.isFinite(hash) ? hash : 0);
+  </script>
+</body>
+</html>

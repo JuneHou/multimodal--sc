@@ -1,0 +1,1041 @@
+"""Phase 0 -- rebuild the corrupted time axis of the KARE/PyHealth MIMIC-III cohort.
+
+Background
+----------
+The cohort in `moa-clinical-rag/data/ehr_data/pateint_mimic3_mortality.json` is
+keyed `{subject_id}_{visit_index}`.  Those visit indices are **not
+chronological**.  PyHealth's `MIMIC3Dataset` builds each patient's visit list by
+sorting admissions on `HADM_ID`, which in MIMIC is a random surrogate key with no
+temporal meaning.  KARE's `mortality_prediction_mimic3_fn` then enumerates that
+list positionally, so `visit 0 -> visit N` is a scrambled permutation of the true
+admission sequence.  A downstream symptom is that mortality labels are
+non-monotone along a trajectory (295 sequences in the source file contain a `1`
+followed by a `0`, i.e. a patient who dies and then has further visits).
+
+On top of that, `third_party/kare/ehr_prepare/sample_prepare.py:34-41` overwrites
+`visit_id` with the visit index, destroying the link back to `HADM_ID`.
+
+This module recovers the `visit_index -> hadm_id` map from raw MIMIC-III by
+replaying the exact selection PyHealth/KARE performed, validates the recovery
+against the published cohort, and then re-emits every trajectory on a corrected
+`ADMITTIME` axis with recomputed labels.
+
+Pipeline
+--------
+    recover  ->  validate (the gate)  ->  rebuild  ->  quantify
+
+`rebuild` runs **only** if the gate clears `MATCH_RATE_GATE`.  A failed gate is a
+legitimate terminal outcome: the caller is expected to abandon the trajectory
+framing rather than to weaken the check.
+
+Entry point: `run()`.  See `scripts/run_phase0_rebuild.py`.
+"""
+
+from __future__ import annotations
+
+import csv
+import json
+import pickle
+import sys
+import time
+import urllib.request
+from collections import defaultdict
+from dataclasses import dataclass, field
+from pathlib import Path
+from typing import Dict, Iterable, List, Optional, Sequence, Set, Tuple
+
+import numpy as np
+import pandas as pd
+
+# --------------------------------------------------------------------------
+# Constants.  Every one of these is a choice; see MODULE.md for the rationale.
+# --------------------------------------------------------------------------
+
+MIMIC3_ROOT = Path("/data/wang/junh/datasets/physionet.org/files/mimiciii/1.4")
+
+#: The published KARE cohort we must reproduce.  Read-only.
+COHORT_JSON = Path(
+    "/data/wang/junh/githubs/moa-clinical-rag/data/ehr_data/"
+    "pateint_mimic3_mortality.json"
+)
+
+#: PyHealth's own `SampleDataset` pickle, written by `ehr_data_prepare.py` BEFORE
+#: `sample_prepare.py` clobbered `visit_id`.  It therefore still carries the true
+#: `hadm_id` per sample.  Used only as an *independent* cross-check of the
+#: reconstruction (checks L1/L2); the pipeline runs without it.
+KARE_SAMPLE_PKL = Path(
+    "/data/wang/junh/datasets/KARE/ehr_data/mimic3_mortality.pkl"
+)
+
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+DEFAULT_RESOURCE_DIR = PROJECT_ROOT / "data" / "resources"
+DEFAULT_OUTPUT = PROJECT_ROOT / "data" / "derived" / "timeline_mimic3_mortality.parquet"
+
+#: PyHealth `medcode` resource bucket.  These are public code vocabularies
+#: (CCS, ATC, and the ICD9/NDC crosswalks), not PhysioNet data, so caching them
+#: inside the project tree is fine.
+PYHEALTH_RESOURCE_URL = "https://storage.googleapis.com/pyhealth/resource/{name}"
+RESOURCE_FILES = (
+    "CCSCM.csv",
+    "CCSPROC.csv",
+    "ATC.csv",
+    "ICD9CM_to_CCSCM.csv",
+    "ICD9PROC_to_CCSPROC.csv",
+    "NDC_to_ATC.csv",
+)
+
+#: ATC level used by KARE (`code_mapping={"NDC": ("ATC", {"level": 3})}`).
+#: ATC level 3 is the first 4 characters, e.g. `B05X`.
+ATC_LEVEL = 3
+ATC_LEVEL_PREFIX_LEN = 4
+#: `ehr_data_prepare.load_mappings()` keeps only rows with this `level` value.
+ATC_LEVEL_ROW_VALUE = "3.0"
+
+#: The gate.  Fraction of `(subject_id, visit_index, visit_j)` entries whose
+#: regenerated code-name sets must match the published cohort exactly.
+MATCH_RATE_GATE = 0.99
+
+SECTIONS = ("conditions", "procedures", "drugs")
+
+#: Which visit set to emit.  See `rebuild()` and MODULE.md.
+#:   "kare_recovered" -- exactly the visits KARE selected, re-sorted by ADMITTIME.
+#:   "rederived"      -- re-run the selection on the corrected axis, which adds
+#:                       back admissions KARE dropped only because they happened
+#:                       to sort last by hadm_id.
+#: Default changed from "kare_recovered" to "rederived" on 2026-08-01.  The
+#: parquet that Phase 1 and Phase 2 actually consume was built with
+#: `--cohort-mode rederived` (`phase0_rebuild_report.json ->
+#: validation.rebuild_meta.cohort_mode`), so the old default did NOT reproduce
+#: the artifact on disk: re-running this module with no flags emitted a
+#: different, roughly half-size cohort (470 / 218 patients with >=3 / >=4
+#: visits instead of 749 / 348) that every downstream module would then have
+#: silently disagreed with.  `kare_recovered` is still the literal Phase 0 spec
+#: and is still reachable via `--cohort-mode`; it is simply no longer the
+#: default.  No data was regenerated by this change.
+COHORT_MODES = ("kare_recovered", "rederived")
+DEFAULT_COHORT_MODE = "rederived"
+
+
+def _log(msg: str) -> None:
+    print(f"[rebuild_timeline] {msg}", flush=True)
+
+
+# --------------------------------------------------------------------------
+# Resources
+# --------------------------------------------------------------------------
+
+
+def ensure_resources(resource_dir: Path = DEFAULT_RESOURCE_DIR) -> Path:
+    """Download the PyHealth medcode CSVs into `resource_dir` if absent.
+
+    Idempotent.  Returns `resource_dir`.
+    """
+    resource_dir.mkdir(parents=True, exist_ok=True)
+    for name in RESOURCE_FILES:
+        dest = resource_dir / name
+        if dest.exists() and dest.stat().st_size > 0:
+            continue
+        url = PYHEALTH_RESOURCE_URL.format(name=name)
+        _log(f"downloading {name} <- {url}")
+        tmp = dest.with_suffix(dest.suffix + ".part")
+        urllib.request.urlretrieve(url, tmp)
+        tmp.rename(dest)
+    return resource_dir
+
+
+def _read_name_csv(path: Path, level: Optional[str] = None) -> Dict[str, str]:
+    """Replicate `ehr_data_prepare.load_mappings()` exactly: code -> lowercased name.
+
+    `level` filters the ATC table to a single hierarchy level, as KARE does.
+    """
+    out: Dict[str, str] = {}
+    with open(path, newline="") as fh:
+        for row in csv.DictReader(fh):
+            if level is not None and row["level"] != level:
+                continue
+            out[row["code"]] = row["name"].lower()
+    return out
+
+
+def load_resource_names(resource_dir: Path) -> Dict[str, Dict[str, str]]:
+    """Per-section `code -> name` dicts straight from the PyHealth resource CSVs."""
+    return {
+        "conditions": _read_name_csv(resource_dir / "CCSCM.csv"),
+        "procedures": _read_name_csv(resource_dir / "CCSPROC.csv"),
+        "drugs": _read_name_csv(resource_dir / "ATC.csv", level=ATC_LEVEL_ROW_VALUE),
+    }
+
+
+def _read_crossmap(path: Path, src: str, dst: str) -> Dict[str, List[str]]:
+    """Load a PyHealth crosswalk as **one-to-many**.
+
+    NDC -> ATC is genuinely one-to-many (151,528 NDCs map to >1 ATC) and PyHealth
+    expands each source event into one event per target code.  Collapsing this to
+    a dict would silently drop codes.
+    """
+    df = pd.read_csv(path, dtype=str)
+    out: Dict[str, List[str]] = defaultdict(list)
+    for s, t in zip(df[src].values, df[dst].values):
+        out[s].append(t)
+    return dict(out)
+
+
+def load_crossmaps(resource_dir: Path) -> Dict[str, Dict[str, List[str]]]:
+    return {
+        "conditions": _read_crossmap(
+            resource_dir / "ICD9CM_to_CCSCM.csv", "ICD9CM", "CCSCM"
+        ),
+        "procedures": _read_crossmap(
+            resource_dir / "ICD9PROC_to_CCSPROC.csv", "ICD9PROC", "CCSPROC"
+        ),
+        "drugs": _read_crossmap(resource_dir / "NDC_to_ATC.csv", "NDC", "ATC"),
+    }
+
+
+# --------------------------------------------------------------------------
+# Code standardisation (mirrors `pyhealth.medcode.InnerMap.standardize`)
+# --------------------------------------------------------------------------
+
+
+def standardize_icd9cm(code: str) -> str:
+    """MIMIC stores ICD-9-CM undotted; the crosswalk is dotted.  `40301` -> `403.01`."""
+    code = code.strip()
+    if code.startswith("E"):
+        return code[:4] + "." + code[4:] if len(code) > 4 else code
+    return code[:3] + "." + code[3:] if len(code) > 3 else code
+
+
+def standardize_icd9proc(code: str) -> str:
+    """`3404` -> `34.04`."""
+    code = code.strip()
+    return code[:2] + "." + code[2:] if len(code) > 2 else code
+
+
+def _identity(code: str) -> str:
+    return code.strip()
+
+
+# --------------------------------------------------------------------------
+# Step 1 -- recover visit_index -> hadm_id
+# --------------------------------------------------------------------------
+
+
+def load_admissions(mimic3_root: Path = MIMIC3_ROOT) -> pd.DataFrame:
+    """ADMISSIONS with only the columns Phase 0 needs."""
+    adm = pd.read_csv(
+        mimic3_root / "ADMISSIONS.csv",
+        usecols=["SUBJECT_ID", "HADM_ID", "ADMITTIME", "HOSPITAL_EXPIRE_FLAG"],
+        dtype={"SUBJECT_ID": str, "HADM_ID": str, "HOSPITAL_EXPIRE_FLAG": "int8"},
+        parse_dates=["ADMITTIME"],
+    )
+    return adm
+
+
+def build_codes_by_hadm(
+    crossmaps: Dict[str, Dict[str, List[str]]],
+    mimic3_root: Path = MIMIC3_ROOT,
+) -> Dict[str, Dict[str, List[str]]]:
+    """Regenerate PyHealth's per-admission mapped code lists from raw MIMIC-III.
+
+    Returns `{section: {hadm_id: [code, ...]}}` where codes are CCSCM / CCSPROC /
+    ATC-level-3, deduplicated with first-occurrence order preserved (PyHealth's
+    `Visit.get_code_list(remove_duplicate=True)` default).
+    """
+    specs = [
+        ("conditions", "DIAGNOSES_ICD.csv", "ICD9_CODE", standardize_icd9cm, None),
+        ("procedures", "PROCEDURES_ICD.csv", "ICD9_CODE", standardize_icd9proc, None),
+        ("drugs", "PRESCRIPTIONS.csv", "NDC", _identity, ATC_LEVEL_PREFIX_LEN),
+    ]
+    out: Dict[str, Dict[str, List[str]]] = {}
+    for section, fname, col, std, trunc in specs:
+        df = pd.read_csv(
+            mimic3_root / fname, usecols=["HADM_ID", col], dtype=str
+        ).dropna(subset=["HADM_ID", col])
+        xmap = crossmaps[section]
+        codes: Dict[str, List[str]] = defaultdict(list)
+        seen: Dict[str, Set[str]] = defaultdict(set)
+        for hadm, raw_code in zip(df["HADM_ID"].values, df[col].values):
+            for mapped in xmap.get(std(raw_code), ()):
+                if trunc:
+                    mapped = mapped[:trunc]
+                if mapped in seen[hadm]:
+                    continue
+                seen[hadm].add(mapped)
+                codes[hadm].append(mapped)
+        out[section] = dict(codes)
+        _log(f"  {section}: {len(out[section])} admissions with >=1 mapped code")
+    return out
+
+
+def recover_visit_index_to_hadm(
+    admissions: pd.DataFrame,
+    codes_by_hadm: Dict[str, Dict[str, List[str]]],
+) -> Dict[str, List[str]]:
+    """Replay KARE's visit selection to recover `subject -> [hadm_id by visit_index]`.
+
+    The three rules, taken verbatim from the source:
+
+    1. PyHealth `MIMIC3Dataset.parse_basic_info` sorts admissions by
+       ``["SUBJECT_ID", "HADM_ID"]`` ascending, so the visit list is in
+       **hadm_id order**, not time order.
+    2. `utils.mortality_prediction_mimic3_fn` loops `range(len(patient) - 1)`,
+       i.e. the last hadm-sorted admission is **dropped**.
+    3. Visits with `len(conditions) * len(procedures) * len(drugs) == 0` are
+       skipped.  This is evaluated on the *post-mapping* code lists, so an
+       admission whose every ICD-9 code fails to cross-walk counts as empty.
+
+    Survivors are enumerated; position `i` is the `_{i}` in the cohort keys.
+    """
+    adm = admissions.copy()
+    # HADM_ID is numeric in MIMIC; sort numerically to match PyHealth, which
+    # reads it as an integer column.
+    adm["_hadm_int"] = adm["HADM_ID"].astype(np.int64)
+    adm = adm.sort_values(["SUBJECT_ID", "_hadm_int"], kind="mergesort")
+
+    cond, proc, drug = (codes_by_hadm[s] for s in SECTIONS)
+    recovered: Dict[str, List[str]] = {}
+    for subject, grp in adm.groupby("SUBJECT_ID", sort=False):
+        hadms = list(grp["HADM_ID"])
+        kept = [
+            h
+            for h in hadms[:-1]  # rule 2: drop the last hadm-sorted admission
+            if cond.get(h) and proc.get(h) and drug.get(h)  # rule 3
+        ]
+        if kept:
+            recovered[subject] = kept
+    return recovered
+
+
+# --------------------------------------------------------------------------
+# Step 2 -- code -> name reconciliation, then the gate
+# --------------------------------------------------------------------------
+
+
+def load_cohort(cohort_json: Path = COHORT_JSON) -> Dict[str, dict]:
+    with open(cohort_json) as fh:
+        return json.load(fh)
+
+
+def _cohort_visit_entries(
+    cohort: Dict[str, dict], recovered: Dict[str, List[str]]
+) -> Iterable[Tuple[str, int, int, Optional[str], dict]]:
+    """Yield `(key, visit_index, j, hadm_id_or_None, visit_dict)` for every entry.
+
+    Cohort key `{subject}_{i}` carries `visit 0 .. visit i`, all of which are the
+    same patient's earlier visits.  Every one is checked.
+    """
+    for key, val in cohort.items():
+        subject, idx_s = key.rsplit("_", 1)
+        idx = int(idx_s)
+        hadms = recovered.get(subject)
+        for j in range(idx + 1):
+            vk = f"visit {j}"
+            if vk not in val:
+                continue
+            hadm = hadms[j] if hadms is not None and j < len(hadms) else None
+            yield key, idx, j, hadm, val[vk]
+
+
+def derive_name_map(
+    cohort: Dict[str, dict],
+    recovered: Dict[str, List[str]],
+    codes_by_hadm: Dict[str, Dict[str, List[str]]],
+    resource_names: Dict[str, Dict[str, str]],
+) -> Tuple[Dict[str, Dict[str, str]], Dict[str, dict]]:
+    """Reconcile the cohort's English names against the current resource CSVs.
+
+    The cohort was built with an **older snapshot** of `CCSCM.csv` / `CCSPROC.csv`
+    than the bucket now serves, so a minority of names drifted (stray quote
+    characters, and CCS categories that later gained a
+    ``(except that caused by ...)`` qualifier).  Rather than hand-guess an alias
+    table, the true `code -> name` used by the cohort is *solved for*:
+
+      candidates[code] = intersection over every visit containing `code`
+                         of that visit's name set
+
+    followed by elimination (a name already uniquely claimed cannot be reused)
+    until fixed point.  Residual ambiguity -- codes that always co-occur and so
+    are mutually indistinguishable -- is broken by the resource CSV name when it
+    lies in the candidate set.
+
+    The result is asserted to be an injective map that reproduces **every**
+    visit's name set exactly; if it is not, the alignment assumption is wrong and
+    the gate will fail loudly downstream.
+
+    Returns `(name_map, drift_report)`.
+    """
+    per_visit: Dict[str, List[Tuple[Set[str], Set[str]]]] = {s: [] for s in SECTIONS}
+    for _key, _idx, _j, hadm, visit in _cohort_visit_entries(cohort, recovered):
+        if hadm is None:
+            continue
+        for section in SECTIONS:
+            per_visit[section].append(
+                (set(codes_by_hadm[section].get(hadm, [])), set(visit[section]))
+            )
+
+    name_map: Dict[str, Dict[str, str]] = {}
+    drift: Dict[str, dict] = {}
+    for section in SECTIONS:
+        pairs = per_visit[section]
+        cand: Dict[str, Set[str]] = {}
+        for codes, names in pairs:
+            for c in codes:
+                cand[c] = names if c not in cand else (cand[c] & names)
+
+        changed = True
+        while changed:
+            changed = False
+            claimed = {next(iter(v)) for v in cand.values() if len(v) == 1}
+            for c, v in cand.items():
+                if len(v) > 1:
+                    nv = v - claimed
+                    if nv and nv != v:
+                        cand[c] = nv
+                        changed = True
+            for codes, names in pairs:
+                if not codes:
+                    continue
+                solved = {next(iter(cand[c])) for c in codes if len(cand[c]) == 1}
+                remaining = names - solved
+                for c in codes:
+                    if len(cand[c]) > 1:
+                        nv = cand[c] & remaining
+                        if nv and nv != cand[c]:
+                            cand[c] = nv
+                            changed = True
+
+        res = resource_names[section]
+        resolved: Dict[str, str] = {}
+        unresolved: List[str] = []
+        for c, v in cand.items():
+            if len(v) == 1:
+                resolved[c] = next(iter(v))
+                continue
+            fallback = res.get(c, "").strip().strip('"').strip()
+            if fallback in v:
+                resolved[c] = fallback
+            else:
+                unresolved.append(c)
+
+        if unresolved:
+            raise RuntimeError(
+                f"{section}: could not resolve names for codes {unresolved[:20]}"
+            )
+        if len(set(resolved.values())) != len(resolved):
+            raise RuntimeError(f"{section}: derived name map is not injective")
+        bad = sum(1 for codes, names in pairs if {resolved[c] for c in codes} != names)
+        if bad:
+            raise RuntimeError(
+                f"{section}: derived name map fails to reproduce {bad} visits"
+            )
+
+        drifted = {c: (res.get(c), n) for c, n in resolved.items() if res.get(c) != n}
+        drift[section] = {
+            "n_codes": len(resolved),
+            "n_agree_with_resource": len(resolved) - len(drifted),
+            "n_drifted": len(drifted),
+            "drifted": dict(sorted(drifted.items())),
+        }
+        name_map[section] = resolved
+        _log(
+            f"  {section}: {len(resolved)} codes named; "
+            f"{len(drifted)} drifted from current resource CSV"
+        )
+    return name_map, drift
+
+
+def _load_kare_pickle(path: Path) -> Optional[object]:
+    """Unpickle KARE's PyHealth `SampleDataset` without PyHealth installed.
+
+    PyHealth is not in either project env.  The pickle's payload is plain dicts;
+    only the container classes are PyHealth types, so unknown classes are
+    substituted with inert stand-ins.
+    """
+    if not path.exists():
+        return None
+
+    class _Stub:
+        def __init__(self, *a, **k):
+            pass
+
+        def __setstate__(self, state):
+            self.__dict__.update(state if isinstance(state, dict) else {})
+
+    class _Unpickler(pickle.Unpickler):
+        def find_class(self, module, name):
+            try:
+                return super().find_class(module, name)
+            except Exception:
+                return type(name, (_Stub,), {})
+
+    with open(path, "rb") as fh:
+        return _Unpickler(fh).load()
+
+
+def validate(
+    cohort: Dict[str, dict],
+    recovered: Dict[str, List[str]],
+    codes_by_hadm: Dict[str, Dict[str, List[str]]],
+    name_map: Dict[str, Dict[str, str]],
+    kare_pickle: Path = KARE_SAMPLE_PKL,
+    max_report: int = 25,
+) -> dict:
+    """The gate.  Three layers, from most independent to most direct.
+
+    L1 (independent): recovered hadm sequence == the `visit_id` sequence stored in
+        PyHealth's own pre-clobber pickle.  Uses no names and no cohort JSON.
+    L2 (independent): regenerated *code* sets per hadm == the code sets PyHealth
+        recorded.  Uses no names and no ordering.
+    L3 (the headline gate): regenerated *name* sets per cohort entry == the
+        published `visit N` content.  Must reach `MATCH_RATE_GATE`.
+    """
+    report: dict = {"gate_threshold": MATCH_RATE_GATE}
+
+    ds = _load_kare_pickle(kare_pickle)
+    if ds is None:
+        _log("  L1/L2 SKIPPED: KARE sample pickle not found (weaker validation)")
+        report["l1"] = report["l2"] = None
+    else:
+        truth = {
+            p: [ds.samples[i]["visit_id"] for i in idxs]
+            for p, idxs in ds.patient_to_index.items()
+        }
+        agree = sum(1 for p, seq in truth.items() if recovered.get(p) == seq)
+        report["l1"] = {
+            "n_patients": len(truth),
+            "n_match": agree,
+            "rate": agree / len(truth),
+            "mismatches": [
+                {"subject_id": p, "recovered": recovered.get(p), "pyhealth": seq}
+                for p, seq in truth.items()
+                if recovered.get(p) != seq
+            ][:max_report],
+        }
+        _log(
+            f"  L1 hadm-sequence vs PyHealth pickle: "
+            f"{agree}/{len(truth)} = {100 * agree / len(truth):.4f}%"
+        )
+
+        pkl_codes: Dict[str, Dict[str, Set[str]]] = {}
+        for p, idxs in ds.patient_to_index.items():
+            for i in idxs:
+                s = ds.samples[i]
+                pkl_codes[s["visit_id"]] = {k: set(s[k]) for k in SECTIONS}
+        ok = 0
+        per_section = defaultdict(int)
+        l2_bad = []
+        for hadm, secs in pkl_codes.items():
+            good = True
+            for section, expect in secs.items():
+                got = set(codes_by_hadm[section].get(hadm, []))
+                if got != expect:
+                    per_section[section] += 1
+                    good = False
+                    if len(l2_bad) < max_report:
+                        l2_bad.append(
+                            {
+                                "hadm_id": hadm,
+                                "section": section,
+                                "missing": sorted(expect - got)[:8],
+                                "extra": sorted(got - expect)[:8],
+                            }
+                        )
+            ok += good
+        report["l2"] = {
+            "n_admissions": len(pkl_codes),
+            "n_match": ok,
+            "rate": ok / len(pkl_codes),
+            "per_section_failures": dict(per_section),
+            "mismatches": l2_bad,
+        }
+        _log(
+            f"  L2 code-sets vs PyHealth pickle: "
+            f"{ok}/{len(pkl_codes)} = {100 * ok / len(pkl_codes):.4f}%"
+        )
+
+    total = 0
+    matched = 0
+    per_section = defaultdict(int)
+    failures: List[dict] = []
+    for key, _idx, j, hadm, visit in _cohort_visit_entries(cohort, recovered):
+        total += 1
+        if hadm is None:
+            per_section["no_hadm_recovered"] += 1
+            if len(failures) < max_report:
+                failures.append({"key": key, "visit": j, "reason": "no_hadm_recovered"})
+            continue
+        detail = []
+        for section in SECTIONS:
+            got = {
+                name_map[section][c]
+                for c in codes_by_hadm[section].get(hadm, [])
+                if c in name_map[section]
+            }
+            expect = set(visit[section])
+            if got != expect:
+                per_section[section] += 1
+                detail.append(
+                    {
+                        "section": section,
+                        "missing": sorted(expect - got)[:8],
+                        "extra": sorted(got - expect)[:8],
+                    }
+                )
+        if detail:
+            if len(failures) < max_report:
+                failures.append(
+                    {"key": key, "visit": j, "hadm_id": hadm, "detail": detail}
+                )
+        else:
+            matched += 1
+
+    rate = matched / total if total else 0.0
+    report["l3"] = {
+        "n_entries": total,
+        "n_match": matched,
+        "rate": rate,
+        "per_section_failures": dict(per_section),
+        "mismatches": failures,
+    }
+    report["match_rate"] = rate
+    report["passed"] = rate >= MATCH_RATE_GATE
+    _log(
+        f"  L3 GATE cohort entry name-sets: "
+        f"{matched}/{total} = {100 * rate:.4f}%  "
+        f"(threshold {100 * MATCH_RATE_GATE:.2f}%)"
+    )
+    if failures:
+        _log(f"  first {len(failures)} mismatches:")
+        for f in failures:
+            _log(f"    {f}")
+    return report
+
+
+def check_hand_verified_example(
+    recovered: Dict[str, List[str]],
+    admissions: pd.DataFrame,
+    subject: str = "1006",
+    expected: Sequence[str] = ("108462", "147743", "189081"),
+) -> dict:
+    """Spot-check the hand-verified subject 1006.
+
+    Expected: visit 0 = 108462 (chronologically LAST -- the death admission),
+    visit 1 = 147743, visit 2 = 189081, with the label sourced from the dropped
+    admission 199286.
+    """
+    got = recovered.get(subject)
+    sub = admissions[admissions["SUBJECT_ID"] == subject].sort_values("ADMITTIME")
+    chrono = list(sub["HADM_ID"])
+    out = {
+        "subject_id": subject,
+        "expected_visit_order": list(expected),
+        "recovered_visit_order": got,
+        "matches": got == list(expected),
+        "chronological_order": chrono,
+        "visit0_is_chronologically_last": bool(chrono and got and got[0] == chrono[-1]),
+        "admittimes": {
+            r.HADM_ID: str(r.ADMITTIME) for r in sub.itertuples()
+        },
+        "expire_flags": {
+            r.HADM_ID: int(r.HOSPITAL_EXPIRE_FLAG) for r in sub.itertuples()
+        },
+    }
+    _log(f"  subject {subject}: recovered={got} expected={list(expected)} "
+         f"-> {'OK' if out['matches'] else 'MISMATCH'}")
+    _log(f"  subject {subject}: visit 0 is chronologically last -> "
+         f"{out['visit0_is_chronologically_last']}")
+    return out
+
+
+# --------------------------------------------------------------------------
+# Step 3 -- rebuild on the corrected axis
+# --------------------------------------------------------------------------
+
+
+def rederive_visit_set(
+    admissions: pd.DataFrame,
+    codes_by_hadm: Dict[str, Dict[str, List[str]]],
+) -> Dict[str, List[str]]:
+    """Re-run KARE's selection with the *chronological* axis substituted throughout.
+
+    Identical to `recover_visit_index_to_hadm` except admissions are sorted by
+    `ADMITTIME` rather than `HADM_ID`, so the dropped-last admission is the
+    patient's true final admission rather than an arbitrary one.  This adds back
+    every admission KARE excluded purely because it happened to sort last by the
+    surrogate key.
+    """
+    full = admissions.sort_values(["SUBJECT_ID", "ADMITTIME"], kind="mergesort")
+    cond, proc, drug = (codes_by_hadm[s] for s in SECTIONS)
+    out: Dict[str, List[str]] = {}
+    for subject, grp in full.groupby("SUBJECT_ID", sort=False):
+        hadms = list(grp["HADM_ID"])
+        kept = [h for h in hadms[:-1] if cond.get(h) and proc.get(h) and drug.get(h)]
+        if kept:
+            out[subject] = kept
+    return out
+
+
+def rebuild(
+    recovered: Dict[str, List[str]],
+    admissions: pd.DataFrame,
+    codes_by_hadm: Dict[str, Dict[str, List[str]]],
+    name_map: Dict[str, Dict[str, str]],
+    cohort_mode: str = DEFAULT_COHORT_MODE,
+) -> Tuple[pd.DataFrame, dict]:
+    """Re-emit every trajectory sorted by ADMITTIME, with recomputed labels.
+
+    Label semantics are preserved from the original task ("did the patient die at
+    the next visit") but evaluated on the corrected axis: the label of the visit
+    at chronological position `t` is `HOSPITAL_EXPIRE_FLAG` of the patient's
+    **chronologically next admission**, drawn from the patient's *full* admission
+    list -- not merely the next cohort visit.  That mirrors the original, which
+    read `patient[i + 1]` from the full hadm-sorted list including admissions the
+    code filter later removed.
+
+    A cohort visit that is the patient's chronologically *last* admission has no
+    next admission and therefore no well-defined label -- the question "did the
+    patient die at the next visit" has no referent.  Such rows are dropped.  This
+    is the corrected form of the original's "drop the last visit" rule, which
+    dropped the last *hadm-sorted* admission -- an arbitrary one.  Dropping on the
+    correct axis is also what makes death terminal by construction.
+
+    `cohort_mode` selects the visit *set*:
+
+    * ``"rederived"`` (**the default since 2026-08-01**): re-run the selection
+      on the corrected axis (`rederive_visit_set`), which restores the cohort
+      to its original size -- 9,582 visits, 6,112 subjects, 749 patients with
+      >=3 visits and 348 with >=4.  This is the mode the parquet on disk was
+      built with and the one Phase 1 and Phase 2 consume.
+    * ``"kare_recovered"`` (the literal Phase 0 spec): start from the visits
+      KARE actually selected and re-sort them.  Because KARE already dropped
+      one arbitrary admission per patient and this function drops the
+      chronologically last, roughly a third of visits are lost to the two
+      rules compounding (>=3 visits 752 -> 470, >=4 348 -> 218).
+
+    Both are reported by `quantify`; only the selected one is written.
+    """
+    if cohort_mode not in COHORT_MODES:
+        raise ValueError(f"cohort_mode must be one of {COHORT_MODES}")
+    if cohort_mode == "rederived":
+        recovered = rederive_visit_set(admissions, codes_by_hadm)
+    adm_idx = admissions.set_index("HADM_ID")
+    admit = adm_idx["ADMITTIME"].to_dict()
+    expire = adm_idx["HOSPITAL_EXPIRE_FLAG"].to_dict()
+
+    # Full chronological admission list per subject (all admissions, not just
+    # cohort visits) -- needed to find "the next admission".
+    full = admissions.sort_values(["SUBJECT_ID", "ADMITTIME"], kind="mergesort")
+    full_order: Dict[str, List[str]] = {
+        s: list(g["HADM_ID"]) for s, g in full.groupby("SUBJECT_ID", sort=False)
+    }
+
+    rows = []
+    n_dropped_no_next = 0
+    n_subjects_emptied = 0
+    for subject, hadms in recovered.items():
+        chrono = sorted(hadms, key=lambda h: (admit[h], int(h)))
+        seq = full_order.get(subject, [])
+        pos = {h: i for i, h in enumerate(seq)}
+        kept = []
+        for h in chrono:
+            i = pos.get(h)
+            if i is None or i + 1 >= len(seq):
+                n_dropped_no_next += 1
+                continue
+            kept.append((h, int(expire[seq[i + 1]])))
+        if not kept:
+            n_subjects_emptied += 1
+            continue
+        for t, (h, label) in enumerate(kept):
+            rows.append(
+                {
+                    "subject_id": subject,
+                    "t": t,
+                    "hadm_id": h,
+                    "admittime": admit[h],
+                    "conditions": [
+                        name_map["conditions"][c]
+                        for c in codes_by_hadm["conditions"].get(h, [])
+                        if c in name_map["conditions"]
+                    ],
+                    "procedures": [
+                        name_map["procedures"][c]
+                        for c in codes_by_hadm["procedures"].get(h, [])
+                        if c in name_map["procedures"]
+                    ],
+                    "drugs": [
+                        name_map["drugs"][c]
+                        for c in codes_by_hadm["drugs"].get(h, [])
+                        if c in name_map["drugs"]
+                    ],
+                    "label": label,
+                }
+            )
+    df = pd.DataFrame(rows).sort_values(["subject_id", "t"]).reset_index(drop=True)
+    df["label"] = df["label"].astype("int8")
+    df["t"] = df["t"].astype("int32")
+    meta = {
+        "cohort_mode": cohort_mode,
+        "n_rows": len(df),
+        "n_subjects": df["subject_id"].nunique(),
+        "n_visits_dropped_no_next_admission": n_dropped_no_next,
+        "n_subjects_dropped_entirely": n_subjects_emptied,
+    }
+    _log(f"  rebuilt {meta['n_rows']} rows over {meta['n_subjects']} subjects")
+    _log(
+        f"  dropped {n_dropped_no_next} visits with no next admission "
+        f"({n_subjects_emptied} subjects emptied)"
+    )
+    return df, meta
+
+
+# --------------------------------------------------------------------------
+# Step 4 -- quantify the damage
+# --------------------------------------------------------------------------
+
+
+def quantify(
+    cohort: Dict[str, dict],
+    recovered: Dict[str, List[str]],
+    admissions: pd.DataFrame,
+    rebuilt: Optional[pd.DataFrame],
+    codes_by_hadm: Optional[Dict[str, Dict[str, List[str]]]] = None,
+) -> dict:
+    """Kendall's tau between hadm order and chronological order, plus cohort deltas."""
+    from scipy.stats import kendalltau
+
+    admit = admissions.set_index("HADM_ID")["ADMITTIME"].to_dict()
+
+    taus: List[float] = []
+    tau_by_len: Dict[int, List[float]] = defaultdict(list)
+    n_changed = 0
+    n_multi = 0
+    per_patient = []
+    for subject, hadms in recovered.items():
+        n = len(hadms)
+        chrono_rank = {
+            h: i for i, h in enumerate(sorted(hadms, key=lambda x: (admit[x], int(x))))
+        }
+        ranks = [chrono_rank[h] for h in hadms]
+        changed = ranks != sorted(ranks)
+        n_changed += changed
+        tau = np.nan
+        if n >= 2:
+            n_multi += 1
+            tau = float(kendalltau(list(range(n)), ranks).statistic)
+            taus.append(tau)
+            tau_by_len[n].append(tau)
+        per_patient.append(
+            {"subject_id": subject, "n_visits": n, "kendall_tau": tau,
+             "order_changed": bool(changed)}
+        )
+
+    # pre-fix cohort sizes, straight off the published JSON
+    pre_visits: Dict[str, int] = {}
+    for key in cohort:
+        subject, idx = key.rsplit("_", 1)
+        pre_visits[subject] = max(pre_visits.get(subject, 0), int(idx) + 1)
+
+    out: dict = {
+        "kendall_tau": {
+            "n_patients_with_ge2_visits": n_multi,
+            "mean": float(np.mean(taus)) if taus else None,
+            "median": float(np.median(taus)) if taus else None,
+            "std": float(np.std(taus)) if taus else None,
+            "frac_tau_eq_1": float(np.mean([t == 1.0 for t in taus])) if taus else None,
+            "frac_tau_lt_1": float(np.mean([t < 1.0 for t in taus])) if taus else None,
+            "frac_tau_eq_minus1": (
+                float(np.mean([t == -1.0 for t in taus])) if taus else None
+            ),
+            "by_n_visits": {
+                k: {"n": len(v), "mean_tau": float(np.mean(v))}
+                for k, v in sorted(tau_by_len.items())
+            },
+        },
+        "ordering": {
+            "n_patients": len(recovered),
+            "n_patients_order_changed": n_changed,
+            "frac_patients_order_changed": n_changed / len(recovered),
+            "n_patients_order_changed_among_multivisit": sum(
+                1 for p in per_patient if p["n_visits"] >= 2 and p["order_changed"]
+            ),
+        },
+        "cohort_pre_fix": {
+            "n_patients": len(pre_visits),
+            "n_ge3_visits": sum(1 for v in pre_visits.values() if v >= 3),
+            "n_ge4_visits": sum(1 for v in pre_visits.values() if v >= 4),
+        },
+    }
+
+    # What the cohort would look like if the *selection* were re-run on the
+    # corrected axis instead of inheriting KARE's hadm-based pick.  Reported
+    # unconditionally because the >=3 / >=4 counts drive the downstream design.
+    if codes_by_hadm is not None:
+        alt = rederive_visit_set(admissions, codes_by_hadm)
+        alt_counts = pd.Series({k: len(v) for k, v in alt.items()})
+        out["cohort_post_fix_rederived"] = {
+            "n_patients": int(alt_counts.size),
+            "n_visits": int(alt_counts.sum()),
+            "n_ge3_visits": int((alt_counts >= 3).sum()),
+            "n_ge4_visits": int((alt_counts >= 4).sum()),
+        }
+
+    if rebuilt is not None and len(rebuilt):
+        counts = rebuilt.groupby("subject_id").size()
+        out["cohort_post_fix"] = {
+            "n_patients": int(counts.size),
+            "n_ge3_visits": int((counts >= 3).sum()),
+            "n_ge4_visits": int((counts >= 4).sum()),
+            "n_visits": int(len(rebuilt)),
+        }
+
+        # Label monotonicity.  The bug signature is a death followed by a
+        # SURVIVOR (`1` then `0`): a patient cannot die and then be discharged
+        # alive from a later admission.  A run of `1`s is *not* a violation --
+        # it means two consecutive admissions both carry HOSPITAL_EXPIRE_FLAG=1,
+        # which is a MIMIC-III source anomaly, tracked separately below.
+        bad = []
+        trailing_ones = []
+        for subject, g in rebuilt.sort_values("t").groupby("subject_id"):
+            lab = list(g["label"])
+            if any(lab[i] == 1 and 0 in lab[i + 1:] for i in range(len(lab) - 1)):
+                bad.append({"subject_id": subject, "labels": lab})
+            elif any(lab[i] == 1 for i in range(len(lab) - 1)):
+                trailing_ones.append({"subject_id": subject, "labels": lab})
+        out["monotonicity_post_fix"] = {
+            "n_patients_with_death_then_survivor": len(bad),
+            "examples": bad[:20],
+            "clean": len(bad) == 0,
+            "n_patients_with_consecutive_death_flags": len(trailing_ones),
+            "consecutive_death_flag_examples": trailing_ones[:20],
+        }
+
+    # pre-fix non-monotone sequences, for comparison
+    pre_bad = 0
+    seq_by_subject: Dict[str, Dict[int, int]] = defaultdict(dict)
+    for key, val in cohort.items():
+        subject, idx = key.rsplit("_", 1)
+        seq_by_subject[subject][int(idx)] = int(val["label"])
+    for subject, d in seq_by_subject.items():
+        lab = [d[i] for i in sorted(d)]
+        if any(lab[i] == 1 and 0 in lab[i + 1:] for i in range(len(lab) - 1)):
+            pre_bad += 1
+    out["monotonicity_pre_fix"] = {"n_patients_with_death_then_survivor": pre_bad}
+
+    out["per_patient_tau"] = per_patient
+    return out
+
+
+# --------------------------------------------------------------------------
+# Orchestration
+# --------------------------------------------------------------------------
+
+
+@dataclass
+class Phase0Result:
+    recovered: Dict[str, List[str]] = field(default_factory=dict)
+    validation: dict = field(default_factory=dict)
+    drift: dict = field(default_factory=dict)
+    spot_check: dict = field(default_factory=dict)
+    damage: dict = field(default_factory=dict)
+    rebuilt: Optional[pd.DataFrame] = None
+    output_path: Optional[Path] = None
+    passed: bool = False
+
+
+def run(
+    mimic3_root: Path = MIMIC3_ROOT,
+    cohort_json: Path = COHORT_JSON,
+    resource_dir: Path = DEFAULT_RESOURCE_DIR,
+    output_path: Path = DEFAULT_OUTPUT,
+    kare_pickle: Path = KARE_SAMPLE_PKL,
+    cohort_mode: str = DEFAULT_COHORT_MODE,
+    write: bool = True,
+) -> Phase0Result:
+    """Run recover -> validate -> rebuild -> quantify.
+
+    The parquet is written only if the gate clears `MATCH_RATE_GATE`.
+    """
+    t0 = time.time()
+    res = Phase0Result()
+
+    _log("resources ...")
+    resource_dir = ensure_resources(resource_dir)
+    resource_names = load_resource_names(resource_dir)
+    crossmaps = load_crossmaps(resource_dir)
+
+    _log("raw MIMIC-III ...")
+    admissions = load_admissions(mimic3_root)
+    _log(f"  {len(admissions)} admissions")
+    codes_by_hadm = build_codes_by_hadm(crossmaps, mimic3_root)
+
+    _log("STEP 1: recovering visit_index -> hadm_id ...")
+    recovered = recover_visit_index_to_hadm(admissions, codes_by_hadm)
+    res.recovered = recovered
+    _log(
+        f"  {len(recovered)} subjects, "
+        f"{sum(len(v) for v in recovered.values())} visits"
+    )
+    res.spot_check = check_hand_verified_example(recovered, admissions)
+
+    _log("STEP 2: validating ...")
+    cohort = load_cohort(cohort_json)
+    _log(f"  cohort keys: {len(cohort)}")
+    name_map, drift = derive_name_map(
+        cohort, recovered, codes_by_hadm, resource_names
+    )
+    res.drift = drift
+    res.validation = validate(
+        cohort, recovered, codes_by_hadm, name_map, kare_pickle=kare_pickle
+    )
+    res.passed = bool(res.validation["passed"])
+
+    if not res.passed:
+        _log(
+            f"GATE FAILED: {100 * res.validation['match_rate']:.4f}% < "
+            f"{100 * MATCH_RATE_GATE:.2f}%. Not writing parquet. STOPPING."
+        )
+        res.damage = quantify(
+            cohort, recovered, admissions, None, codes_by_hadm=codes_by_hadm
+        )
+        return res
+
+    _log(f"STEP 3: rebuilding on the ADMITTIME axis (cohort_mode={cohort_mode}) ...")
+    rebuilt, meta = rebuild(
+        recovered, admissions, codes_by_hadm, name_map, cohort_mode=cohort_mode
+    )
+    res.rebuilt = rebuilt
+    res.validation["rebuild_meta"] = meta
+
+    if write:
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        rebuilt.to_parquet(output_path, index=False)
+        res.output_path = output_path
+        _log(f"  wrote {output_path} ({output_path.stat().st_size / 1e6:.1f} MB)")
+
+    _log("STEP 4: quantifying the damage ...")
+    res.damage = quantify(
+        cohort, recovered, admissions, rebuilt, codes_by_hadm=codes_by_hadm
+    )
+    _log(f"done in {time.time() - t0:.1f}s")
+    return res
+
+
+__all__ = [
+    "MATCH_RATE_GATE",
+    "Phase0Result",
+    "build_codes_by_hadm",
+    "check_hand_verified_example",
+    "derive_name_map",
+    "ensure_resources",
+    "load_admissions",
+    "load_cohort",
+    "load_crossmaps",
+    "load_resource_names",
+    "quantify",
+    "rebuild",
+    "recover_visit_index_to_hadm",
+    "rederive_visit_set",
+    "run",
+    "validate",
+]
