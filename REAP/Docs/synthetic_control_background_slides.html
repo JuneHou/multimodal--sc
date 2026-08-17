@@ -135,6 +135,21 @@
     button:disabled { opacity: 0.4; cursor: default; }
     .count { color: var(--faint); font-size: 13px; }
     .grow { flex: 1; }
+    .eq {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px 18px;
+      margin: 8px 0 12px;
+      font-size: 18px;
+      text-align: center;
+      line-height: 1.55;
+    }
+    .eq-sub { font-size: 14px; color: var(--muted); margin-top: 8px; }
+    .path {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12.5px;
+    }
     @media (max-width: 760px) {
       .c2, .c3, .c4, .c5, .flow { grid-template-columns: 1fr; }
       h1 { font-size: 22px; }
@@ -355,54 +370,66 @@
   </template>
 
   <template id="s8">
-    <h1>Workflow — plant the recipe, hide it, score recovery</h1>
-    <p>n2c2 2018 Track 1 / i2b2 2014 longitudinal corpus: <strong>288 patients, 1,264 notes</strong> (mean 4.4 per patient). Same simplex estimator as paper 1: minimize ‖z − Σ wⱼ zⱼ‖² subject to wⱼ ≥ 0, Σ wⱼ = 1. Nothing is trained in this loop.</p>
-    <div class="flow">
-      <div class="flow-box">
-        <div class="n">L0</div>
-        <h3>Parse</h3>
-        <p>Each XML → date-sorted notes. t is the index after sorting, not file order. Counts asserted against an independent inventory.</p>
+    <h1>After the embedding — plant the recipe, hide it, score recovery</h1>
+    <p>L0–L1 already produced <strong>1,264 unit vectors</strong> (Qwen3-768 primary, BioLORD second arm). Nothing is trained from here. The rest is <span class="path">run_weight_recovery.py</span>: fix a true mix of real notes, hide the recipe, ask the paper-1 solver to recover it.</p>
+    <div class="grid c2">
+      <div class="card">
+        <h3>2. Fix the truth · <span class="path">draw_replicates</span> :180</h3>
+        <p>For each of 500 replicates, pick K real records at random as true donors and write down w*:</p>
+        <p><strong>Dominant</strong> (code key <span class="path">spiky</span>, :197–200): one donor gets exactly 0.9; the other K−1 split the remaining 0.1.</p>
+        <p><strong>Diffuse</strong> (code key <span class="path">dirichlet</span>, :195): weights drawn uniformly at random over the simplex; no dominant donor.</p>
+        <p class="muted">The random stream is keyed only on (K, family). Every cell that differs in pool size, noise, or encoder is scored on the <em>identical</em> 500 truth draws. Cell-to-cell differences are the manipulated factor, not luck.</p>
       </div>
-      <div class="flow-box">
-        <div class="n">L1</div>
-        <h3>Embed</h3>
-        <p>Each note → a 768-d unit vector. Primary: Qwen3-Embedding-8B (MRL). Second arm: BioLORD-2023. Same note twice is bit-identical.</p>
+      <div class="card">
+        <h3>3. Build the target and refit · <span class="path">_one_replicate</span> :216</h3>
+        <p>Four lines carry the whole experiment:</p>
+        <p><span class="path">:220</span> <span class="path">z_mix = wstar_vec @ Z[donors]</span> — exact weighted average of donor embeddings. Nothing is generated; pure linear algebra on real records. Optional calibrated noise at :221.</p>
+        <p><span class="path">:223–227</span> Choose the pool. <span class="path">oracle</span> = hand the solver exactly the true K donors; otherwise rank all 1,264 by cosine to the target and keep the top m. True donors are not guaranteed to be in that pool — that is the point.</p>
+        <p><span class="path">:230</span> <span class="path">solve_simplex_qp(Z[rows], z)</span> — Abadie: min ‖z − Aᵀw‖² over the simplex, SLSQP (<span class="path">fit.py:287</span>).</p>
+        <p><span class="path">:233–248</span> Score: embed ŵ and w* into full 1,264-length vectors and take L1 (weight on the wrong record is punished, not just wrong amounts on the right ones); also top1_hit, w_max (this is 0.884 vs true 0.9), and n_true_in_pool.</p>
       </div>
-      <div class="flow-box">
-        <div class="n">L2 · H1</div>
-        <h3>Plant</h3>
-        <p>z = Σ w* · (note vector). Two shapes: dominant 0.9/0.1, and a diffuse Dirichlet mix. Real notes, manufactured recipe.</p>
+      <div class="card">
+        <h3>4. The grid · <span class="path">run_design1</span> :259</h3>
+        <p>Runs step 3 over encoder × K ∈ {2, 5, 10} × weight family × pool × noise, 500 replicates per cell, multiprocessed.</p>
+        <p class="muted">Pools: oracle, m=50 (decision), and a large-pool cell. Noise: σ=0 or residual-matched.</p>
       </div>
-      <div class="flow-box">
-        <div class="n">Solve</div>
-        <h3>Simplex QP</h3>
-        <p>Hand the solver only z and a donor pool. solve_simplex_qp (SLSQP, Gram form) — the paper-1 estimator, reused unchanged.</p>
-      </div>
-      <div class="flow-box">
-        <div class="n">Score</div>
-        <h3>Recovery</h3>
-        <p>L1(ŵ, w*), ŵ_max vs 0.9, top-1 donor hit rate. 500 replicates/cell, seed 0, 2,000 bootstrap resamples.</p>
+      <div class="card">
+        <h3>5. Judgment · <span class="path">summarise_design1</span> + <span class="path">h1_verdicts</span> :300, :334</h3>
+        <p>Per-cell means with bootstrap CIs (B=2,000). Pre-registered thresholds applied literally to the decision cell K=5, m=50, σ=0:</p>
+        <p>mean L1 ≤ 0.30 and top-1 ≥ 90% on the <em>Dirichlet</em> cell; |ŵ_max − 0.9| ≤ 0.10 on the <em>spiky</em> cell.</p>
+        <p class="muted">Oracle gate first: if recovery fails when the true donors are handed over (mean L1 bar 0.01), stop. Passed: 1.46×10⁻⁵.</p>
       </div>
     </div>
-    <h2>Three ways the claim can die (run before quoting 0.884)</h2>
-    <div class="grid c3">
-      <div class="card">
-        <h3>Oracle gate</h3>
-        <p>Pool = exactly the true donors. If recovery fails here, stop. Passed: max mean L1 = 1.46×10⁻⁵ (bar 0.01).</p>
-      </div>
-      <div class="card">
-        <h3>All-donors + LP uniqueness</h3>
-        <p>Pool = 1,263 records so true donors are present. Unconstrained solution set is 494-dimensional; nonnegativity collapses it to a single LP-certified point = w*.</p>
-      </div>
-      <div class="card">
-        <h3>Invalid digit-string run</h3>
-        <p>Same battery on billing-code “text.” Mean top-3 cosine 0.991 vs 0.710 on n2c2 prose. The test can fail; later success is not automatic.</p>
-      </div>
-    </div>
-    <p class="src">Walkthrough Steps 3–5; parse_report n_patients=288, n_records=1264; n2c2_weight_recovery_summary.json verdicts.oracle_gate; uniqueness_check.json affine_solution_dim=494; n2c2_l1_report.json neighbour_profile_overlap (0.7102 vs 0.9908).</p>
+    <div class="callout warn"><strong>Two other ways the claim can die (not this loop)</strong>All-donors + LP uniqueness: pool = 1,263, unconstrained solution 494-dimensional, nonnegativity collapses it to a single HiGHS point = w*. Digit-string run on billing codes: mean top-3 cosine 0.991 vs 0.710 on n2c2 prose — the test can fail; later success is not automatic.</div>
+    <p class="src">run_weight_recovery.py draw_replicates / _one_replicate / run_design1 / h1_verdicts; uniqueness_check.json affine_solution_dim=494; n2c2_l1_report.json 0.7102 vs 0.9908.</p>
   </template>
 
   <template id="s9">
+    <h1>The equation — classical Abadie, on note embeddings</h1>
+    <p>Every fit in the n2c2 battery solves the same program as paper 1. <span class="path">x</span> is the target patient’s embedding (H1: the planted mix; H2: the flattened pre-period block). Rows of <span class="path">A</span> are the donor vectors. Least squares over the probability simplex: the convex combination of donors closest to the target.</p>
+    <div class="eq">
+      ŵ = arg min<sub>w</sub> &nbsp; ‖x − A<sup>⊤</sup> w‖<sub>2</sub><sup>2</sup>
+      &nbsp;&nbsp; s.t. &nbsp;&nbsp; w<sub>j</sub> ≥ 0, &nbsp; Σ<sub>j</sub> w<sub>j</sub> = 1
+      <div class="eq-sub">No intercept, no regularization. <span class="path">fit_intercept</span> implements the Doudchenko–Imbens level shift but defaults to off; every recorded run used the default, so what ran is exactly Abadie.</div>
+    </div>
+    <div class="grid c2">
+      <div class="card">
+        <h3>The solver</h3>
+        <p><span class="path">scipy.optimize.minimize(method="SLSQP")</span> — sequential least-squares quadratic programming, scipy’s standard solver for a smooth objective with bound and equality constraints.</p>
+        <p class="muted">It lives in <span class="path">mimic/src/synthctl/fit.py:287</span> (<span class="path">solve_simplex_qp</span>). Both <span class="path">run_n2c2_h2.py:156</span> and <span class="path">run_weight_recovery.py:163</span> call that one function, so the same solver produced every number in the report, including 0.884.</p>
+      </div>
+      <div class="card">
+        <h3>Gram-form rewrite · <span class="path">fit.py:303</span></h3>
+        <p>Before the solver, the objective is expanded exactly into</p>
+        <p style="text-align:center; margin:8px 0">w<sup>⊤</sup>(AA<sup>⊤</sup>)w − 2 w<sup>⊤</sup>(Ax) + x<sup>⊤</sup>x</p>
+        <p class="muted">Algebraic identity, not an approximation. Analytic gradients are supplied. Each iteration costs O(m²) instead of O(m · D), which is what made the full-pool (m=1,263) runs affordable.</p>
+      </div>
+    </div>
+    <div class="callout info"><strong>LP uniqueness is a different solver on purpose</strong><span class="path">run_uniqueness_check.py</span> uses <span class="path">scipy.optimize.linprog(method="highs")</span>: for each donor, min and max weight over all exact simplex solutions. If that range is a point, the weights are uniquely identified regardless of what SLSQP did. HiGHS LP vs SLSQP QP is a genuine cross-check, not the same code confirming itself.</div>
+    <p class="src">fit.py solve_simplex_qp (default fit_intercept=False); _gram G=AAᵀ, b=Ax; uniqueness_check.json lp method='highs'.</p>
+  </template>
+
+  <template id="s10">
     <h1>H1 result — a planted 0.9 is recoverable in the embedding</h1>
     <p>Decision cell, frozen before the run: K=5 donors, m=50 retrieval pool, σ=0, Qwen3-768, dominant 0.9/0.1 mix. Encoder chosen by the pre-registered rule (lower Dirichlet L1): Qwen3 0.452 vs BioLORD 0.732.</p>
     <div class="grid c3">
@@ -446,7 +473,7 @@
     <p class="src">n2c2_weight_recovery_summary.json verdicts.qwen3 (ŵ_max 0.88399, err 0.01603 [0.01549, 0.01659], top1 1.0, Dirichlet L1 0.4520); pool_contains_true_donors_m50_sigma0.qwen3_K5_dirichlet 2.658 / frac 0.01; uniqueness_check.json max_offsupport_mass 1.68×10⁻¹². Notebook validation cell: report 0.884 = artifact 0.884.</p>
   </template>
 
-  <template id="s10">
+  <template id="s11">
     <h1>Failures sit in replaceable components — the geometry is sound</h1>
     <table>
       <thead>
@@ -485,7 +512,7 @@
   </template>
 
   <script>
-    const LABELS = ["Title", "The problem", "Why not regression", "Paper 1 · method", "Paper 2 · ASCM", "Paper 3 · TASC", "How they sit", "Scalar → embedding", "Workflow", "H1 results", "What failed"];
+    const LABELS = ["Title", "The problem", "Why not regression", "Paper 1 · method", "Paper 2 · ASCM", "Paper 3 · TASC", "How they sit", "Scalar → embedding", "Workflow", "The equation", "H1 results", "What failed"];
     const n = LABELS.length;
     let i = 0;
     const stage = document.getElementById("stage");
