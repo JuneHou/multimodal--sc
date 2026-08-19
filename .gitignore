@@ -16,6 +16,16 @@ figures/
 # `git check-ignore -v REAP/data/...`.
 REAP/data/
 
+# EXCEPTION (Jun, 2026-08-19): track the collaborator's pipeline notebooks
+# (code only). The whitelist chain re-includes REAP/data/scripts/ while every
+# other REAP/data/ child stays ignored; stale editor checkpoints stay out.
+# The unanchored `data/` rule above is left untouched because it also
+# protects preliminary/*/data (PhysioNet-restricted).
+!REAP/data/
+REAP/data/*
+!REAP/data/scripts/
+REAP/data/scripts/.ipynb_checkpoints/
+
 # Local absolute paths to credentialed data roots.
 # config/paths.example.yaml IS committable and is deliberately not ignored.
 # NOTE the leading `**/`: a pattern containing a slash is anchored to the repo
