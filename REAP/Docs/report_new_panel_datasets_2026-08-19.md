@@ -16,11 +16,14 @@ composites (May 10 2024 – Feb 13 2025, boundary Sept 27 2024) for 10 treatment
 50 counterfactual sites. This is the missing ingredient for a real evaluation: for the
 first time, donor quality and pipeline quality can be scored against **actually observed
 images** (held-out pre-hurricane periods) instead of only against another pipeline's
-output. The biweekly version is complete on disk and is the one to use. The collaborator's
-SCM/ASCM validation notebooks (14/15) and their results are described in the second email but are
-not in our checkout — they need to be requested. The advisor's expanding-window scheme
-(fit P01–P08 → predict P09; fit P01–P09 → predict P10) is a stricter refinement of the
-validation the collaborator already ran, and both apply directly to our tokenizer pipeline.
+output. The biweekly version is complete on disk and is the one to use. The SCM/ASCM
+validation notebooks (14/15) arrived on 2026-08-19 and are analyzed in §4: S1 validates
+well (one degenerate site), S2 is much harder, the email's "sites 4 and 5" failures are
+S2-only, and much of the apparent donor-quality problem may actually be *image*-quality
+(no cloud filtering) — their output files (including the never-inspected post-hurricane
+effects) still need to be shared. The advisor's expanding-window scheme (fit P01–P08 →
+predict P09; fit P01–P09 → predict P10) is a stricter refinement of the validation
+notebook 14 ran, and both apply directly to our tokenizer pipeline.
 
 ---
 
@@ -50,9 +53,17 @@ site, period id, and date window encoded in the filename
 
 ### 2.3 The panel clock (`biweekly_datasets/biweekly_period_definitions.csv`)
 
-20 contiguous 14-day periods: `before_P01` (2024-05-10) … `before_P10` (ends 2024-09-26),
-`after_P01` (starts 2024-09-27, the Helene reference date) … `after_P10` (ends 2025-02-13).
-In the second email's notation, before_P01–P10 = P01–P10 and after_P01–P10 = P11–P20.
+The study window is the same for all three datasets — 140 days before (2024-05-10 to
+2024-09-26) and 140 days after (2024-09-27, the Helene reference date, to 2025-02-13) —
+but the "10 before + 10 after" structure belongs to the **biweekly** version only:
+
+- **biweekly**: 10 + 10 periods of 14 days (`before_P01…P10`, `after_P01…P10`). In the
+  second email's notation, before_P01–P10 = P01–P10 and after_P01–P10 = P11–P20.
+- **weekly**: 20 + 20 periods of 7 days (`before_W01…W20`, `after_W01…W20`;
+  `weekly_datasets/weekly_period_definitions.csv`, 40 rows).
+- **daily**: no fixed periods at all — one file per actual acquisition date. A site is
+  imaged on only ~11–13% of calendar days, i.e. roughly 16–18 images per site per half
+  (`daily_datasets/daily_dataset_summary.csv`), at irregular dates.
 
 ### 2.4 How the data was made (scripts 10–12)
 
@@ -79,9 +90,33 @@ From `biweekly_datasets/biweekly_quality_summary.csv`:
 
 These match the first email's 58/57 and 69/60. Nanmedian compositing buys S2 an extra
 **+11.6 to +19.9 percentage points** of valid pixels vs the average source scene
-(`mean_improvement_vs_mean_source`), and ~0 for S1 (already clean). Note S1's caveat is
-the opposite of S2's: pixels are always valid, but **6–35 of 500 site-periods have no S1
-acquisition at all** — the panel has holes in time, not in space.
+(`mean_improvement_vs_mean_source`), and ~0 for S1 (already clean).
+
+Two DIFFERENT kinds of "missing" must not be confused:
+
+1. **Missing pixels inside an image** ("valid pixel fraction"). A pixel is valid if at
+   least one band has a usable value there. S2 pixels go missing because the SCL cloud
+   mask deletes cloud shadow, medium/high-probability cloud, cirrus, and snow (plus
+   partial-swath edges); a masked pixel is NaN. The biweekly nanmedian recovers a pixel
+   only if it was clean in at least one acquisition during the 14 days — a pixel cloudy
+   in every acquisition of the window stays NaN. That is why S2 biweekly images still
+   average only ~57–69% valid. S1 is radar and sees through clouds, so its images are
+   ~99.9% valid.
+2. **Missing periods** (a site-period with zero acquisitions → no image file at all).
+   This is S1's weak spot (no acquisition scheduled in some 14-day windows) and affects
+   S2 mildly after the hurricane. Per site, out of 10 expected periods per half
+   (`biweekly_datasets/biweekly_site_dimension.csv`, all 60 sites):
+
+   | sensor / half | sites with 10/10 | 9/10 | 8/10 | 6/10 |
+   |---|---|---|---|---|
+   | S2 before | 60 | — | — | — |
+   | S2 after | 35 | 25 | — | — |
+   | S1 before | 57 | — | — | 3 |
+   | S1 after | 38 | 3 | 19 | — |
+
+   So the pre-period is complete for S2 at every site, but a fifth of S1 site-halves
+   have 8 of 10 after-periods, and three sites have only 6 of 10 S1 before-periods —
+   any pre-period validation split must handle these gaps explicitly.
 
 Per `daily_datasets/daily_dataset_summary.csv`, a site gets an image on only ~11–13% of
 calendar days (both sensors), and daily S2 scenes average 41–52% valid pixels (median as
@@ -119,32 +154,159 @@ encode/decode stack. What does **not** carry over: results are not directly comp
 across the two designs (different site count, different period definition), and the
 missing-pixel problem is now first-order instead of negligible.
 
+**kNN cannot search the 260-control snapshot pool on this panel.** `embed_DiD` could,
+because all 260 had before/after chips. Distance needs `encode(control image)`; of the
+matching table's 260 controls, **210 have no P01–P20 GeoTIFF** (ranks 6–10 of treatments
+`0001`–`0010`, and every control of `0011`–`0026`). The tokenizer panel latents therefore
+cover 60 sites, and latent-space kNN in `notebooks/ts_SCM_ASCM/` searches those 50
+controls — every site that exists in `biweekly_datasets/` — not a subset of a larger
+encoded pool. Repeating the 260-site search would be new data collection. (Within the
+50, that arm already *shares* the pool across treated sites, unlike notebook 14's
+per-site 5 covariate matches.)
+
 ---
 
-## 4. The collaborator's SCM/ASCM validation (second email)
+## 4. The SCM/ASCM validation — notebooks 14 and 15 (received 2026-08-19, analyzed)
 
-*(reported — not verifiable locally: `scripts/14_test_scm_validation.ipynb`,
-`scripts/15_test_augmented_synthetic_control.ipynb`, and their entire output folder —
-weights, feature-level RMSEs, validation plots, post-hurricane effects — are not in this
-checkout.)*
+Both notebooks are now in `data/scripts/` with fully stored outputs, so everything below
+is read from the code and its embedded results, not from the email. Their **output CSV/
+figure files** still are not local (all paths point to the collaborator's Dropbox
+`test/scm_validation/` and `test/ascm_validation/` folders), but the headline numbers are
+recoverable from the notebooks themselves.
 
-The workflow: estimate SC weights on P01–P08; freeze them; predict the treated sites in
-P09–P10 (still pre-hurricane, so predictions can be compared with actual untreated
-observations); then apply the frozen weights to P11–P20 for effect estimation. Reported
-findings: S1 validates well (RMSE generally below one training SD); S2 is harder but most
-average validation RMSEs still below one SD; **treatment sites 4 and 5 validate poorly**
-(their 5-donor pools may not reproduce their pre-trends); ASCM helps some S1 cases but is
-not consistently better than SCM for S2 — the email reads this as donor quality being the issue.
+To be clear about which script does what: notebooks 10–12 build the data, and notebook 13
+only **compares image quality** across the daily/weekly/biweekly versions — it contains no
+causal analysis. The validation move lives entirely in notebooks 14 and 15.
 
-The same email proposes this design for our pipeline: select donors / estimate weights from
-P01–P08 **in embedding space**, freeze, construct and decode the synthetic images for
-P09–P10, and compare the decoded images directly with the observed treated images. This
-tests the whole encode → weight → decode chain against ground truth — a much stronger
-evaluation than notebook 04's comparison against the feature-based pipeline.
+**Design at a glance — time split and donor pool:**
 
-Note this validation must run on a per-site-per-period **feature table** (chip means per
-band, presumably), and that table was not shipped either — scripts 10–13 produce imagery
-and quality metadata only.
+| | periods | role |
+|---|---|---|
+| fit ("training") | before_P01–P08 (2024-05-10 … 2024-09-12) | donor weights estimated here, then frozen |
+| validation | before_P09–P10 (2024-09-13 … 2024-09-26) | still pre-hurricane → predictions compared with **actually observed** treated images |
+| effects | after_P01–P10 = "P11–P20" (2024-09-27 … 2025-02-13) | frozen weights give the counterfactual; gap = hurricane effect |
+
+**Donor pool:** each treated site uses **only its own 5 covariate-matched counterfactuals**
+(the top-5 by `control_rank` from `finals/site_matching_table.csv` — NLCD land-cover class
++ elevation + slope + distance matching). The 50-control pool is never shared across
+treated sites, and no donors are selected from the data itself.
+
+### 4.1 What notebook 14 actually does (verified)
+
+- **Feature panel built inline** from the biweekly tifs (driven by
+  `biweekly_image_quality.csv`, 2,322 usable images): per site × sensor × period,
+  nan-aware chip mean per band (masked read → NaN → mean over finite pixels). All 11
+  bands, both sensors. So the outcome is exactly the chip-mean-feature convention we
+  already use — good news for comparability.
+- **Donor pool = only the treated site's own 5 matched counterfactuals** (sorted by
+  `control_rank`); the 50-control pool is never shared across sites.
+- **SCM — a fit, not model training.** No model is trained in the machine-learning sense;
+  "training periods" only means "the periods the weights were fitted on". Per treated
+  site × sensor, the entire "model" is 5 numbers, found by a small constrained
+  least-squares optimization:
+  - **find** w₁…w₅ (one weight per matched counterfactual site),
+  - **subject to** each wⱼ ≥ 0 and w₁+…+w₅ = 1 (a weighted average — no extrapolation),
+  - **minimizing** the mean squared difference between the treated site's z-scored band
+    means and the weighted mix of the donors' band means, over periods P01–P08 × all
+    bands of that sensor (fit jointly: 5 parameters against 24 data points for S1,
+    up to 64 for S2).
+
+  Features are z-scored by the pooled all-site pre-period mean/SD; the optimizer is scipy
+  SLSQP (no intercept). Once solved, "prediction" is just the same weighted average of the
+  donors in a new period. Weights frozen; P09–P10 predicted for validation; P11–P20 gaps
+  computed as effects and written out — but **the effects are never printed, plotted, or
+  examined** anywhere in the notebook.
+- **How the evaluation works.** RMSE always compares the synthetic prediction with the
+  **actually observed** treated values: error = (observed − weighted donor mix), in
+  z-scored units, so RMSE is in "training-SD units" — 1.0 = the typical cross-site spread
+  of a band in the pre-period, and values well below 1 mean the synthetic control is
+  genuinely informative. Per site × sensor, errors are pooled across bands: the
+  *training RMSE* covers P01–P08 (in-sample — the weights were chosen to minimize exactly
+  these errors, so it is optimistically small by construction) and the *validation RMSE*
+  covers P09–P10 with frozen weights (the honest out-of-sample number). A site is flagged
+  by the **ratio** validation/training RMSE (≤1.5 good, ≤2 caution, else poor): the ratio
+  uses each site's own training fit as its personal baseline, so it asks "did the
+  pre-period agreement generalize, or was it overfitting?" — see §4.4 for what the ratio
+  cannot catch.
+
+### 4.2 Notebook 14 results (from stored outputs)
+
+Validation RMSE (P09–P10, in training SDs), per site:
+
+| site | S1 | S2 | | site | S1 | S2 |
+|---|---|---|---|---|---|---|
+| 0001 | 0.44 | 0.66 | | 0006 | 0.43 | 0.52 |
+| 0002 | 0.54 | 0.53 | | 0007 | **0.72 (poor)** | 0.45 |
+| 0003 | 0.12 | 0.42 | | 0008 | 0.19 | 0.52 |
+| 0004 | 0.14 | **1.68 (poor)** | | 0009 | 0.18 | 0.42 |
+| 0005 | 0.19 | **1.17** | | 0010 | 0.07 | 0.29 |
+
+- **S1 validates well** (sensor-mean per-band RMSE 0.18–0.42 SD) — with one failure the
+  email did not mention: **site 7**, whose S1 fit trains on only 4 of 8 periods (missing
+  acquisitions) and collapses to a degenerate single-donor solution (weight 1.0), ratio 2.2.
+- **S2 is clearly harder** (sensor-mean per-band RMSE 0.43–0.78 SD). The email's "sites 4
+  and 5 do poorly" is an **S2-only** statement — on S1 those two sites are among the best.
+  And note a flag quirk: site 5's S2 fit is bad in training AND validation (1.27 → 1.17 SD),
+  so its ratio looks fine and it is flagged "good"; the ratio-based flag misses
+  level failures.
+
+### 4.3 What notebook 15 adds (verified)
+
+Ridge-augmented SCM (own implementation of Ben-Michael, Feller & Rothstein 2021, closed
+form, negative weights allowed, no intercept), with the ridge penalty chosen by
+leave-one-pre-period-out cross-validation on P01–P08 only. Same split, same joint-band
+fitting. Two important prints: **9 of 20 fits pick the maximum penalty** (= no
+augmentation; ASCM identical to SCM there), and standardization differs from notebook 14
+(per-cluster donor SDs instead of pooled), so **RMSE numbers are not comparable across
+the two notebooks**.
+
+SCM vs ASCM on the held-out P09–P10 (notebook 15's own scale):
+
+- **S1: ASCM helps where it acts** — site 1 improves 0.53 → 0.30 SD, site 2 1.00 → 0.90,
+  site 6 0.53 → 0.49; all three S1 bands improve on average.
+- **S2: a wash or worse** — 7 of 8 bands get worse on average; the single biggest change
+  is site 5 **degrading** 1.11 → 1.70 SD, driven by heavy extrapolation (total negative
+  weight 1.35). Matches the email's caution exactly, with the mechanism visible: when
+  the donors can't span the treated site, ridge extrapolation overfits the pre-period
+  and fails out of sample.
+
+### 4.4 Caveats that matter before building on these notebooks
+
+1. **No image-quality filtering.** Partially cloudy S2 composites enter at full weight;
+   of the 480 S2 pre-period site-images, only ~half are "excellent" and 67 are fully
+   unusable. The two failing S2 sites are exactly where validation-period images are
+   thin (site 4's donor at 12% valid pixels in P09; site 5's treated image at 39%).
+   Much of the "donor quality" signal may actually be *image* quality — filtering on
+   `valid_pixel_fraction` should be tested before concluding donors are bad.
+2. **The ratio-based flag is not sufficient on its own.**
+   - It only catches *degradation* (overfitting), not *level* failures: a fit that is
+     equally bad in training and validation gets ratio ≈ 1 and a "good" flag. Site 5's S2
+     is the live example — training RMSE 1.27, validation 1.17, ratio 0.92, flagged
+     "good" even though both errors exceed one full SD. A complete evaluation needs both
+     checks: ratio ≈ 1 (no overfitting) **and** validation RMSE well below 1 SD (the fit
+     is actually informative).
+   - The ratio is a noisy statistic: its numerator comes from only 2 held-out periods, so
+     a lucky/unlucky pair moves it a lot (site 10's S1 ratio is 0.19; site 7's 2.22 rests
+     partly on a tiny 4-period training fit). The advisor's expanding-window scheme gives
+     somewhat better-founded validation points, but the 2-period limit is inherent to
+     having 10 pre-periods.
+3. **Missing periods silently shrink the training set** — some S2 fits use as few as 4 of
+   8 pre-periods (32 observations for 5 weights); S1 site 7's failure is this.
+4. `VV_minus_VH` is a linear combination of VV and VH but enters the joint objective as a
+   third block, effectively double-weighting the radar ratio; it is consistently the
+   worst-fit S1 band.
+5. Post-hurricane effect estimates (P11–P20) exist only in the unshipped output CSVs and
+   were never inspected in either notebook; also periods P12 and P15 are missing for a
+   third of sites (no acquisitions), which nothing in the notebooks flags.
+
+### 4.5 The proposal for our pipeline (second email)
+
+Select donors / estimate weights from P01–P08 **in embedding space**, freeze, construct
+and decode the synthetic images for P09–P10, and compare decoded vs observed treated
+images. This tests the whole encode → weight → decode chain against ground truth — a much
+stronger evaluation than notebook 04's comparison against the feature-based pipeline. And
+since notebook 14's outcome is the same nan-aware chip-mean feature we use, the two
+pipelines can now be scored on the *same* held-out truth with the *same* metric.
 
 ---
 
@@ -171,14 +333,24 @@ advisor's expanding version as the headline validation.
 
 ## 6. Gaps and missing files
 
-**Must come from the collaborator (cannot be derived locally):**
-- `scripts/14_test_scm_validation.ipynb`, `scripts/15_test_augmented_synthetic_control.ipynb`,
-  and their full output folder (weights, feature-level RMSE, validation plots, effects).
-  Without these, none of §4's numbers can be checked or built on.
-- The per-site-per-period feature table those notebooks consume (or its generating script).
+**Resolved 2026-08-19 afternoon:** notebooks 14 and 15 arrived in `data/scripts/` with
+their stored outputs, and §4 above is now based on them directly. (An earlier sync had
+refreshed `data/test/treatment_0001/` with the notebook-09 counterfactual-average TEST
+outputs instead — values byte-identical to what notebook 04's gate already verified, plus
+an accidental nested duplicate folder.) The feature-table question is also resolved: both
+notebooks build their feature panel inline from the biweekly tifs.
+
+**Still missing from the collaborator:**
+- The notebook-14/15 **output folders** (`test/scm_validation/`, `test/ascm_validation/`):
+  the weights, per-period predictions, the full 81-point penalty-selection curves, the
+  ~110 trajectory figures, and above all the **post-hurricane effect CSVs** — the effects
+  are computed and written but appear nowhere in the notebooks' stored outputs, so they
+  cannot be recovered locally. Every output path in both notebooks is a Dropbox absolute
+  path.
 - The updated README the first email mentions — the local
-  `data/README_Hurricane_Helene_Satellite_Dataset.md` is dated Aug 11 and does not mention
-  any of the new datasets.
+  `data/README_Hurricane_Helene_Satellite_Dataset.md` was re-synced on 2026-08-19 but is
+  byte-identical to the Aug 11 version (13,370 bytes) and does not mention any of the new
+  datasets.
 
 **Incomplete deliverables (facts on disk; the imagery is used as-is per our data rules):**
 - `weekly_datasets/` is an aborted build: notebook 11's stored log stops at combination
@@ -226,31 +398,45 @@ periods for effect trajectories and much stronger placebo calibration.
   as an explicit design decision before any encoding of panel data.
 - **S1 has missing periods** (whole site-periods with no acquisition) — panel methods need
   a stance on gaps in time.
-- **Smaller, different sample:** 10 treated / 5 donors each. Only 5 matched donors per
-  site is thin for SCM-style weighting (the reported sites-4/5 result already hints at this); the
-  50-control pool could be shared across treated sites, but that changes the design and
-  is a decision, not a default.
+- **Smaller, different sample:** 10 treated / 50 controls with panel imagery (not 26 /
+  260). Notebook 14 used only each site's own 5 covariate matches; the tokenizer arm
+  (`ts_SCM_ASCM`) already searches all 50 then keeps 5 neighbors. The remaining gap vs
+  `embed_DiD`'s 260-control kNN is missing P01–P20 chips for 210 sites, not a search
+  filter. Whether those 210 would yield closer latent neighbors is untestable until they
+  are downloaded and encoded.
 
 ---
 
 ## 8. Proposed next steps (each needs approval before work starts)
 
-1. **Request from the collaborator:** notebooks 14/15 + their complete output folder, the
-   feature-table script/CSV they consume, and the updated README. (Optionally mention the
-   weekly build looks unfinished, in case weekly resolution is meant to be usable.)
+1. **Request from the collaborator:** the notebook-14/15 output folders (above all the
+   post-hurricane effect CSVs, which exist nowhere else) and the updated README.
+   (Optionally mention the weekly build looks unfinished, in case weekly resolution is
+   meant to be usable.)
 2. **Build the biweekly feature panel** (site × sensor × period chip-mean features from
-   `biweekly_datasets/`, nan-aware, matching the collaborator's extraction convention) —
-   the shared input for reproducing the notebook-14 validation and for scoring our pipeline in feature
-   units.
+   `biweekly_datasets/`, nan-aware — now verifiably the SAME convention notebook 14 uses,
+   so it doubles as a reproduction of notebook 14's `01_extracted_features` panel) —
+   the shared input for reproducing the notebook-14 validation and for scoring our
+   pipeline in feature units.
 3. **Design the pipeline holdout validation** as a written plan before any code: donors +
    weights from pre-periods in tokenizer-latent space; predict P09/P10 under both splits
    (frozen P01–P08 and the advisor's expanding window); score decoded-vs-observed in image
    space, feature space, and latent space; include the encode→decode reconstruction floor
    as the reference line; placebo runs on controls.
-4. **Open design decisions to settle first:**
+4. **Test the image-quality explanation of the S2 failures** (§4.4): rerun the notebook-14
+   validation with a `valid_pixel_fraction` threshold (e.g. ≥0.4 / ≥0.6) and see whether
+   sites 4/5 recover — this separates "bad donors" from "bad images" and directly informs
+   whether our pipeline needs a quality filter too.
+5. **Open design decisions to settle first:**
    - NaN handling for encoding at ~40% invalid S2 pixels (current chip-mean fill vs
      alternatives) — scientific implications: what the latent represents;
+   - image-quality filtering: whether both pipelines should exclude or down-weight
+     site-periods below a valid-pixel threshold (notebooks 14/15 currently use none);
    - per-sensor vs joint donor selection (still open from the 26-site work);
+   - donor-pool scope: notebook 14's 5 matched donors corner easily. The tokenizer
+     arm already searches all 50 panel controls. Repeating `embed_DiD`'s 260-control
+     kNN is blocked until ranks 6–10 and treatments 0011–0026 have P01–P20 imagery;
+     keeping more than 5 neighbors from the existing 50 is a separate, cheaper knob;
    - whether the hold on estimated-weight SC is lifted now that the advisor has replied,
      and which weighting (equal-weight kNN mean vs SCM vs ASCM) the validation should cover.
 
@@ -267,4 +453,8 @@ Site sample: `data/daily_datasets/selected_site_sample.csv`; matching:
 `weekly_sample_validation.csv` vs on-disk files + notebook 11's stored run log;
 quality-comparison scope: `data/quality_comparison/02_site_dimension.csv` site_id column;
 collection/masking details: `data/scripts/10_download_daily_satellite_data.ipynb`;
-compositing: `data/scripts/11/12_*.ipynb`. Email-only claims are marked as reported.
+compositing: `data/scripts/11/12_*.ipynb`; SCM/ASCM methods and all §4 numbers: the code
+and stored outputs of `data/scripts/14_test_scm_validation.ipynb` (site summary, per-band
+RMSE tables) and `data/scripts/15_test_augmented_synthetic_control.ipynb` (penalty
+selection, SCM-vs-ASCM comparison, weight diagnostics). Email-only claims are marked as
+reported.
