@@ -1,0 +1,1357 @@
+---
+title: "Hurricane Helene Satellite Image Dataset"
+subtitle: "Southwest Virginia · Sentinel-1 & Sentinel-2 · Treatment & Counterfactual Sites"
+date: last-modified
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    toc-location: left
+    theme: cosmo
+    code-fold: false
+    code-copy: true
+    smooth-scroll: true
+    self-contained: true
+    grid:
+      sidebar-width: 280px
+      body-width: 900px
+---
+
+This repository contains two complementary versions of the Hurricane
+Helene satellite image dataset. Both versions cover the same treatment
+and counterfactual site boundaries in southwest Virginia.
+
+| Version | Design | Best for |
+|---------|--------|----------|
+| **Version 1 — Median Before/After** | One median composite image per site for the pre-hurricane period and one for the post-hurricane period | Quick visual comparison, initial change detection |
+| **Version 2 — Time-Series** | Acquisition-level, weekly (7-day), and biweekly (14-day) composites spanning a 280-day study window | Longitudinal analysis, counterfactual modeling, representation learning |
+
+Version 1 preserves the original two-image dataset. Version 2 extends
+the temporal dimension and does not replace Version 1.
+
+---
+
+::: {.panel-tabset}
+
+## Version 1 — Median Before/After
+
+### Overview
+
+Version 1 supports a straightforward before-and-after comparison of
+locations affected by Hurricane Helene and matched counterfactual
+locations without mapped Helene-triggered landslides nearby.
+
+The final product contains:
+
+- treatment and counterfactual site boundaries (GeoJSON);
+- Sentinel-2 optical imagery (8 bands);
+- Sentinel-1 SAR imagery (3 bands);
+- one before and one after image chip per site;
+- treatment-to-counterfactual matching files;
+- image inventories and validation tables.
+
+---
+
+### Study design
+
+#### Treatment sites
+
+Treatment sites are centered on landslide locations in the USGS
+preliminary Hurricane Helene landslide inventory for Virginia. Each
+site is represented by an approximately 1 km × 1 km image chip.
+
+#### Counterfactual sites
+
+Each treatment site is matched to **10 counterfactual sites** selected
+using the following rules:
+
+- at least 5 km from every treatment location;
+- same NLCD land-cover class as the matched treatment site;
+- similar elevation and terrain slope;
+- drawn from the southwest Virginia study area;
+- not reused across treatment sites.
+
+> **Limitation:** a counterfactual site should not be interpreted as
+> completely unaffected by Hurricane Helene. It may still have
+> experienced rainfall, flooding, or unrecorded damage. The 5 km
+> exclusion rule only separates controls from *mapped* treatment
+> locations.
+
+#### Event periods
+
+| Period | Start | End |
+|--------|-------|-----|
+| Before | 2024-08-15 | 2024-09-23 |
+| After  | 2024-10-01 | 2024-10-31 |
+
+For each site and period, the workflow composites all eligible satellite
+scenes that intersect the site into a single median image.
+
+---
+
+### Folder structure
+
+```text
+finals/
+├── treatment_sites.geojson
+├── counterfactual_sites.geojson
+├── all_sites.geojson
+├── site_matching_table.csv
+│
+├── sentinel2/
+│   ├── treatment/
+│   │   ├── before/        ← treatment_NNNN_before_sentinel2.tif
+│   │   └── after/         ← treatment_NNNN_after_sentinel2.tif
+│   ├── counterfactual/
+│   │   ├── before/        ← counterfactual_NNNN_RR_before_sentinel2.tif
+│   │   └── after/         ← counterfactual_NNNN_RR_after_sentinel2.tif
+│   ├── previews/
+│   ├── sentinel2_image_inventory.csv
+│   ├── sentinel2_image_validation.csv
+│   ├── sentinel2_site_completeness.csv
+│   ├── sentinel2_matched_pair_completeness.csv
+│   ├── sentinel2_analysis_ready_inventory.csv
+│   └── sentinel2_folder_summary.csv
+│
+└── sentinel1/
+    ├── treatment/
+    │   ├── before/        ← treatment_NNNN_before_sentinel1.tif
+    │   └── after/         ← treatment_NNNN_after_sentinel1.tif
+    ├── counterfactual/
+    │   ├── before/        ← counterfactual_NNNN_RR_before_sentinel1.tif
+    │   └── after/         ← counterfactual_NNNN_RR_after_sentinel1.tif
+    ├── sentinel1_image_inventory.csv
+    ├── sentinel1_image_validation.csv
+    ├── sentinel1_site_completeness.csv
+    ├── sentinel1_matched_pair_completeness.csv
+    ├── sentinel1_analysis_ready_inventory.csv
+    └── sentinel1_folder_summary.csv
+```
+
+`NNNN` = zero-padded site number; `RR` = control rank (01–10).
+
+---
+
+### Site files
+
+#### `treatment_sites.geojson`
+
+One polygon per treatment image window. Key fields:
+
+| Field | Description |
+|-------|-------------|
+| `site_id` | Unique treatment identifier |
+| `pair_id` | Treatment group identifier |
+| `group` | `"treatment"` |
+| `control_rank` | 0 for treatment sites |
+| `elevation_m` | Elevation at site center |
+| `slope_deg` | Slope at site center |
+| `nlcd_class` | NLCD land-cover class |
+| `geometry` | Image-window polygon |
+
+#### `counterfactual_sites.geojson`
+
+Ten matched counterfactual polygons per treatment site. Key fields:
+
+| Field | Description |
+|-------|-------------|
+| `site_id` | Unique counterfactual identifier |
+| `pair_id` | Matched treatment group |
+| `matched_treatment_id` | Treatment site this control is assigned to |
+| `control_rank` | Rank 1–10 within the treatment group |
+| `group` | `"counterfactual"` |
+| `elevation_m` | Elevation at site center |
+| `slope_deg` | Slope at site center |
+| `nlcd_class` | NLCD land-cover class |
+
+#### `all_sites.geojson`
+
+Treatment and counterfactual polygons combined in one file.
+
+#### `site_matching_table.csv`
+
+One row per treatment-counterfactual match. Key fields:
+
+| Field | Description |
+|-------|-------------|
+| `pair_id` | Treatment group |
+| `treatment_site_id` | Treatment site |
+| `counterfactual_site_id` | Matched counterfactual |
+| `control_rank` | Rank within group |
+| `match_quality` | Matching score |
+| `nlcd_class` | Shared land-cover class |
+| `elevation_m` (treatment & control) | Elevation at each site |
+| `elevation_diff_m` | Elevation difference |
+| `slope_deg` (treatment & control) | Slope at each site |
+| `slope_diff_deg` | Slope difference |
+| `distance_m` | Treatment-to-control distance |
+
+Use this file to connect each counterfactual image to its treatment
+site.
+
+---
+
+### Sentinel-2 optical imagery
+
+#### File naming
+
+```text
+treatment_0001_before_sentinel2.tif
+treatment_0001_after_sentinel2.tif
+counterfactual_0001_01_before_sentinel2.tif
+counterfactual_0001_01_after_sentinel2.tif
+```
+
+Always use `site_matching_table.csv` or the `site_id` field in the
+GeoJSON files rather than relying on filename parsing alone.
+
+#### Band table
+
+| Band | Name | Description |
+|-----:|------|-------------|
+| 1 | B2   | Blue reflectance |
+| 2 | B3   | Green reflectance |
+| 3 | B4   | Red reflectance |
+| 4 | B8   | Near-infrared reflectance |
+| 5 | B11  | Shortwave infrared 1 |
+| 6 | B12  | Shortwave infrared 2 |
+| 7 | NDVI | Normalized Difference Vegetation Index |
+| 8 | NDWI | Normalized Difference Water Index |
+
+Reflectance bands are scaled to approximately 0–1. Images are
+cloud- and shadow-masked using the Sentinel-2 Scene Classification
+Layer and composited using the pixel-wise median over the period.
+
+#### Recommended uses
+
+- **RGB visualization:** bands 3, 2, 1
+- **Vegetation condition:** NDVI (band 7)
+- **Surface water / wetness:** NDWI (band 8)
+- **Soil exposure and moisture change:** B11 and B12 (bands 5–6)
+- **Change detection:** after image minus before image
+- **Image segmentation or classification**
+- **Treatment vs. counterfactual representation learning**
+
+#### Python example
+
+```python
+import rasterio
+import numpy as np
+
+path = "finals/sentinel2/treatment/before/treatment_0001_before_sentinel2.tif"
+
+with rasterio.open(path) as src:
+    data = src.read(masked=True)   # shape: (8, H, W)
+    profile = src.profile
+
+blue, green, red = data[0], data[1], data[2]
+nir, swir1, swir2 = data[3], data[4], data[5]
+ndvi, ndwi = data[6], data[7]
+
+rgb = np.stack([red, green, blue], axis=-1)
+```
+
+---
+
+### Sentinel-1 SAR imagery
+
+#### File naming
+
+```text
+treatment_0001_before_sentinel1.tif
+treatment_0001_after_sentinel1.tif
+counterfactual_0001_01_before_sentinel1.tif
+counterfactual_0001_01_after_sentinel1.tif
+```
+
+#### Band table
+
+| Band | Name | Description |
+|-----:|------|-------------|
+| 1 | VV          | VV-polarized radar backscatter (dB) |
+| 2 | VH          | VH-polarized radar backscatter (dB) |
+| 3 | VV_minus_VH | VV minus VH (dB) |
+
+**Processing parameters:** `COPERNICUS/S1_GRD`, Interferometric Wide
+Swath mode, 10 m resolution, dual VV/VH polarization, ascending orbit,
+median composite, edge pixels masked.
+
+#### Recommended uses
+
+- Flood and surface-water detection
+- Soil-moisture and wetness change
+- Vegetation-structure change
+- Landslide and exposed-surface detection
+- Cloud-independent before/after comparison
+- Fusion with Sentinel-2 optical data
+
+#### Python example
+
+```python
+import rasterio
+
+path = "finals/sentinel1/treatment/before/treatment_0001_before_sentinel1.tif"
+
+with rasterio.open(path) as src:
+    data = src.read(masked=True)   # shape: (3, H, W)
+
+vv, vh, vv_minus_vh = data[0], data[1], data[2]
+```
+
+---
+
+### Pairing treatment and counterfactual images
+
+```text
+treatment_0001
+├── Sentinel-2 before / after
+├── Sentinel-1 before / after
+└── 10 matched counterfactual sites
+    ├── rank 01 — before / after (Sentinel-1 & Sentinel-2)
+    ├── rank 02 — before / after
+    ├── ...
+    └── rank 10 — before / after
+```
+
+**Recommended workflow:**
+
+1. Read `site_matching_table.csv`.
+2. Select a `treatment_site_id`.
+3. Retrieve its 10 `counterfactual_site_id` values.
+4. Load before and after images for the treatment site.
+5. Load before and after images for all 10 controls.
+6. Compute site-level or pixel-level change measures.
+7. Compare treatment change against the distribution of control changes.
+
+---
+
+### Suggested change measures
+
+For any image-derived feature *Y*:
+
+```text
+Treatment change  =  Y_treatment_after  − Y_treatment_before
+Control change    =  Y_control_after    − Y_control_before
+
+Adjusted change   =  Treatment change
+                   − mean(Control change across 10 matched controls)
+```
+
+Possible features include mean NDVI, NDWI, B11, B12, VV, VH,
+fraction of pixels exceeding a damage threshold, or learned image
+embeddings.
+
+---
+
+### Image alignment notes
+
+Before pixel-level subtraction or sensor fusion, verify:
+
+- CRS, pixel resolution, raster dimensions, affine transform
+- Valid-pixel mask and nodata coverage
+
+Sentinel-1 and Sentinel-2 chips cover the same polygon but do **not**
+automatically share identical pixel grids. Reproject or resample to a
+common grid before fusion. Use **bilinear** resampling for continuous
+data; use **nearest-neighbor** for categorical masks. Do **not** treat
+masked pixels as zero.
+
+---
+
+### Metadata and quality-control files
+
+| File | Contents |
+|------|----------|
+| `sentinel{1,2}_image_inventory.csv` | One row per requested image: site ID, group, period, source collection, scene count, status, file path, size, errors |
+| `sentinel{1,2}_image_validation.csv` | Per-file existence, readability, band count, dimensions, CRS, resolution, valid-pixel fraction |
+| `sentinel{1,2}_site_completeness.csv` | Sites with both before and after images |
+| `sentinel{1,2}_matched_pair_completeness.csv` | Treatment groups with complete treatment and counterfactual imagery |
+| `sentinel{1,2}_analysis_ready_inventory.csv` | Images that passed before/after completeness checks |
+
+---
+
+### Recommended first checks
+
+1. Confirm the number of treatment and counterfactual sites.
+2. Confirm every treatment has 10 controls in `site_matching_table.csv`.
+3. Confirm each site has before and after Sentinel-1 and Sentinel-2 chips.
+4. Inspect the validation CSV files (band count, dimensions, valid-pixel fraction).
+5. Visualize several treatment-control pairs.
+6. Decide whether the analysis will use pixel-level change, image-level features, or learned embeddings.
+
+---
+
+### Important limitations
+
+1. Treatment locations are based on mapped landslide *points*, not complete landslide footprints.
+2. The USGS inventory is preliminary and may not contain every Helene-related landslide.
+3. Counterfactual sites are outside the 5 km buffer but may still have experienced other hurricane effects.
+4. Median composites summarize a date range rather than a single acquisition.
+5. Optical imagery may retain missing pixels after cloud masking.
+6. Radar backscatter is affected by viewing geometry, terrain, vegetation structure, and moisture.
+7. Matching balances selected observed characteristics but does not guarantee equivalence on unobserved characteristics.
+8. Image chips are centered on point locations and may include unaffected land around the mapped feature.
+
+---
+
+## Version 2 — Time-Series
+
+### Overview
+
+Version 2 converts the project from a two-period before/after dataset
+into a **repeated temporal panel**. It uses the same treatment and
+counterfactual sites but provides acquisition-level imagery plus
+weekly (7-day) and biweekly (14-day) composites across a 280-day
+window centered on Hurricane Helene.
+
+**Current working sample:**
+
+| Group | Sites |
+|-------|------:|
+| Treatment | 10 |
+| Counterfactual (5 per treatment) | 50 |
+| Total spatial units | 60 |
+
+The same 60 spatial units appear across the acquisition-level, weekly,
+and biweekly datasets so that temporal resolutions can be compared
+directly.
+
+The authoritative working-sample file is:
+
+```text
+finals/daily_datasets/selected_site_sample.csv
+```
+
+> The current 5-controls-per-treatment sample is for developing and
+> testing the pipeline. It should not be treated as the final donor
+> pool for causal estimation.
+
+---
+
+### Why extend the study period?
+
+Version 1 was designed for a simple before/after comparison. It
+summarizes a short pre-hurricane window and a short post-hurricane
+window into one median image on each side of Hurricane Helene. That
+design is useful for visualization, but it removes most of the temporal
+information in the satellite archive.
+
+For data-driven counterfactual methods — especially
+synthetic-control-style or latent-representation approaches — one
+pre-event image is generally not enough. The model needs repeated
+observations before the hurricane to verify that treatment and
+candidate counterfactual sites move similarly over time.
+
+Version 2 therefore extends the study window symmetrically:
+
+| Period | Start | End | Length |
+|--------|-------|-----|-------:|
+| Before | 2024-05-10 | 2024-09-26 | 140 days |
+| After  | 2024-09-27 | 2025-02-13 | 140 days |
+
+September 27, 2024 is the first AFTER date. The symmetric 140-day
+windows provide:
+
+- a substantially longer pre-hurricane trajectory for model fitting;
+- enough observations to evaluate pre-event treatment-control similarity;
+- repeated post-hurricane observations for persistence and recovery analysis;
+- exactly **40 non-overlapping 7-day periods** (20 before and 20 after);
+- exactly **20 non-overlapping 14-day periods** (10 before and 10 after).
+
+The extended window also introduces seasonal variation, which should
+be modeled explicitly when interpreting post-hurricane changes.
+
+---
+
+### Processing workflow
+
+The time-period pipeline is staged so that acquisition-level imagery
+is downloaded only once and all temporal composites are built locally.
+
+```text
+Treatment / counterfactual sample
+        │
+        ▼
+Notebook 10 — Download & validate acquisition-level Sentinel-1 & Sentinel-2
+        │
+        ├─────────────────────┐
+        ▼                     ▼
+Notebook 11              Notebook 12
+7-day composites         14-day composites
+(weekly_datasets/)       (biweekly_datasets/)
+        │                     │
+        └──────────┬──────────┘
+                   ▼
+           Notebook 13
+           Compare image quality & temporal availability
+                   │
+                   ▼
+           Choose working temporal resolution
+```
+
+---
+
+### Sub-datasets
+
+#### Acquisition-level (`daily_datasets/`)
+
+Notebook 10 is the single source of truth for the time-series imagery.
+
+For each selected site and sensor, it stores the actual satellite
+scenes available during the study window with the acquisition date
+retained in the filename. Importantly:
+
+> This dataset is called `daily_datasets` for convenience, but it does
+> **not** mean that every site has one satellite image every calendar
+> day. It contains actual acquisition dates when Sentinel-1 or
+> Sentinel-2 imagery was available.
+
+**File naming:**
+```text
+treatment_0001_2024-05-20_sentinel2.tif
+counterfactual_0001_01_2024-05-20_sentinel2.tif
+```
+
+**Folder layout:**
+```text
+daily_datasets/
+├── sentinel1/
+│   ├── treatment/
+│   │   ├── before/
+│   │   └── after/
+│   └── counterfactual/
+│       ├── before/
+│       └── after/
+├── sentinel2/
+│   ├── treatment/
+│   │   ├── before/
+│   │   └── after/
+│   └── counterfactual/
+│       ├── before/
+│       └── after/
+├── selected_site_sample.csv
+├── daily_satellite_inventory.csv
+├── daily_dataset_summary.csv
+├── daily_calendar_index.csv
+├── daily_download_action_summary.csv
+├── daily_folder_summary.csv
+├── sentinel1_daily_inventory.csv
+└── sentinel2_daily_inventory.csv
+```
+
+---
+
+#### Weekly composites (`weekly_datasets/`)
+
+Notebook 11 divides each side of the hurricane into non-overlapping
+**7-day windows** and applies the following compositing rule:
+
+| Available acquisitions | Result |
+|------------------------|--------|
+| 0 | No TIFF produced; period recorded as missing |
+| 1 | Weekly image = that single acquisition |
+| 2+ | Pixel-wise NaN-aware median |
+
+Each site has a fixed potential panel of 40 periods:
+
+```text
+before_W01 … before_W20   (weeks 1–20 before the hurricane)
+after_W01  … after_W20    (weeks 1–20 after the hurricane)
+```
+
+**File naming:**
+```text
+treatment_0001_before_W02_2024-05-17_2024-05-23_weekly_sentinel2.tif
+counterfactual_0001_01_after_W03_2024-10-04_2024-10-10_weekly_sentinel2.tif
+```
+
+**Folder layout:**
+```text
+weekly_datasets/
+├── sentinel1/
+│   ├── treatment/    { before/ after/ }
+│   └── counterfactual/  { before/ after/ }
+├── sentinel2/
+│   ├── treatment/    { before/ after/ }
+│   └── counterfactual/  { before/ after/ }
+├── weekly_image_quality.csv
+├── weekly_image_quality.xlsx
+├── weekly_quality_summary.csv
+├── weekly_sample_validation.csv
+├── weekly_period_definitions.csv
+├── weekly_period_dimension.csv
+├── weekly_site_dimension.csv
+├── weekly_build_action_summary.csv
+└── weekly_folder_summary.csv
+```
+
+---
+
+#### Biweekly composites (`biweekly_datasets/`)
+
+Notebook 12 applies the same compositing logic using non-overlapping
+**14-day windows**:
+
+| Available acquisitions | Result |
+|------------------------|--------|
+| 0 | No TIFF produced; period recorded as missing |
+| 1 | Biweekly image = that single acquisition |
+| 2+ | Pixel-wise NaN-aware median |
+
+Each site has a fixed potential panel of 20 periods:
+
+```text
+before_P01 … before_P10   (periods 1–10 before the hurricane)
+after_P01  … after_P10    (periods 1–10 after the hurricane)
+```
+
+The median is computed independently for every band and spatial pixel,
+ignoring NaN values. For example:
+
+```text
+Acquisition 1 pixel = NaN   (cloud-masked)
+Acquisition 2 pixel = 0.52
+Acquisition 3 pixel = 0.61
+
+Biweekly composite = median(0.52, 0.61) = 0.565
+```
+
+This means cloud-masked pixels from one Sentinel-2 acquisition can
+sometimes be filled by valid observations from another acquisition in
+the same 14-day window.
+
+**File naming:**
+```text
+treatment_0001_before_P01_2024-05-10_2024-05-23_biweekly_sentinel2.tif
+counterfactual_0001_01_after_P03_2024-10-11_2024-10-24_biweekly_sentinel2.tif
+```
+
+**Folder layout:**
+```text
+biweekly_datasets/
+├── sentinel1/
+│   ├── treatment/    { before/ after/ }
+│   └── counterfactual/  { before/ after/ }
+├── sentinel2/
+│   ├── treatment/    { before/ after/ }
+│   └── counterfactual/  { before/ after/ }
+├── biweekly_image_quality.csv
+├── biweekly_image_quality.xlsx
+├── biweekly_quality_summary.csv
+├── biweekly_sample_validation.csv
+├── biweekly_period_definitions.csv
+├── biweekly_period_dimension.csv
+├── biweekly_site_dimension.csv
+├── biweekly_build_action_summary.csv
+└── biweekly_folder_summary.csv
+```
+
+---
+
+### Full Version 2 folder structure
+
+```text
+finals/
+├── treatment_sites.geojson
+├── counterfactual_sites.geojson
+├── all_sites.geojson
+├── site_matching_table.csv
+│
+├── daily_datasets/          ← acquisition-level imagery (actual pass dates)
+│   ├── sentinel1/
+│   │   ├── treatment/    { before/ after/ }
+│   │   └── counterfactual/  { before/ after/ }
+│   ├── sentinel2/
+│   │   ├── treatment/    { before/ after/ }
+│   │   └── counterfactual/  { before/ after/ }
+│   ├── selected_site_sample.csv
+│   └── daily_satellite_inventory.csv
+│
+├── weekly_datasets/         ← 7-day composites  (W01–W20 × before/after)
+│   ├── sentinel1/
+│   │   ├── treatment/    { before/ after/ }
+│   │   └── counterfactual/  { before/ after/ }
+│   ├── sentinel2/
+│   │   ├── treatment/    { before/ after/ }
+│   │   └── counterfactual/  { before/ after/ }
+│   └── [quality & metadata CSVs]
+│
+├── biweekly_datasets/       ← 14-day composites (P01–P10 × before/after)
+│   ├── sentinel1/
+│   │   ├── treatment/    { before/ after/ }
+│   │   └── counterfactual/  { before/ after/ }
+│   ├── sentinel2/
+│   │   ├── treatment/    { before/ after/ }
+│   │   └── counterfactual/  { before/ after/ }
+│   └── [quality & metadata CSVs]
+│
+└── quality/
+    ├── image_quality_simple.xlsx
+    └── image_quality_simple.csv
+```
+
+---
+
+### Band tables
+
+#### Sentinel-2 (all Version 2 sub-datasets)
+
+| Band | Name | Description |
+|-----:|------|-------------|
+| 1 | B2   | Blue reflectance |
+| 2 | B3   | Green reflectance |
+| 3 | B4   | Red reflectance |
+| 4 | B8   | Near-infrared reflectance |
+| 5 | B11  | Shortwave infrared 1 |
+| 6 | B12  | Shortwave infrared 2 |
+| 7 | NDVI | Vegetation condition |
+| 8 | NDWI | Surface water / wetness |
+
+Reflectance bands are scaled to approximately 0–1. Cloud- and
+shadow-masked pixels are stored as NaN (not zero).
+
+#### Sentinel-1 (all Version 2 sub-datasets)
+
+| Band | Name | Description |
+|-----:|------|-------------|
+| 1 | VV          | VV-polarized radar backscatter (dB) |
+| 2 | VH          | VH-polarized radar backscatter (dB) |
+| 3 | VV_minus_VH | VV minus VH (dB) |
+
+Sentinel-1 is useful for moisture change, flooding, vegetation-structure
+change, exposed surfaces, and cloud-independent change detection.
+
+---
+
+### Python examples
+
+#### Read a biweekly Sentinel-2 composite
+
+```python
+import rasterio
+import numpy as np
+
+path = (
+    "finals/biweekly_datasets/sentinel2/treatment/before/"
+    "treatment_0001_before_P01_2024-05-10_2024-05-23_biweekly_sentinel2.tif"
+)
+
+with rasterio.open(path) as src:
+    data = src.read(masked=True)   # shape: (8, H, W)
+    profile = src.profile
+
+ndvi = data[6]   # band 7 — NDVI
+```
+
+#### Load a biweekly panel for one treatment site
+
+```python
+import rasterio
+import numpy as np
+from pathlib import Path
+
+base = Path("finals/biweekly_datasets/sentinel2")
+site = "treatment_0001"
+periods = [f"P{i:02d}" for i in range(1, 11)]
+
+before_stack = []
+after_stack  = []
+
+for p in periods:
+    # Glob the file matching this period (date range varies)
+    before_files = sorted((base / "treatment" / "before").glob(f"{site}_before_{p}_*_biweekly_sentinel2.tif"))
+    after_files  = sorted((base / "treatment" / "after").glob(f"{site}_after_{p}_*_biweekly_sentinel2.tif"))
+
+    if before_files:
+        with rasterio.open(before_files[0]) as src:
+            before_stack.append(src.read(masked=True))   # (8, H, W)
+    else:
+        before_stack.append(None)   # missing period
+
+    if after_files:
+        with rasterio.open(after_files[0]) as src:
+            after_stack.append(src.read(masked=True))
+    else:
+        after_stack.append(None)
+```
+
+---
+
+### Image quality
+
+#### Why Sentinel-2 quality varies
+
+Sentinel-2 is an optical sensor. Cloud masking removes contaminated
+pixels, storing them as NaN rather than zero. An individual acquisition
+can therefore have substantial spatial gaps even when the satellite
+passed over the site.
+
+Compositing over a longer window increases the chance of at least one
+cloud-free observation per pixel, but it reduces temporal precision.
+
+#### Temporal resolution trade-offs
+
+| Resolution | Main advantage | Main limitation |
+|------------|----------------|-----------------|
+| Acquisition-level | Maximum temporal detail | Irregular dates; large Sentinel-2 cloud gaps |
+| Weekly (7-day) | Better temporal regularity | Often too few acquisitions to fill cloud gaps |
+| Biweekly (14-day) | Best optical coverage; fixed 10-period panels | Less precise event timing within each window |
+
+#### Sentinel-1 quality
+
+Sentinel-1 spatial valid-pixel quality is ~100% for images that exist.
+Its limitation is acquisition timing (discrete passes) rather than
+cloud-related gaps.
+
+Approximate share of scheduled biweekly periods meeting ≥80% valid
+pixels:
+
+| Group | Before | After |
+|-------|-------:|------:|
+| Treatment | 100% | 94% |
+| Counterfactual | 98% | 93% |
+
+#### Sentinel-2 biweekly quality (current working sample)
+
+| Group | Period | Scheduled periods ≥80% valid | Mean valid-pixel fraction |
+|-------|--------|-----------------------------:|--------------------------:|
+| Treatment | Before | 40% | 58% |
+| Counterfactual | Before | 57% | 69% |
+| Treatment | After | 47% | 57% |
+| Counterfactual | After | 47% | 60% |
+
+The per-treatment detailed comparison is in:
+
+```text
+finals/quality/image_quality_simple.xlsx
+```
+
+#### Quality variable definitions
+
+| Variable | Definition |
+|----------|------------|
+| `valid_pixel_fraction` | Fraction of spatial pixels where at least one band has a finite value |
+| `valid_pixel_fraction_all_bands` | Fraction where all bands are finite (stricter diagnostic) |
+
+A missing scheduled period is **not** a 0%-quality image — it means no
+composite could be built for that site-period.
+
+A recommended panel screening metric:
+
+```text
+number of scheduled periods with ≥80% valid pixels
+────────────────────────────────────────────────────
+        total number of scheduled periods
+```
+
+---
+
+### Suggested analysis workflow
+
+#### 1. Use Version 1 for simple visualization
+
+When the goal is to see what a site looked like before vs. after
+Hurricane Helene, Version 1 median composites provide a clean visual
+summary.
+
+#### 2. Use Version 2 for longitudinal analysis
+
+For each treatment site:
+
+1. Load the same temporal-resolution data for the treatment and its matched controls.
+2. Evaluate both image quality and temporal availability.
+3. Exclude or explicitly model unusable site-periods.
+4. Encode each image into image-derived features or latent representations.
+5. Use pre-hurricane periods to estimate treatment-control similarity or weights.
+6. Construct the post-hurricane counterfactual trajectory.
+7. Compare observed post-hurricane treatment outcomes with the estimated counterfactual.
+
+A representation-learning pipeline:
+
+```text
+satellite image
+      │
+      ▼
+image encoder
+      │
+      ▼
+latent embedding
+      │
+      ▼
+synthetic-control or causal model
+      │
+      ▼
+estimated counterfactual trajectory
+      │
+      ▼
+treatment effect / interpretation
+```
+
+#### 3. Prefer biweekly as the primary working resolution
+
+For the current data, biweekly provides the best default when both
+sensors are required:
+
+- 10 fixed pre-hurricane periods
+- 10 fixed post-hurricane periods
+- Substantially better Sentinel-2 coverage than individual acquisitions
+- Manageable panel size for encoding and causal modeling
+
+Weekly data are useful for temporal-resolution sensitivity analysis.
+Acquisition-level data should be kept as the source archive.
+
+#### 4. Do not select final controls from topography alone
+
+The current 5 counterfactuals per treatment are a working sample for
+pipeline development. For the final causal design, construct a larger
+eligible donor pool and then use pre-hurricane image trajectories or
+latent representations to select or weight donor units.
+
+#### 5. Check Sentinel-2 and Sentinel-1 separately
+
+Do not apply a single quality threshold across both sensors. Sentinel-2
+quality is primarily constrained by clouds; Sentinel-1 quality is
+generally spatially complete but limited by acquisition timing.
+
+#### 6. Preserve missingness
+
+Do not convert masked pixels or missing periods to zero. Zero is a
+meaningful physical value and is not equivalent to "not observed."
+
+#### 7. Account for seasonality
+
+The May-to-February study window spans substantial seasonal vegetation
+and moisture change. A causal model should distinguish hurricane-related
+deviations from normal seasonal patterns.
+
+---
+
+### Recommended checks before modeling
+
+1. Confirm the same 60 spatial units appear across all temporal datasets.
+2. Confirm each treatment has exactly 5 working counterfactuals in `selected_site_sample.csv`.
+3. Review `image_quality_simple.xlsx` at the treatment-unit level.
+4. Check usable periods per site rather than relying on average quality alone.
+5. Inspect Sentinel-2 and Sentinel-1 quality separately.
+6. Visualize representative images from all 10 pre- and 10 post-hurricane biweekly periods.
+7. Verify raster CRS, dimensions, transforms, and nodata masks before pixel-level operations.
+8. Decide how missing site-periods will be handled before training.
+9. Test whether treatment and control latent representations show similar pre-hurricane trajectories.
+10. Use biweekly as the main specification and weekly as a robustness check.
+11. Treat acquisition-level data as the source archive for irregular-time sensitivity analyses.
+12. Revisit donor-pool construction before final causal estimation.
+
+---
+
+### Important limitations
+
+1. The current 10-treatment / 5-control-per-treatment sample is a working sample, not the final causal sample.
+2. Treatment locations are mapped landslide *points*, not complete damage footprints.
+3. Counterfactual locations may have experienced hurricane-related weather or unrecorded damage.
+4. Sentinel-2 remains partially missing even after temporal compositing.
+5. Temporal compositing improves spatial coverage but reduces temporal precision.
+6. Sentinel-1 backscatter responds to moisture, terrain, viewing geometry, vegetation structure, and roughness — not only hurricane damage.
+7. The extended study period introduces seasonal variation.
+8. Matching on elevation, slope, and land cover does not eliminate unobserved differences.
+9. Missing periods must not be treated as zero-valued observations.
+10. Any final causal interpretation depends on the validity of the donor-pool and counterfactual-identification strategy.
+
+---
+
+## SCM Validation
+
+### What was done
+
+Notebook 14 tests whether a **feature-based Synthetic Control Method (SCM)** can construct a
+credible pre-hurricane counterfactual for each treatment site using biweekly
+Sentinel-1 and Sentinel-2 imagery. The goal is not to estimate the hurricane
+effect directly — it is to verify that the donor-pool weights learned in the
+pre-hurricane period generalize to held-out pre-hurricane periods that were never
+used in estimation.
+
+Passing this out-of-sample test is a prerequisite for trusting the
+post-hurricane counterfactual.
+
+---
+
+### Input data
+
+- **Imagery:** biweekly composites from `finals/biweekly_datasets/`
+- **Sample:** 10 treatment sites, 5 matched counterfactual (donor) sites per treatment (`selected_site_sample.csv`)
+- **Sensors:** Sentinel-1 and Sentinel-2 estimated separately
+
+---
+
+### Features extracted
+
+For every biweekly image, the spatial mean of each band is computed. These
+are interpretable summary statistics rather than latent embeddings.
+
+| Sensor | Features |
+|--------|----------|
+| Sentinel-1 | `mean_VV`, `mean_VH`, `mean_VV_minus_VH` |
+| Sentinel-2 | `mean_B2`, `mean_B3`, `mean_B4`, `mean_B8`, `mean_B11`, `mean_B12`, `mean_NDVI`, `mean_NDWI` |
+
+---
+
+### Temporal design
+
+| Phase | Periods | Role |
+|-------|---------|------|
+| Training | P01–P08 (pre-hurricane) | Estimate SCM donor weights |
+| **Validation** | **P09–P10 (pre-hurricane)** | **Out-of-sample test — weights are frozen** |
+| Effect estimation | P11–P20 (post-hurricane) | Construct counterfactual trajectory |
+
+P09 and P10 are **never** used to estimate weights. They serve purely as a
+held-out test of whether the weights generalize beyond the training window.
+
+---
+
+### Method
+
+For each treatment site $i$ and sensor, SCM finds a vector of non-negative,
+sum-to-one donor weights $\mathbf{w}$ that minimizes the squared distance
+between the treatment and the weighted donor average over the training periods:
+
+$$
+\min_{\mathbf{w}} \; \|\mathbf{X}_T - \mathbf{X}_C \mathbf{w}\|^2
+\quad \text{subject to} \quad w_j \ge 0, \; \sum_j w_j = 1
+$$
+
+where $\mathbf{X}_T$ is the treatment feature matrix (periods × features) and
+$\mathbf{X}_C$ is the stacked donor matrix, both standardized using the
+training-period mean and standard deviation.
+
+Standardization is critical: features span very different physical scales (e.g.
+NDVI in [−1, 1] versus radar backscatter in dB), so raw differences are not
+directly comparable. All RMSE values in the validation output are expressed in
+**training standard deviation units**, making them directly comparable across
+features and sensors.
+
+The optimization is solved using SLSQP. Once weights are estimated from P01–P08
+they are **frozen** — they are not re-estimated for P09–P10 or P11–P20.
+
+---
+
+### Validation metric
+
+The primary validation criterion is the ratio of held-out validation RMSE to
+training RMSE, evaluated on the standardized feature scale:
+
+| Ratio | Flag |
+|-------|------|
+| ≤ 1.5 | **good** — weights generalize well |
+| ≤ 2.0 | **caution** — modest overfitting |
+| > 2.0 | **poor** — weights do not generalize |
+
+A ratio close to or below 1.0 means the counterfactual tracks the treatment as
+well out-of-sample as it did in training — the strongest possible validation outcome.
+
+---
+
+### Results
+
+#### Overall site-level validation
+
+| Sensor | Good | Caution | Poor |
+|--------|-----:|--------:|-----:|
+| Sentinel-1 | 9 / 10 | 0 / 10 | 1 / 10 |
+| Sentinel-2 | 6 / 10 | 3 / 10 | 1 / 10 |
+
+Sentinel-1 passes validation convincingly for nearly all sites.
+Sentinel-2 is more variable: six sites pass cleanly, three show modest
+overfitting, and treatment_0004 fails outright (validation-to-training RMSE
+ratio = 3.05), reflecting the generally weaker optical data quality at that
+location.
+
+#### Sentinel-1 — feature-level validation RMSE (average across 10 sites)
+
+![Sentinel-1 SCM validation RMSE by feature. All three features fall well below the 1 SD reference line, indicating that the SCM donor weights generalize strongly to the held-out periods.](test/scm_validation/figures/sentinel1_feature_validation_rmse.png){width=80%}
+
+VV and VH are the most reliably reconstructed features (mean RMSE 0.18 and
+0.22 SD respectively). VV−VH is harder to match but still well below 1 SD
+(mean 0.42), reflecting the additional complexity of the polarimetric ratio.
+
+#### Sentinel-1 — RMSE heatmap by treatment site and feature
+
+![Each cell shows the SCM validation RMSE (in training SDs) for one treatment site × feature combination. Most cells are dark (low error). The only outlier is treatment_0007 × VV_minus_VH (1.11 SD), where a single donor dominates the weights.](test/scm_validation/figures/sentinel1_treatment_feature_rmse_heatmap.png){width=90%}
+
+Eight of the ten treatment sites have all three Sentinel-1 features below
+0.5 SD. Treatment_0001 and treatment_0006 are slightly higher on VV
+(0.40–0.52 SD) but still acceptable. Treatment_0007 has a single outlier cell
+(VV_minus_VH = 1.11 SD), which is also the site whose overall validation flag
+is rated **poor** — the SCM placed all weight on a single donor, leaving the
+polarimetric ratio poorly reconstructed.
+
+#### Sentinel-2 — feature-level validation RMSE (average across 10 sites)
+
+![Sentinel-2 SCM validation RMSE by feature. All features remain below 1 SD but are substantially higher than Sentinel-1. Vegetation indices (NDVI, NDWI) and NIR (B8) perform best; visible and SWIR bands (B2–B4, B11–B12) are noticeably harder to match.](test/scm_validation/figures/sentinel2_feature_validation_rmse.png){width=80%}
+
+B8 (NIR) achieves the lowest mean RMSE (0.43 SD), followed by NDWI and NDVI
+(~0.49–0.50 SD). The visible bands (B2–B4) and SWIR bands (B11–B12) range
+from 0.67 to 0.78 SD. These are still below the 1 SD threshold on average,
+but the higher variance across sites means individual site–feature combinations
+can be problematic.
+
+#### Sentinel-2 — RMSE heatmap by treatment site and feature
+
+![Each cell shows the Sentinel-2 SCM validation RMSE. Treatment_0004 (top-highlighted row) is the dominant outlier, with RMSE exceeding 1.4–2.3 SD across most features. All other sites remain at moderate levels. B8, NDVI, and NDWI are the most consistently well-fitted features.](test/scm_validation/figures/sentinel2_treatment_feature_rmse_heatmap.png){width=100%}
+
+Treatment_0004 is clearly the worst-performing site: RMSE values exceed 2 SD
+for B2, B3, B4, and B11, which corresponds to an overall site validation flag
+of **poor**. This site also has one of the lower Sentinel-2 data quality scores
+in the biweekly panel, suggesting that cloud-related data gaps during the
+training window make it difficult to fit stable donor weights.
+
+Treatments_0002, _0006, and _0008 show **caution**-level performance driven
+primarily by the visible and SWIR bands; NDVI, NDWI, and B8 remain acceptable
+even at these sites.
+
+---
+
+### What the results mean
+
+**Sentinel-1** counterfactuals can be considered validated at 9 of 10 treatment
+sites. The donor weights estimated from P01–P08 predict the biweekly VV and VH
+trajectories in the held-out periods with errors well under half a training
+standard deviation, providing strong evidence that the SCM weights capture a
+stable treatment-control relationship.
+
+**Sentinel-2** validation is more mixed. The vegetation and water indices (NDVI,
+NDWI, B8) generalize reasonably at most sites. The visible and SWIR bands are
+harder to match, likely because biweekly optical composites retain more residual
+cloud-masking variability than radar data. Treatment_0004 should be treated with
+caution in any Sentinel-2–based analysis: either a larger donor pool, better
+cloud-screened periods, or a Sentinel-1-only specification would be more
+defensible for this site.
+
+The post-hurricane effect estimates in `05_post_hurricane_effects.csv` use the
+same frozen weights. For sites and features that passed validation, those
+estimates can be interpreted as genuine departures from the expected
+no-hurricane trajectory. For **poor** sites the effect estimates are unreliable.
+
+---
+
+### Output files
+
+```text
+test/scm_validation/
+├── 01_extracted_features.csv          ← mean band values per site × period × sensor
+├── 02_scm_weights.csv                 ← donor weights per treatment × sensor
+├── 03_training_fit.csv                ← actual vs synthetic (P01–P08, standardized)
+├── 04_validation_results.csv          ← actual vs synthetic (P09–P10, standardized)
+├── 05_post_hurricane_effects.csv      ← actual vs synthetic (P11–P20, original units)
+├── 06_scm_site_summary.csv            ← per-site RMSE, ratio, and validation flag
+├── 07_scm_validation.xlsx             ← all above sheets in one workbook
+├── 08_feature_validation_rmse.csv     ← RMSE per treatment × feature (P09–P10)
+├── 09_feature_validation_rmse_summary.csv  ← RMSE averaged across sites per feature
+└── figures/
+    ├── sentinel1_feature_validation_rmse.png
+    ├── sentinel2_feature_validation_rmse.png
+    ├── sentinel1_treatment_feature_rmse_heatmap.png
+    └── sentinel2_treatment_feature_rmse_heatmap.png
+```
+
+---
+
+## ASCM Validation
+
+### What was done
+
+Notebook 15 implements **Ridge Augmented Synthetic Control (Ridge ASCM)**
+following Ben-Michael, Feller, and Rothstein (2021). It uses the same biweekly
+imagery, the same 10-treatment / 5-donor-per-treatment sample, and the same
+temporal design as the SCM notebook, and directly compares Ridge ASCM against
+plain SCM on the held-out P09–P10 validation periods.
+
+The key question is: does the ridge augmentation correction improve
+out-of-sample counterfactual prediction, or does it introduce extrapolation that
+makes things worse?
+
+> **Reference:** Ben-Michael, E., Feller, A., & Rothstein, J. (2021).
+> *The Augmented Synthetic Control Method.* Journal of the American Statistical
+> Association, 116(536), 1789–1803.
+
+---
+
+### How Ridge ASCM extends SCM
+
+Plain SCM requires non-negative weights that sum to one. When the donor pool is
+small or the treatment site lies outside the convex hull of the donors, SCM
+cannot achieve a close pre-treatment fit. Ridge ASCM addresses this by adding a
+**bias-correction term** that allows weights to go negative and extrapolate
+beyond the convex hull.
+
+Starting from the SCM solution $\hat{\mathbf{w}}^\text{SCM}$, Ridge ASCM solves:
+
+$$
+\min_{\mathbf{w}} \;
+\frac{1}{2\lambda} \|\mathbf{X}_T - \mathbf{X}_C \mathbf{w}\|^2
+\;+\;
+\frac{1}{2} \|\mathbf{w} - \hat{\mathbf{w}}^\text{SCM}\|^2
+\quad \text{subject to} \quad \sum_j w_j = 1
+$$
+
+The ridge penalty $\lambda$ controls how far the ASCM weights deviate from the
+SCM solution:
+
+| $\lambda$ value | Behavior |
+|-----------------|----------|
+| Very large (e.g. 10 000) | ASCM ≈ SCM; essentially no correction |
+| Moderate | Meaningful bias correction with limited extrapolation |
+| Very small | Aggressive correction; high risk of extrapolation |
+
+Unlike SCM, ASCM allows **negative weights**, meaning it can extrapolate beyond
+the convex hull of the donor pool to achieve a better pre-treatment fit.
+
+---
+
+### Lambda selection
+
+$\lambda$ is selected separately for each treatment site × sensor combination
+using **leave-one-training-period-out cross-validation** on P01–P08 only.
+P09–P10 are never used in lambda selection.
+
+Selected $\lambda$ values from the current run:
+
+| Treatment | Sentinel-1 $\lambda$ | Sentinel-2 $\lambda$ |
+|-----------|---------------------:|---------------------:|
+| treatment_0001 | 2.0 | 10 000 |
+| treatment_0002 | 6.3 | 7.9 |
+| treatment_0003 | 20.0 | 10 000 |
+| treatment_0004 | 20.0 | 2.0 |
+| treatment_0005 | 10 000 | 0.8 |
+| treatment_0006 | 31.6 | 10 000 |
+| treatment_0007 | 10 000 | 10 000 |
+| treatment_0008 | 1.6 | 0.25 |
+| treatment_0009 | 10 000 | 10 000 |
+| treatment_0010 | 10 000 | 2.5 |
+
+When $\lambda$ = 10 000 the CV selected essentially no correction, meaning the
+SCM already achieves the best possible fit given this donor pool and ASCM offers
+no further benefit.
+
+---
+
+### Results
+
+#### Sentinel-1 — SCM vs Ridge ASCM validation RMSE
+
+![Sentinel-1 comparison of mean P09–P10 validation RMSE across all 10 sites. ASCM (orange) is lower than SCM (blue) for all three Sentinel-1 features. The improvement is most pronounced for VV and VH (roughly 0.05–0.06 SD reduction). The dashed line marks the 1 SD reference.](test/ascm_validation/figures/sentinel1_scm_vs_ascm_validation.png){width=85%}
+
+For Sentinel-1, Ridge ASCM consistently reduces the average validation RMSE.
+VV improves from 0.232 to 0.185 SD (−20%), VH from 0.275 to 0.222 SD (−19%),
+and VV_minus_VH from 0.577 to 0.566 SD (−2%). The gains are modest but
+consistent — ASCM improved at least one feature for 5 of 10 sites for VV and
+VH.
+
+#### Sentinel-1 — ASCM heatmap by treatment site and feature
+
+![Sentinel-1 ASCM validation RMSE heatmap. Compare to the SCM heatmap in the previous tab: most cells are equal or darker (lower error). Treatment_0007 VV_minus_VH rises from 1.11 to 1.38 SD — ASCM made this site worse because extrapolation amplified the SCM's original failure.](test/ascm_validation/figures/sentinel1_ascm_validation_rmse_heatmap.png){width=90%}
+
+ASCM reduced RMSE for treatment_0001 VH (0.69 → 0.26 SD) and treatment_0002
+VV_minus_VH (1.59 → 1.42 SD). Treatment_0007 is the clear failure case:
+the $\lambda$ = 10 000 selection means the CV found no benefit from correction,
+yet negative weights still increased the VV_minus_VH error from 1.11 to 1.38
+SD. This illustrates that when SCM already concentrates all weight on a single
+donor, the ridge augmentation cannot help.
+
+#### Sentinel-2 — SCM vs Ridge ASCM validation RMSE
+
+![Sentinel-2 comparison. For most features, ASCM (orange) is equal to or slightly higher than SCM (blue) — Ridge ASCM does not improve Sentinel-2 counterfactual prediction on average. B8 shows the largest degradation (0.47 → 0.60 SD). B11 is the only feature where ASCM marginally helps on average.](test/ascm_validation/figures/sentinel2_scm_vs_ascm_validation.png){width=90%}
+
+Unlike Sentinel-1, Ridge ASCM **does not consistently improve** Sentinel-2
+counterfactual prediction. The mean validation RMSE is higher under ASCM for
+7 of the 8 Sentinel-2 features. B8 (NIR) shows the worst degradation:
+0.472 → 0.601 SD. B11 (SWIR-1) is the only feature that benefits slightly on
+average (0.841 → 0.815 SD).
+
+#### Trajectory example — treatment_0001 NDVI
+
+![Observed (blue), SCM counterfactual (orange), and Ridge ASCM counterfactual (green) for treatment_0001 mean NDVI. The two dashed vertical lines mark the training/validation and validation/post-treatment boundaries (P08|P09 and P10|P11). Training: P1–P8. Validation: P9–P10. Post-hurricane effect: P11–P20.](test/ascm_validation/figures/treatment_0001_sentinel2_mean_NDVI_trajectory.png){width=100%}
+
+In the training phase (P01–P08), SCM and ASCM tracks are nearly identical for
+this site (λ = 10 000, so ASCM ≈ SCM). In the held-out validation window
+(P09–P10) the counterfactual closely follows the treatment trajectory, with
+both methods hovering near 0 SD while the treatment dips to −0.9 SD — a
+reasonable tracking error given the optical data gaps.
+
+Post-hurricane (P11–P20, right of the second dashed line), the treatment NDVI
+drops sharply to −3.6 to −4.2 SD while both counterfactuals remain near 0 SD.
+This large and sustained divergence indicates a substantial post-hurricane
+decline in vegetation at this site that is far outside the normal seasonal
+range captured by the donor sites. Individual trajectory plots for all 10
+treatment sites and all features are available in the figures folder.
+
+---
+
+### What the results mean
+
+**Sentinel-1 with Ridge ASCM:** The augmentation provides a small but
+consistent improvement in radar-based counterfactual prediction. For sites where
+SCM already generalizes well (most sites), the improvement is marginal. For a
+few sites where SCM has imperfect pre-training fit (treatment_0001, _0002, _0006),
+ASCM meaningfully reduces the held-out error. The exception is treatment_0007,
+where all SCM weight is concentrated on a single donor; ASCM's extrapolation
+then overshoots, increasing error. In practice, Sentinel-1 ASCM is a modest but
+safe upgrade over plain SCM for most sites.
+
+**Sentinel-2 with Ridge ASCM:** The augmentation is **unreliable** with the
+current small donor pool (5 sites). When $\lambda$ is small (e.g. treatment_0005
+Sentinel-2 at λ = 0.8 or treatment_0008 at λ = 0.25), ASCM allows large
+negative weights that extrapolate aggressively beyond the donor convex hull.
+Treatment_0005 Sentinel-2 is the most severe failure — some features degrade by
+more than 1 SD relative to SCM. This is not a flaw in the ASCM methodology
+itself, but rather a sign that **five donors are too few** to safely permit
+extrapolation for noisy optical data.
+
+**Overall conclusion:** For the current 5-donor working sample, plain SCM is
+the safer default for Sentinel-2. Ridge ASCM is preferable for Sentinel-1 at
+sites where the SCM validation flag is "good" and the selected λ is not at the
+maximum. Expanding the donor pool to 10–20 sites would likely improve ASCM's
+stability for Sentinel-2 as well.
+
+**Post-hurricane effects:** The trajectory plots reveal large, sustained
+treatment-counterfactual divergences for several sites after P10, particularly
+in NDVI and NDWI. These divergences are consistent with hurricane-induced
+vegetation damage and surface disturbance that persists well beyond the
+immediate event window. Formal effect estimates are in
+`08_post_hurricane_effects.csv` (ASCM) and should be interpreted together with
+the site-level validation flags.
+
+---
+
+### Output files
+
+```text
+test/ascm_validation/
+├── 01_extracted_feature_panel.csv     ← mean band values per site × period × sensor
+├── 02_scm_weights.csv                 ← SCM donor weights (used as ASCM starting point)
+├── 03_ascm_weights.csv                ← final Ridge ASCM weights (may be negative)
+├── 04_lambda_selection.csv            ← CV RMSE across lambda grid per site × sensor
+├── 05_validation_predictions.csv      ← SCM and ASCM predictions on P09–P10
+├── 06_validation_summary.csv          ← per-site SCM vs ASCM RMSE comparison
+├── 07_feature_validation_rmse.csv     ← per-site × feature RMSE for both methods
+├── 08_post_hurricane_effects.csv      ← actual vs ASCM counterfactual (P11–P20)
+├── 09_weight_diagnostics.csv          ← negative weight counts and extrapolation distance
+├── 10_scm_vs_ascm_summary.csv         ← feature-level SCM vs ASCM average comparison
+├── ascm_results.xlsx                  ← all sheets in one workbook
+└── figures/
+    ├── sentinel1_scm_vs_ascm_validation.png
+    ├── sentinel2_scm_vs_ascm_validation.png
+    ├── sentinel1_scm_validation_rmse_heatmap.png
+    ├── sentinel1_ascm_validation_rmse_heatmap.png
+    ├── sentinel2_scm_validation_rmse_heatmap.png
+    ├── sentinel2_ascm_validation_rmse_heatmap.png
+    └── treatment_NNNN_{sensor}_{feature}_trajectory.png  ← 110 trajectory plots
+```
+
+:::
+
+---
+
+### Software
+
+The workflow was built in Python using **Google Earth Engine**,
+**geemap**, **GeoPandas**, **Rasterio**, **NumPy**, **pandas**,
+**Matplotlib**, and **Shapely**.
