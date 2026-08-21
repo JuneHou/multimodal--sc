@@ -166,6 +166,12 @@ class Panel:
         self.pid_of_seq = {v: k[2] for k, v in seq_of.items()}
         self.vfrac = idx.set_index(["site_id", "sensor", "period_id"])[
             "valid_pixel_fraction"].to_dict()
+        # observed-on-disk flag for the ground-truth side: generated latents (arm B)
+        # have no raw image, so truth readers must check this, never have().
+        # (panel_latent_index.csv has no file_exists column; there has_latent == it.)
+        fcol = "file_exists" if "file_exists" in idx.columns else "has_latent"
+        self.fexists = idx.set_index(["site_id", "sensor", "period_id"])[
+            fcol].to_dict()
         self.meta = idx.set_index(["site_id", "sensor", "period_id"]).to_dict("index")
         self.scaler = {}
         for sensor in SENSORS:
@@ -218,6 +224,9 @@ class Panel:
         return y, X
 
     def rmse_of(self, w, tid, sensor, seqs, dl):
+        """RMSPE in P01–P08 SD units: √mean((z − Xw)²) over periods × dims.
+        On held-out seqs this is holdout RMSPE (ADH's RMSPE, z-scored). After
+        that scaling, RMSPE of the pooled mean is 1 by construction."""
         y, X = self.design(tid, sensor, seqs, dl)
         r = y - X @ w
         return float(np.sqrt(np.mean(r * r)))
@@ -230,6 +239,10 @@ class Panel:
 
     def have(self, site, sensor, seq):
         return (site, sensor, self.pid_of_seq[seq]) in self.flat
+
+    def observed(self, site, sensor, seq):
+        """True only if the RAW image exists on disk (the ground-truth side)."""
+        return bool(self.fexists.get((site, sensor, self.pid_of_seq[seq]), False))
 
 
 # ---------------------------------------------------------------- donor selection
@@ -296,7 +309,10 @@ def donor_overlap(don, panel, arm="main"):
 
 # ---------------------------------------------------------------- validation flags
 def flags(train, valid):
-    """ratio flag (≤1.5 good / ≤2.0 caution / else poor) + level flag (valid < 1 SD)."""
+    """Notebook-14 ratio (≤1.5 good / ≤2.0 caution / else poor) plus whether
+    holdout RMSPE beats the mean predictor (valid < 1 in SD units). After
+    P01–P08 z-scoring, RMSPE of the pooled mean is 1 by construction. CSV
+    column `flag_level` keeps the pass/FAIL label (not a named '1-SD test')."""
     ratio = valid / train if train > 0 else np.inf
     fr = "good" if ratio <= 1.5 else ("caution" if ratio <= 2.0 else "poor")
     return ratio, fr, ("pass" if valid < 1.0 else "FAIL")
@@ -553,7 +569,8 @@ def decode_validation_table(panel, tokb, donors_arm, W, dec_of, sensors=SENSORS)
         mu, sd = panel.scaler[sensor]
         for tid in panel.treatments:
             for seq in (9, 10):
-                if not panel.have(tid, sensor, seq):
+                if not (panel.have(tid, sensor, seq)
+                        and panel.observed(tid, sensor, seq)):
                     continue
                 obs_lat = panel.flat[(tid, sensor, panel.pid_of_seq[seq])]
                 chip = read_chip_biweekly(panel.tif_path(tid, sensor, seq), sensor)
@@ -600,7 +617,7 @@ def effect_features_table(panel, tokb, dec_of, methods=("scm", "ascm"),
             for seq in post:
                 period = f"P{seq}"
                 f_obs = None
-                if panel.have(tid, sensor, seq):
+                if panel.observed(tid, sensor, seq):
                     f_obs = feats_from_raw(sensor, read_chip_biweekly(
                         panel.tif_path(tid, sensor, seq), sensor))
                 for method in methods:
@@ -633,13 +650,13 @@ def plot_validation_bars(val, panel, path, title_note="SCM", sensors=SENSORS):
         ax.bar(x, e9, 0.25, label="expanding: P09")
         ax.bar(x + 0.27, e10, 0.25, label="expanding: P10")
         ax.axhline(1.0, color="k", lw=0.8, ls="--")
-        ax.text(0.02, 1.02, "1 pooled SD", transform=ax.get_yaxis_transform(),
+        ax.text(0.02, 1.02, "mean baseline", transform=ax.get_yaxis_transform(),
                 fontsize=7)
         ax.set_xticks(x)
         ax.set_xticklabels([t[-2:] for t in panel.treatments])
         ax.set_xlabel("treatment site")
-        ax.set_title(f"{sensor} — {title_note} held-out validation")
-        ax.set_ylabel("validation RMSE (pooled-SD units)")
+        ax.set_title(f"{sensor} — {title_note} holdout RMSPE")
+        ax.set_ylabel("holdout RMSPE (SD units)")
     axes[0].legend(frameon=False, fontsize=7)
     fig.tight_layout()
     fig.savefig(path, bbox_inches="tight")
@@ -681,8 +698,8 @@ def plot_scm_vs_ascm(cmp_, path, sensors=SENSORS):
             ax.annotate(r["treatment_site_id"][-2:],
                         (r["valid_rmse_scm"], r["valid_rmse_ascm"]),
                         fontsize=7, xytext=(3, 3), textcoords="offset points")
-        ax.set_xlabel("SCM validation RMSE (SD units)")
-        ax.set_ylabel("ASCM validation RMSE (SD units)")
+        ax.set_xlabel("SCM holdout RMSPE (SD units)")
+        ax.set_ylabel("ASCM holdout RMSPE (SD units)")
         ax.set_title(f"{sensor} — below the line = ASCM better")
     fig.tight_layout()
     fig.savefig(path, bbox_inches="tight")
@@ -739,7 +756,7 @@ def plot_site_trajectories(panel, tokb, dec_of, sensor, band, path,
     for ax, tid in zip(axes.ravel(), panel.treatments):
         xs, obs = [], []
         for seq in range(1, 21):
-            if panel.have(tid, sensor, seq):
+            if panel.observed(tid, sensor, seq):
                 f = feats_from_raw(sensor, read_chip_biweekly(
                     panel.tif_path(tid, sensor, seq), sensor))
                 xs.append(seq)

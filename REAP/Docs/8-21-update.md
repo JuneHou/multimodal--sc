@@ -16,12 +16,14 @@ Numbers below are from the executed 2026-08-19 run. Paths are relative to `REAP/
 | 1 | Design | pipeline + split table |
 | 2 | Encode | availability table |
 | 3 | kNN donors | distance table + overlap table (`panel_knn_donors.csv`) |
-| 4 | Estimators and metric | RMSE formula |
-| 5 | Result 1 — SCM | `panel_scm_validation.png` + RMSE table |
+| 4 | Estimators and metric | RMSPE formula |
+| 5 | Result 1 — SCM | `panel_scm_validation.png` + RMSPE table |
 | 6 | Result 2 — ASCM | `panel_scm_vs_ascm.png`, `panel_ascm_lambda.png` |
 | 7 | Result 3 — decode vs floor | `panel_decode_example.png`, `panel_decode_validation_features.png` |
 | 8 | Effects, vs feature SCM | `panel_trajectories_sentinel2_NDVI.png` + notebook-14 table |
-| 9 | Takeaway | none |
+| 9 | The cloud problem | none |
+| 10 | Addressing clouds (notebook 05) | `panel_genfill_comparison.png` |
+| 11 | Takeaway + next steps | none |
 
 ---
 
@@ -46,7 +48,7 @@ Then the design:
 - Split A (collaborator): fit P01–P08, freeze, score P09+P10.
 - Split B (advisor): expanding window — P01–P08 → P09; P01–P09 → P10.
 
-Notebooks: `notebooks/ts_SCM_ASCM/01_encode_biweekly_panel.ipynb` … `04_decode_holdout_groundtruth.ipynb`.
+Notebooks: `notebooks/ts_SCM_ASCM/01_encode_biweekly_panel.ipynb` … `04_decode_holdout_groundtruth.ipynb`. After the SCM/ASCM results: cloud problem, then `05_generation_cloudfill_panel.ipynb`. Takeaway is last.
 
 | | fit | score |
 |---|---|---|
@@ -76,7 +78,7 @@ Notebooks: `notebooks/ts_SCM_ASCM/01_encode_biweekly_panel.ipynb` … `04_decode
 
 ## 3. kNN donors and their distribution (notebook 02)
 
-Lead with **distance** (it explains RMSE ≈ 1). Overlap with the covariate-matched 5 as a small table on the same slide.
+Lead with **distance** (it explains holdout RMSPE ≈ 1). Overlap with the covariate-matched 5 as a small table on the same slide.
 
 - Search = every control **with panel imagery** (50), then keep 5 nearest per sensor. Distance = mean Euclidean distance of unscaled 980-d latents over shared P01–P08 periods.
 - **Limit (not a filter):** `embed_DiD` searched 260 because those sites had snapshot chips. 210 of 260 have no P01–P20 GeoTIFF, so they have no latent. Repeating that search is new data. See `notebooks/ts_SCM_ASCM/README.md` § Limitation.
@@ -110,7 +112,7 @@ S1 is almost flat: “nearest” is not meaningfully nearer.
 
 Three sites per sensor have zero overlap.
 
-**SCM weights on those 5 (preview of Result 1)**
+**5-donor SCM weights, median over 10 treated sites (P01–P08)**
 
 | sensor | max weight (median) | effective donors (median) |
 |---|---|---|
@@ -126,24 +128,24 @@ Nearly uniform. The simplex has nothing to prefer.
 Simplex SCM vs ridge ASCM (Ben-Michael et al. 2021). Same donors, same z-scoring, both splits.
 
 \[
-\mathrm{RMSE} = \sqrt{\mathrm{mean}\big((z_{\mathrm{treated}} - Xw)^2\big)}
+\mathrm{RMSPE} = \sqrt{\mathrm{mean}\big((z_{\mathrm{treated}} - Xw)^2\big)}
 \]
 
-over periods × 980 z-scored latent dims. \(z\) uses the pooled 60-site, P01–P08 mean/SD, so **1.0 = 1 typical cross-site SD**.
+over periods × 980 z-scored latent dims. This is Abadie's RMSPE on z-scored outcomes. \(z\) uses the pooled 60-site, P01–P08 mean/SD, so the **mean predictor has RMSPE = 1** by construction. CSV columns stay `valid_rmse` / `flag_level`.
 
-- Training RMSE: fit window (in-sample).
-- **Validation RMSE:** held-out P09/P10 — this is the result.
-- Pass if validation RMSE < 1 **and** ratio (valid/train) ≲ 1.5.
+- Training RMSPE: fit window (in-sample).
+- **Holdout RMSPE:** held-out P09/P10 — this is the result.
+- Pass if holdout RMSPE < 1 (beats the mean) **and** ratio (valid/train) ≲ 1.5.
 
 ---
 
 ## 5. Result 1 — SCM
 
-Held-out RMSE sits on the 1-SD line. Train ≈ valid. Ratio 10/10 “good”; level fails almost everywhere. A 5-donor mix does not beat the site mean even in-sample.
+Holdout RMSPE sits on the mean baseline. Train ≈ valid. Ratio 10/10 “good”; `flag_level` fails almost everywhere. A 5-donor mix does not beat the site mean even in-sample.
 
 **Plot**
 
-![SCM held-out validation RMSE vs 1 pooled SD](../notebooks/ts_SCM_ASCM/panel_scm_validation.png)
+![SCM holdout RMSPE vs mean baseline](../notebooks/ts_SCM_ASCM/panel_scm_validation.png)
 
 Source table: `notebooks/ts_SCM_ASCM/panel_scm_validation.csv` (`arm=main`).
 
@@ -162,9 +164,9 @@ Source table: `notebooks/ts_SCM_ASCM/panel_scm_validation.csv` (`arm=main`).
 | 0009 | 1.049 | 1.054 | FAIL | 0.837 | 1.226 | FAIL |
 | 0010 | 1.051 | 1.040 | FAIL | 1.015 | 1.232 | FAIL |
 
-Only site 3 / S2 passes the level test. Expanding window is the same picture:
+Only site 3 / S2 beats the mean baseline. Expanding window is the same picture:
 
-| | S1 valid RMSE | S2 valid RMSE |
+| | S1 holdout RMSPE | S2 holdout RMSPE |
 |---|---|---|
 | expanding P09 | 1.03–1.07 | 0.89–1.38 |
 | expanding P10 | 1.03–1.09 | 0.96–1.42 |
@@ -175,11 +177,11 @@ Optional context plot (latent gap over P01–P20; do not treat post-period as a 
 
 ## 6. Result 2 — ASCM
 
-Same validation RMSE. SCM vs ASCM lie on the diagonal (max |improvement| \(< 10^{-8}\)). No negative weights on main w8. 36/40 chosen \(\lambda\) sit on the CV grid boundary (13 at \(10^{-4}\), 23 at \(10^{4}\)). Ridge does not move the estimator.
+Same holdout RMSPE. SCM vs ASCM lie on the diagonal (max |improvement| \(< 10^{-8}\)). No negative weights on main w8. 36/40 chosen \(\lambda\) sit on the CV grid boundary (13 at \(10^{-4}\), 23 at \(10^{4}\)). Ridge does not move the estimator.
 
 **Plots**
 
-![SCM vs ASCM held-out RMSE](../notebooks/ts_SCM_ASCM/panel_scm_vs_ascm.png)
+![SCM vs ASCM holdout RMSPE](../notebooks/ts_SCM_ASCM/panel_scm_vs_ascm.png)
 
 ![ASCM ridge penalty chosen by leave-one-period-out CV](../notebooks/ts_SCM_ASCM/panel_ascm_lambda.png)
 
@@ -231,7 +233,7 @@ S2 NDVI/NDWI ≈ floor → **decoder-limited**. S2 reflectance 1.1–3.6× floor
 | S1 VV | 3.22 | 2.43 |
 | S2 NDVI | 0.217 | 0.176 |
 
-Per-pixel imagery is not usable either way. Latent-space RMSE after decode matches Result 1 (S1 1.06, S2 1.18) and is identical for SCM and ASCM.
+Per-pixel imagery is not usable either way. Latent-space holdout RMSPE after decode matches Result 1 (S1 1.06, S2 1.18) and is identical for SCM and ASCM.
 
 ---
 
@@ -252,9 +254,9 @@ Also: `notebooks/ts_SCM_ASCM/panel_trajectories_sentinel1_VV.png`. Table: `noteb
 | S2 B8 | −0.040 | 0.048 |
 | S1 VH (dB) | +0.26 | 0.91 |
 
-Collaborator notebook 14 (chip-mean features, same split, different scaler) **passes** the 1-SD test that latent SCM fails. Failure is the 980-d spatial latent as the weighting space, not the holdout design.
+Collaborator notebook 14 (chip-mean features, same split, different scaler) **beats the mean baseline** that latent SCM fails. Failure is the 980-d spatial latent as the weighting space, not the holdout design.
 
-Notebook-14 validation RMSE (P09–P10, their training-SD units) — from `Docs/report_new_panel_datasets_2026-08-19.md` §4.2:
+Notebook-14 holdout RMSPE (P09–P10, their training-SD units) — from `Docs/report_new_panel_datasets_2026-08-19.md` §4.2:
 
 | site | S1 | S2 | site | S1 | S2 |
 |---|---|---|---|---|---|
@@ -264,20 +266,51 @@ Notebook-14 validation RMSE (P09–P10, their training-SD units) — from `Docs/
 | 0004 | 0.14 | **1.68** | 0009 | 0.18 | 0.42 |
 | 0005 | 0.19 | **1.17** | 0010 | 0.07 | 0.29 |
 
-S1 0.18–0.42 (site 7 poor); S2 0.43–0.78 (sites 4/5 poor). Different space and scaler: compare each pipeline only to **its own** 1-SD line.
+S1 0.18–0.42 (site 7 poor); S2 0.43–0.78 (sites 4/5 poor). Different space and scaler: compare each pipeline only to **its own** mean baseline (RMSPE = 1).
 
 ---
 
-## 9. Takeaway + what we would change
+## 9. The cloud problem
 
-The panel solved evaluation. This encode→weight→decode chain does not produce a useful synthetic image.
+After SCM and ASCM, the fit already fails in-sample. Before concluding that 980-d is unspannable, check the S2 inputs.
 
-Options (decisions, not defaults):
+- 14-day S2 is only 57–69% valid (~40% invalid on average). Chip-mean fill fabricates about a third of every encoded image.
+- Snapshot DiD had ~4.5-month composites with valid fractions ≈ 1, so fill was a non-issue. Here it is first-order: TerraMind pretraining was cloud-filtered; a moving mask injects noise that is not land.
+- That can contaminate kNN (distances compare cloud masks) and the reconstruction floor. Notebook 14’s worst S2 sites (0004, 0005) had thin validation-period valid pixels. Quality-40 still left holdout RMSPE at the mean baseline, but also shrank the donor pool.
 
-1. Fit weights on decoded features; keep the tokenizer for donor search / decode.
-2. Spatially pool the latent before SCM.
-3. Keep more than 5 neighbors from the existing 50.
-4. Collect panel imagery for the other 210 of the 260 snapshot-era controls if we want that kNN back. New data, not a code change.
+---
+
+## 10. Addressing clouds — notebook 05
+
+[`notebooks/ts_SCM_ASCM/05_generation_cloudfill_panel.ipynb`](../notebooks/ts_SCM_ASCM/05_generation_cloudfill_panel.ipynb) — TerraMind-large S1→S2 generation (IBM recipe, full replacement), then full pipeline rerun. Ground truth stays the raw observed chip. Executed 2026-08-20.
+
+**Plot:** `panel_genfill_comparison.png` (S2 frozen joint, own-SD units). Also `panel_genfill_example.png`.
+
+| | chip-mean (01–04) | generation (05) |
+|---|---|---|
+| S2 frozen-joint mean holdout RMSPE (own SD) | 1.18 | 1.05 |
+| Site 0004 | 1.38 | **0.73** |
+| Site 0005 | 1.19 | **0.98** |
+| S2 kNN overlap of the 5 donors | — | 0.6 / 5 |
+| P09 RMSPE on the **original** scaler | 1.107 | 1.092 |
+
+Clouds were real; they were not the span problem. Cleaner inputs raise the S2 ceiling. They do not make 5 donors span 980 dimensions. That constraint is still open — last slide.
+
+---
+
+## 11. Takeaway + next steps
+
+Clouds are addressed. What remains unaddressed is the high-dimensional outcome.
+
+**Unaddressed: 980 outcome dimensions, 5 donors.** SCM can only place the synthetic inside a 4-d simplex in 980-d. Notebook 14 asks 5 donors to span 11 features; we ask the same 5 to span 980. Binding evidence: training RMSPE ≈ holdout RMSPE ≈ 1, and genfill on the original scaler is 1.107 → 1.092. The fit fails in-sample — expressiveness, not overfitting, noise, or clouds.
+
+**Next steps from the literature**
+
+1. **Grow the donor pool.** Event-causality SC on text embeddings (Wang et al., EMNLP 2024; [arXiv:2509.18156](https://arxiv.org/abs/2509.18156)). Closest to our pattern: synthesize a counterfactual in embedding space, then invert (their inversion = our decoding). Precedent that encode → weight → invert is a recognized method. It works there because the donor pool is a huge historical corpus and the embedding is one pooled vector — they never ask 5 donors to span a spatial grid. Lesson: donor-pool scale matters as much as dimension. Supports more than 5 of the 50, and collecting the 210 missing controls.
+
+2. **Project, with theory — Functional SC.** Functional SC with Hilbert-space guarantees (Okano & Kurisu, [arXiv:2601.07539](https://arxiv.org/abs/2601.07539)). Outcome is a metric-space object mapped by an isometric embedding into a Hilbert space, with finite-sample bounds, an augmented bias-corrected estimator, and prediction sets.
+   - Quantile-pooling is an instance: a site-period as the distribution of 196 patch values per channel; the per-channel quantile function is the standard Wasserstein isometry of 1-D distributions into L². Gram-matrix arm matches their covariance-matrix outcomes. Projection is then FSC, not ad-hoc pooling — a strong framing for the advisors.
+   - Their prediction sets would replace our ratio / `flag_level` heuristics with actual inference on whether a post-period gap is significant — the thing both pipelines currently lack.
 
 ---
 
@@ -303,3 +336,6 @@ All under `notebooks/ts_SCM_ASCM/` unless noted.
 | `panel_trajectories_sentinel1_VV.png` | 8 |
 | `panel_effect_features.csv` | 8 |
 | `Docs/report_new_panel_datasets_2026-08-19.md` §4.2 | 8 (notebook-14 numbers) |
+| `05_generation_cloudfill_panel.ipynb` | 10 |
+| `panel_genfill_comparison.png` / `panel_genfill_vs_chipmean.csv` | 10 |
+| `panel_genfill_example.png` | 10 |

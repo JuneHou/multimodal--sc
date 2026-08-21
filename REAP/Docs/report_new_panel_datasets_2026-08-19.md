@@ -283,8 +283,9 @@ SCM vs ASCM on the held-out P09–P10 (notebook 15's own scale):
      equally bad in training and validation gets ratio ≈ 1 and a "good" flag. Site 5's S2
      is the live example — training RMSE 1.27, validation 1.17, ratio 0.92, flagged
      "good" even though both errors exceed one full SD. A complete evaluation needs both
-     checks: ratio ≈ 1 (no overfitting) **and** validation RMSE well below 1 SD (the fit
-     is actually informative).
+     checks: ratio ≈ 1 (no overfitting) **and** holdout RMSPE well below the mean
+     baseline of 1 (the fit is actually informative). After P01–P08 z-scoring, RMSPE of
+     the pooled mean is 1 by construction.
    - The ratio is a noisy statistic: its numerator comes from only 2 held-out periods, so
      a lucky/unlucky pair moves it a lot (site 10's S1 ratio is 0.19; site 7's 2.22 rests
      partly on a tiny 4-period training fit). The advisor's expanding-window scheme gives
@@ -307,6 +308,39 @@ images. This tests the whole encode → weight → decode chain against ground t
 stronger evaluation than notebook 04's comparison against the feature-based pipeline. And
 since notebook 14's outcome is the same nan-aware chip-mean feature we use, the two
 pipelines can now be scored on the *same* held-out truth with the *same* metric.
+
+### 4.6 The P11–P20 effects — pushed 2026-08-20, now inspected
+
+The collaborator's GitHub push (commit `9bbc182`, merged) delivered the previously
+unshipped output folders at the repo root: `test/scm_validation/` and
+`test/ascm_validation/`, including `05_post_hurricane_effects.csv` (SCM, native + her
+standardized units; effect = actual − synthetic) and `08_post_hurricane_effects.csv`
+(ASCM vs SCM standardized gaps). This closes §4.4's item 5. What the effects say:
+
+- **No band shows a mean post-hurricane effect above the held-out noise.** Mean effect
+  across sites × periods, in her scaler's SD units, divided by the same pipeline's own
+  P09/P10 validation RMSE, lands between 0.03 and 0.25 for every band. In native units:
+  NDVI −0.002 (SD 0.053), NDWI −0.008, B8 −0.006 reflectance; S1 VH +0.035 dB
+  (SD 0.53), VV +0.022 dB.
+- **No consistent direction either.** Per-site mean NDVI effects span −0.058
+  (treatment_0002) to +0.058 (treatment_0001); per-period means drift from slightly
+  positive (P11–P14) to slightly negative (P17–P18) with nothing resembling a step at
+  the hurricane boundary.
+- **Coverage is thin where it matters:** only 66 of 100 S2 site-periods are estimable
+  (two post periods drop out at all 10 sites, more partially — her rule discards a
+  period when the treated site or any donor is missing); S1 has 91/100. And her own
+  validation flags (sites 4/5 fail S2) mean a fifth of the S2 effect rows sit on fits
+  that were never trustworthy.
+- **ASCM tracks SCM on average** (mean |gap difference| 0.17 SD) **but individual
+  site-periods diverge by up to 5.8 SD** — the extrapolation instability of §4.3
+  showing up directly in the effect estimates.
+- **Cross-check against our decoded effects (ts_SCM_ASCM notebook 04):** our means were
+  NDVI −0.037, NDWI −0.041, B8 −0.040, VH +0.26 dB — a mild vegetation-loss direction,
+  also below its own noise. The feature-based arm does not corroborate that direction:
+  its means are ~10× smaller and mixed-sign. The joint, honest reading is that
+  **neither pipeline detects a post-hurricane effect above its validation noise on this
+  panel**, and any cross-site mean direction quoted from either arm alone should be
+  treated as unconfirmed.
 
 ---
 
@@ -340,17 +374,20 @@ outputs instead — values byte-identical to what notebook 04's gate already ver
 an accidental nested duplicate folder.) The feature-table question is also resolved: both
 notebooks build their feature panel inline from the biweekly tifs.
 
-**Still missing from the collaborator:**
-- The notebook-14/15 **output folders** (`test/scm_validation/`, `test/ascm_validation/`):
-  the weights, per-period predictions, the full 81-point penalty-selection curves, the
-  ~110 trajectory figures, and above all the **post-hurricane effect CSVs** — the effects
-  are computed and written but appear nowhere in the notebooks' stored outputs, so they
-  cannot be recovered locally. Every output path in both notebooks is a Dropbox absolute
-  path.
-- The updated README the first email mentions — the local
-  `data/README_Hurricane_Helene_Satellite_Dataset.md` was re-synced on 2026-08-19 but is
-  byte-identical to the Aug 11 version (13,370 bytes) and does not mention any of the new
-  datasets.
+**Resolved 2026-08-20 morning (her GitHub push, commit `9bbc182`, merged):** both
+remaining items arrived at the repo root —
+- the notebook-14/15 **output folders** `test/scm_validation/` and
+  `test/ascm_validation/` (weights, per-period predictions, the 81-point penalty curves,
+  and the **post-hurricane effect CSVs**, analyzed in §4.6), plus `test/treatment_0001/`
+  rasters; and
+- the **updated README** as Quarto source + rendered HTML
+  (`README_Hurricane_Helene_Satellite_Dataset.qmd`/`.html`, 4 tabs: Version 1,
+  Version 2, SCM Validation, ASCM Validation).
+
+Her push also made the repo-root `scripts/` the canonical copy of notebooks 00–15
+(the duplicate tracked copies under `REAP/data/scripts/` were untracked in favor of
+hers on Jun's instruction; the local Dropbox copies stay on disk unchanged — note her
+pushed 11/12/13 differ from the older Dropbox export).
 
 **Incomplete deliverables (facts on disk; the imagery is used as-is per our data rules):**
 - `weekly_datasets/` is an aborted build: notebook 11's stored log stops at combination
@@ -456,5 +493,8 @@ collection/masking details: `data/scripts/10_download_daily_satellite_data.ipynb
 compositing: `data/scripts/11/12_*.ipynb`; SCM/ASCM methods and all §4 numbers: the code
 and stored outputs of `data/scripts/14_test_scm_validation.ipynb` (site summary, per-band
 RMSE tables) and `data/scripts/15_test_augmented_synthetic_control.ipynb` (penalty
-selection, SCM-vs-ASCM comparison, weight diagnostics). Email-only claims are marked as
-reported.
+selection, SCM-vs-ASCM comparison, weight diagnostics). §4.6 numbers: the repo-root
+`test/scm_validation/05_post_hurricane_effects.csv`,
+`08_feature_validation_rmse.csv` (standardized units), and
+`test/ascm_validation/08_post_hurricane_effects.csv` from her push `9bbc182`.
+Email-only claims are marked as reported.

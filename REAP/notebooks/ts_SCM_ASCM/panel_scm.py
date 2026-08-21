@@ -7,8 +7,10 @@ mix over fit-window periods × all latent dimensions, jointly, per site × senso
 (SLSQP, bounds (0,1), init 1/J, ftol 1e-12, maxiter 5000).
 
 Validation schemes: `frozen_joint` (notebook-14: w8 fit on P01–P08 scored on P09+P10
-pooled) and `expanding` (advisor: w8 → P09; w9 fit on P01–P09 → P10). Flags: ratio
-(≤1.5 good / ≤2.0 caution / >2.0 poor) AND level (validation RMSE < 1 pooled SD).
+pooled) and `expanding` (advisor: w8 → P09; w9 fit on P01–P09 → P10). Metric is
+holdout RMSPE in P01–P08 SD units (same formula as ADH RMSPE on z-scored outcomes).
+Flags: notebook-14 ratio (≤1.5/≤2.0) AND whether holdout RMSPE beats the mean
+predictor (`flag_level` pass if RMSPE < 1).
 A period enters a fit/metric only if the treated site AND all J donors have latents.
 
 `run_scm(panel, donors)` returns the weights / validation / effects DataFrames with the

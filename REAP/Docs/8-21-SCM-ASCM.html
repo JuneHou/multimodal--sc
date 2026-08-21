@@ -290,10 +290,10 @@
             <tr><td>Sentinel-2</td><td>6.16</td><td>7.05</td><td>8.72</td></tr>
           </tbody>
         </table>
-        <p class="muted">S1 is almost flat: “nearest” is not meaningfully nearer. That is the preview of RMSE ≈ 1.</p>
+        <p class="muted">S1 is almost flat: “nearest” is not meaningfully nearer. That is the preview of holdout RMSPE ≈ 1.</p>
       </div>
       <div>
-        <h2>SCM weights on those 5 (P01–P08)</h2>
+        <h2>5-donor SCM weights, median over 10 sites (P01–P08)</h2>
         <table class="compact">
           <thead>
             <tr><th>Sensor</th><th>Max weight (median)</th><th>Effective donors (median)</th></tr>
@@ -303,7 +303,7 @@
             <tr><td>Sentinel-2</td><td>0.27</td><td>4.74</td></tr>
           </tbody>
         </table>
-        <p class="muted">Nearly uniform. The simplex has nothing to prefer.</p>
+        <p class="muted">Nearly uniform on all 10 sites. The simplex has nothing to prefer.</p>
       </div>
     </div>
     <h2>Overlap with that site’s own 5 covariate-matched controls</h2>
@@ -321,10 +321,10 @@
 
   <template id="s4">
     <h1>Estimators and the metric</h1>
-    <p>Same donors, same z-scoring, both splits. RMSE is over periods × all 980 z-scored latent dimensions. The latent is standardized with the pooled 60-site, P01–P08 mean/SD, so <strong>1.0 = 1 typical cross-site SD</strong>.</p>
+    <p>Same donors, same z-scoring, both splits. RMSPE is over periods × all 980 z-scored latent dimensions. This is Abadie's RMSPE on z-scored outcomes. The latent is standardized with the pooled 60-site, P01–P08 mean/SD, so the <strong>mean predictor has RMSPE = 1</strong>.</p>
     <div class="eq">
-      RMSE = √ mean (z<sub>treated</sub> − Xw)²
-      <div class="eq-sub">Training RMSE uses the fit window (in-sample). Validation RMSE uses held-out P09/P10 — that is the result.</div>
+      RMSPE = √ mean (z<sub>treated</sub> − Xw)²
+      <div class="eq-sub">Training RMSPE uses the fit window (in-sample). Holdout RMSPE uses held-out P09/P10 — that is the result. CSV columns stay <code>valid_rmse</code> / <code>flag_level</code>.</div>
     </div>
     <div class="grid c2">
       <div class="card">
@@ -336,15 +336,15 @@
         <p>Closed form, anchored on the SCM weights. Negative weights allowed. λ chosen by leave-one-fit-period-out CV on the fit window only.</p>
       </div>
     </div>
-    <div class="callout info"><strong>A site passes only if both flags agree</strong>Ratio flag: validation / training ≲ 1.5 (no overfitting). Level flag: validation RMSE &lt; 1 SD (the fit is actually informative). Ratio alone would call a uniformly bad fit “good.”</div>
+    <div class="callout info"><strong>A site passes only if both flags agree</strong>Ratio flag: holdout / training ≲ 1.5 (no overfitting). Level flag (<code>flag_level</code>): holdout RMSPE &lt; 1, i.e. beats the mean predictor. Ratio alone would call a uniformly bad fit “good.”</div>
   </template>
 
   <template id="s5">
     <h1>Result 1 · latent SCM has no held-out power</h1>
-    <p>Validation RMSE sits on the 1-SD line. Training RMSE is the same. Ratio 10/10 “good”; the level test fails almost everywhere. A 5-donor mix does not beat the site mean even in-sample.</p>
+    <p>Holdout RMSPE sits on the mean baseline. Training RMSPE is the same. Ratio 10/10 “good”; <code>flag_level</code> fails almost everywhere. A 5-donor mix does not beat the site mean even in-sample.</p>
     <div class="fig">
-      <img src="../notebooks/ts_SCM_ASCM/panel_scm_validation.png" alt="SCM held-out validation RMSE by site, both sensors, frozen and expanding splits, with a 1 pooled-SD reference line" />
-      <div class="cap">Validation RMSE in pooled-SD units. Dashed line = 1 SD. Source: panel_scm_validation.csv, arm = main.</div>
+      <img src="../notebooks/ts_SCM_ASCM/panel_scm_validation.png" alt="SCM holdout RMSPE by site, both sensors, frozen and expanding splits, with a mean-baseline reference line at 1" />
+      <div class="cap">Holdout RMSPE in P01–P08 SD units. Dashed line = mean baseline (RMSPE = 1). Source: panel_scm_validation.csv, arm = main.</div>
     </div>
     <h2>Frozen joint (fit P01–P08 → P09+P10)</h2>
     <table class="compact">
@@ -368,15 +368,15 @@
         <tr><td>0010</td><td>1.051</td><td class="fail">1.040</td><td class="fail">FAIL</td><td>1.015</td><td class="fail">1.232</td><td class="fail">FAIL</td></tr>
       </tbody>
     </table>
-    <p class="muted">Only site 3 / S2 passes the level test. Expanding P09/P10 is the same picture (S1 1.03–1.09; S2 0.89–1.42).</p>
+    <p class="muted">Only site 3 / S2 beats the mean baseline. Expanding P09/P10 is the same picture (S1 1.03–1.09; S2 0.89–1.42).</p>
   </template>
 
   <template id="s6">
     <h1>Result 2 · ASCM is the same estimator</h1>
-    <p>Same validation RMSE. Points sit on the diagonal: max |SCM − ASCM| &lt; 10<sup>−8</sup>. No negative weights on the main P01–P08 fit. 36 of 40 chosen λ sit on the CV grid boundary (13 at 10<sup>−4</sup>, 23 at 10<sup>4</sup>). Ridge has nothing to leverage when the donor span is this far from the target.</p>
+    <p>Same holdout RMSPE. Points sit on the diagonal: max |SCM − ASCM| &lt; 10<sup>−8</sup>. No negative weights on the main P01–P08 fit. 36 of 40 chosen λ sit on the CV grid boundary (13 at 10<sup>−4</sup>, 23 at 10<sup>4</sup>). Ridge has nothing to leverage when the donor span is this far from the target.</p>
     <div class="grid c2">
       <div class="fig">
-        <img src="../notebooks/ts_SCM_ASCM/panel_scm_vs_ascm.png" alt="Scatter of SCM vs ASCM validation RMSE, both sensors, frozen joint; points lie on the diagonal" />
+        <img src="../notebooks/ts_SCM_ASCM/panel_scm_vs_ascm.png" alt="Scatter of SCM vs ASCM holdout RMSPE, both sensors, frozen joint; points lie on the diagonal" />
         <div class="cap">Frozen joint, main arm. Below the line = ASCM better. Source: panel_scm_vs_ascm.csv.</div>
       </div>
       <div class="fig">
@@ -441,8 +441,8 @@
         <tr><td>S1 VH (dB)</td><td>+0.26</td><td>0.91</td></tr>
       </tbody>
     </table>
-    <h2>Notebook 14 · chip-mean SCM passes the 1-SD test this pipeline fails</h2>
-    <p>Same split, different outcome space and scaler. Compare each pipeline only to <strong>its own</strong> 1-SD line. Feature SCM validation RMSE (P09–P10, their training-SD units):</p>
+    <h2>Notebook 14 · chip-mean SCM beats the mean baseline this pipeline fails</h2>
+    <p>Same split, different outcome space and scaler. Compare each pipeline only to <strong>its own</strong> mean baseline (RMSPE = 1). Feature SCM holdout RMSPE (P09–P10, their training-SD units):</p>
     <table class="compact">
       <thead>
         <tr><th>Site</th><th>S1</th><th>S2</th><th>Site</th><th>S1</th><th>S2</th></tr>
@@ -460,30 +460,53 @@
   </template>
 
   <template id="s9">
+    <h1>The cloud problem</h1>
+    <p>After SCM and ASCM, the fit already fails in-sample. Before concluding that 980-d is unspannable, check the S2 inputs the encoder actually saw.</p>
+    <div class="grid c3">
+      <div class="stat"><b>57–69%</b><span>S2 pixels valid in a 14-day window</span></div>
+      <div class="stat"><b>~1/3</b><span>of each S2 chip is chip-mean fill</span></div>
+      <div class="stat"><b>~40%</b><span>invalid pixels, biweekly S2 average</span></div>
+    </div>
+    <div class="callout warn"><strong>Chip-mean fill is not a small preprocessing detail</strong>Snapshot DiD used ~4.5-month composites with valid fractions ≈ 1, so chip-mean fill touched almost nothing. Fourteen-day windows leave large NaN patches. TerraMind’s pretraining data was cloud-filtered, so those flat fills sit outside the tokenizer’s training distribution. A moving cloud mask also injects period-to-period noise that is not land.</div>
+    <p>That can contaminate kNN (distances compare cloud masks, not sites) and the reconstruction floor. Notebook 14’s worst S2 sites (0004, 0005) are exactly where validation-period valid pixels were thin. Quality-40 dropped cloudy chips and still left holdout RMSPE at the mean baseline — but it also shrank the already-small donor pool.</p>
+  </template>
+
+  <template id="s10">
+    <h1>Addressing clouds · notebook 05</h1>
+    <p>Replace every cloudy S2 chip with a TerraMind-large image generated from that site’s same-period S1 (IBM recipe, full replacement). Rerun kNN → SCM/ASCM → decode through the same modules. Ground truth stays the raw observed chip. Executed 2026-08-20.</p>
+    <p class="path">notebooks/ts_SCM_ASCM/05_generation_cloudfill_panel.ipynb</p>
+    <div class="fig">
+      <img src="../notebooks/ts_SCM_ASCM/panel_genfill_comparison.png" alt="Sentinel-2 SCM frozen-joint holdout RMSPE: chip-mean fill vs generation fill, by treatment site" />
+      <div class="cap">S2 frozen joint, each run in its own SD units. Dashed line = mean baseline. Source: panel_genfill_vs_chipmean.csv.</div>
+    </div>
+    <div class="grid c3">
+      <div class="stat"><b>1.18 → 1.05</b><span>S2 frozen-joint mean holdout RMSPE (own SD)</span></div>
+      <div class="stat"><b>0.6 / 5</b><span>S2 kNN overlap vs chip-mean donors</span></div>
+      <div class="stat"><b>1.107 → 1.092</b><span>P09 RMSPE on the original scaler</span></div>
+    </div>
+    <div class="callout info"><strong>Clouds were real; they were not the span problem</strong>Generation changes which S2 neighbors kNN picks (old distances were comparing cloud masks). On the original scaler the embedding error barely moves. Cleaner inputs raise the S2 ceiling. They do not make 5 donors span 980 dimensions. That high-dimensional constraint is still open — next slide.</div>
+    <p class="src">Sites 04 and 05 (collaborator problem sites): 1.38 → 0.73 and 1.19 → 0.98. Also: panel_genfill_example.png.</p>
+  </template>
+
+  <template id="s11">
     <h1>Takeaway</h1>
-    <p>The panel solved the evaluation problem. This encode → weight → decode chain does not produce a useful synthetic image. The failure is the 980-d spatial latent as the weighting space — not the holdout design, and not a missing ridge correction.</p>
+    <p>Clouds are addressed (notebook 05). They raise the S2 ceiling; they do not make 5 donors span 980 dimensions. What remains unaddressed is the high-dimensional outcome.</p>
+    <div class="callout warn"><strong>Unaddressed: 980 outcome dimensions, 5 donors</strong>SCM can only place the synthetic inside a 4-d simplex in 980-d. Notebook 14 asks 5 donors to span 11 features; we ask the same 5 to span 980. Binding evidence: training RMSPE ≈ holdout RMSPE ≈ 1, and genfill on the original scaler is 1.107 → 1.092. The fit fails in-sample — this is expressiveness, not overfitting, noise, or clouds.</div>
+    <h2>Next steps from the literature</h2>
     <div class="grid c2">
       <div class="card">
-        <h3>What held</h3>
-        <p>P09/P10 are real ground truth. SCM and ASCM were run as specified. The reconstruction floor separates decoder error from donor error. Feature-space SCM on the same split still passes its 1-SD line.</p>
+        <h3>1. Grow the donor pool</h3>
+        <p>Event-causality SC on text embeddings (Wang et al., EMNLP 2024; <a href="https://arxiv.org/abs/2509.18156">arXiv:2509.18156</a>). Closest to our pattern: synthesize a counterfactual in embedding space, then invert (their inversion = our decoding). Precedent that encode → weight → invert is a recognized method. It works there because the donor pool is a huge historical corpus and the embedding is one pooled vector — they never ask 5 donors to span a spatial grid. Lesson: donor-pool scale matters as much as dimension. Supports more than 5 of the 50, and collecting the 210 missing controls.</p>
       </div>
       <div class="card">
-        <h3>What failed</h3>
-        <p>Latent SCM: validation RMSE ≈ 1 SD, train ≈ valid. ASCM identical. Decoded synthetics are spatially unusable; S2 vegetation indices are already at the decoder floor.</p>
+        <h3>2. Project, with theory — Functional SC</h3>
+        <p>Functional SC with Hilbert-space guarantees (Okano &amp; Kurisu, <a href="https://arxiv.org/abs/2601.07539">arXiv:2601.07539</a>). Outcome is a metric-space object mapped by an isometric embedding into a Hilbert space, with finite-sample bounds, an augmented bias-corrected estimator, and prediction sets. Quantile-pooling is an instance: 196 patch values per channel → per-channel quantile function = Wasserstein isometry into L². Gram-matrix arm matches their covariance-matrix outcomes. Projection is then FSC, not ad-hoc pooling. Their prediction sets would replace our ratio / <code>flag_level</code> heuristics with actual inference on post-period gaps — both pipelines lack that.</p>
       </div>
     </div>
-    <h2>What we would change — decisions, not defaults</h2>
-    <ol class="tight">
-      <li>Fit weights on decoded features; keep the tokenizer for donor search and decode.</li>
-      <li>Spatially pool the latent before SCM, so the 980 dims are not treated as a site-specific layout to match.</li>
-      <li>Keep more than 5 neighbors from the existing 50.</li>
-      <li>Collect panel imagery for the other 210 of the 260 snapshot-era controls if we want that kNN back. New data, not a code change.</li>
-    </ol>
-    <p class="src">Executed 2026-08-19. Notebook 05 (generation cloud-fill) is not in this deck.</p>
   </template>
 
   <script>
-    const LABELS = ["Title", "Design", "Encode", "kNN", "Metric", "SCM", "ASCM", "Decode", "Effects", "Takeaway"];
+    const LABELS = ["Title", "Design", "Encode", "kNN", "Metric", "SCM", "ASCM", "Decode", "Effects", "Clouds", "Cloud fill", "Takeaway"];
     const n = LABELS.length;
     let i = 0;
     const stage = document.getElementById("stage");
