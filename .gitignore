@@ -8,17 +8,17 @@ data/
 results/
 figures/
 
-# Collaborator-shared satellite dataset (REAP / Hurricane Helene, exported
+# Collaborator-shared satellite dataset (Satellite / Hurricane Helene, exported
 # from Yujuan Gao's Dropbox): ~425 MB of GeoTIFF chips and her pipeline
 # outputs — large binaries, and not ours to redistribute. Already matched by
 # the unanchored `data/` rule above; listed explicitly so the exclusion
 # survives even if that rule is ever narrowed. Verified with
-# `git check-ignore -v REAP/data/...`.
-REAP/data/
+# `git check-ignore -v Satellite/data/...`.
+Satellite/data/
 
 # (2026-08-20) The collaborator pushed her pipeline notebooks herself to the
 # repo-root `scripts/` (commit 9bbc182), which is now the canonical copy; the
-# 2026-08-19 whitelist exception for REAP/data/scripts/ was removed and the
+# 2026-08-19 whitelist exception for Satellite/data/scripts/ was removed and the
 # local Dropbox copies there are untracked again (kept on disk, ignored here).
 
 # Local absolute paths to credentialed data roots.

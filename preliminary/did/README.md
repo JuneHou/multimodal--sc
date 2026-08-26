@@ -7,12 +7,12 @@ the counterfactual can be scored against an **observed truth**.
 
 ## Why clinical notes can run this and satellite cannot
 
-The collaborator's pipeline (REAP
+The collaborator's pipeline (Satellite
 `data/scripts/09_test_counterfactual_average.ipynb`) is a 2×2 DiD:
 counterfactual = equal-weight (1/10) mean of 10 matched control sites, effect
 = treated change minus mean control change. It contains **no accuracy metric
 and no holdout** — parallel trends is assumed via site matching, never
-tested. (`REAP/data/test/` is a one-site pipeline smoke test, not an
+tested. (`Satellite/data/test/` is a one-site pipeline smoke test, not an
 evaluation fold.) The counterfactual is unobservable at treated sites, and
 her data has a single pre-period, so the assumption cannot be arbitrated
 there.

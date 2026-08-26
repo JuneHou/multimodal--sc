@@ -1,0 +1,553 @@
+cache,sensor,model,period,site,ratio
+genfill,sentinel1,SCM (latent 980-d),P09,treatment_0001,1.447951463697143
+genfill,sentinel1,ASCM (latent 980-d),P09,treatment_0001,1.4479514829001048
+genfill,sentinel1,ridge / text-SC (latent 980-d),P09,treatment_0001,1.3562610365084233
+genfill,sentinel1,SCM (latent 980-d),P10,treatment_0001,1.498276839825055
+genfill,sentinel1,ASCM (latent 980-d),P10,treatment_0001,1.4982768397885702
+genfill,sentinel1,ridge / text-SC (latent 980-d),P10,treatment_0001,1.3810490388821761
+genfill,sentinel1,SCM (latent 980-d),P09,treatment_0002,1.4610634117870644
+genfill,sentinel1,ASCM (latent 980-d),P09,treatment_0002,1.4610634300410728
+genfill,sentinel1,ridge / text-SC (latent 980-d),P09,treatment_0002,1.3579709055615745
+genfill,sentinel1,SCM (latent 980-d),P10,treatment_0002,1.4774107220876644
+genfill,sentinel1,ASCM (latent 980-d),P10,treatment_0002,1.4774107220741144
+genfill,sentinel1,ridge / text-SC (latent 980-d),P10,treatment_0002,1.3573382347998588
+genfill,sentinel1,SCM (latent 980-d),P09,treatment_0003,1.388707345760629
+genfill,sentinel1,ASCM (latent 980-d),P09,treatment_0003,1.3887073458044483
+genfill,sentinel1,ridge / text-SC (latent 980-d),P09,treatment_0003,1.2994578706647455
+genfill,sentinel1,SCM (latent 980-d),P10,treatment_0003,1.3558489341459736
+genfill,sentinel1,ASCM (latent 980-d),P10,treatment_0003,1.3558489341197721
+genfill,sentinel1,ridge / text-SC (latent 980-d),P10,treatment_0003,1.281478742509354
+genfill,sentinel1,SCM (latent 980-d),P09,treatment_0004,1.6420281686251161
+genfill,sentinel1,ASCM (latent 980-d),P09,treatment_0004,1.6420281695058052
+genfill,sentinel1,ridge / text-SC (latent 980-d),P09,treatment_0004,1.5047822810401221
+genfill,sentinel1,SCM (latent 980-d),P10,treatment_0004,1.6139736648769778
+genfill,sentinel1,ASCM (latent 980-d),P10,treatment_0004,1.6139736596139935
+genfill,sentinel1,ridge / text-SC (latent 980-d),P10,treatment_0004,1.4971430426269685
+genfill,sentinel1,SCM (latent 980-d),P09,treatment_0005,1.5874087622963615
+genfill,sentinel1,ASCM (latent 980-d),P09,treatment_0005,1.5874087622913662
+genfill,sentinel1,ridge / text-SC (latent 980-d),P09,treatment_0005,1.441330264853855
+genfill,sentinel1,SCM (latent 980-d),P10,treatment_0005,1.6652498514996525
+genfill,sentinel1,ASCM (latent 980-d),P10,treatment_0005,1.6652498515634444
+genfill,sentinel1,ridge / text-SC (latent 980-d),P10,treatment_0005,1.5316841121425235
+genfill,sentinel1,SCM (latent 980-d),P09,treatment_0006,1.3609462780751747
+genfill,sentinel1,ASCM (latent 980-d),P09,treatment_0006,1.3609462853637806
+genfill,sentinel1,ridge / text-SC (latent 980-d),P09,treatment_0006,1.2690680866704045
+genfill,sentinel1,SCM (latent 980-d),P10,treatment_0006,1.3948574431323206
+genfill,sentinel1,ASCM (latent 980-d),P10,treatment_0006,1.3948574263541316
+genfill,sentinel1,ridge / text-SC (latent 980-d),P10,treatment_0006,1.286930115961147
+genfill,sentinel1,SCM (latent 980-d),P09,treatment_0007,1.7856745730164458
+genfill,sentinel1,ASCM (latent 980-d),P09,treatment_0007,1.7856745701006054
+genfill,sentinel1,ridge / text-SC (latent 980-d),P09,treatment_0007,1.692787609144415
+genfill,sentinel1,SCM (latent 980-d),P10,treatment_0007,1.7284376667926182
+genfill,sentinel1,ASCM (latent 980-d),P10,treatment_0007,1.7284376667558772
+genfill,sentinel1,ridge / text-SC (latent 980-d),P10,treatment_0007,1.638033513138036
+genfill,sentinel1,SCM (latent 980-d),P09,treatment_0008,1.6366166081187699
+genfill,sentinel1,ASCM (latent 980-d),P09,treatment_0008,1.6366166140179776
+genfill,sentinel1,ridge / text-SC (latent 980-d),P09,treatment_0008,1.5223516865454554
+genfill,sentinel1,SCM (latent 980-d),P10,treatment_0008,1.555021626303643
+genfill,sentinel1,ASCM (latent 980-d),P10,treatment_0008,1.5550216270840413
+genfill,sentinel1,ridge / text-SC (latent 980-d),P10,treatment_0008,1.4653476185672751
+genfill,sentinel1,SCM (latent 980-d),P09,treatment_0009,1.5808411284333705
+genfill,sentinel1,ASCM (latent 980-d),P09,treatment_0009,1.5808411319975693
+genfill,sentinel1,ridge / text-SC (latent 980-d),P09,treatment_0009,1.4854878989731657
+genfill,sentinel1,SCM (latent 980-d),P10,treatment_0009,1.527971944894973
+genfill,sentinel1,ASCM (latent 980-d),P10,treatment_0009,1.5279719460746928
+genfill,sentinel1,ridge / text-SC (latent 980-d),P10,treatment_0009,1.433095558488308
+genfill,sentinel1,SCM (latent 980-d),P09,treatment_0010,1.5661027779917303
+genfill,sentinel1,ASCM (latent 980-d),P09,treatment_0010,1.5661027779242376
+genfill,sentinel1,ridge / text-SC (latent 980-d),P09,treatment_0010,1.4792766278335525
+genfill,sentinel1,SCM (latent 980-d),P10,treatment_0010,1.5344836564488078
+genfill,sentinel1,ASCM (latent 980-d),P10,treatment_0010,1.5344836642419706
+genfill,sentinel1,ridge / text-SC (latent 980-d),P10,treatment_0010,1.4480315236841688
+genfill,sentinel2,SCM (latent 980-d),P09,treatment_0001,0.8517052821162818
+genfill,sentinel2,ASCM (latent 980-d),P09,treatment_0001,0.8517052838231532
+genfill,sentinel2,ridge / text-SC (latent 980-d),P09,treatment_0001,0.8295165268376826
+genfill,sentinel2,SCM (latent 980-d),P10,treatment_0001,1.1088907055383996
+genfill,sentinel2,ASCM (latent 980-d),P10,treatment_0001,1.10889066221251
+genfill,sentinel2,ridge / text-SC (latent 980-d),P10,treatment_0001,1.0458566488737278
+genfill,sentinel2,SCM (latent 980-d),P09,treatment_0002,1.0165677174250551
+genfill,sentinel2,ASCM (latent 980-d),P09,treatment_0002,1.0165677245346216
+genfill,sentinel2,ridge / text-SC (latent 980-d),P09,treatment_0002,0.9529099147729357
+genfill,sentinel2,SCM (latent 980-d),P10,treatment_0002,1.1989599064704832
+genfill,sentinel2,ASCM (latent 980-d),P10,treatment_0002,1.198959912740025
+genfill,sentinel2,ridge / text-SC (latent 980-d),P10,treatment_0002,1.1125108835764403
+genfill,sentinel2,SCM (latent 980-d),P09,treatment_0003,1.4033515448291696
+genfill,sentinel2,ASCM (latent 980-d),P09,treatment_0003,1.4033515502940632
+genfill,sentinel2,ridge / text-SC (latent 980-d),P09,treatment_0003,1.1498794627642763
+genfill,sentinel2,SCM (latent 980-d),P10,treatment_0003,1.1079486390047832
+genfill,sentinel2,ASCM (latent 980-d),P10,treatment_0003,1.1079486784672825
+genfill,sentinel2,ridge / text-SC (latent 980-d),P10,treatment_0003,1.024430274050587
+genfill,sentinel2,SCM (latent 980-d),P09,treatment_0004,0.7509860933798469
+genfill,sentinel2,ASCM (latent 980-d),P09,treatment_0004,0.7509860945696247
+genfill,sentinel2,ridge / text-SC (latent 980-d),P09,treatment_0004,0.8206093663859392
+genfill,sentinel2,SCM (latent 980-d),P10,treatment_0004,0.702263266952161
+genfill,sentinel2,ASCM (latent 980-d),P10,treatment_0004,0.7022632719163651
+genfill,sentinel2,ridge / text-SC (latent 980-d),P10,treatment_0004,0.7740465036689298
+genfill,sentinel2,SCM (latent 980-d),P09,treatment_0005,0.8060587527775729
+genfill,sentinel2,ASCM (latent 980-d),P09,treatment_0005,0.8060587589791485
+genfill,sentinel2,ridge / text-SC (latent 980-d),P09,treatment_0005,0.844985487889859
+genfill,sentinel2,SCM (latent 980-d),P10,treatment_0005,1.1358373014540277
+genfill,sentinel2,ASCM (latent 980-d),P10,treatment_0005,1.1358373027276245
+genfill,sentinel2,ridge / text-SC (latent 980-d),P10,treatment_0005,1.1019696798154228
+genfill,sentinel2,SCM (latent 980-d),P09,treatment_0006,0.8013372126917082
+genfill,sentinel2,ASCM (latent 980-d),P09,treatment_0006,0.8013372085755991
+genfill,sentinel2,ridge / text-SC (latent 980-d),P09,treatment_0006,0.8007939864177528
+genfill,sentinel2,SCM (latent 980-d),P10,treatment_0006,1.3984066505493453
+genfill,sentinel2,ASCM (latent 980-d),P10,treatment_0006,1.3984066518766296
+genfill,sentinel2,ridge / text-SC (latent 980-d),P10,treatment_0006,1.2591904930822342
+genfill,sentinel2,SCM (latent 980-d),P09,treatment_0007,1.0357650135349596
+genfill,sentinel2,ASCM (latent 980-d),P09,treatment_0007,1.0357648437358649
+genfill,sentinel2,ridge / text-SC (latent 980-d),P09,treatment_0007,0.9443763543653134
+genfill,sentinel2,SCM (latent 980-d),P10,treatment_0007,1.1183999849117319
+genfill,sentinel2,ASCM (latent 980-d),P10,treatment_0007,1.1183999834616303
+genfill,sentinel2,ridge / text-SC (latent 980-d),P10,treatment_0007,1.0297218951565381
+genfill,sentinel2,SCM (latent 980-d),P09,treatment_0008,1.0610307173883766
+genfill,sentinel2,ASCM (latent 980-d),P09,treatment_0008,1.0610307093540168
+genfill,sentinel2,ridge / text-SC (latent 980-d),P09,treatment_0008,0.9452069512977106
+genfill,sentinel2,SCM (latent 980-d),P10,treatment_0008,1.0716050164874262
+genfill,sentinel2,ASCM (latent 980-d),P10,treatment_0008,1.0716049933845944
+genfill,sentinel2,ridge / text-SC (latent 980-d),P10,treatment_0008,1.0234755445463555
+genfill,sentinel2,SCM (latent 980-d),P09,treatment_0009,0.6011795403847826
+genfill,sentinel2,ASCM (latent 980-d),P09,treatment_0009,0.6011795532767051
+genfill,sentinel2,ridge / text-SC (latent 980-d),P09,treatment_0009,0.6770306669165028
+genfill,sentinel2,SCM (latent 980-d),P10,treatment_0009,1.0987155395159736
+genfill,sentinel2,ASCM (latent 980-d),P10,treatment_0009,1.098715524486637
+genfill,sentinel2,ridge / text-SC (latent 980-d),P10,treatment_0009,1.0508574623263522
+genfill,sentinel2,SCM (latent 980-d),P09,treatment_0010,1.132408282778918
+genfill,sentinel2,ASCM (latent 980-d),P09,treatment_0010,1.132408338601303
+genfill,sentinel2,ridge / text-SC (latent 980-d),P09,treatment_0010,1.0000215838467155
+genfill,sentinel2,SCM (latent 980-d),P10,treatment_0010,1.1200383217479026
+genfill,sentinel2,ASCM (latent 980-d),P10,treatment_0010,1.1200383079594203
+genfill,sentinel2,ridge / text-SC (latent 980-d),P10,treatment_0010,1.0482820663293564
+chipmean,sentinel1,SCM (latent 980-d),P09,treatment_0001,1.4426501780142984
+chipmean,sentinel1,ASCM (latent 980-d),P09,treatment_0001,1.442650178003891
+chipmean,sentinel1,ridge / text-SC (latent 980-d),P09,treatment_0001,1.3553373571571572
+chipmean,sentinel1,SCM (latent 980-d),P10,treatment_0001,1.4886548283933005
+chipmean,sentinel1,ASCM (latent 980-d),P10,treatment_0001,1.4886548281664145
+chipmean,sentinel1,ridge / text-SC (latent 980-d),P10,treatment_0001,1.3808970688642463
+chipmean,sentinel1,SCM (latent 980-d),P09,treatment_0002,1.4600764377142124
+chipmean,sentinel1,ASCM (latent 980-d),P09,treatment_0002,1.4600764500261587
+chipmean,sentinel1,ridge / text-SC (latent 980-d),P09,treatment_0002,1.3566584032826972
+chipmean,sentinel1,SCM (latent 980-d),P10,treatment_0002,1.4761332985547644
+chipmean,sentinel1,ASCM (latent 980-d),P10,treatment_0002,1.4761332985587026
+chipmean,sentinel1,ridge / text-SC (latent 980-d),P10,treatment_0002,1.3562040237943644
+chipmean,sentinel1,SCM (latent 980-d),P09,treatment_0003,1.3883926596751177
+chipmean,sentinel1,ASCM (latent 980-d),P09,treatment_0003,1.3883926597412435
+chipmean,sentinel1,ridge / text-SC (latent 980-d),P09,treatment_0003,1.2995073237923882
+chipmean,sentinel1,SCM (latent 980-d),P10,treatment_0003,1.3558032771578388
+chipmean,sentinel1,ASCM (latent 980-d),P10,treatment_0003,1.3558032771252506
+chipmean,sentinel1,ridge / text-SC (latent 980-d),P10,treatment_0003,1.2811566783265838
+chipmean,sentinel1,SCM (latent 980-d),P09,treatment_0004,1.64195926711695
+chipmean,sentinel1,ASCM (latent 980-d),P09,treatment_0004,1.6419592680097315
+chipmean,sentinel1,ridge / text-SC (latent 980-d),P09,treatment_0004,1.505248993381334
+chipmean,sentinel1,SCM (latent 980-d),P10,treatment_0004,1.6131846230535472
+chipmean,sentinel1,ASCM (latent 980-d),P10,treatment_0004,1.6131846186015406
+chipmean,sentinel1,ridge / text-SC (latent 980-d),P10,treatment_0004,1.4970118544206727
+chipmean,sentinel1,SCM (latent 980-d),P09,treatment_0005,1.587078980993381
+chipmean,sentinel1,ASCM (latent 980-d),P09,treatment_0005,1.5870789810586825
+chipmean,sentinel1,ridge / text-SC (latent 980-d),P09,treatment_0005,1.440735690401441
+chipmean,sentinel1,SCM (latent 980-d),P10,treatment_0005,1.665437045189262
+chipmean,sentinel1,ASCM (latent 980-d),P10,treatment_0005,1.6654370451703986
+chipmean,sentinel1,ridge / text-SC (latent 980-d),P10,treatment_0005,1.5316016389486615
+chipmean,sentinel1,SCM (latent 980-d),P09,treatment_0006,1.348203989518542
+chipmean,sentinel1,ASCM (latent 980-d),P09,treatment_0006,1.3482039891170055
+chipmean,sentinel1,ridge / text-SC (latent 980-d),P09,treatment_0006,1.2689184754908045
+chipmean,sentinel1,SCM (latent 980-d),P10,treatment_0006,1.385036422395205
+chipmean,sentinel1,ASCM (latent 980-d),P10,treatment_0006,1.3850364362568897
+chipmean,sentinel1,ridge / text-SC (latent 980-d),P10,treatment_0006,1.2873128426305602
+chipmean,sentinel1,SCM (latent 980-d),P09,treatment_0007,1.7891330671050973
+chipmean,sentinel1,ASCM (latent 980-d),P09,treatment_0007,1.7891330639222123
+chipmean,sentinel1,ridge / text-SC (latent 980-d),P09,treatment_0007,1.6924648464031204
+chipmean,sentinel1,SCM (latent 980-d),P10,treatment_0007,1.7264862758299233
+chipmean,sentinel1,ASCM (latent 980-d),P10,treatment_0007,1.726486271104995
+chipmean,sentinel1,ridge / text-SC (latent 980-d),P10,treatment_0007,1.6363261597232868
+chipmean,sentinel1,SCM (latent 980-d),P09,treatment_0008,1.6354959927822668
+chipmean,sentinel1,ASCM (latent 980-d),P09,treatment_0008,1.635495990354815
+chipmean,sentinel1,ridge / text-SC (latent 980-d),P09,treatment_0008,1.5217099224288908
+chipmean,sentinel1,SCM (latent 980-d),P10,treatment_0008,1.5542479069636859
+chipmean,sentinel1,ASCM (latent 980-d),P10,treatment_0008,1.5542479106068818
+chipmean,sentinel1,ridge / text-SC (latent 980-d),P10,treatment_0008,1.464613527934241
+chipmean,sentinel1,SCM (latent 980-d),P09,treatment_0009,1.5797600751936642
+chipmean,sentinel1,ASCM (latent 980-d),P09,treatment_0009,1.5797600792372823
+chipmean,sentinel1,ridge / text-SC (latent 980-d),P09,treatment_0009,1.4845638887750283
+chipmean,sentinel1,SCM (latent 980-d),P10,treatment_0009,1.5276742785960569
+chipmean,sentinel1,ASCM (latent 980-d),P10,treatment_0009,1.5276742727392807
+chipmean,sentinel1,ridge / text-SC (latent 980-d),P10,treatment_0009,1.432757949388767
+chipmean,sentinel1,SCM (latent 980-d),P09,treatment_0010,1.566825118979744
+chipmean,sentinel1,ASCM (latent 980-d),P09,treatment_0010,1.5668251053868587
+chipmean,sentinel1,ridge / text-SC (latent 980-d),P09,treatment_0010,1.4787551091370235
+chipmean,sentinel1,SCM (latent 980-d),P10,treatment_0010,1.534143477090232
+chipmean,sentinel1,ASCM (latent 980-d),P10,treatment_0010,1.5341434903616467
+chipmean,sentinel1,ridge / text-SC (latent 980-d),P10,treatment_0010,1.4473399216796445
+chipmean,sentinel2,SCM (latent 980-d),P09,treatment_0001,1.0513570175400322
+chipmean,sentinel2,ASCM (latent 980-d),P09,treatment_0001,1.0513570480575452
+chipmean,sentinel2,ridge / text-SC (latent 980-d),P09,treatment_0001,0.959751868961798
+chipmean,sentinel2,SCM (latent 980-d),P10,treatment_0001,1.1968123555754775
+chipmean,sentinel2,ASCM (latent 980-d),P10,treatment_0001,1.1968123496970677
+chipmean,sentinel2,ridge / text-SC (latent 980-d),P10,treatment_0001,1.1474428714139653
+chipmean,sentinel2,SCM (latent 980-d),P09,treatment_0002,1.1530618200223999
+chipmean,sentinel2,ASCM (latent 980-d),P09,treatment_0002,1.1530618204468515
+chipmean,sentinel2,ridge / text-SC (latent 980-d),P09,treatment_0002,1.060376208426848
+chipmean,sentinel2,SCM (latent 980-d),P10,treatment_0002,1.1200984925236583
+chipmean,sentinel2,ASCM (latent 980-d),P10,treatment_0002,1.120098490399916
+chipmean,sentinel2,ridge / text-SC (latent 980-d),P10,treatment_0002,1.1062825954782711
+chipmean,sentinel2,SCM (latent 980-d),P09,treatment_0003,1.1815687048660606
+chipmean,sentinel2,ASCM (latent 980-d),P09,treatment_0003,1.1815686984077012
+chipmean,sentinel2,ridge / text-SC (latent 980-d),P09,treatment_0003,1.151848103904039
+chipmean,sentinel2,SCM (latent 980-d),P10,treatment_0003,1.044593906526163
+chipmean,sentinel2,ASCM (latent 980-d),P10,treatment_0003,1.044593902315029
+chipmean,sentinel2,ridge / text-SC (latent 980-d),P10,treatment_0003,1.0325571986957904
+chipmean,sentinel2,SCM (latent 980-d),P09,treatment_0004,1.1252456697305149
+chipmean,sentinel2,ASCM (latent 980-d),P09,treatment_0004,1.125245673000995
+chipmean,sentinel2,ridge / text-SC (latent 980-d),P09,treatment_0004,1.0560260158840389
+chipmean,sentinel2,SCM (latent 980-d),P10,treatment_0004,1.440885371930866
+chipmean,sentinel2,ASCM (latent 980-d),P10,treatment_0004,1.4408854030076916
+chipmean,sentinel2,ridge / text-SC (latent 980-d),P10,treatment_0004,1.3323251807914154
+chipmean,sentinel2,SCM (latent 980-d),P09,treatment_0005,1.0663689692961555
+chipmean,sentinel2,ASCM (latent 980-d),P09,treatment_0005,1.0663689669150795
+chipmean,sentinel2,ridge / text-SC (latent 980-d),P09,treatment_0005,0.9865366677972173
+chipmean,sentinel2,SCM (latent 980-d),P10,treatment_0005,1.3499192627700838
+chipmean,sentinel2,ASCM (latent 980-d),P10,treatment_0005,1.349919262639795
+chipmean,sentinel2,ridge / text-SC (latent 980-d),P10,treatment_0005,1.2890786802188694
+chipmean,sentinel2,SCM (latent 980-d),P09,treatment_0006,1.3717601159653452
+chipmean,sentinel2,ASCM (latent 980-d),P09,treatment_0006,1.3717601185516732
+chipmean,sentinel2,ridge / text-SC (latent 980-d),P09,treatment_0006,1.280615923914728
+chipmean,sentinel2,SCM (latent 980-d),P10,treatment_0006,1.3034994483831315
+chipmean,sentinel2,ASCM (latent 980-d),P10,treatment_0006,1.3034994489503318
+chipmean,sentinel2,ridge / text-SC (latent 980-d),P10,treatment_0006,1.2282159717823213
+chipmean,sentinel2,SCM (latent 980-d),P09,treatment_0007,1.148270662798119
+chipmean,sentinel2,ASCM (latent 980-d),P09,treatment_0007,1.148270661937168
+chipmean,sentinel2,ridge / text-SC (latent 980-d),P09,treatment_0007,1.0575874972727808
+chipmean,sentinel2,SCM (latent 980-d),P10,treatment_0007,1.0405794197685152
+chipmean,sentinel2,ASCM (latent 980-d),P10,treatment_0007,1.0405794352379976
+chipmean,sentinel2,ridge / text-SC (latent 980-d),P10,treatment_0007,0.9970096778449575
+chipmean,sentinel2,SCM (latent 980-d),P09,treatment_0008,1.161080282937638
+chipmean,sentinel2,ASCM (latent 980-d),P09,treatment_0008,1.1610802765488033
+chipmean,sentinel2,ridge / text-SC (latent 980-d),P09,treatment_0008,1.0826019084777365
+chipmean,sentinel2,SCM (latent 980-d),P10,treatment_0008,1.221253316248879
+chipmean,sentinel2,ASCM (latent 980-d),P10,treatment_0008,1.2212533179907363
+chipmean,sentinel2,ridge / text-SC (latent 980-d),P10,treatment_0008,1.1406034002943868
+chipmean,sentinel2,SCM (latent 980-d),P09,treatment_0009,1.2627571810871914
+chipmean,sentinel2,ASCM (latent 980-d),P09,treatment_0009,1.2627571793966221
+chipmean,sentinel2,ridge / text-SC (latent 980-d),P09,treatment_0009,1.1855590241393807
+chipmean,sentinel2,SCM (latent 980-d),P10,treatment_0009,1.2233481150604828
+chipmean,sentinel2,ASCM (latent 980-d),P10,treatment_0009,1.2233481050174293
+chipmean,sentinel2,ridge / text-SC (latent 980-d),P10,treatment_0009,1.127827942836342
+chipmean,sentinel2,SCM (latent 980-d),P09,treatment_0010,0.8011043408510043
+chipmean,sentinel2,ASCM (latent 980-d),P09,treatment_0010,0.801104343250089
+chipmean,sentinel2,ridge / text-SC (latent 980-d),P09,treatment_0010,0.8008942176879422
+chipmean,sentinel2,SCM (latent 980-d),P10,treatment_0010,1.2532779341568245
+chipmean,sentinel2,ASCM (latent 980-d),P10,treatment_0010,1.2532779287418478
+chipmean,sentinel2,ridge / text-SC (latent 980-d),P10,treatment_0010,1.17975278451588
+chipmean,sentinel1,"SCM on 5 latent chip-means (=FSC, identity)",P09,treatment_0001,2.680855896706366
+chipmean,sentinel1,"SCM on 5 latent chip-means (=FSC, identity)",P09,treatment_0002,1.1814925307893105
+chipmean,sentinel1,"SCM on 5 latent chip-means (=FSC, identity)",P09,treatment_0003,0.7251477645119259
+chipmean,sentinel1,"SCM on 5 latent chip-means (=FSC, identity)",P09,treatment_0004,0.5324595229137207
+chipmean,sentinel1,"SCM on 5 latent chip-means (=FSC, identity)",P09,treatment_0005,0.9106247811732596
+chipmean,sentinel1,"SCM on 5 latent chip-means (=FSC, identity)",P09,treatment_0006,1.144940298946309
+chipmean,sentinel1,"SCM on 5 latent chip-means (=FSC, identity)",P09,treatment_0008,0.7698527420148709
+chipmean,sentinel1,"SCM on 5 latent chip-means (=FSC, identity)",P09,treatment_0009,0.5198931658417255
+chipmean,sentinel1,"SCM on 5 latent chip-means (=FSC, identity)",P09,treatment_0010,0.4744111582069333
+chipmean,sentinel1,"SCM on 5 latent chip-means (=FSC, identity)",P10,treatment_0001,2.572509648293556
+chipmean,sentinel1,"SCM on 5 latent chip-means (=FSC, identity)",P10,treatment_0002,1.3683084786459538
+chipmean,sentinel1,"SCM on 5 latent chip-means (=FSC, identity)",P10,treatment_0003,0.4054732652326925
+chipmean,sentinel1,"SCM on 5 latent chip-means (=FSC, identity)",P10,treatment_0004,1.3075273828285543
+chipmean,sentinel1,"SCM on 5 latent chip-means (=FSC, identity)",P10,treatment_0005,0.6582126572527683
+chipmean,sentinel1,"SCM on 5 latent chip-means (=FSC, identity)",P10,treatment_0006,1.5082532772806494
+chipmean,sentinel1,"SCM on 5 latent chip-means (=FSC, identity)",P10,treatment_0008,1.1025357625665655
+chipmean,sentinel1,"SCM on 5 latent chip-means (=FSC, identity)",P10,treatment_0009,0.7627055187260908
+chipmean,sentinel1,"SCM on 5 latent chip-means (=FSC, identity)",P10,treatment_0010,0.6263979585835365
+chipmean,sentinel1,FSC on hist+gram (115),P09,treatment_0001,1.386489065488336
+chipmean,sentinel1,FSC on hist+gram (115),P09,treatment_0002,1.3118309646008688
+chipmean,sentinel1,FSC on hist+gram (115),P09,treatment_0003,0.9499877079759932
+chipmean,sentinel1,FSC on hist+gram (115),P09,treatment_0004,0.9429118417611734
+chipmean,sentinel1,FSC on hist+gram (115),P09,treatment_0005,1.1353592072374223
+chipmean,sentinel1,FSC on hist+gram (115),P09,treatment_0006,0.9666190053882144
+chipmean,sentinel1,FSC on hist+gram (115),P09,treatment_0008,1.1048585578008348
+chipmean,sentinel1,FSC on hist+gram (115),P09,treatment_0009,0.8871437303546751
+chipmean,sentinel1,FSC on hist+gram (115),P09,treatment_0010,0.8211169428721419
+chipmean,sentinel1,FSC on hist+gram (115),P10,treatment_0001,1.5492287383416423
+chipmean,sentinel1,FSC on hist+gram (115),P10,treatment_0002,1.2984862588257238
+chipmean,sentinel1,FSC on hist+gram (115),P10,treatment_0003,0.9375331256987156
+chipmean,sentinel1,FSC on hist+gram (115),P10,treatment_0004,1.3284060127889294
+chipmean,sentinel1,FSC on hist+gram (115),P10,treatment_0005,0.9182869793148024
+chipmean,sentinel1,FSC on hist+gram (115),P10,treatment_0006,1.3898620274959994
+chipmean,sentinel1,FSC on hist+gram (115),P10,treatment_0008,1.1013269487508073
+chipmean,sentinel1,FSC on hist+gram (115),P10,treatment_0009,0.9781968754407654
+chipmean,sentinel1,FSC on hist+gram (115),P10,treatment_0010,0.9494624172787456
+chipmean,sentinel1,FSC on Gram (15),P09,treatment_0001,1.4666426582258056
+chipmean,sentinel1,FSC on Gram (15),P09,treatment_0002,1.3248973872285978
+chipmean,sentinel1,FSC on Gram (15),P09,treatment_0003,0.774246331472242
+chipmean,sentinel1,FSC on Gram (15),P09,treatment_0004,0.7763548812520963
+chipmean,sentinel1,FSC on Gram (15),P09,treatment_0005,0.9540291761157776
+chipmean,sentinel1,FSC on Gram (15),P09,treatment_0006,1.3183154183219168
+chipmean,sentinel1,FSC on Gram (15),P09,treatment_0008,0.862021158651252
+chipmean,sentinel1,FSC on Gram (15),P09,treatment_0009,0.5866347824528897
+chipmean,sentinel1,FSC on Gram (15),P09,treatment_0010,0.5571029461657214
+chipmean,sentinel1,FSC on Gram (15),P10,treatment_0001,2.573908789635681
+chipmean,sentinel1,FSC on Gram (15),P10,treatment_0002,1.2459003025270443
+chipmean,sentinel1,FSC on Gram (15),P10,treatment_0003,0.4688901271335248
+chipmean,sentinel1,FSC on Gram (15),P10,treatment_0004,1.5707218476475269
+chipmean,sentinel1,FSC on Gram (15),P10,treatment_0005,0.5893659112319505
+chipmean,sentinel1,FSC on Gram (15),P10,treatment_0006,1.4775851897640726
+chipmean,sentinel1,FSC on Gram (15),P10,treatment_0008,1.1327165000592072
+chipmean,sentinel1,FSC on Gram (15),P10,treatment_0009,0.6312707896967419
+chipmean,sentinel1,FSC on Gram (15),P10,treatment_0010,0.7490363977766484
+chipmean,sentinel1,FSC on histogram (100),P09,treatment_0001,1.3760175088620108
+chipmean,sentinel1,FSC on histogram (100),P09,treatment_0002,1.3051017838507066
+chipmean,sentinel1,FSC on histogram (100),P09,treatment_0003,0.9667549525701116
+chipmean,sentinel1,FSC on histogram (100),P09,treatment_0004,0.9478632085827428
+chipmean,sentinel1,FSC on histogram (100),P09,treatment_0005,1.155367801526475
+chipmean,sentinel1,FSC on histogram (100),P09,treatment_0006,0.9397633822118068
+chipmean,sentinel1,FSC on histogram (100),P09,treatment_0008,1.1194821156748682
+chipmean,sentinel1,FSC on histogram (100),P09,treatment_0009,0.908783552925748
+chipmean,sentinel1,FSC on histogram (100),P09,treatment_0010,0.836335235790626
+chipmean,sentinel1,FSC on histogram (100),P10,treatment_0001,1.511034544763856
+chipmean,sentinel1,FSC on histogram (100),P10,treatment_0002,1.2996490504028697
+chipmean,sentinel1,FSC on histogram (100),P10,treatment_0003,0.9662065341787924
+chipmean,sentinel1,FSC on histogram (100),P10,treatment_0004,1.3139468842347752
+chipmean,sentinel1,FSC on histogram (100),P10,treatment_0005,0.9375417403694644
+chipmean,sentinel1,FSC on histogram (100),P10,treatment_0006,1.3845620212478813
+chipmean,sentinel1,FSC on histogram (100),P10,treatment_0008,1.0973961944171358
+chipmean,sentinel1,FSC on histogram (100),P10,treatment_0009,0.9996784765724184
+chipmean,sentinel1,FSC on histogram (100),P10,treatment_0010,0.9590563863300108
+chipmean,sentinel2,"SCM on 5 latent chip-means (=FSC, identity)",P09,treatment_0001,0.2504223400036225
+chipmean,sentinel2,"SCM on 5 latent chip-means (=FSC, identity)",P09,treatment_0002,0.9459256492192596
+chipmean,sentinel2,"SCM on 5 latent chip-means (=FSC, identity)",P09,treatment_0003,0.2911363666897352
+chipmean,sentinel2,"SCM on 5 latent chip-means (=FSC, identity)",P09,treatment_0004,1.3374608640506676
+chipmean,sentinel2,"SCM on 5 latent chip-means (=FSC, identity)",P09,treatment_0005,1.1804959466895175
+chipmean,sentinel2,"SCM on 5 latent chip-means (=FSC, identity)",P09,treatment_0006,0.853604311605371
+chipmean,sentinel2,"SCM on 5 latent chip-means (=FSC, identity)",P09,treatment_0007,0.3139510090905275
+chipmean,sentinel2,"SCM on 5 latent chip-means (=FSC, identity)",P09,treatment_0008,0.7017350630702573
+chipmean,sentinel2,"SCM on 5 latent chip-means (=FSC, identity)",P09,treatment_0009,0.6409974598358527
+chipmean,sentinel2,"SCM on 5 latent chip-means (=FSC, identity)",P09,treatment_0010,0.5041316416154845
+chipmean,sentinel2,"SCM on 5 latent chip-means (=FSC, identity)",P10,treatment_0001,0.515909559888954
+chipmean,sentinel2,"SCM on 5 latent chip-means (=FSC, identity)",P10,treatment_0002,0.608182930633086
+chipmean,sentinel2,"SCM on 5 latent chip-means (=FSC, identity)",P10,treatment_0003,0.1358360710123167
+chipmean,sentinel2,"SCM on 5 latent chip-means (=FSC, identity)",P10,treatment_0004,1.5871445204639092
+chipmean,sentinel2,"SCM on 5 latent chip-means (=FSC, identity)",P10,treatment_0005,1.797447934441051
+chipmean,sentinel2,"SCM on 5 latent chip-means (=FSC, identity)",P10,treatment_0006,0.3906521267773884
+chipmean,sentinel2,"SCM on 5 latent chip-means (=FSC, identity)",P10,treatment_0007,0.3364248206234855
+chipmean,sentinel2,"SCM on 5 latent chip-means (=FSC, identity)",P10,treatment_0008,0.4705967600937087
+chipmean,sentinel2,"SCM on 5 latent chip-means (=FSC, identity)",P10,treatment_0009,0.5795227323441254
+chipmean,sentinel2,"SCM on 5 latent chip-means (=FSC, identity)",P10,treatment_0010,0.2256115022641263
+chipmean,sentinel2,FSC on hist+gram (115),P09,treatment_0001,0.8234046874137151
+chipmean,sentinel2,FSC on hist+gram (115),P09,treatment_0002,0.6687984068025862
+chipmean,sentinel2,FSC on hist+gram (115),P09,treatment_0003,0.550662961378015
+chipmean,sentinel2,FSC on hist+gram (115),P09,treatment_0004,1.1615641057182031
+chipmean,sentinel2,FSC on hist+gram (115),P09,treatment_0005,1.1431825502317765
+chipmean,sentinel2,FSC on hist+gram (115),P09,treatment_0006,0.8788549253580308
+chipmean,sentinel2,FSC on hist+gram (115),P09,treatment_0007,0.5513313522660435
+chipmean,sentinel2,FSC on hist+gram (115),P09,treatment_0008,0.7851187544127085
+chipmean,sentinel2,FSC on hist+gram (115),P09,treatment_0009,0.737509106899366
+chipmean,sentinel2,FSC on hist+gram (115),P09,treatment_0010,0.733208724113174
+chipmean,sentinel2,FSC on hist+gram (115),P10,treatment_0001,0.5372966602325298
+chipmean,sentinel2,FSC on hist+gram (115),P10,treatment_0002,0.5004243672699619
+chipmean,sentinel2,FSC on hist+gram (115),P10,treatment_0003,0.3645032005030613
+chipmean,sentinel2,FSC on hist+gram (115),P10,treatment_0004,0.931968591236176
+chipmean,sentinel2,FSC on hist+gram (115),P10,treatment_0005,0.9297060376634116
+chipmean,sentinel2,FSC on hist+gram (115),P10,treatment_0006,0.4805465384677178
+chipmean,sentinel2,FSC on hist+gram (115),P10,treatment_0007,0.4019964062247728
+chipmean,sentinel2,FSC on hist+gram (115),P10,treatment_0008,0.4368400030327968
+chipmean,sentinel2,FSC on hist+gram (115),P10,treatment_0009,0.4741631273819649
+chipmean,sentinel2,FSC on hist+gram (115),P10,treatment_0010,0.4037459768252038
+chipmean,sentinel2,FSC on Gram (15),P09,treatment_0001,0.3898453767642409
+chipmean,sentinel2,FSC on Gram (15),P09,treatment_0002,0.8274679128613162
+chipmean,sentinel2,FSC on Gram (15),P09,treatment_0003,0.2587589577491043
+chipmean,sentinel2,FSC on Gram (15),P09,treatment_0004,1.4960858652040636
+chipmean,sentinel2,FSC on Gram (15),P09,treatment_0005,1.2644913766825543
+chipmean,sentinel2,FSC on Gram (15),P09,treatment_0006,0.7424205293378109
+chipmean,sentinel2,FSC on Gram (15),P09,treatment_0007,0.2953815433789265
+chipmean,sentinel2,FSC on Gram (15),P09,treatment_0008,0.7288281325850534
+chipmean,sentinel2,FSC on Gram (15),P09,treatment_0009,0.4749835427379767
+chipmean,sentinel2,FSC on Gram (15),P09,treatment_0010,0.4996847308858491
+chipmean,sentinel2,FSC on Gram (15),P10,treatment_0001,0.5113199414737208
+chipmean,sentinel2,FSC on Gram (15),P10,treatment_0002,0.5697524180315059
+chipmean,sentinel2,FSC on Gram (15),P10,treatment_0003,0.0991842751669628
+chipmean,sentinel2,FSC on Gram (15),P10,treatment_0004,1.4942259608752089
+chipmean,sentinel2,FSC on Gram (15),P10,treatment_0005,1.201889307047486
+chipmean,sentinel2,FSC on Gram (15),P10,treatment_0006,0.3610606440423883
+chipmean,sentinel2,FSC on Gram (15),P10,treatment_0007,0.3349709496509885
+chipmean,sentinel2,FSC on Gram (15),P10,treatment_0008,0.3078179518384791
+chipmean,sentinel2,FSC on Gram (15),P10,treatment_0009,0.4700007787819329
+chipmean,sentinel2,FSC on Gram (15),P10,treatment_0010,0.1920109021217464
+chipmean,sentinel2,FSC on histogram (100),P09,treatment_0001,0.8695083192030851
+chipmean,sentinel2,FSC on histogram (100),P09,treatment_0002,0.6576460597694626
+chipmean,sentinel2,FSC on histogram (100),P09,treatment_0003,0.6122539731710192
+chipmean,sentinel2,FSC on histogram (100),P09,treatment_0004,1.1223116308403938
+chipmean,sentinel2,FSC on histogram (100),P09,treatment_0005,1.1147483664161644
+chipmean,sentinel2,FSC on histogram (100),P09,treatment_0006,0.895508788088613
+chipmean,sentinel2,FSC on histogram (100),P09,treatment_0007,0.5933834500237651
+chipmean,sentinel2,FSC on histogram (100),P09,treatment_0008,0.7972375638197023
+chipmean,sentinel2,FSC on histogram (100),P09,treatment_0009,0.7747956114177795
+chipmean,sentinel2,FSC on histogram (100),P09,treatment_0010,0.8093461747932823
+chipmean,sentinel2,FSC on histogram (100),P10,treatment_0001,0.5408406591092989
+chipmean,sentinel2,FSC on histogram (100),P10,treatment_0002,0.4876536478385241
+chipmean,sentinel2,FSC on histogram (100),P10,treatment_0003,0.4158188044378194
+chipmean,sentinel2,FSC on histogram (100),P10,treatment_0004,0.8663466311317043
+chipmean,sentinel2,FSC on histogram (100),P10,treatment_0005,0.8929642447878071
+chipmean,sentinel2,FSC on histogram (100),P10,treatment_0006,0.5020355174536036
+chipmean,sentinel2,FSC on histogram (100),P10,treatment_0007,0.4266143690911106
+chipmean,sentinel2,FSC on histogram (100),P10,treatment_0008,0.4471228904446484
+chipmean,sentinel2,FSC on histogram (100),P10,treatment_0009,0.4802662528191871
+chipmean,sentinel2,FSC on histogram (100),P10,treatment_0010,0.4231342660556493
+genfill,sentinel1,"SCM on 5 latent chip-means (=FSC, identity)",P09,treatment_0001,2.680855896706366
+genfill,sentinel1,"SCM on 5 latent chip-means (=FSC, identity)",P09,treatment_0002,1.1814925307893105
+genfill,sentinel1,"SCM on 5 latent chip-means (=FSC, identity)",P09,treatment_0003,0.7251477645119259
+genfill,sentinel1,"SCM on 5 latent chip-means (=FSC, identity)",P09,treatment_0004,0.5324595229137207
+genfill,sentinel1,"SCM on 5 latent chip-means (=FSC, identity)",P09,treatment_0005,0.9106247811732596
+genfill,sentinel1,"SCM on 5 latent chip-means (=FSC, identity)",P09,treatment_0006,1.144940298946309
+genfill,sentinel1,"SCM on 5 latent chip-means (=FSC, identity)",P09,treatment_0007,1.392848553079394
+genfill,sentinel1,"SCM on 5 latent chip-means (=FSC, identity)",P09,treatment_0008,0.7698527420148709
+genfill,sentinel1,"SCM on 5 latent chip-means (=FSC, identity)",P09,treatment_0009,0.5198931658417255
+genfill,sentinel1,"SCM on 5 latent chip-means (=FSC, identity)",P09,treatment_0010,0.4744111582069333
+genfill,sentinel1,"SCM on 5 latent chip-means (=FSC, identity)",P10,treatment_0001,2.572509648293556
+genfill,sentinel1,"SCM on 5 latent chip-means (=FSC, identity)",P10,treatment_0002,1.3683084786459538
+genfill,sentinel1,"SCM on 5 latent chip-means (=FSC, identity)",P10,treatment_0003,0.4054732652326925
+genfill,sentinel1,"SCM on 5 latent chip-means (=FSC, identity)",P10,treatment_0004,1.3075273828285543
+genfill,sentinel1,"SCM on 5 latent chip-means (=FSC, identity)",P10,treatment_0005,0.6582126572527683
+genfill,sentinel1,"SCM on 5 latent chip-means (=FSC, identity)",P10,treatment_0006,1.5082532772806494
+genfill,sentinel1,"SCM on 5 latent chip-means (=FSC, identity)",P10,treatment_0007,1.8774265430900687
+genfill,sentinel1,"SCM on 5 latent chip-means (=FSC, identity)",P10,treatment_0008,1.1025357625665655
+genfill,sentinel1,"SCM on 5 latent chip-means (=FSC, identity)",P10,treatment_0009,0.7627055187260908
+genfill,sentinel1,"SCM on 5 latent chip-means (=FSC, identity)",P10,treatment_0010,0.6263979585835365
+genfill,sentinel1,FSC on hist+gram (115),P09,treatment_0001,1.3864277794027258
+genfill,sentinel1,FSC on hist+gram (115),P09,treatment_0002,1.3112144688726974
+genfill,sentinel1,FSC on hist+gram (115),P09,treatment_0003,0.9500164871869484
+genfill,sentinel1,FSC on hist+gram (115),P09,treatment_0004,0.9428519147690648
+genfill,sentinel1,FSC on hist+gram (115),P09,treatment_0005,1.135377989040115
+genfill,sentinel1,FSC on hist+gram (115),P09,treatment_0006,0.966635614927382
+genfill,sentinel1,FSC on hist+gram (115),P09,treatment_0007,1.294586027296893
+genfill,sentinel1,FSC on hist+gram (115),P09,treatment_0008,1.1048794778403666
+genfill,sentinel1,FSC on hist+gram (115),P09,treatment_0009,0.886935767909649
+genfill,sentinel1,FSC on hist+gram (115),P09,treatment_0010,0.8211248696364755
+genfill,sentinel1,FSC on hist+gram (115),P10,treatment_0001,1.5490171168189764
+genfill,sentinel1,FSC on hist+gram (115),P10,treatment_0002,1.2986499251019357
+genfill,sentinel1,FSC on hist+gram (115),P10,treatment_0003,0.9376926862648846
+genfill,sentinel1,FSC on hist+gram (115),P10,treatment_0004,1.3283830328057444
+genfill,sentinel1,FSC on hist+gram (115),P10,treatment_0005,0.9183254857810216
+genfill,sentinel1,FSC on hist+gram (115),P10,treatment_0006,1.3898632849176895
+genfill,sentinel1,FSC on hist+gram (115),P10,treatment_0007,1.1665271951451228
+genfill,sentinel1,FSC on hist+gram (115),P10,treatment_0008,1.10131929717112
+genfill,sentinel1,FSC on hist+gram (115),P10,treatment_0009,0.9782365075148036
+genfill,sentinel1,FSC on hist+gram (115),P10,treatment_0010,0.9496149057279022
+genfill,sentinel1,FSC on Gram (15),P09,treatment_0001,1.4666426582258056
+genfill,sentinel1,FSC on Gram (15),P09,treatment_0002,1.3248973872285978
+genfill,sentinel1,FSC on Gram (15),P09,treatment_0003,0.774246331472242
+genfill,sentinel1,FSC on Gram (15),P09,treatment_0004,0.7763548812520963
+genfill,sentinel1,FSC on Gram (15),P09,treatment_0005,0.9540291761157776
+genfill,sentinel1,FSC on Gram (15),P09,treatment_0006,1.3183154183219168
+genfill,sentinel1,FSC on Gram (15),P09,treatment_0007,1.3033991128823614
+genfill,sentinel1,FSC on Gram (15),P09,treatment_0008,0.862021158651252
+genfill,sentinel1,FSC on Gram (15),P09,treatment_0009,0.5866347824528897
+genfill,sentinel1,FSC on Gram (15),P09,treatment_0010,0.5571029461657214
+genfill,sentinel1,FSC on Gram (15),P10,treatment_0001,2.573908789635681
+genfill,sentinel1,FSC on Gram (15),P10,treatment_0002,1.2459003025270443
+genfill,sentinel1,FSC on Gram (15),P10,treatment_0003,0.4688901271335248
+genfill,sentinel1,FSC on Gram (15),P10,treatment_0004,1.5707218476475269
+genfill,sentinel1,FSC on Gram (15),P10,treatment_0005,0.5893659112319505
+genfill,sentinel1,FSC on Gram (15),P10,treatment_0006,1.4775851897640726
+genfill,sentinel1,FSC on Gram (15),P10,treatment_0007,1.967891149998472
+genfill,sentinel1,FSC on Gram (15),P10,treatment_0008,1.1327165000592072
+genfill,sentinel1,FSC on Gram (15),P10,treatment_0009,0.6312707896967419
+genfill,sentinel1,FSC on Gram (15),P10,treatment_0010,0.7490363977766484
+genfill,sentinel1,FSC on histogram (100),P09,treatment_0001,1.3760175088620108
+genfill,sentinel1,FSC on histogram (100),P09,treatment_0002,1.3051017838507066
+genfill,sentinel1,FSC on histogram (100),P09,treatment_0003,0.9667549525701116
+genfill,sentinel1,FSC on histogram (100),P09,treatment_0004,0.9478632085827428
+genfill,sentinel1,FSC on histogram (100),P09,treatment_0005,1.155367801526475
+genfill,sentinel1,FSC on histogram (100),P09,treatment_0006,0.9397633822118068
+genfill,sentinel1,FSC on histogram (100),P09,treatment_0007,1.2925811978775434
+genfill,sentinel1,FSC on histogram (100),P09,treatment_0008,1.1194821156748682
+genfill,sentinel1,FSC on histogram (100),P09,treatment_0009,0.908783552925748
+genfill,sentinel1,FSC on histogram (100),P09,treatment_0010,0.836335235790626
+genfill,sentinel1,FSC on histogram (100),P10,treatment_0001,1.511034544763856
+genfill,sentinel1,FSC on histogram (100),P10,treatment_0002,1.2996490504028697
+genfill,sentinel1,FSC on histogram (100),P10,treatment_0003,0.9662065341787924
+genfill,sentinel1,FSC on histogram (100),P10,treatment_0004,1.3139468842347752
+genfill,sentinel1,FSC on histogram (100),P10,treatment_0005,0.9375417403694644
+genfill,sentinel1,FSC on histogram (100),P10,treatment_0006,1.3845620212478813
+genfill,sentinel1,FSC on histogram (100),P10,treatment_0007,1.1280248594977589
+genfill,sentinel1,FSC on histogram (100),P10,treatment_0008,1.0973961944171358
+genfill,sentinel1,FSC on histogram (100),P10,treatment_0009,0.9996784765724184
+genfill,sentinel1,FSC on histogram (100),P10,treatment_0010,0.9590563863300108
+genfill,sentinel2,"SCM on 5 latent chip-means (=FSC, identity)",P09,treatment_0001,1.2680590509972611
+genfill,sentinel2,"SCM on 5 latent chip-means (=FSC, identity)",P09,treatment_0002,3.87645899788054
+genfill,sentinel2,"SCM on 5 latent chip-means (=FSC, identity)",P09,treatment_0003,0.4422351068677264
+genfill,sentinel2,"SCM on 5 latent chip-means (=FSC, identity)",P09,treatment_0004,0.3153441071914666
+genfill,sentinel2,"SCM on 5 latent chip-means (=FSC, identity)",P09,treatment_0005,1.0550062407327292
+genfill,sentinel2,"SCM on 5 latent chip-means (=FSC, identity)",P09,treatment_0006,0.6237552153072542
+genfill,sentinel2,"SCM on 5 latent chip-means (=FSC, identity)",P09,treatment_0007,2.7095818614480534
+genfill,sentinel2,"SCM on 5 latent chip-means (=FSC, identity)",P09,treatment_0008,1.63193670039019
+genfill,sentinel2,"SCM on 5 latent chip-means (=FSC, identity)",P09,treatment_0009,0.5173994976224467
+genfill,sentinel2,"SCM on 5 latent chip-means (=FSC, identity)",P09,treatment_0010,1.1269225594988463
+genfill,sentinel2,"SCM on 5 latent chip-means (=FSC, identity)",P10,treatment_0001,0.9215751985083406
+genfill,sentinel2,"SCM on 5 latent chip-means (=FSC, identity)",P10,treatment_0002,0.9580920721904046
+genfill,sentinel2,"SCM on 5 latent chip-means (=FSC, identity)",P10,treatment_0003,0.4065323702156727
+genfill,sentinel2,"SCM on 5 latent chip-means (=FSC, identity)",P10,treatment_0004,0.5687502351025748
+genfill,sentinel2,"SCM on 5 latent chip-means (=FSC, identity)",P10,treatment_0005,0.943638133394464
+genfill,sentinel2,"SCM on 5 latent chip-means (=FSC, identity)",P10,treatment_0006,1.0044548412692866
+genfill,sentinel2,"SCM on 5 latent chip-means (=FSC, identity)",P10,treatment_0007,0.8598006027253798
+genfill,sentinel2,"SCM on 5 latent chip-means (=FSC, identity)",P10,treatment_0008,0.6126236682745639
+genfill,sentinel2,"SCM on 5 latent chip-means (=FSC, identity)",P10,treatment_0009,0.3278872188071012
+genfill,sentinel2,"SCM on 5 latent chip-means (=FSC, identity)",P10,treatment_0010,0.4839156384744548
+genfill,sentinel2,FSC on hist+gram (115),P09,treatment_0001,1.0562854400661874
+genfill,sentinel2,FSC on hist+gram (115),P09,treatment_0002,1.6199641534698304
+genfill,sentinel2,FSC on hist+gram (115),P09,treatment_0003,0.7813294117711272
+genfill,sentinel2,FSC on hist+gram (115),P09,treatment_0004,0.8672529233894882
+genfill,sentinel2,FSC on hist+gram (115),P09,treatment_0005,1.2567886092976055
+genfill,sentinel2,FSC on hist+gram (115),P09,treatment_0006,0.8090223003669768
+genfill,sentinel2,FSC on hist+gram (115),P09,treatment_0007,1.7526110490324671
+genfill,sentinel2,FSC on hist+gram (115),P09,treatment_0008,1.0517568057991666
+genfill,sentinel2,FSC on hist+gram (115),P09,treatment_0009,0.8366163700069195
+genfill,sentinel2,FSC on hist+gram (115),P09,treatment_0010,1.2211669520510924
+genfill,sentinel2,FSC on hist+gram (115),P10,treatment_0001,0.9179357683713276
+genfill,sentinel2,FSC on hist+gram (115),P10,treatment_0002,1.1186278576888122
+genfill,sentinel2,FSC on hist+gram (115),P10,treatment_0003,0.6011478373822482
+genfill,sentinel2,FSC on hist+gram (115),P10,treatment_0004,0.7923639493951196
+genfill,sentinel2,FSC on hist+gram (115),P10,treatment_0005,1.0827536509634077
+genfill,sentinel2,FSC on hist+gram (115),P10,treatment_0006,0.9778926368847284
+genfill,sentinel2,FSC on hist+gram (115),P10,treatment_0007,1.05551578423305
+genfill,sentinel2,FSC on hist+gram (115),P10,treatment_0008,0.7523570103404589
+genfill,sentinel2,FSC on hist+gram (115),P10,treatment_0009,0.5660367467986595
+genfill,sentinel2,FSC on hist+gram (115),P10,treatment_0010,0.6846710407571798
+genfill,sentinel2,FSC on Gram (15),P09,treatment_0001,1.060256384869775
+genfill,sentinel2,FSC on Gram (15),P09,treatment_0002,3.891829496488254
+genfill,sentinel2,FSC on Gram (15),P09,treatment_0003,0.4627910948684904
+genfill,sentinel2,FSC on Gram (15),P09,treatment_0004,0.3246846584975844
+genfill,sentinel2,FSC on Gram (15),P09,treatment_0005,1.2500055606259322
+genfill,sentinel2,FSC on Gram (15),P09,treatment_0006,0.709017559113831
+genfill,sentinel2,FSC on Gram (15),P09,treatment_0007,2.748338670793668
+genfill,sentinel2,FSC on Gram (15),P09,treatment_0008,1.397489425986239
+genfill,sentinel2,FSC on Gram (15),P09,treatment_0009,0.4913885522817496
+genfill,sentinel2,FSC on Gram (15),P09,treatment_0010,0.9485566251411603
+genfill,sentinel2,FSC on Gram (15),P10,treatment_0001,0.7762765718185232
+genfill,sentinel2,FSC on Gram (15),P10,treatment_0002,1.0847010172394098
+genfill,sentinel2,FSC on Gram (15),P10,treatment_0003,0.4576288824829186
+genfill,sentinel2,FSC on Gram (15),P10,treatment_0004,0.4443128436053505
+genfill,sentinel2,FSC on Gram (15),P10,treatment_0005,0.9282264664955742
+genfill,sentinel2,FSC on Gram (15),P10,treatment_0006,0.8655849466762895
+genfill,sentinel2,FSC on Gram (15),P10,treatment_0007,0.9677488995747822
+genfill,sentinel2,FSC on Gram (15),P10,treatment_0008,0.8401635811285549
+genfill,sentinel2,FSC on Gram (15),P10,treatment_0009,0.3841106577572407
+genfill,sentinel2,FSC on Gram (15),P10,treatment_0010,0.526400331694861
+genfill,sentinel2,FSC on histogram (100),P09,treatment_0001,1.0622656878709245
+genfill,sentinel2,FSC on histogram (100),P09,treatment_0002,1.556468685616225
+genfill,sentinel2,FSC on histogram (100),P09,treatment_0003,0.8089463958818607
+genfill,sentinel2,FSC on histogram (100),P09,treatment_0004,0.9184069987066836
+genfill,sentinel2,FSC on histogram (100),P09,treatment_0005,1.2492093758788612
+genfill,sentinel2,FSC on histogram (100),P09,treatment_0006,0.8202413298491268
+genfill,sentinel2,FSC on histogram (100),P09,treatment_0007,1.6560164181009267
+genfill,sentinel2,FSC on histogram (100),P09,treatment_0008,1.029634512052461
+genfill,sentinel2,FSC on histogram (100),P09,treatment_0009,0.8643565869960098
+genfill,sentinel2,FSC on histogram (100),P09,treatment_0010,1.253080107081925
+genfill,sentinel2,FSC on histogram (100),P10,treatment_0001,0.9369327768745233
+genfill,sentinel2,FSC on histogram (100),P10,treatment_0002,1.1221625642348017
+genfill,sentinel2,FSC on histogram (100),P10,treatment_0003,0.6483307694685289
+genfill,sentinel2,FSC on histogram (100),P10,treatment_0004,0.808673106640694
+genfill,sentinel2,FSC on histogram (100),P10,treatment_0005,1.0863308263382014
+genfill,sentinel2,FSC on histogram (100),P10,treatment_0006,1.014755477372876
+genfill,sentinel2,FSC on histogram (100),P10,treatment_0007,1.0630600062834634
+genfill,sentinel2,FSC on histogram (100),P10,treatment_0008,0.7466506855759114
+genfill,sentinel2,FSC on histogram (100),P10,treatment_0009,0.579118662995378
+genfill,sentinel2,FSC on histogram (100),P10,treatment_0010,0.7021941954975056

@@ -4,7 +4,7 @@
 Jun's question (2026-08-13): mimic the collaborator's satellite comparison --
 equal-weight donor counterfactual vs solver-estimated weights -- on data where
 the counterfactual can be scored against an observed truth.  Her pipeline
-(REAP data/scripts/09_test_counterfactual_average.ipynb) is a 2x2 DiD with
+(Satellite data/scripts/09_test_counterfactual_average.ipynb) is a 2x2 DiD with
 fixed 1/10 weights over 10 matched control sites and NO holdout: parallel
 trends is assumed via matching, never tested.  n2c2 has what the satellite
 lacks: every patient is untreated and the next visit is observed, so every
