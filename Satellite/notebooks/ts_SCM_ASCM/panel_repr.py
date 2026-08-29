@@ -32,7 +32,7 @@ scripts do.
 """
 import numpy as np
 
-from panel_lib import SENSORS, TRAIN8
+from panel_lib import SENSORS, TRAIN8, TS
 
 # Quantile grid. Their mortality.R uses seq(0.01, 0.99, length=100) for ONE function;
 # we concatenate 5 channels, so 100 points would give M = 500 and their augmented
@@ -209,3 +209,119 @@ def describe(panel, sensor, name, groups, periods):
     """One-line provenance string for the notebook."""
     return (f"{name}: M={DIMS[name]}  groups={len(groups)}  units/group={len(groups[0])}"
             f"  periods={len(periods)} {periods}  sensor={sensor}")
+
+
+# ---------------------------------------------------------------- masked pooling
+# Cloud pixels are NaN in the raw tifs and are chip-mean filled (`panel_lib.fill_nan`)
+# before encoding, so parcels under cloud carry fabricated content. The masked variants
+# pool ONLY over parcels whose underlying pixels are mostly observed — the
+# partial-convolution principle (Liu et al., ECCV 2018) applied to the pooling step:
+# renormalize over the valid support instead of pretending fill is data. Restricting a
+# quantile function or a Gram mean to the valid parcels is still the same Hilbert-space
+# embedding, now of the valid-parcel distribution.
+#
+# Known limitation (disclosed wherever results are shown): the tokenizer is a ViT with
+# global attention, so even a valid parcel's token saw the filled regions during
+# encoding. Section 7 of Docs/8-27-update.md measured tokens as strongly local
+# (within-chip R^2 0.65-0.82), so this contamination is second-order — masked pooling
+# reduces fill influence, it cannot remove it.
+#
+# Parcel validity map: the (5,14,14) latent's parcel (i,j) is the 16x16 patch (i,j) of
+# the 224x224 tokenizer input, which is the bilinear resize of the 101x101 chip — so
+# patch (i,j) corresponds (up to the resize's ~1px mixing) to cell (i,j) of a uniform
+# 14x14 partition of the raw chip. Validity of a parcel = fraction of its raw pixels
+# finite in ALL bands. Measured on this panel the threshold barely matters (mean valid
+# parcels 127/124/121/117 at 0.3/0.5/0.7/0.9): cloud masks are spatially coherent, a
+# chip is either mostly clear or almost entirely masked.
+PARCEL_THR = 0.5      # parcel counts as valid if >= this fraction of its pixels finite
+MIN_VALID = 10        # chip's masked stats defined if >= this many valid parcels;
+                      # at this floor P09/P10 survive for all 10 groups (diagnostic)
+VALIDITY_NPZ = TS / "parcel_validity.npz"
+_EDGES = np.linspace(0, 101, 15).round().astype(int)
+
+
+def build_validity(idx, npz_path=VALIDITY_NPZ):
+    """(site, sensor, period_id) -> (196,) float32 per-parcel finite fraction, from the
+    raw biweekly tifs (rows with file_exists), saved to `npz_path`. Row-major over the
+    14x14 grid — the same C-order as the latent's reshape(5, 196)."""
+    from panel_lib import read_chip_biweekly
+    out = {}
+    for r in idx.query("file_exists").itertuples():
+        chip = read_chip_biweekly(r.tif, r.sensor)
+        fin = np.isfinite(chip).all(axis=-1)
+        pv = np.array([[fin[_EDGES[i]:_EDGES[i + 1], _EDGES[j]:_EDGES[j + 1]].mean()
+                        for j in range(14)] for i in range(14)], dtype=np.float32)
+        out[(r.site_id, r.sensor, r.period_id)] = pv.ravel()
+    np.savez_compressed(npz_path, **{"|".join(k): v for k, v in out.items()})
+    return out
+
+
+def load_validity(npz_path=VALIDITY_NPZ):
+    z = np.load(npz_path)
+    return {tuple(k.split("|")): z[k] for k in z.files}
+
+
+def n_valid(validity, panel, site, sensor, seq, thr=PARCEL_THR):
+    """Valid-parcel count of a chip, or None if it has no raw image (no mask exists)."""
+    v = validity.get((site, sensor, panel.pid_of_seq[seq]))
+    return None if v is None else int((v >= thr).sum())
+
+
+def _repr_masked(A, name, keep, grids=GRIDS_Q):
+    """Pooled representation over the valid parcels only. `keep`: (196,) bool."""
+    Av = A[:, keep]
+    if name == "chip_mean":
+        return Av.mean(axis=1)
+    if name == "quantile":
+        return np.concatenate([np.quantile(Av[c], grids) for c in range(Av.shape[0])])
+    if name == "gram":
+        return (Av @ Av.T / Av.shape[1])[IU5]
+    if name == "combined":
+        return np.concatenate([_repr_masked(A, "quantile", keep, grids),
+                               _repr_masked(A, "gram", keep)])
+    raise ValueError(name)
+
+
+def build_block_masked(panel, sensor, name, groups, periods, validity, grids=GRIDS_Q,
+                       thr=PARCEL_THR, min_valid=MIN_VALID, fallback=True,
+                       block_scale=None):
+    """`build_block` with masked pooling. Per chip: pool over parcels with validity
+    >= `thr` when at least `min_valid` of them exist; below that the masked statistics
+    are undefined and the chip falls back to all-196 pooling (`fallback=True`, arm 1)
+    or is an assertion error (`fallback=False`, arm 2 — the caller must have dropped
+    such chips from `periods` already). A chip with no raw image (no mask) also falls
+    back — for the chip-mean cache every latent has an observed tif, so this only
+    matters if a generated-latent panel is ever passed here.
+
+    Returns (block, block_scale, info) — info has one row per chip with its valid-parcel
+    count and whether masked pooling was used, so fallbacks are recorded, never silent.
+    """
+    import pandas as pd
+    M = dim_of(name, grids)
+    out = np.zeros((len(groups), len(groups[0]), len(periods), M), dtype=np.float64)
+    info = []
+    for gi, g in enumerate(groups):
+        for ui, site in enumerate(g):
+            for ti, q in enumerate(periods):
+                A = _A(panel, site, sensor, q)
+                assert A is not None, (site, sensor, q)
+                v = validity.get((site, sensor, panel.pid_of_seq[q]))
+                nv = None if v is None else int((v >= thr).sum())
+                masked = nv is not None and nv >= min_valid
+                if not masked:
+                    assert fallback, ("chip below min_valid must be dropped upstream "
+                                      "when fallback=False", site, sensor, q, nv)
+                    out[gi, ui, ti] = _repr_raw(A, name, grids)
+                else:
+                    out[gi, ui, ti] = _repr_masked(A, name, v >= thr, grids)
+                info.append({"group": gi + 1, "site_id": site, "seq": q,
+                             "n_valid_parcels": nv, "masked": masked})
+    if name == "combined":
+        nq = 5 * len(grids)
+        if block_scale is None:
+            sq = float(np.sqrt((out[..., :nq] ** 2).mean()))
+            sg = float(np.sqrt((out[..., nq:] ** 2).mean()))
+            block_scale = (sq or 1.0, sg or 1.0)
+        out[..., :nq] /= block_scale[0]
+        out[..., nq:] /= block_scale[1]
+    return out, block_scale, pd.DataFrame(info)

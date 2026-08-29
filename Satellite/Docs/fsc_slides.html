@@ -1,0 +1,595 @@
+<title>Latent FSC Slides</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&family=STIX+Two+Text:ital,wght@0,400;0,600;1,400;1,600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --paper:#F7F7F3; --ink:#20261F; --muted:#5C665C; --accent:#2E6B4E; --warn:#A8502B;
+  --line:#D8DCD3; --card:#FFFFFF; --wash:#EDF0E9; --washwarn:#F4EAE2;
+}
+:root:not([data-theme="light"]){}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#161A16; --ink:#E8EBE4; --muted:#9AA598; --accent:#6FBF94; --warn:#E08B5C;
+    --line:#2C332C; --card:#1E241E; --wash:#222A22; --washwarn:#2E251E;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#161A16; --ink:#E8EBE4; --muted:#9AA598; --accent:#6FBF94; --warn:#E08B5C;
+  --line:#2C332C; --card:#1E241E; --wash:#222A22; --washwarn:#2E251E;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:'Source Serif 4',Georgia,serif;overflow:hidden}
+.stage{position:fixed;inset:0;display:grid;place-items:center;background:var(--paper)}
+.deck{width:1280px;height:720px;position:relative;transform-origin:center center}
+.slide{position:absolute;inset:0;padding:52px 72px 64px;display:none;flex-direction:column;gap:18px;background:var(--paper)}
+.slide.on{display:flex}
+.eyebrow{font-family:Archivo,system-ui,sans-serif;font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+h2{font-family:Archivo,system-ui,sans-serif;font-size:36px;font-weight:700;line-height:1.12;letter-spacing:-.01em;text-wrap:balance}
+h3{font-family:Archivo,system-ui,sans-serif;font-size:18px;font-weight:600;margin-bottom:6px}
+p,li{font-size:19px;line-height:1.45}
+li{margin-bottom:7px}
+ul,ol{padding-left:24px}
+small,.small{font-size:15px;color:var(--muted);line-height:1.4}
+.deckfoot{position:absolute;left:72px;right:72px;bottom:22px;display:flex;justify-content:space-between;align-items:center;
+  border-top:1px solid var(--line);padding-top:9px;font-family:Archivo,system-ui,sans-serif;font-size:12.5px;letter-spacing:.06em;color:var(--muted)}
+.cols{display:grid;gap:26px;align-items:start}
+.c2{grid-template-columns:1fr 1fr}
+.c3{grid-template-columns:1fr 1fr 1fr}
+.c21{grid-template-columns:1.2fr 1fr}
+.card{background:var(--card);border:1px solid var(--line);border-radius:4px;padding:16px 18px}
+.wash{background:var(--wash);border:1px solid var(--line);border-radius:4px;padding:14px 18px}
+.caveat{background:var(--washwarn);border-left:3px solid var(--warn);border-radius:0 4px 4px 0;padding:12px 16px}
+.caveat h3{color:var(--warn)}
+.tbl{border-collapse:collapse;width:100%}
+.tbl th{font-family:Archivo,system-ui,sans-serif;font-size:13.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;
+  color:var(--muted);text-align:left;padding:6px 10px;border-bottom:2px solid var(--ink)}
+.tbl td{font-size:17px;padding:6px 10px;border-bottom:1px solid var(--line)}
+.tbl td.num,.tbl th.num{text-align:right;font-family:Archivo,system-ui,sans-serif;font-variant-numeric:tabular-nums}
+.good{color:var(--accent);font-weight:600}
+.bad{color:var(--warn)}
+.mono{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.88em}
+.mi{font-family:'STIX Two Text',Georgia,serif;font-style:italic}
+.mrm{font-family:'STIX Two Text',Georgia,serif}
+.dm{font-family:'STIX Two Text',Georgia,serif;font-size:21px;text-align:center;margin:10px 0;line-height:1.5}
+.sum{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:.95;margin:0 3px}
+.sum .lim{font-size:.52em}
+.sum .sig{font-size:1.55em}
+.brk{display:inline-block;position:relative;padding:5px 12px;vertical-align:middle}
+.brk::before,.brk::after{content:"";position:absolute;top:0;bottom:0;width:7px;border:1.6px solid var(--ink)}
+.brk::before{left:0;border-right:none}
+.brk::after{right:0;border-left:none}
+.mat{display:inline-grid;gap:3px 16px;font-family:'STIX Two Text',Georgia,serif;font-size:17px}
+.chain{display:flex;align-items:stretch;gap:0;margin:6px 0}
+.chip{flex:1;background:var(--card);border:1px solid var(--line);border-radius:4px;padding:11px 12px;text-align:center}
+.chip b{font-family:Archivo,system-ui,sans-serif;font-size:16.5px;display:block;margin-bottom:3px}
+.chip span{font-size:14px;color:var(--muted);line-height:1.3;display:block}
+.arr{align-self:center;padding:0 8px;color:var(--accent);font-family:Archivo,system-ui,sans-serif;font-size:20px;font-weight:600}
+.hud{position:fixed;right:16px;bottom:14px;display:flex;gap:8px;z-index:5}
+.hud button{font-family:Archivo,system-ui,sans-serif;font-size:15px;background:var(--card);color:var(--ink);
+  border:1px solid var(--line);border-radius:4px;padding:5px 13px;cursor:pointer}
+.hud button:hover{border-color:var(--accent);color:var(--accent)}
+.hud button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.title-slide{justify-content:center;gap:22px}
+.title-slide h1{font-family:Archivo,system-ui,sans-serif;font-size:58px;font-weight:700;line-height:1.06;letter-spacing:-.015em;max-width:980px;text-wrap:balance}
+.title-slide .sub{font-size:26px;font-style:italic;font-family:'Source Serif 4',Georgia,serif;color:var(--muted);max-width:900px}
+.kicker{font-family:Archivo,system-ui,sans-serif;font-size:14px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+.meta{font-family:Archivo,system-ui,sans-serif;font-size:15.5px;color:var(--muted);letter-spacing:.02em}
+.qbox{border-left:3px solid var(--accent);padding:2px 0 2px 14px;margin:8px 0;font-size:17px;line-height:1.45}
+.tight li{margin-bottom:4px;font-size:17.5px}
+.tight2 li{margin-bottom:3px;font-size:16px;line-height:1.38}
+@media (prefers-reduced-motion: no-preference){ .slide.on{animation:fad .18s ease} @keyframes fad{from{opacity:.4}to{opacity:1}} }
+</style>
+
+<div class="stage">
+<div class="deck" id="deck">
+
+<!-- ================= 1 · TITLE ================= -->
+<section class="slide title-slide on">
+  <div class="kicker">Satellite · Hurricane Helene · latent synthetic control</div>
+  <h1>Synthetic control in TerraMind latent space</h1>
+  <div class="sub">From position-matched failure to functional synthetic control (FSC)</div>
+  <div class="meta">60 sites × 2 sensors × 20 biweekly periods · treated boundary 2024-09-27 · fit P01–P08, predict P09–P10 · 2026-08-27</div>
+</section>
+
+<!-- ================= 2 · TERRAMIND ================= -->
+<section class="slide">
+  <div><div class="eyebrow">1 · Input representation</div>
+  <h2>The TerraMind embedding: where 5 × 14 × 14 comes from</h2></div>
+  <div class="chain">
+    <div class="chip"><b>Site</b><span>≈ 1 km × 1 km of ground, one satellite chip per sensor per 14-day period</span></div>
+    <div class="arr">→</div>
+    <div class="chip"><b>Resized chip</b><span>224 × 224 pixels, cut into 16 × 16-pixel patches</span></div>
+    <div class="arr">→</div>
+    <div class="chip"><b>14 × 14 = 196 parcels</b><span>each patch ≈ 72 m × 72 m of ground</span></div>
+    <div class="arr">→</div>
+    <div class="chip"><b>5 latents per parcel</b><span><span class="mi">x<sub>p</sub></span> ∈ ℝ⁵</span></div>
+    <div class="arr">→</div>
+    <div class="chip"><b>980 values / chip</b><span>196 × 5: five 14 × 14 maps stacked</span></div>
+  </div>
+  <div class="cols c2">
+    <div class="card">
+      <h3>What the 5 channels are</h3>
+      <ul class="tight">
+        <li>Learned internal features of TerraMind, <b>not</b> the original bands (not Red, NIR, VV, or VH).</li>
+        <li>A chip is a collection of 196 learned local descriptors {<span class="mi">x</span><sub>1</sub>, …, <span class="mi">x</span><sub>196</sub>}; the 5 numbers carry no real-world meaning on their own.</li>
+        <li>Measured meaning (clean chips): the 5 values predict spectral indices at the <i>same parcel</i>: within-chip R² NDVI 0.71, NDWI 0.65, NDBI 0.80.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>The codebook (TerraMind paper, arXiv:2504.11171)</h3>
+      <ul class="tight">
+        <li>“Modality-specific tokenizers”: ViT encoder + patched UNet decoder; one latent per 16 × 16 patch, discretized with finite-scalar quantization (FSQ).</li>
+        <li>“The latent dimension was set to 5”, FSQ levels <span class="mono">8-8-8-6-5</span> → 8·8·8·6·5 = <b>15,360 ≈ 16K codewords</b>.</li>
+        <li>FSQ chosen for training stability (fixed, not learned, codebook); compression 250–3000×.</li>
+        <li>We use the frozen pretrained S2-L2A and S1-GRD tokenizers.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 3 · WHY NOT PARCEL-TO-PARCEL ================= -->
+<section class="slide">
+  <div><div class="eyebrow">1 · The failure mode</div>
+  <h2>Why not parcel-to-parcel comparison</h2></div>
+  <p>The problem is <b>not</b> that 980 dimensions are too many. Treating the latent as one long vector makes every distance and every SC fit <i>position-matched</i>: parcel (3, 7) of the treated site is compared with parcel (3, 7) of a donor, which is <b>a different piece of ground at a different geographic site</b>. A forest patch in the upper-left corner of one chip is compared against a road or a river in another.</p>
+  <div class="cols c3">
+    <div class="card">
+      <h3>Tokens are local descriptors</h3>
+      <p style="font-size:17px">On clean chips the 5 values describe <i>that parcel’s</i> ground (within-chip R² 0.65–0.80). So a position-matched distance compares unrelated objects, such as one site’s parking lot and another site’s forest.</p>
+    </div>
+    <div class="card">
+      <h3>The in-sample fit was an illusion</h3>
+      <p style="font-size:17px">Shuffling donor parcels before fitting moves Sentinel-2 train error from <span class="mono">0.820</span> to <span class="mono">1.114</span>: the apparent fit was <b>alignment overfitting</b>, and it does not survive the holdout.</p>
+    </div>
+    <div class="wash">
+      <h3>The fix</h3>
+      <p style="font-size:17px">Pool within the chip first: compare <b>what is in the chip</b> (distributions, co-activation structure), not <b>where it sits</b>. This pooled object is exactly what FSC is built for.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 4 · QUANTILE ================= -->
+<section class="slide">
+  <div><div class="eyebrow">2 · Pooled representations — 1 of 2</div>
+  <h2>The quantile representation (what the notebooks label “histogram”)</h2></div>
+  <div class="cols c2">
+    <div>
+      <p style="font-size:18px">A histogram and a quantile function both describe the distribution of the 196 parcel values of one channel, but in different ways:</p>
+      <div class="cols c2" style="gap:14px;margin-top:10px">
+        <div class="card" style="padding:12px 14px">
+          <h3 style="font-size:15.5px">Histogram — bin counts</h3>
+          <table class="tbl" style="font-size:15px">
+            <tr><th>Value interval</th><th class="num">Parcels</th></tr>
+            <tr><td>0 – 1</td><td class="num">80</td></tr>
+            <tr><td>1 – 2</td><td class="num">60</td></tr>
+            <tr><td>2 – 3</td><td class="num">40</td></tr>
+            <tr><td>3 – 4</td><td class="num">16</td></tr>
+          </table>
+        </div>
+        <div class="card" style="padding:12px 14px">
+          <h3 style="font-size:15.5px">Quantile function — sorted values</h3>
+          <table class="tbl" style="font-size:15px">
+            <tr><th>Probability</th><th class="num">Quantile</th></tr>
+            <tr><td>0.25</td><td class="num">0.8</td></tr>
+            <tr><td>0.50</td><td class="num">1.4</td></tr>
+            <tr><td>0.75</td><td class="num">2.2</td></tr>
+            <tr><td>0.95</td><td class="num">3.5</td></tr>
+          </table>
+        </div>
+      </div>
+      <p style="font-size:17px;margin-top:12px">Our 100-dimensional outcome is the <b>quantile</b> kind: <span class="mrm">5 channels × 20 quantiles = 100</span> (grid 0.01…0.99, <span class="mono">panel_repr.GRIDS_Q</span>).</p>
+    </div>
+    <div>
+      <div class="wash">
+        <h3>Why the distinction matters</h3>
+        <p style="font-size:17px">The FSC paper’s Wasserstein result is stated on quantile functions:</p>
+        <div class="dm"><span class="mi">W</span><sub>2</sub><sup>2</sup>(<span class="mi">μ</span>, <span class="mi">ν</span>) = <span class="mrm">∫</span><sub>0</sub><sup>1</sup> <span class="brk">&thinsp;<span class="mi">F<sub>μ</sub></span><sup>−1</sup>(<span class="mi">u</span>) − <span class="mi">F<sub>ν</sub></span><sup>−1</sup>(<span class="mi">u</span>)&thinsp;</span><sup>2</sup> <span class="mrm">d</span><span class="mi">u</span></div>
+        <p style="font-size:17px">Euclidean distance between <i>bin counts</i> is not automatically <span class="mi">W</span><sub>2</sub>; between <i>quantile vectors</i> it is, per channel. Averaging the donors’ quantile vectors with the synthetic-control weights gives a Wasserstein barycenter.</p>
+      </div>
+      <p class="small" style="margin-top:10px">The synthetic-control weights only combine the <i>donors’</i> quantile vectors into the counterfactual; no site’s own representation is changed, and the combination is again a valid quantile function, matching the FSC paper’s mortality application.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 5 · GRAM ================= -->
+<section class="slide">
+  <div><div class="eyebrow">2 · Pooled representations — 2 of 2</div>
+  <h2>The Gram matrix: what fires together at the same parcel</h2></div>
+  <div class="cols c21">
+    <div>
+      <div class="dm" style="text-align:left"><span class="mi">G</span> = <span class="mrm">(1/196)</span> <span class="sum"><span class="lim">196</span><span class="sig">Σ</span><span class="lim"><span class="mi">p</span>=1</span></span> <span class="mi">x<sub>p</sub></span><span class="mi">x<sub>p</sub></span><sup>⊤</sup> &nbsp;&nbsp;∈ ℝ<sup>5×5</sup>, symmetric → <b>15 numbers</b> (upper triangle incl. diagonal)</div>
+      <ul class="tight">
+        <li><b>Diagonal</b> <span class="mi">G<sub>cc</sub></span> = mean of <span class="mi">x<sub>pc</sub></span><sup>2</sup> — the average “energy” of channel <span class="mi">c</span> over the chip.</li>
+        <li><b>Off-diagonal</b> <span class="mi">G<sub>cd</sub></span> = mean of <span class="mi">x<sub>pc</sub></span><span class="mi">x<sub>pd</sub></span> — do channels <span class="mi">c</span> and <span class="mi">d</span> light up on the <i>same</i> parcels? High-together → large <span class="mi">G</span><sub>12</sub>; high-where-the-other-is-low → small or negative.</li>
+        <li>This keeps <b>cross-channel structure</b> that the 5 separate marginal distributions cannot retain.</li>
+      </ul>
+    </div>
+    <div style="text-align:center">
+      <div class="brk"><span class="mat" style="grid-template-columns:repeat(5,auto)">
+        <span><span class="mi">G</span><sub>11</sub></span><span><span class="mi">G</span><sub>12</sub></span><span><span class="mi">G</span><sub>13</sub></span><span><span class="mi">G</span><sub>14</sub></span><span><span class="mi">G</span><sub>15</sub></span>
+        <span><span class="mi">G</span><sub>12</sub></span><span><span class="mi">G</span><sub>22</sub></span><span><span class="mi">G</span><sub>23</sub></span><span><span class="mi">G</span><sub>24</sub></span><span><span class="mi">G</span><sub>25</sub></span>
+        <span><span class="mi">G</span><sub>13</sub></span><span><span class="mi">G</span><sub>23</sub></span><span><span class="mi">G</span><sub>33</sub></span><span><span class="mi">G</span><sub>34</sub></span><span><span class="mi">G</span><sub>35</sub></span>
+        <span><span class="mi">G</span><sub>14</sub></span><span><span class="mi">G</span><sub>24</sub></span><span><span class="mi">G</span><sub>34</sub></span><span><span class="mi">G</span><sub>44</sub></span><span><span class="mi">G</span><sub>45</sub></span>
+        <span><span class="mi">G</span><sub>15</sub></span><span><span class="mi">G</span><sub>25</sub></span><span><span class="mi">G</span><sub>35</sub></span><span><span class="mi">G</span><sub>45</sub></span><span><span class="mi">G</span><sub>55</sub></span>
+      </span></div>
+      <p class="small" style="margin-top:8px">Implementation: <span class="mono">A&nbsp;@&nbsp;A.T&nbsp;/&nbsp;196</span>, vectorized column-major to match the authors’ <span class="mono">covvec</span>.</p>
+      <p class="small" style="margin-top:10px;text-align:left">Technical note: this is an <b>uncentered second-moment matrix</b>; a covariance would first subtract each channel’s mean. Both are positive-semidefinite (PSD), and PSD matrices form a convex cone, so an average under the synthetic-control weights is itself a valid matrix (the FSC paper’s covariance application).</p>
+    </div>
+  </div>
+  <div class="wash" style="display:grid;grid-template-columns:1fr 1fr;gap:22px">
+    <div><h3 style="font-size:16px">What the quantile arm misses</h3><p style="font-size:16px">A marsh and a forest beside a lake can have identical per-channel distributions but different co-activation — the Gram separates them.</p></div>
+    <div><h3 style="font-size:16px">What the Gram misses</h3><p style="font-size:16px">A half-destroyed site and a uniformly lightly-hit site can share second moments but differ in the full distribution — the quantiles separate them. Combined arm = both blocks, 115-d.</p></div>
+  </div>
+</section>
+
+<!-- ================= 6 · PIPELINE 1 ================= -->
+<section class="slide">
+  <div><div class="eyebrow">3 · FSC pipeline — 1 of 2</div>
+  <h2>Inputs and fitting</h2></div>
+  <div class="cols c21">
+    <div>
+      <table class="tbl">
+        <tr><th>Step</th><th>What happens</th><th>Rests on</th></tr>
+        <tr><td><b>0 · Panel</b></td><td>Per treated site: the site + its <b>5 covariate-matched controls</b> (the collaborator’s notebook-14 design), treated unit first; only periods where every unit has a latent (rectangular panel), exclusions recorded.</td><td>One treated unit, untreated donors, no interference.</td></tr>
+        <tr><td><b>1 · Ψ</b></td><td>Each chip → representation vector: chip mean (5), quantile (100), Gram (15), combined (115).</td><td>Isometric embedding into a Hilbert space, outcomes in a convex set — holds per channel.</td></tr>
+        <tr><td><b>2 · Marshal</b></td><td>Python block → R, gated by a cross-language round-trip check (max diff = 0). One real bug lived here: row-major vs column-major triangle ordering.</td><td>A reshape convention is part of the data format.</td></tr>
+        <tr><td><b>3 · Weights</b></td><td>The FSC authors’ unmodified <span class="mono">FSCM</span>: min ‖<span class="mi">Cw</span> − <span class="mi">d</span>‖² s.t. Σ<span class="mi">w</span> = 1, <span class="mi">w</span> ≥ 0 (quadprog), over the stacked <span class="mi">M</span>·<span class="mi">T</span><sub>0</sub> pre-treatment outcomes.</td><td>Treated ≈ convex combination of donors.</td></tr>
+      </table>
+    </div>
+    <div>
+      <div class="card">
+        <h3>Dimensions per fit</h3>
+        <table class="tbl" style="font-size:16px">
+          <tr><th>Quantity</th><th class="num">Value</th></tr>
+          <tr><td>Donors <span class="mi">J</span></td><td class="num">5</td></tr>
+          <tr><td>Free simplex weights <span class="mi">J</span> − 1</td><td class="num">4</td></tr>
+          <tr><td>Fit periods <span class="mi">T</span><sub>0</sub> (fortnights)</td><td class="num">8</td></tr>
+          <tr><td>Outcome dim <span class="mi">M</span></td><td class="num">5 / 15 / 100 / 115</td></tr>
+          <tr><td>Stacked values <span class="mi">M</span>·<span class="mi">T</span><sub>0</sub></td><td class="num">40 – 920</td></tr>
+        </table>
+        <p class="small" style="margin-top:8px">Units: statistics of FSQ latent values (bounded lattice levels) — same space for treated and donors, so RMSE is comparable within an arm.</p>
+      </div>
+      <div class="wash" style="margin-top:12px">
+        <p style="font-size:16.5px"><b>Nothing reimplements FSC.</b> Okano &amp; Kurisu’s reference R runs unmodified, verified by reproducing their published applications on their own data. The optimizer is <i>identical</i> to plain SCM — FSC adds the interpretation: the weighted average is a Wasserstein barycenter / a valid PSD matrix.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 7 · PIPELINE 2 ================= -->
+<section class="slide">
+  <div><div class="eyebrow">3 · FSC pipeline — 2 of 2</div>
+  <h2>Regularization, projection, evaluation, inference</h2></div>
+  <table class="tbl">
+    <tr><th style="width:14%">Step</th><th>What happens</th><th style="width:34%">Finding on our panel</th></tr>
+    <tr><td><b>4 · λ, augmented FSC</b></td><td>Ridge-augmented weights; λ selected by <b>the FSC authors’ unmodified CV objective</b> evaluated on a log grid 10<sup>−6</sup>…10<sup>6</sup> (disclosed deviation: the authors’ linear <span class="mono">optimise</span> interval was tuned to their own data scales and pinned λ to a boundary in 20 of 28 configurations).</td><td>CV is monotone in λ over 12 decades → optimum at ∞ → <b>augmentation inert</b> (aFSC ≡ FSC to ≤ 0.02). Third inert augmentation scheme, after ridge-ASCM and text-SC ridge.</td></tr>
+    <tr><td><b>5 · Projection</b></td><td>Augmented weights can leave the simplex, giving an invalid object (non-monotone “quantile”, non-PSD “covariance”); the authors’ <span class="mono">modif</span> (per channel block) / <span class="mono">nearPD</span> project back.</td><td>Measured no-op here (shift 0 for Gram, ~3·10<sup>−4</sup> for quantiles) — plain-FSC outcomes are valid by convexity. Kept: it is the authors’ method and becomes necessary the moment weights leave the simplex.</td></tr>
+    <tr><td><b>6 · Evaluation</b></td><td>Prediction RMSE <b>per period</b>, two schemes: <i>frozen</i> (fit P01–P08, score P09 and P10) and <i>expanding</i> (fit P01–P08 → predict P09; refit P01–P09, λ re-selected → predict P10).</td><td>Pooling P09+P10 hides a bad P09 behind a good P10 — hence per-period reporting.</td></tr>
+  </table>
+</section>
+
+<!-- ================= 9 · RESULTS S1 ================= -->
+<section class="slide">
+  <div><div class="eyebrow">4 · Results — 1 of 4</div>
+  <h2>Sentinel-1: band means beat every latent representation</h2></div>
+  <p style="font-size:15.5px"><b>Setting (this slide and the next) — the collaborator’s notebook-16 procedure, applied identically to every representation.</b> Expanding design: fit P01–P08 → test P09; refit P01–P09 → test P10. Each outcome dimension standardized by the pooled mean/SD of ALL sites’ training periods; simplex SCM weights (SLSQP, their settings); missing observations dropped row-wise — so every cell averages <b>10 treated sites</b>. Number = mean standardized test RMSE (train RMSE of the same fit in parentheses); <b>lower is better</b>. <span class="good">Green</span> = best in column, <span class="bad">orange</span> = worst. Source: <span class="mono">panel_collabstyle_scm_validation.csv</span>, notebook 11.</p>
+  <div class="cols c2">
+    <div>
+      <h3>Chip-mean fill</h3>
+      <table class="tbl" style="font-size:16px">
+        <tr><th>Outcome space</th><th class="num">P09</th><th class="num">P10</th></tr>
+        <tr><td>Band means — collaborator (3)</td><td class="num good">0.284 (0.286)</td><td class="num good">0.313 (0.298)</td></tr>
+        <tr><td>Raw latent (980)</td><td class="num bad">1.084 (1.093)</td><td class="num bad">1.087 (1.093)</td></tr>
+        <tr><td>Latent chip-mean (5)</td><td class="num">0.603 (0.587)</td><td class="num">0.701 (0.596)</td></tr>
+        <tr><td>Latent Gram (15)</td><td class="num">0.692 (0.659)</td><td class="num">0.732 (0.665)</td></tr>
+        <tr><td>Latent quantile (100)</td><td class="num">0.784 (0.861)</td><td class="num">0.887 (0.861)</td></tr>
+        <tr><td>Latent quantile + Gram (115)</td><td class="num">0.776 (0.843)</td><td class="num">0.874 (0.844)</td></tr>
+      </table>
+    </div>
+    <div>
+      <h3>Generation fill</h3>
+      <table class="tbl" style="font-size:16px">
+        <tr><th>Outcome space</th><th class="num">P09</th><th class="num">P10</th></tr>
+        <tr><td>Raw latent (980)</td><td class="num bad">1.085 (1.098)</td><td class="num bad">1.088 (1.097)</td></tr>
+        <tr><td>Latent chip-mean (5)</td><td class="num good">0.586 (0.605)</td><td class="num good">0.714 (0.610)</td></tr>
+        <tr><td>Latent Gram (15)</td><td class="num">0.669 (0.673)</td><td class="num">0.715 (0.678)</td></tr>
+        <tr><td>Latent quantile (100)</td><td class="num">0.752 (0.835)</td><td class="num">0.841 (0.836)</td></tr>
+        <tr><td>Latent quantile + Gram (115)</td><td class="num">0.745 (0.822)</td><td class="num">0.830 (0.823)</td></tr>
+      </table>
+      <p class="small" style="margin-top:8px">Reading: band means ≈ 2× better than any latent representation — the latent statistics lose the radar signal. Pooling still halves the raw-latent error.</p>
+    </div>
+  </div>
+  <div class="caveat">
+    <h3>Missing data, handled their way</h3>
+    <p style="font-size:15px">Three of site 07’s donors have <b>no S1 acquisition at all</b> in P02/03/05/06 — the data never existed. The collaborator’s estimator drops the missing period-rows from the fit, and this table does the same, so site 07 stays in (our earlier FSC marshalling required a complete rectangular panel and dropped it). In the generation-fill column those donors’ missing chips are model-<b>generated</b>, so that fit rests partly on synthetic inputs.</p>
+  </div>
+</section>
+<!-- ================= 8 · RESULTS S2 ================= -->
+<section class="slide">
+  <div><div class="eyebrow">4 · Results — 2 of 4</div>
+  <h2>Sentinel-2: pooled latents close the gap; clean P10 is near-tied</h2></div>
+  <p style="font-size:16px">Same procedure and metric as the previous slide; every cell averages the 10 treated sites, fully paired between the two fill variants.</p>
+  <div class="cols c2">
+    <div>
+      <h3>Chip-mean fill</h3>
+      <table class="tbl" style="font-size:16px">
+        <tr><th>Outcome space</th><th class="num">P09</th><th class="num">P10</th></tr>
+        <tr><td>Band means — collaborator (8)</td><td class="num">0.839 (0.587)</td><td class="num good">0.342 (0.657)</td></tr>
+        <tr><td>Raw latent (980)</td><td class="num bad">1.107 (0.954)</td><td class="num bad">1.251 (0.960)</td></tr>
+        <tr><td>Latent chip-mean (5)</td><td class="num good">0.577 (0.741)</td><td class="num">0.395 (0.736)</td></tr>
+        <tr><td>Latent Gram (15)</td><td class="num">0.625 (0.734)</td><td class="num">0.466 (0.731)</td></tr>
+        <tr><td>Latent quantile (100)</td><td class="num">0.797 (0.842)</td><td class="num">0.581 (0.840)</td></tr>
+        <tr><td>Latent quantile + Gram (115)</td><td class="num">0.780 (0.832)</td><td class="num">0.570 (0.830)</td></tr>
+      </table>
+    </div>
+    <div>
+      <h3>Generation fill</h3>
+      <table class="tbl" style="font-size:16px">
+        <tr><th>Outcome space</th><th class="num">P09</th><th class="num">P10</th></tr>
+        <tr><td>Raw latent (980)</td><td class="num bad">0.996 (1.041)</td><td class="num bad">1.105 (1.036)</td></tr>
+        <tr><td>Latent chip-mean (5)</td><td class="num">0.593 (0.655)</td><td class="num good">0.646 (0.662)</td></tr>
+        <tr><td>Latent Gram (15)</td><td class="num good">0.584 (0.673)</td><td class="num">0.721 (0.677)</td></tr>
+        <tr><td>Latent quantile (100)</td><td class="num">0.708 (0.799)</td><td class="num">0.789 (0.804)</td></tr>
+        <tr><td>Latent quantile + Gram (115)</td><td class="num">0.694 (0.787)</td><td class="num">0.783 (0.792)</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="cols c2">
+    <div class="wash">
+      <h3>Reading</h3>
+      <ul class="tight2">
+        <li><b>Clean P10:</b> band means 0.342 vs latent chip-mean 0.395 — near-tied.</li>
+        <li><b>Cloudy P09:</b> every pooled latent beats the band means.</li>
+      </ul>
+    </div>
+    <div class="caveat">
+      <h3>The P09 edge is partly the fill</h3>
+      <p style="font-size:15px">Our chips are chip-mean-filled before encoding, while the band means skip invalid pixels — at cloudy P09, treated and donor statistics share a fabricated component that is easy to match. The cloud slide separates the honest part from the artifact, site by site.</p>
+    </div>
+  </div>
+</section>
+<!-- ================= 10a · S1 PASS COUNTS ================= -->
+<section class="slide">
+  <div><div class="eyebrow">4 · Results — 3 of 4</div>
+  <h2>Sentinel-1 per-site pass counts</h2></div>
+  <div class="cols c21">
+    <div>
+      <table class="tbl" style="font-size:16px">
+        <tr><th>Fill</th><th>Representation</th><th class="num">P09: C1 / C2 / C3</th><th class="num">P10: C1 / C2 / C3</th></tr>
+        <tr><td>chip-mean (of 9)</td><td>chip-mean (5)</td><td class="num">8 / 6 / 8</td><td class="num">8 / 4 / 8</td></tr>
+        <tr><td>chip-mean (of 9)</td><td>Gram (15)</td><td class="num">8 / 6 / 9</td><td class="num">8 / 4 / 9</td></tr>
+        <tr><td>chip-mean (of 9)</td><td>quantile (100)</td><td class="num">9 / 5 / 7</td><td class="num">9 / 4 / 8</td></tr>
+        <tr><td>chip-mean (of 9)</td><td>quantile + Gram (115)</td><td class="num">9 / 5 / 7</td><td class="num">9 / 4 / 8</td></tr>
+        <tr><td>generation (of 10)</td><td>chip-mean (5)</td><td class="num">9 / 6 / 8</td><td class="num">9 / 4 / 8</td></tr>
+        <tr><td>generation (of 10)</td><td>Gram (15)</td><td class="num">9 / 6 / 9</td><td class="num">9 / 4 / 9</td></tr>
+        <tr><td>generation (of 10)</td><td>quantile (100)</td><td class="num">10 / 5 / 7</td><td class="num">10 / 4 / 8</td></tr>
+        <tr><td>generation (of 10)</td><td>quantile + Gram (115)</td><td class="num">10 / 5 / 7</td><td class="num">10 / 4 / 8</td></tr>
+      </table>
+      <p class="small" style="margin-top:8px">Sites passing each comparison (C1 sanity / C2 beats-own-history / C3 beats-equal-weights), FSC, expanding scheme. Chip-mean fill has 9 S1 groups (site 07 dropped — see the note on the Sentinel-1 results slide); generation fill has 10, but its site-07 group leans on donors that are <b>entirely model-generated in 4 of 8 fit periods</b>.</p>
+    </div>
+    <div>
+      <div class="card">
+        <h3>The three comparisons — and why three</h3>
+        <p style="font-size:15px">A small error alone proves nothing; each comparison rules out one trivial explanation of it.</p>
+        <div class="qbox" style="font-size:15.5px"><b>C1</b> — did the fit merely memorize? Test error ≤ 1.5 × training error. <b>This is the collaborator’s notebook-14 flag</b> — the one check both pipelines share.</div>
+        <div class="qbox" style="font-size:15.5px"><b>C2</b> (ours) — prediction error at the test period &lt; error of predicting it with the site’s <b>own P01–P08 average</b> (no donors).</div>
+        <div class="qbox" style="font-size:15.5px"><b>C3</b> (ours) — prediction error &lt; error of the <b>equal-weight (1/5 each) donor average</b> at the same period: does the optimization earn anything?</div>
+      </div>
+      <div class="wash" style="margin-top:10px">
+        <h3>Reading</h3>
+        <p style="font-size:15px"><b>C2 is the S1 failure</b>: at P10 only 4 of the sites beat their own history in any configuration. C3’s 7–9 passes only rank donors against each other — with C2 failing, neither helps.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 10 · PASS COUNTS + PLACEBO ================= -->
+<section class="slide">
+  <div><div class="eyebrow">4 · Results — 4 of 4</div>
+  <h2>Sentinel-2 per-site pass counts</h2></div>
+  <div class="cols c21">
+    <div>
+      <table class="tbl" style="font-size:16px">
+        <tr><th>Fill</th><th>Representation</th><th class="num">P09: C1 / C2 / C3</th><th class="num">P10: C1 / C2 / C3</th></tr>
+        <tr><td>chip-mean</td><td>chip-mean (5)</td><td class="num">10 / 8 / 5</td><td class="num">10 / 8 / 4</td></tr>
+        <tr><td>chip-mean</td><td>Gram (15)</td><td class="num">10 / 8 / 4</td><td class="num">10 / 8 / 4</td></tr>
+        <tr><td>chip-mean</td><td>quantile (100)</td><td class="num">10 / 8 / 4</td><td class="num">10 / 10 / 3</td></tr>
+        <tr><td>chip-mean</td><td>quantile + Gram (115)</td><td class="num">10 / 8 / 4</td><td class="num">10 / 10 / 3</td></tr>
+        <tr><td>generation</td><td>chip-mean (5)</td><td class="num">10 / 4 / 6</td><td class="num">8 / 9 / 6</td></tr>
+        <tr><td>generation</td><td>Gram (15)</td><td class="num">10 / 5 / 6</td><td class="num">10 / 9 / 6</td></tr>
+        <tr><td>generation</td><td>quantile (100)</td><td class="num">10 / 4 / 6</td><td class="num">10 / 6 / 6</td></tr>
+        <tr><td>generation</td><td>quantile + Gram (115)</td><td class="num">10 / 4 / 6</td><td class="num">10 / 7 / 6</td></tr>
+      </table>
+      <p class="small" style="margin-top:8px"><b>Sentinel-2 only</b> — sites of 10 passing each comparison, FSC, expanding scheme. Sentinel-1 counts: previous slide.</p>
+    </div>
+    <div>
+      <div class="wash">
+        <h3>Reading</h3>
+        <ul class="tight2">
+          <li>Definitions of C1/C2/C3: previous slide.</li>
+          <li><b>C1</b> passes nearly everywhere — with only 4 free weights there is little room to memorize.</li>
+          <li><b>C2</b>: 8/10 sites with chip-mean fill; generation fill drops cloudy P09 to 4–5/10.</li>
+          <li><b>C3</b> passes only 3–6 of 10 — a coin flip: the fitted weights earn ≈ nothing over a plain donor average.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 11b · COLLABORATOR COMPARISON ================= -->
+<section class="slide">
+  <div><div class="eyebrow">5 · Analysis — the collaborator's parallel validation</div>
+  <h2>Feature-space SCM/ASCM (notebooks 16–17): convergent, not comparable</h2></div>
+  <div class="cols c2">
+    <div>
+      <p style="font-size:16.5px">The collaborator’s notebooks, pushed Aug 23: SCM + ridge-ASCM on <b>interpretable band means</b> (S1: VV, VH, VV−VH; S2: B2 B3 B4 B8 B11 B12 NDVI NDWI), same 10 treated sites × 5 matched controls, and, independently, <b>the same expanding per-period design as ours</b> (fit P01–P08 → P09; refit P01–P09 → P10; the earlier notebooks 14–15 scored P09+P10 jointly with frozen weights).</p>
+      <h3 style="margin-top:8px">The collaborator’s mean standardized test RMSE — mean over the 10 treated sites (train in parentheses)</h3>
+      <table class="tbl" style="font-size:16px">
+        <tr><th>Sensor</th><th class="num">P09</th><th class="num">P10</th></tr>
+        <tr><td>Sentinel-1</td><td class="num">0.284 (0.286)</td><td class="num">0.313 (0.298)</td></tr>
+        <tr><td>Sentinel-2</td><td class="num bad">0.839 (0.587)</td><td class="num bad">0.342 (0.657)</td></tr>
+      </table>
+      <p class="small" style="margin-top:8px">The collaborator’s test/train flag at P09: S2 only 4 of 10 “good” (3 caution, 3 poor, worst ratio 4.28); at P10: S2 10/10, S1 9/10.</p>
+      <div class="wash" style="margin-top:10px">
+        <h3>Now directly comparable</h3>
+        <p style="font-size:15.5px">The Results slides score our representations with <b>this exact procedure</b> (their scaler, their fit, their row-dropping), so this table and ours sit on one scale. What remains untested in feature space: comparisons C2 and C3.</p>
+      </div>
+    </div>
+    <div>
+      <div class="wash">
+        <h3>Convergent findings</h3>
+        <ul class="tight2">
+          <li><b>Cloudy P09 is hard in every outcome space:</b> the feature-space S2 error more than doubles P10 → P09 (0.342 → 0.839); the asymmetry is in the data, not our representation.</li>
+          <li><b>Ridge augmentation is inert-to-marginal there too:</b> the collaborator’s CV pins λ at the grid ceiling (10⁴) in 9–10 of 20 fits, where ASCM ≡ SCM; interior-λ gains are mixed (helps S1 band means, worsens most S2 features at P09).</li>
+          <li><b>Donor weights concentrate in both pipelines:</b> effective donors 1.0–4.1 of 5; two S1 sites are single-donor.</li>
+        </ul>
+      </div>
+      <div class="card" style="margin-top:12px">
+        <h3>Divergent finding — Sentinel-1</h3>
+        <p style="font-size:16px">The collaborator’s S1 band means validate decently (P09 test ≈ train) while our S1 latent beats the site’s own history nowhere. The radar signal <b>exists</b>; the S1 latent statistics are losing it. This tilts the S1 decision from “drop” toward “rethink the representation”.</p>
+      </div>
+      <p class="small" style="margin-top:10px">Next joint step: apply the three-comparison harness to the collaborator’s per-site outputs, the decisive unit-free comparison.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 11d · CLOUD PROBLEM ================= -->
+<section class="slide">
+  <div><div class="eyebrow">5 · Analysis — the cloud problem</div>
+  <h2>Sentinel-2 clouds at P09, site by site: what the fill was hiding</h2></div>
+  <p style="font-size:15.5px">Four cloud strategies on one metric. <b>Chip-mean fill</b>: cloud pixels replaced by the chip’s band means (as shipped). <b>Generation fill</b>: the whole S2 chip regenerated from the same period’s S1. <b>Masked pooling</b>: statistics from valid parcels only. <b>Masked drop</b>: masked, plus near-fully-cloudy chips (&lt; 10 valid parcels of 196) removed from the fit. Cells: Sentinel-2, Gram, standardized test RMSE at P09, per site (notebooks 10–11). Sentinel-1 is ~99.9% cloud-free.</p>
+  <table class="tbl" style="font-size:14.5px">
+    <tr><th>Site</th><th class="num">01</th><th class="num">02</th><th class="num">03</th><th class="num">04</th><th class="num">05</th><th class="num">06</th><th class="num">07</th><th class="num">08</th><th class="num">09</th><th class="num">10</th></tr>
+    <tr><td>Treated valid parcels /196</td><td class="num">69</td><td class="num">144</td><td class="num">196</td><td class="num">167</td><td class="num">80</td><td class="num">195</td><td class="num">196</td><td class="num">131</td><td class="num">156</td><td class="num">10</td></tr>
+    <tr><td>Donor valid parcels (min–max)</td><td class="num">147–196</td><td class="num">166–196</td><td class="num">153–196</td><td class="num">25–194</td><td class="num">56–196</td><td class="num">74–177</td><td class="num">83–196</td><td class="num">38–183</td><td class="num">14–193</td><td class="num">48–126</td></tr>
+    <tr><td>RMSE — chip-mean fill</td><td class="num good">0.35</td><td class="num good">0.32</td><td class="num">0.35</td><td class="num">1.37</td><td class="num">0.99</td><td class="num">0.57</td><td class="num good">0.26</td><td class="num good">0.52</td><td class="num">0.32</td><td class="num">1.19</td></tr>
+    <tr><td>RMSE — generation fill</td><td class="num">0.65</td><td class="num bad">0.63</td><td class="num">0.53</td><td class="num good">0.19</td><td class="num">1.08</td><td class="num good">0.43</td><td class="num">0.74</td><td class="num">0.52</td><td class="num good">0.32</td><td class="num good">0.75</td></tr>
+    <tr><td>RMSE — masked pooling</td><td class="num">0.54</td><td class="num">0.45</td><td class="num good">0.30</td><td class="num">1.14</td><td class="num good">0.79</td><td class="num">0.57</td><td class="num">0.34</td><td class="num">0.56</td><td class="num">0.78</td><td class="num">1.07</td></tr>
+    <tr><td>RMSE — masked drop</td><td class="num bad">1.14</td><td class="num">0.60</td><td class="num bad">0.58</td><td class="num bad">1.97</td><td class="num bad">1.22</td><td class="num bad">1.00</td><td class="num bad">1.12</td><td class="num bad">1.12</td><td class="num bad">1.43</td><td class="num bad">1.40</td></tr>
+  </table>
+  <div class="cols c2" style="margin-top:4px">
+    <div class="wash">
+      <h3>Reading</h3>
+      <ul class="tight2">
+        <li>Clean sites (03, 06, 07) barely move — those scores were honest. Cloudy sites move both ways: 01, 09 worsen; 04, 05, 10 improve.</li>
+        <li>Masking is ≈ cost-free on average (P09 0.625 → 0.654; P10 0.466 → 0.457) and uses no fabricated pixels. Masked drop is worst at 9 of 10 sites: the lost fit periods cost more than the fill.</li>
+        <li>Generation fill wins at 4 cloudy sites (best P09 mean, 0.584) but is the worst P10 choice (0.721 vs 0.466) — it helps only where clouds are, and damages clean periods.</li>
+      </ul>
+    </div>
+    <div class="caveat">
+      <h3>Consequence: an evaluation-design problem</h3>
+      <p style="font-size:15px">P09 was picked as holdout for being the <i>last</i> pre-hurricane fortnight, not a measurable one — no application would read a counterfactual off a 10-valid-parcel composite, and the filled P09 cells mix honest predictions with fill-matching. Next: validate on clean pre-periods only; read effects at clean post-periods (P11, P12, P19, P20).</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 12 · THEORY ================= -->
+<section class="slide">
+  <div><div class="eyebrow">5 · Analysis — why it fails where it fails</div>
+  <h2>Reading the failures through the FSC error bound</h2></div>
+  <div class="cols c2" style="grid-template-columns:1fr 1.15fr">
+    <div>
+      <div class="card">
+        <h3>Measurement noise</h3>
+        <p style="font-size:16px">The FSC paper’s finite-sample bound assumes each observed outcome = true outcome + mean-zero noise of scale <span class="mi">σ</span>, and grows with <span class="mrm"><span class="mi">σ</span>(1 + ‖<span class="mi">ŵ</span>‖<sub>2</sub>)</span>. We do not compute the bound; it structures an <i>interpretation</i>: contaminated pixels change the computed statistics while the ground does not, which acts as noise of larger <span class="mi">σ</span>. Generation fill is worse than noise: it can <b>shift the outcome distribution</b> (a bias, violating the mean-zero assumption). Consistent with the measured P09 failures in both pipelines.</p>
+      </div>
+      <div class="card" style="margin-top:12px">
+        <h3>Pre-treatment approximation</h3>
+        <p style="font-size:16.5px">The bound depends directly on the pre-fit term</p>
+        <div class="dm" style="font-size:18px;margin:6px 0"><span class="brk">&thinsp;<span class="sum"><span class="lim"><span class="mi">T</span><sub>0</sub></span><span class="sig">Σ</span><span class="lim"><span class="mi">t</span>=1</span></span> ‖Ψ(<span class="mi">ν</span><sub>1<span class="mi">t</span></sub>) − <span class="sum"><span class="sig" style="font-size:1.2em">Σ</span><span class="lim"><span class="mi">j</span></span></span><span class="mi">ŵ<sub>j</sub></span> Ψ(<span class="mi">ν<sub>jt</sub></span>)‖<sub>ℋ</sub><sup>2</sup>&thinsp;</span><sup>1/2</sup></div>
+        <p style="font-size:16.5px">A poor pre-treatment fit weakens the guarantee even when the outcome geometry is correctly specified — S1 fails here.</p>
+      </div>
+    </div>
+    <div>
+      <table class="tbl" style="font-size:15px">
+        <tr><th>Experiment</th><th class="num"><span class="mi">M</span></th><th class="num"><span class="mi">T</span><sub>0</sub></th><th class="num"><span class="mi">M T</span><sub>0</sub></th><th class="num"><span class="mi">J</span></th><th class="num">Free wts</th></tr>
+        <tr><td>Raw TerraMind</td><td class="num">980</td><td class="num">8</td><td class="num">7,840</td><td class="num">5</td><td class="num">4</td></tr>
+        <tr><td>Gram</td><td class="num">15</td><td class="num">8</td><td class="num">120</td><td class="num">5</td><td class="num">4</td></tr>
+        <tr><td>Quantile</td><td class="num">100</td><td class="num">8</td><td class="num">800</td><td class="num">5</td><td class="num">4</td></tr>
+        <tr><td>Combined</td><td class="num">115</td><td class="num">8</td><td class="num">920</td><td class="num">5</td><td class="num">4</td></tr>
+        <tr><td>FSC fertility</td><td class="num">44</td><td class="num">16</td><td class="num">704</td><td class="num">20</td><td class="num">19</td></tr>
+        <tr><td>FSC mortality</td><td class="num">100</td><td class="num">21</td><td class="num">2,100</td><td class="num">17</td><td class="num">16</td></tr>
+        <tr><td>FSC trade covariance</td><td class="num">45</td><td class="num">29</td><td class="num">1,305</td><td class="num">22</td><td class="num">21</td></tr>
+      </table>
+      <ul class="tight2" style="margin-top:10px">
+        <li><span class="mi">J</span> donors → only <span class="mi">J</span> − 1 free weights (nonnegative, sum to one): we fit 4, the FSC paper’s applications fit 16–21.</li>
+        <li><span class="mi">M T</span><sub>0</sub> is <b>not</b> the count of independent constraints: fertility curves and quantile functions are smooth, so effective dimension ≪ <span class="mi">M</span> — how mortality fits a 100-point function with 17 donors.</li>
+        <li>Larger <span class="mi">M</span>: more within-period information, plus redundancy and noise. More <span class="mi">T</span><sub>0</sub>: more evidence that donor relations are stable (and harder exact matching) — no extra weights. More <span class="mi">J</span>: larger convex hull, but with few fit periods many combinations fit alike and weights destabilize.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 13 · CONCLUSION ================= -->
+<section class="slide">
+  <div><div class="eyebrow">6 · Conclusion and next steps</div>
+  <h2>What we learned, what remains open</h2></div>
+  <div class="cols c2">
+    <div>
+      <h3>Takeaways</h3>
+      <ol class="tight">
+        <li><b>The 980-d failure was a representation failure, not an estimator failure.</b> Pooling roughly halves the raw-latent error (S1 1.08 → 0.60, S2 1.11 → 0.58 standardized RMSE); switching estimators within a family changes almost nothing.</li>
+        <li><b>FSC contributes the representation framework</b>, not estimation gains: barycenters / PSD averages make the counterfactual well-defined. Its weight optimization — like ridge-ASCM and text-SC ridge — adds ≈ nothing.</li>
+        <li><b>Donors and pre-treatment history are the binding constraint, especially the donors</b>: fitted weights add ≈ nothing over a plain donor average (C3 ≈ coin flip), and on Sentinel-1 latents the donors add nothing over the site’s own history (C2). Three estimator families tie, so the fix is a richer donor pool or representation, not a better estimator.</li>
+        <li><b>Generation cloud fill is task-dependent</b> — helps image-space work, damages the pooled fit. Sentinel-1 carries no donor signal in any latent representation.</li>
+      </ol>
+    </div>
+    <div>
+      <div class="wash">
+        <h3>Solved by this work</h3>
+        <ul class="tight2">
+          <li>Why latent-space SC failed, measured — and what fixes it (pooling).</li>
+          <li>What the FSC-vs-SCM comparison captures; a reusable null-testing harness (the three comparisons C1–C3).</li>
+          <li>Direct comparability with the collaborator’s tables, on their own metric.</li>
+        </ul>
+      </div>
+      <div class="caveat" style="margin-top:12px">
+        <h3>Unsolved / next</h3>
+        <ul class="tight2">
+          <li><b>Cloud handling is now measured from both directions</b> (generation fill, and no-fill masked pooling — the cloud slide): generation fill hurts, masking is ≈ cost-free but no rescue, dropping fabricated chips costs fit data. Remaining: validate on clean pre-periods only; quality-weighted period selection.</li>
+          <li>The FSC conformal <b>prediction intervals</b> are not yet built.</li>
+          <li>The heterogeneity claim (dispersion advantage of quantile/Gram) needs a dispersion-valued outcome experiment.</li>
+          <li>Sentinel-1: drop, or rethink its representation.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="deckfoot"><span>Satellite · Latent synthetic control · FSC</span><span id="pg">1 / 14</span></div>
+</div>
+</div>
+
+<div class="hud">
+  <button id="prev" aria-label="Previous slide">←</button>
+  <button id="next" aria-label="Next slide">→</button>
+</div>
+
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide'));
+  var deck=document.getElementById('deck'), pg=document.getElementById('pg'), i=0;
+  function go(n){
+    i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach(function(s,k){s.classList.toggle('on',k===i)});
+    pg.textContent=(i+1)+' / '+slides.length;
+    try{history.replaceState(null,'','#'+(i+1))}catch(e){}
+  }
+  function fit(){
+    var s=Math.min(window.innerWidth/1280,window.innerHeight/720);
+    deck.style.transform='scale('+s+')';
+  }
+  document.getElementById('next').addEventListener('click',function(){go(i+1)});
+  document.getElementById('prev').addEventListener('click',function(){go(i-1)});
+  window.addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){e.preventDefault();go(i+1)}
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();go(i-1)}
+    else if(e.key==='Home'){go(0)}
+    else if(e.key==='End'){go(slides.length-1)}
+  });
+  window.addEventListener('resize',fit);
+  var h=parseInt((location.hash||'').slice(1),10);
+  if(h>=1&&h<=slides.length)go(h-1);else go(0);
+  fit();
+})();
+</script>
+

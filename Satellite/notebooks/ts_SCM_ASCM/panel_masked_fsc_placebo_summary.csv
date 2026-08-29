@@ -1,0 +1,13 @@
+repr,label,n_groups,n_rank1,median_rank,p_combined
+chip_mean,maskdrop,10,2,3.0,0.5154832513304629
+chip_mean,masked,10,2,2.5,0.5154832513304629
+chip_mean,unmasked,10,2,3.0,0.5154832513304629
+quantile,maskdrop,10,2,3.5,0.5154832513304629
+quantile,masked,10,1,2.5,0.8384944171101543
+quantile,unmasked,10,2,3.0,0.5154832513304629
+gram,maskdrop,10,3,2.5,0.22477320212874055
+gram,masked,10,2,2.5,0.5154832513304629
+gram,unmasked,10,3,3.0,0.22477320212874055
+combined,maskdrop,10,2,3.0,0.5154832513304629
+combined,masked,10,1,3.0,0.8384944171101543
+combined,unmasked,10,2,3.0,0.5154832513304629

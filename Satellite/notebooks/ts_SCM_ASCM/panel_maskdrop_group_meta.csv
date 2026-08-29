@@ -1,0 +1,41 @@
+group,treatment_site_id,n_pre,pre_periods,n_post,repr
+1,treatment_0001,6,"[1, 2, 4, 5, 7, 8]",5,chip_mean
+2,treatment_0002,4,"[2, 4, 5, 8]",7,chip_mean
+3,treatment_0003,4,"[1, 2, 5, 8]",6,chip_mean
+4,treatment_0004,4,"[4, 5, 7, 8]",5,chip_mean
+5,treatment_0005,5,"[1, 2, 5, 7, 8]",5,chip_mean
+6,treatment_0006,3,"[4, 5, 8]",7,chip_mean
+7,treatment_0007,5,"[1, 4, 5, 7, 8]",6,chip_mean
+8,treatment_0008,5,"[1, 4, 5, 7, 8]",5,chip_mean
+9,treatment_0009,5,"[1, 4, 5, 7, 8]",4,chip_mean
+10,treatment_0010,5,"[1, 4, 5, 7, 8]",6,chip_mean
+1,treatment_0001,6,"[1, 2, 4, 5, 7, 8]",5,quantile
+2,treatment_0002,4,"[2, 4, 5, 8]",7,quantile
+3,treatment_0003,4,"[1, 2, 5, 8]",6,quantile
+4,treatment_0004,4,"[4, 5, 7, 8]",5,quantile
+5,treatment_0005,5,"[1, 2, 5, 7, 8]",5,quantile
+6,treatment_0006,3,"[4, 5, 8]",7,quantile
+7,treatment_0007,5,"[1, 4, 5, 7, 8]",6,quantile
+8,treatment_0008,5,"[1, 4, 5, 7, 8]",5,quantile
+9,treatment_0009,5,"[1, 4, 5, 7, 8]",4,quantile
+10,treatment_0010,5,"[1, 4, 5, 7, 8]",6,quantile
+1,treatment_0001,6,"[1, 2, 4, 5, 7, 8]",5,gram
+2,treatment_0002,4,"[2, 4, 5, 8]",7,gram
+3,treatment_0003,4,"[1, 2, 5, 8]",6,gram
+4,treatment_0004,4,"[4, 5, 7, 8]",5,gram
+5,treatment_0005,5,"[1, 2, 5, 7, 8]",5,gram
+6,treatment_0006,3,"[4, 5, 8]",7,gram
+7,treatment_0007,5,"[1, 4, 5, 7, 8]",6,gram
+8,treatment_0008,5,"[1, 4, 5, 7, 8]",5,gram
+9,treatment_0009,5,"[1, 4, 5, 7, 8]",4,gram
+10,treatment_0010,5,"[1, 4, 5, 7, 8]",6,gram
+1,treatment_0001,6,"[1, 2, 4, 5, 7, 8]",5,combined
+2,treatment_0002,4,"[2, 4, 5, 8]",7,combined
+3,treatment_0003,4,"[1, 2, 5, 8]",6,combined
+4,treatment_0004,4,"[4, 5, 7, 8]",5,combined
+5,treatment_0005,5,"[1, 2, 5, 7, 8]",5,combined
+6,treatment_0006,3,"[4, 5, 8]",7,combined
+7,treatment_0007,5,"[1, 4, 5, 7, 8]",6,combined
+8,treatment_0008,5,"[1, 4, 5, 7, 8]",5,combined
+9,treatment_0009,5,"[1, 4, 5, 7, 8]",4,combined
+10,treatment_0010,5,"[1, 4, 5, 7, 8]",6,combined

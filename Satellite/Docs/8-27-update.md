@@ -438,6 +438,69 @@ arm matching Okano–Kurisu's published application exactly. But the ranking is 
 neither clears comparison 3, so differences among pooled representations are differences
 in how each carries the common fortnight factor, not weighting skill.
 
+### 6.5 Comparison with the collaborator's feature-space validation (notebooks 16–17)
+
+Pushed 2026-08-23 (`scripts/16_test_scm_single_period_validation.ipynb`,
+`scripts/17_test_ascm_single_period_validation.ipynb`), merged here 2026-08-26. These
+run SCM and ridge-ASCM (Ben-Michael–Feller–Rothstein) on **interpretable band means**
+— Sentinel-1: mean VV, VH, VV−VH (3 features); Sentinel-2: mean B2, B3, B4, B8, B11,
+B12, NDVI, NDWI (8 features) — for the same 10 treated sites with the same 5 matched
+controls each, features z-scored on training periods only.
+
+**Design convergence.** The earlier notebooks 14–15 froze weights on P01–P08 and
+scored P09–P10 jointly. Notebooks 16–17 switch to **per-period expanding validation —
+exactly our scheme** (fit P01–P08 → predict P09; refit P01–P09 → predict P10; the
+holdout never touches standardization, weights, or λ). Both pipelines independently
+arrived at the same correction of the pooled-holdout design, and their P09/P10 columns
+are now design-aligned with our §5 tables. *Units are not aligned*: their RMSE is in
+pooled z-scored feature units, ours in latent-statistic units — patterns and
+within-pipeline ratios are comparable, absolute values are not, and their validation
+reports no own-history null, so their numbers cannot be placed on our common
+error-÷-own-history metric.
+
+Their site-mean standardized test RMSE (train RMSE of the same design in parentheses):
+
+| sensor | P09 (fit P01–P08) | P10 (fit P01–P09) |
+|---|---|---|
+| Sentinel-1 | 0.284 (0.286) | 0.313 (0.298) |
+| Sentinel-2 | 0.839 (0.587) | 0.342 (0.657) |
+
+Their notebook-14 flag (test/train ratio): P09 — S2 only 4 of 10 "good" (3 caution,
+3 poor, worst ratio 4.28); P10 — S2 10 of 10 "good", S1 9 of 10.
+
+**Convergent findings.**
+
+1. **The P09/P10 asymmetry is in the data, not our representation.** Their
+   feature-space S2 error more than doubles from P10 to P09 (0.342 → 0.839, mean
+   test/train ratio ≈ 1.4) with 3 "poor" sites — independent evidence that the cloudy
+   P09 fortnight (71 % valid pixels) is hard for *any* image-derived outcome, matching
+   §6.3.
+2. **Ridge augmentation is inert-to-marginal there too.** Their leave-one-period-out
+   CV pins λ at the top of their grid (10⁴) in 9 of 20 site × sensor fits (P09 design)
+   and 10 of 20 (P10 design) — at that λ the ASCM weights collapse onto SCM (weight
+   distance ≤ 10⁻⁴), the same boundary behaviour as our three augmentation schemes
+   (§4.3 step 4). Where λ is interior, gains are mixed: at P09 ASCM improves the S1
+   features (+0.03 to +0.05 mean RMSE) but *worsens* most S2 features (B8 −0.19,
+   B12 −0.11); at P10 the site-level split is 5/10 improved per sensor.
+3. **Donor weights concentrate in both pipelines**: their effective number of donors
+   is 1.0–4.1 of 5 (largest weight 0.36–1.00; two S1 sites are single-donor),
+   comparable to our ~3 of 5 non-zero FSC weights.
+
+**Divergent finding — Sentinel-1.** In their feature space S1 validates *decently*
+(P09 test ≈ train, 0.284 vs 0.286; flags mostly "good"), while in our latent space S1
+beats the site's own history nowhere (§5). Radar band means evidently carry
+donor-trackable signal that the S1 TerraMind latent statistics do not preserve — which
+argues the S1 failure is **representation-specific**, and favours "rethink the S1
+representation" over "drop S1" in §8.
+
+**What their validation does not yet certify.** Their good/caution/poor flag is the
+test-to-training ratio — rung 1 of §6.1's ladder (the sanity check that passes our
+pipeline everywhere too). No comparison against the site's own history (comparison 2),
+no unweighted-donor-average null (comparison 3), and no placebo test have been run in
+feature space. Those are exactly the rungs where our pooled models stall, so applying
+§6.1's harness to their per-site outputs (saved under their Dropbox
+`test/scm_validation/` and `test/ascm_validation/`) is the natural next joint step.
+
 ## 7. Takeaways and conclusion
 
 1. **The 980-d failure was a representation failure, not an estimator failure.**
@@ -483,7 +546,9 @@ in how each carries the common fortnight factor, not weighting skill.
 - **Their conformal prediction intervals** (`mortality.R` L278–298) remain unbuilt —
   the open item of the fidelity audit.
 - **Sentinel-1** shows no donor signal in any configuration; drop it from the pooled
-  pipeline or rethink its representation.
+  pipeline or rethink its representation. §6.5 tilts this toward *rethink*: the
+  collaborator's feature-space S1 (band means) validates decently, so the signal
+  exists and the S1 latent statistics are losing it.
 - **Notebooks 07–09 still contain the pre-fix pooled analysis**; the corrected
   per-period results live in `panel_fsc_prediction.csv` / `panel_by_model_ratio.csv`.
   Rebuilding the notebooks to match is a pending, separately-tracked task.

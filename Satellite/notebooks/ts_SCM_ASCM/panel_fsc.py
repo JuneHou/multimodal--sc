@@ -288,11 +288,16 @@ def run_placebo(arm, method, label, name, sensor, post_period_q=11, lambda_=None
 
 
 def run_scheme(panel, sensor, name, method, label, workdir=None, need=range(1, 11),
-               grids=None, lam_grid=LAM_GRID, bridge=None, lam_groups=None):
+               grids=None, lam_grid=LAM_GRID, bridge=None, lam_groups=None,
+               block_builder=None):
     """Both validation schemes of notebooks 02–06, with λ chosen on a log grid.
 
         frozen_joint : fit P01–P08 (T_0=8), score P09 and P10 with the same weights
         expanding    : fit P01–P08 → predict P09;  REFIT P01–P09 (T_0=9) → predict P10
+
+    `block_builder(panel, sensor, name, groups, periods, grids)` -> (block, ...)
+    optionally replaces `pr.build_block` — the masked-pooling arm passes one; only the
+    outcome block changes, everything downstream is identical.
 
     Returns a tidy per-site table of prediction RMSE for FSC and augmented FSC (both
     unprojected and projected), against two reference predictors.
@@ -301,7 +306,8 @@ def run_scheme(panel, sensor, name, method, label, workdir=None, need=range(1, 1
     groups_all = pr.build_groups(panel)
     groups, dropped = pr.complete_groups(panel, sensor, groups_all, need=need)
     periods = pr.complete_periods(panel, sensor, groups)
-    block, _ = pr.build_block(panel, sensor, name, groups, periods, grids=grids)
+    build = block_builder or pr.build_block
+    block = build(panel, sensor, name, groups, periods, grids=grids)[0]
     br = bridge or RBridge(workdir)
     rk = repr_meta(name, grids)
 
@@ -374,3 +380,127 @@ def run_arm(panel, sensor, name, method, label, workdir=None, need=range(1, 11),
             "metrics": m, "effects": e, "block_scale": scale, "bridge": br,
             "grids": grids, "name": name, "method": method, "sensor": sensor,
             "label": label, "log": res["log"]}
+
+
+# ---------------------------------------------------------------- per-group scheme
+def run_scheme_pergroup(panel, sensor, name, method, label, validity,
+                        thr=None, min_valid=None, workdir=None, grids=None,
+                        lam_grid=LAM_GRID, placebo_periods=(11,)):
+    """`run_scheme` for the masked-DROP arm: chips whose masked statistics are
+    undefined (< `min_valid` valid parcels — near-fully cloud-masked, latents encoded
+    from pure fill) are treated as MISSING, so each group keeps its own surviving
+    period list and fit length instead of the shared P01–P08 window. The R bridge is
+    therefore called once per group on a (1, n_units, T_g, M) block.
+
+        frozen_joint : fit the group's surviving pre-periods (< P09), score P09 & P10
+        expanding    : same → P09;  refit with P09 appended → P10
+
+    P09/P10 must themselves survive for the group (at MIN_VALID=10 they do for all 10
+    groups on this panel); a group where they don't is recorded in `dropped`, never
+    silently skipped. `ratio_own_mean` divides by the treated unit's own mean over its
+    OWN surviving pre-periods, so the null predictor sees the same panel as FSC.
+    """
+    import time
+    thr = pr.PARCEL_THR if thr is None else thr
+    min_valid = pr.MIN_VALID if min_valid is None else min_valid
+    grids = pr.GRIDS_Q if grids is None else grids
+    br = RBridge(workdir)
+    rk = repr_meta(name, grids)
+    rows, lam_rows, wgt, infos, dropped, pl_raw, group_meta = [], [], [], [], [], [], []
+    kept_groups = []
+
+    def ok(g_site, q):
+        if not panel.have(g_site, sensor, q):
+            return False
+        nv = pr.n_valid(validity, panel, g_site, sensor, q, thr)
+        return nv is None or nv >= min_valid
+
+    for gi, g in enumerate(pr.build_groups(panel)):
+        pre = [q for q in range(1, 9) if all(ok(s, q) for s in g)]
+        if len(pre) < 2 or not all(all(ok(s, q) for s in g) for q in (9, 10)):
+            dropped.append({"group": gi + 1, "treatment_site_id": g[0],
+                            "n_pre": len(pre),
+                            "holdout_ok": all(all(ok(s, q) for s in g)
+                                              for q in (9, 10))})
+            continue
+        posts = [q for q in range(11, 21) if all(ok(s, q) for s in g)]
+        periods = pre + [9, 10] + posts
+        kept_groups.append(g)
+        gk = len(kept_groups)          # id in the KEPT list, used by placebo_ranks
+        block, _, info = pr.build_block_masked(
+            panel, sensor, name, [g], periods, validity, grids=grids,
+            thr=thr, min_valid=min_valid, fallback=False)
+        assert info["masked"].all()
+        infos.append(info.assign(group=gi + 1))
+        group_meta.append({"group": gi + 1, "treatment_site_id": g[0],
+                           "n_pre": len(pre), "pre_periods": str(pre),
+                           "n_post": len(posts)})
+        i09, i10 = len(pre), len(pre) + 1
+        fits, lam_of = {}, {}
+        for T_0 in (len(pre), len(pre) + 1):
+            tag = f"{label}_{name}_{sensor}_g{gi + 1}_T{T_0}"
+            lam, _cv, diag = lambda_search(block, method, T_0, tag, br,
+                                           grid=lam_grid, **rk)
+            lam_rows.append({"label": label, "sensor": sensor, "repr": name,
+                             "method": method, "group": gi + 1, "T_0": T_0, **diag})
+            fits[T_0] = br.run(block, "fit", method, T_0, tag, lambda_=lam, **rk)
+            lam_of[T_0] = lam
+            wgt.append(fits[T_0]["weights"].assign(
+                label=label, sensor=sensor, repr=name, method=method,
+                group=gi + 1, T_0=T_0, treatment_site_id=g[0]))
+
+        obs = block[0, 0]
+        own = obs[:len(pre)].mean(axis=0)
+        eq = np.tensordot(np.full(block.shape[1] - 1, 1.0 / (block.shape[1] - 1)),
+                          block[0, 1:], axes=(0, 0))
+        rms = lambda a, b_: float(np.sqrt(np.mean((a - b_) ** 2)))
+
+        def wvec(T_0, est):
+            return (fits[T_0]["weights"].sort_values("donor")
+                    [f"weight_{est}"].to_numpy())
+
+        for est in ("fsc", "afsc"):
+            s8 = synth(block, wvec(len(pre), est), 0)
+            s9 = synth(block, wvec(len(pre) + 1, est), 0)
+            for scheme, ti, s in (("frozen_joint", i09, s8), ("frozen_joint", i10, s8),
+                                  ("expanding", i09, s8), ("expanding", i10, s9)):
+                rows.append({
+                    "label": label, "sensor": sensor, "repr": name, "method": method,
+                    "estimator": est, "scheme": scheme, "treatment_site_id": g[0],
+                    "eval_period": f"P{periods[ti]:02d}",
+                    "fit_window": (f"pre{len(pre)}" if (scheme == "frozen_joint"
+                                   or ti == i09) else f"pre{len(pre)}+P09"),
+                    "n_pre": len(pre),
+                    "pred_rmse": rms(obs[ti], s[ti]),
+                    "null_own_mean": rms(obs[ti], own),
+                    "null_equal_weight": rms(obs[ti], eq[ti]),
+                    "ratio_own_mean": rms(obs[ti], s[ti]) / rms(obs[ti], own),
+                    "train_rmse": float(np.sqrt(np.mean(
+                        (obs[:len(pre)] - s[:len(pre)]) ** 2)))})
+
+        for q in placebo_periods:
+            if q not in periods:
+                continue
+            res = br.run(block, "placebo", method, len(pre),
+                         f"{label}_{name}_{sensor}_g{gi + 1}_pl{q}",
+                         post_period=periods.index(q) + 1,
+                         lambda_=lam_of[len(pre)], **rk)
+            pl_raw.append(res["placebo"].assign(group=gk, period=f"P{q:02d}"))
+
+    out = {"metrics": pd.DataFrame(rows), "lambda": pd.DataFrame(lam_rows),
+           "weights": pd.concat(wgt, ignore_index=True) if wgt else pd.DataFrame(),
+           "info": pd.concat(infos, ignore_index=True) if infos else pd.DataFrame(),
+           "group_meta": pd.DataFrame(group_meta),
+           "dropped": pd.DataFrame(dropped), "bridge": br}
+    if pl_raw:
+        pl = pd.concat(pl_raw, ignore_index=True)
+        ranks = []
+        for per, sub in pl.groupby("period"):
+            df = placebo_ranks(sub, kept_groups)
+            df.insert(0, "label", label)
+            df.insert(1, "sensor", sensor)
+            df.insert(2, "period", per)
+            ranks.append(df)
+        out["placebo"] = pl
+        out["placebo_ranks"] = ranks
+    return out
