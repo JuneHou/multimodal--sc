@@ -1,5 +1,5 @@
-"""panel_align — parcel descriptors, class-constrained Hungarian alignment of donor
-parcels to treated positions, and synthetic-historical-control (SHC) blocks.
+"""panel_align — parcel descriptors and class-constrained Hungarian alignment of donor
+parcels to treated positions.
 
 Design (approved 2026-08-28, plan `quirky-growing-wombat`):
   * Experiment 1: the collaborator's 5 donors per treated site; each donor's 196 latent
@@ -8,8 +8,6 @@ Design (approved 2026-08-28, plan `quirky-growing-wombat`):
     minimises a descriptor distance (elevation/slope [+ aspect], TerraMind pre-treatment
     history mean [+ SD], [+ 3x3 class-context histogram]). Descriptors decide the
     permutation only — the outcome vector stays the 980-d latent (5 ch x 196 parcels).
-  * Experiment 2: the treated site's own history as donor (SHC blocks, Chen-Yang-Yang,
-    SSRN 4995085). No alignment: same parcel, same class, same position by construction.
 
 Parcel geometry: latent parcel (i, j) is the 16x16 patch (i, j) of the 224 tokenizer input,
 i.e. cell (i, j) of the uniform 14x14 partition `_EDGES` of the 101-px chip
@@ -299,26 +297,3 @@ def rmse(e):
     e = e[np.isfinite(e)]
     return float(np.sqrt(np.mean(e * e))) if e.size else np.nan
 
-
-# ---------------------------------------------------------------- SHC blocks
-def shc_blocks(train_p, m, n=1):
-    """Chen-Yang-Yang historical blocks inside the training window. Treated block =
-    (last m train periods, target). Historical block i = the same (m pre, n post) window
-    shifted back by z_i = n + i - 1 periods so its pseudo-post period lies inside the
-    training window. Returns [(pre_seqs, post_seqs), ...], N = len(train_p) - n - (m - 1)."""
-    tp = list(train_p)
-    T0 = len(tp)
-    blocks = []
-    for i in range(1, T0 - n - (m - 1) + 1):
-        z = n + i - 1
-        end = T0 - z                     # index (1-based within tp) of the block's last pre period
-        pre = tp[end - m:end]
-        post = tp[end:end + n]
-        if len(pre) == m and len(post) == n:
-            blocks.append((pre, post))
-    return blocks
-
-
-def treated_block(train_p, m):
-    tp = list(train_p)
-    return tp[-m:]

@@ -1,0 +1,14 @@
+kind,sensor,band,sq_error,standardized_sq_error
+sensor,sentinel1,,,0.492461
+sensor,sentinel2,,,0.786712
+sensor_band,sentinel1,VH,0.241733,0.361156
+sensor_band,sentinel1,VV,0.163084,1.001615
+sensor_band,sentinel1,VV_minus_VH,0.02689,0.114612
+sensor_band,sentinel2,B11,0.001239,1.379133
+sensor_band,sentinel2,B12,0.000491,0.858584
+sensor_band,sentinel2,B2,0.000285,1.218793
+sensor_band,sentinel2,B3,0.000274,0.762025
+sensor_band,sentinel2,B4,0.000289,1.614114
+sensor_band,sentinel2,B8,0.002812,0.125449
+sensor_band,sentinel2,NDVI,0.002253,0.09976
+sensor_band,sentinel2,NDWI,0.001281,0.235835

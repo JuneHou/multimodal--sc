@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Synthetic Control Methods — Hurricane Helene Satellite Analysis</title>
+
+<!-- Reveal.js -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css"/>
+
+<!-- Leaflet -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+<style>
+/* ─── Global ─────────────────────────────────────────── */
+:root{
+  --blue:#1a6faf; --teal:#00897b; --orange:#e65100; --purple:#6a1b9a;
+  --gold:#f9a825; --bg:#f8f9fa; --card:#ffffff;
+}
+.reveal { font-family: 'Segoe UI', Arial, sans-serif; font-size: 20px; }
+.reveal h1 { font-size:2em; color:var(--blue); }
+.reveal h2 { font-size:1.5em; color:var(--blue); border-bottom:3px solid var(--blue); padding-bottom:6px; margin-bottom:16px; }
+.reveal h3 { font-size:1.1em; color:var(--teal); margin:10px 0 6px; }
+.reveal section { text-align:left; }
+.reveal .slides { text-align:left; }
+
+/* ─── Title slide ────────────────────────────────────── */
+.title-slide { text-align:center !important; background:linear-gradient(135deg,#0d47a1 0%,#1a6faf 50%,#00897b 100%); color:#fff !important; border-radius:12px; padding:40px !important; }
+.title-slide h1 { color:#fff !important; font-size:1.7em !important; border:none !important; }
+.title-slide .subtitle { color:rgba(255,255,255,0.9); font-size:1em; margin-top:8px; }
+.title-slide .meta { color:rgba(255,255,255,0.75); font-size:0.8em; margin-top:20px; }
+.pill { display:inline-block; background:rgba(255,255,255,0.2); border-radius:20px; padding:4px 14px; margin:4px; font-size:0.85em; }
+
+/* ─── Method cards ───────────────────────────────────── */
+.method-card { background:var(--card); border-radius:10px; padding:18px 22px; box-shadow:0 2px 12px rgba(0,0,0,0.09); margin-bottom:14px; border-left:5px solid var(--blue); }
+.method-card.teal { border-left-color:var(--teal); }
+.method-card.orange{ border-left-color:var(--orange); }
+.method-card.purple{ border-left-color:var(--purple); }
+
+.eq-box { background:#f0f4ff; border-radius:8px; padding:10px 16px; margin:8px 0; font-size:0.95em; }
+.tag { display:inline-block; background:#e3f2fd; color:var(--blue); border-radius:4px; padding:1px 8px; font-size:0.75em; font-weight:600; margin-bottom:6px; }
+.tag.teal { background:#e0f2f1; color:var(--teal); }
+.tag.orange{ background:#fff3e0; color:var(--orange); }
+.tag.purple{ background:#f3e5f5; color:var(--purple); }
+
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.three-col { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; }
+.notation-row { display:flex; gap:6px; flex-wrap:wrap; margin:6px 0; }
+.nt { background:#fff8e1; border:1px solid #ffe082; border-radius:4px; padding:2px 8px; font-size:0.78em; }
+
+/* ─── Comparison table ───────────────────────────────── */
+.cmp-table { width:100%; border-collapse:collapse; font-size:0.8em; margin-top:10px; }
+.cmp-table th { background:var(--blue); color:#fff; padding:8px 10px; text-align:center; font-weight:600; }
+.cmp-table td { padding:7px 10px; border-bottom:1px solid #e0e0e0; vertical-align:top; }
+.cmp-table tr:nth-child(even) td { background:#f5f7ff; }
+.cmp-table tr:hover td { background:#e8eaf6; }
+.cmp-table .row-hd { font-weight:600; color:#333; background:#fafafa !important; }
+.check { color:#00897b; font-weight:700; }
+.cross { color:#c62828; }
+
+/* ─── Map slide ──────────────────────────────────────── */
+#map-slide-inner { display:grid; grid-template-columns:3fr 2fr; gap:12px; height:520px; }
+#map-container { border-radius:10px; overflow:hidden; border:2px solid #ccc; }
+#map { width:100%; height:100%; }
+#info-panel { background:var(--card); border-radius:10px; border:2px solid #e0e0e0; overflow-y:auto; padding:14px; font-size:0.78em; }
+#info-panel h3 { margin:0 0 8px; color:var(--blue); font-size:1em; }
+#info-panel .hint { color:#888; font-style:italic; margin-top:40px; text-align:center; }
+.weight-table { width:100%; border-collapse:collapse; font-size:0.75em; margin-top:8px; }
+.weight-table th { background:#e3f2fd; color:#1565c0; padding:4px 6px; text-align:center; font-size:0.9em; }
+.weight-table td { padding:3px 6px; border-bottom:1px solid #eee; text-align:center; }
+.weight-table tr:hover td { background:#f5f7ff; }
+.wbar { display:inline-block; height:8px; background:var(--blue); border-radius:2px; margin-left:4px; vertical-align:middle; opacity:0.7; }
+.wbar.neg { background:var(--orange); }
+.site-info { background:#f0f4ff; border-radius:6px; padding:8px; margin-bottom:8px; font-size:0.9em; }
+.site-info b { color:var(--blue); }
+.method-legend { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:8px; }
+.method-dot { width:10px; height:10px; border-radius:50%; display:inline-block; margin-right:3px; }
+
+/* ─── MathJax override ───────────────────────────────── */
+mjx-container { font-size:0.95em !important; }
+</style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 1 – TITLE
+     ══════════════════════════════════════════════════════ -->
+<section>
+<div class="title-slide">
+  <h1>Synthetic Control Methods<br/>for Satellite Impact Analysis</h1>
+  <p class="subtitle">Estimating Hurricane Helene Effects via Sentinel-1 &amp; Sentinel-2 Imagery</p>
+  <div style="margin:20px 0;">
+    <span class="pill">Standard SCM</span>
+    <span class="pill">Augmented SCM</span>
+    <span class="pill">SCM – Multiple Outcomes</span>
+  </div>
+  <p class="meta">Virginia Tech · CALS · 2024–2026</p>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 2 – NOTATION
+     ══════════════════════════════════════════════════════ -->
+<section>
+<h2>Common Notation &amp; Setup</h2>
+<div class="two-col">
+<div>
+<h3>Index Spaces</h3>
+<div class="eq-box">
+\[ i \in \{1, 2, \ldots, N\} \text{ units} \]
+\[ t \in \{1, \ldots, T_0, T_0{+}1, \ldots, T\} \text{ periods} \]
+\[ k \in \{1, \ldots, K\} \text{ outcomes (bands)} \]
+</div>
+<div class="notation-row">
+  <span class="nt">Unit 1 = treated (Hurricane site)</span>
+  <span class="nt">Units 2…J+1 = donors (counterfactuals)</span>
+  <span class="nt">T₀ = pre-hurricane periods</span>
+</div>
+
+<h3>Core Vectors &amp; Matrices</h3>
+<div class="eq-box">
+\[
+\mathbf{y}_1 = \begin{pmatrix}Y_{11}\\\vdots\\Y_{1T_0}\end{pmatrix}\!\in\mathbb{R}^{T_0},\quad
+\mathbf{Y}_0 = \begin{pmatrix}Y_{21}&\cdots&Y_{J{+}1,1}\\\vdots&&\vdots\\Y_{2T_0}&\cdots&Y_{J{+}1,T_0}\end{pmatrix}\!\in\mathbb{R}^{T_0\times J}
+\]
+</div>
+</div>
+<div>
+<h3>Weight Vector &amp; Simplex Constraint</h3>
+<div class="eq-box">
+\[
+\mathbf{w} = \begin{pmatrix}w_1\\\vdots\\w_J\end{pmatrix}\in\mathbb{R}^J
+\]
+\[
+\mathcal{W} = \Bigl\{\mathbf{w}\in\mathbb{R}^J : w_j \geq 0,\; \textstyle\sum_{j=1}^J w_j = 1\Bigr\}
+\]
+</div>
+
+<h3>Counterfactual &amp; Effect</h3>
+<div class="eq-box">
+\[
+\hat{Y}_{1t} = \mathbf{Y}_{0t}^\top\mathbf{w}^* = \sum_{j=1}^J w_j^* Y_{jt}
+\]
+\[
+\hat{\tau}_t = Y_{1t} - \hat{Y}_{1t}, \quad t > T_0
+\]
+</div>
+
+<div class="notation-row" style="margin-top:10px;">
+  <span class="nt">J = 5–10 donors</span>
+  <span class="nt">T₀ = 9–10 biweekly periods</span>
+  <span class="nt">K = 8 Sentinel-2 bands</span>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 3 – SCM
+     ══════════════════════════════════════════════════════ -->
+<section>
+<h2>Standard Synthetic Control Method (SCM)</h2>
+<span class="tag">Abadie, Diamond &amp; Hainmueller (2003, 2010)</span>
+
+<div class="method-card">
+<h3>Optimization Problem</h3>
+<div class="eq-box">
+\[
+\mathbf{w}^{\text{SCM}} \;=\; \arg\min_{\mathbf{w}\in\mathcal{W}} \;
+\underbrace{(\mathbf{y}_1 - \mathbf{Y}_0\,\mathbf{w})^\top V\,(\mathbf{y}_1 - \mathbf{Y}_0\,\mathbf{w})}_{\text{weighted pre-treatment imbalance}}
+\]
+</div>
+<p style="font-size:0.85em;margin-top:6px;">where \(V\in\mathbb{R}^{T_0\times T_0}\) is a diagonal positive semi-definite matrix weighting periods.</p>
+</div>
+
+<div class="method-card" style="border-left-color:#555;">
+<h3>System of Equations (Quadratic Program)</h3>
+<div class="eq-box">
+\[
+\underbrace{\begin{pmatrix}\mathbf{Y}_0^\top V\mathbf{Y}_0 \\ \mathbf{1}^\top \\ \mathbf{I}_J\end{pmatrix}}_{\text{constraint matrix } A}
+\mathbf{w}
+= 
+\underbrace{\begin{pmatrix}\mathbf{Y}_0^\top V\,\mathbf{y}_1 \\ 1 \\ \mathbf{0}\end{pmatrix}}_{\text{rhs }b}
+\quad\Rightarrow\quad
+\min_{\mathbf{w}}\tfrac{1}{2}\mathbf{w}^\top D\,\mathbf{w} - \mathbf{d}^\top\mathbf{w}
+\]
+\[
+D = \mathbf{Y}_0^\top V\mathbf{Y}_0 + \varepsilon\mathbf{I}_J,\qquad \mathbf{d} = \mathbf{Y}_0^\top V\,\mathbf{y}_1
+\]
+</div>
+</div>
+
+<div class="two-col">
+<div class="method-card" style="border-left-color:#1a6faf;">
+<h3>Estimated Weight Vector</h3>
+<div class="eq-box">
+\[
+\mathbf{w}^{\text{SCM}} = \begin{pmatrix}w_1\\\vdots\\w_J\end{pmatrix},\quad w_j\geq 0,\;\textstyle\sum w_j=1
+\]
+</div>
+<p style="font-size:0.8em;">Solved via SLSQP / quadprog. Weights are <b>sparse</b> and non-negative — no extrapolation.</p>
+</div>
+<div class="method-card" style="border-left-color:#888;">
+<h3>Bias Bound</h3>
+<div class="eq-box">
+\[
+\text{Bias} \;\propto\; \mathcal{O}\!\left(T_0^{-1/2}\right)
+\]
+</div>
+<p style="font-size:0.8em;">Bias shrinks with more pre-treatment periods. Fails when treated unit lies outside the convex hull of donors.</p>
+</div>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 4 – ASCM
+     ══════════════════════════════════════════════════════ -->
+<section>
+<h2>Augmented SCM — Ridge ASCM</h2>
+<span class="tag teal">Ben-Michael, Feller &amp; Rothstein (2021)</span>
+
+<div class="method-card teal">
+<h3>Ridge Objective — Adds L2 Penalty to Spread Weights</h3>
+<div class="eq-box">
+\[
+\mathbf{w}^{\text{Ridge}} \;=\; \arg\min_{\mathbf{w},\,\sum w_j=1} \;
+\underbrace{\|\mathbf{y}_1 - \mathbf{Y}_0\,\mathbf{w}\|_2^2}_{\text{pre-treatment fit}}
+\;+\;
+\underbrace{\lambda\,\|\mathbf{w}\|_2^2}_{\text{ridge penalty}}
+\]
+</div>
+</div>
+
+<div class="two-col">
+<div class="method-card teal">
+<h3>Closed-Form KKT System</h3>
+<div class="eq-box" style="font-size:0.87em;">
+\[
+\underbrace{\begin{pmatrix}\mathbf{Y}_0^\top\mathbf{Y}_0+\lambda\mathbf{I}_J & \mathbf{1} \\ \mathbf{1}^\top & 0\end{pmatrix}}_{(J{+}1)\times(J{+}1)}
+\begin{pmatrix}\mathbf{w}\\\nu\end{pmatrix}
+=
+\begin{pmatrix}\mathbf{Y}_0^\top\mathbf{y}_1 \\ 1\end{pmatrix}
+\]
+\[
+\mathbf{w}^{\text{Ridge}} = \bigl(\mathbf{Y}_0^\top\mathbf{Y}_0+\lambda\mathbf{I}_J\bigr)^{-1}\!\bigl(\mathbf{Y}_0^\top\mathbf{y}_1 + \nu\mathbf{1}\bigr)
+\]
+</div>
+</div>
+<div>
+<div class="method-card teal">
+<h3>Augmented (Bias-Corrected) Estimator</h3>
+<div class="eq-box" style="font-size:0.87em;">
+\[
+\hat{\tau}_t^{\text{ASCM}} = \underbrace{\bigl(Y_{1t} - \mathbf{Y}_{0t}^\top\mathbf{w}^{\text{Ridge}}\bigr)}_{\text{re-weighted difference}} + \underbrace{\bigl(\hat\mu_{1t} - \hat{\boldsymbol{\mu}}_{0t}^\top\mathbf{w}^{\text{Ridge}}\bigr)}_{\text{bias correction}}
+\]
+</div>
+</div>
+<div class="method-card" style="border-left-color:#888;">
+<h3>Effect of \(\lambda\)</h3>
+<p style="font-size:0.82em;">
+\(\lambda\to 0\): OLS weights (unconstrained)<br/>
+\(\lambda\to\infty\): equal weights \((1/J)\)<br/>
+\(\lambda\) chosen by <b>cross-validation</b> on held-out pre-treatment periods
+</p>
+</div>
+</div>
+</div>
+
+<div class="method-card" style="border-left-color:#888;padding:10px 16px;">
+<p style="font-size:0.82em;margin:0;">
+<b>Key:</b> Allows <b>negative weights</b> (extrapolation). The bias-correction term \((\hat\mu_{1t}-\hat{\boldsymbol\mu}_{0t}^\top\mathbf{w})\) handles remaining imbalance via an outcome model.
+Weights sum to 1 but \(w_j\) can be \(&lt; 0\).
+</p>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 5 – SCM MULTIPLE OUTCOMES
+     ══════════════════════════════════════════════════════ -->
+<section>
+<h2>SCM with Multiple Outcomes (SCM-MO)</h2>
+<span class="tag orange">Tian, Lee &amp; Panchenko (2024)</span>
+
+<div class="method-card orange">
+<h3>Key Idea: Stack K Outcomes into One Joint Optimization</h3>
+<div class="eq-box">
+\[
+\mathbf{Z}_1 = \begin{pmatrix}\mathbf{Z}_{1,1}\\\mathbf{Z}_{1,2}\\\vdots\\\mathbf{Z}_{1,K}\end{pmatrix}\!\in\mathbb{R}^{KT_0},
+\quad
+\mathbf{Z}_0 = \begin{pmatrix}\mathbf{Z}_{0,1}\\\mathbf{Z}_{0,2}\\\vdots\\\mathbf{Z}_{0,K}\end{pmatrix}\!\in\mathbb{R}^{KT_0\times J},
+\quad
+V = \bigoplus_{k=1}^K V_k \in\mathbb{R}^{KT_0\times KT_0}
+\]
+</div>
+</div>
+
+<div class="two-col">
+<div class="method-card orange">
+<h3>Joint Optimization (Same Simplex Constraint)</h3>
+<div class="eq-box">
+\[
+\mathbf{w}^{\text{MO}} = \arg\min_{\mathbf{w}\in\mathcal{W}} \sum_{k=1}^K (\mathbf{Z}_{1,k}-\mathbf{Z}_{0,k}\mathbf{w})^\top V_k(\mathbf{Z}_{1,k}-\mathbf{Z}_{0,k}\mathbf{w})
+\]
+\[
+= \arg\min_{\mathbf{w}\in\mathcal{W}} (\mathbf{Z}_1-\mathbf{Z}_0\mathbf{w})^\top V(\mathbf{Z}_1-\mathbf{Z}_0\mathbf{w})
+\]
+</div>
+</div>
+<div class="method-card orange">
+<h3>QP System</h3>
+<div class="eq-box">
+\[
+D = \mathbf{Z}_0 V \mathbf{Z}_0^\top + \varepsilon\mathbf{I}_J,\quad \mathbf{d} = \mathbf{Z}_0 V\,\mathbf{Z}_1
+\]
+\[
+\min_{\mathbf{w}}\tfrac{1}{2}\mathbf{w}^\top D\mathbf{w} - \mathbf{d}^\top\mathbf{w},\quad \mathbf{1}^\top\mathbf{w}=1,\;\mathbf{w}\geq\mathbf{0}
+\]
+</div>
+</div>
+</div>
+
+<div class="method-card" style="border-left-color:#888;">
+<div class="three-col" style="margin-top:4px;">
+<div>
+<h3>Satellite Application</h3>
+<p style="font-size:0.8em;">K = 8 bands (B2, B3, B4, B8, B11, B12, NDVI, NDWI)<br/>One weight vector \(\mathbf{w}\in\mathbb{R}^5\) fits all 8 bands jointly.</p>
+</div>
+<div>
+<h3>Experiment 1</h3>
+<p style="font-size:0.8em;">T₀ = 1, K = 8 → <b>8 matching cells</b><br/>Single-period cross-band matching</p>
+</div>
+<div>
+<h3>Experiment 2</h3>
+<p style="font-size:0.8em;">T₀ = 9, K = 8 → <b>up to 72 matching cells</b><br/>Full temporal + spectral matching</p>
+</div>
+</div>
+<div class="eq-box" style="margin-top:8px;">
+\[\text{Bias}\;\propto\;\mathcal{O}\!\left(T_0^{-1/2}\right)+\mathcal{O}\!\left(K^{-1/2}\right)\]
+</div>
+<p style="font-size:0.8em;margin-top:4px;">More outcomes AND more periods both reduce bias — powerful when \(T_0\) is small.</p>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 6 – COMPARISON TABLE
+     ══════════════════════════════════════════════════════ -->
+<section>
+<h2>Method Comparison</h2>
+<table class="cmp-table">
+<thead>
+<tr>
+  <th style="width:18%;">Property</th>
+  <th style="width:22%;">Standard SCM</th>
+  <th style="width:25%;">Ridge ASCM</th>
+  <th style="width:17.5%;">SCM-MO Exp 1</th>
+  <th style="width:17.5%;">SCM-MO Exp 2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td class="row-hd">Paper</td>
+  <td>Abadie et al. 2003/10</td>
+  <td>Ben-Michael et al. 2021</td>
+  <td colspan="2">Tian et al. 2024</td>
+</tr>
+<tr>
+  <td class="row-hd">Objective</td>
+  <td>\(\|\mathbf{y}_1-\mathbf{Y}_0\mathbf{w}\|_V^2\)</td>
+  <td>\(\|\mathbf{y}_1-\mathbf{Y}_0\mathbf{w}\|^2+\lambda\|\mathbf{w}\|^2\)</td>
+  <td colspan="2">\(\sum_k\|\mathbf{Z}_{1,k}-\mathbf{Z}_{0,k}\mathbf{w}\|_{V_k}^2\)</td>
+</tr>
+<tr>
+  <td class="row-hd">Matching dim.</td>
+  <td>\(T_0\times 1\)</td>
+  <td>\(T_0\times 1\)</td>
+  <td>\(1\times 8\) bands</td>
+  <td>\(9\times 8=72\) cells</td>
+</tr>
+<tr>
+  <td class="row-hd">Penalty</td>
+  <td>None</td>
+  <td>Ridge \(\lambda\|\mathbf{w}\|^2\)</td>
+  <td>None</td>
+  <td>None</td>
+</tr>
+<tr>
+  <td class="row-hd">Weight constraints</td>
+  <td>\(w_j\geq 0,\;\sum w_j=1\)</td>
+  <td>\(\sum w_j=1\) (relaxed \(\geq 0\))</td>
+  <td>\(w_j\geq 0,\;\sum w_j=1\)</td>
+  <td>\(w_j\geq 0,\;\sum w_j=1\)</td>
+</tr>
+<tr>
+  <td class="row-hd">Extrapolation</td>
+  <td><span class="cross">✗ No</span></td>
+  <td><span class="check">✓ Yes (neg. weights)</span></td>
+  <td><span class="cross">✗ No</span></td>
+  <td><span class="cross">✗ No</span></td>
+</tr>
+<tr>
+  <td class="row-hd">Bias reduction</td>
+  <td>\(\mathcal{O}(T_0^{-1/2})\)</td>
+  <td>Outcome model correction</td>
+  <td>\(\mathcal{O}(K^{-1/2})\)</td>
+  <td>\(\mathcal{O}(T_0^{-1/2})+\mathcal{O}(K^{-1/2})\)</td>
+</tr>
+<tr>
+  <td class="row-hd">Solution method</td>
+  <td>QP / SLSQP</td>
+  <td>KKT closed-form + CV</td>
+  <td>QP / SLSQP</td>
+  <td>QP / SLSQP</td>
+</tr>
+<tr>
+  <td class="row-hd">Sparsity</td>
+  <td>High (corner solutions)</td>
+  <td>Medium (ridge spreads)</td>
+  <td>Very high (1–2 donors)</td>
+  <td>Medium</td>
+</tr>
+<tr>
+  <td class="row-hd">Best when</td>
+  <td>Large \(T_0\), good fit</td>
+  <td>Poor SCM fit, extrapolation needed</td>
+  <td>Small \(T_0\), many outcomes</td>
+  <td>Both \(T_0\) and \(K\) moderate</td>
+</tr>
+<tr>
+  <td class="row-hd">Scripts</td>
+  <td>18, 19</td>
+  <td>18, 19</td>
+  <td>22</td>
+  <td>22</td>
+</tr>
+</tbody>
+</table>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 7 – INTERACTIVE MAP
+     ══════════════════════════════════════════════════════ -->
+<section>
+<h2 style="margin-bottom:8px;">Interactive Weight Map — Hurricane Helene Sites</h2>
+<p style="font-size:0.8em;margin:0 0 8px;color:#555;">Click a <span style="color:#c62828;font-weight:700;">■ treatment site</span> to see its counterfactual sites and estimated weights by method. Sites with weights (0001–0010) shown in <span style="color:#c62828;">red</span>; others in <span style="color:#888;">grey</span>.</p>
+<div id="map-slide-inner">
+  <div id="map-container"><div id="map"></div></div>
+  <div id="info-panel">
+    <div class="hint">👆 Click a red treatment site on the map to view counterfactual weights</div>
+  </div>
+</div>
+</section>
+
+</div><!-- /slides -->
+</div><!-- /reveal -->
+
+<!-- ─── Scripts ──────────────────────────────────────────────────────── -->
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/math/math.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+// ── Reveal init ─────────────────────────────────────────────────────
+Reveal.initialize({
+  hash: true,
+  width: 1100,
+  height: 700,
+  margin: 0.04,
+  transition: 'slide',
+  plugins: [RevealMath.MathJax3],
+  math: {
+    mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js',
+    config: 'TeX-AMS_HTML-full',
+  }
+});
+
+// ── Site data ────────────────────────────────────────────────────────
+const SITES = {"treatment_0001":{"site_id":"treatment_0001","lat":36.851744,"lon":-81.428437,"elevation_m":729.1,"slope_deg":0.295,"nlcd_class":81,"has_weights":true,"lambda":10000.0,"counterfactuals":[{"site_id":"counterfactual_0001_01","lat":36.881416,"lon":-81.371338,"matched_treatment_id":"treatment_0001","control_rank":1,"elevation_m":739.9,"distance_m":6061,"w_scm":0.441,"w_ascm":0.4414,"w_mo1":0.403,"w_mo2":0.2199},{"site_id":"counterfactual_0001_02","lat":36.931963,"lon":-81.257267,"matched_treatment_id":"treatment_0001","control_rank":2,"elevation_m":733.8,"distance_m":17658,"w_scm":0.0,"w_ascm":-0.0009,"w_mo1":0.0,"w_mo2":0.1089},{"site_id":"counterfactual_0001_03","lat":36.938299,"lon":-81.516727,"matched_treatment_id":"treatment_0001","control_rank":3,"elevation_m":730.6,"distance_m":12413,"w_scm":0.0311,"w_ascm":0.0315,"w_mo1":0.597,"w_mo2":0.293},{"site_id":"counterfactual_0001_04","lat":36.802609,"lon":-81.257847,"matched_treatment_id":"treatment_0001","control_rank":4,"elevation_m":733.2,"distance_m":16160,"w_scm":0.5279,"w_ascm":0.5283,"w_mo1":0.0,"w_mo2":0.3782},{"site_id":"counterfactual_0001_05","lat":36.842282,"lon":-81.483703,"matched_treatment_id":"treatment_0001","control_rank":5,"elevation_m":715.1,"distance_m":5038,"w_scm":0.0,"w_ascm":-0.0003,"w_mo1":0.0,"w_mo2":0.0},{"site_id":"counterfactual_0001_06","lat":36.929969,"lon":-81.456285,"matched_treatment_id":"treatment_0001","control_rank":6,"elevation_m":735.8,"distance_m":9025,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0001_07","lat":36.900438,"lon":-81.494443,"matched_treatment_id":"treatment_0001","control_rank":7,"elevation_m":689.8,"distance_m":7986,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0001_08","lat":36.804314,"lon":-81.295121,"matched_treatment_id":"treatment_0001","control_rank":8,"elevation_m":746.5,"distance_m":13001,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0001_09","lat":36.76891,"lon":-81.466307,"matched_treatment_id":"treatment_0001","control_rank":9,"elevation_m":759.3,"distance_m":9790,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0001_10","lat":36.942274,"lon":-81.510826,"matched_treatment_id":"treatment_0001","control_rank":10,"elevation_m":723.7,"distance_m":12440,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null}]},"treatment_0002":{"site_id":"treatment_0002","lat":36.690637,"lon":-81.175397,"elevation_m":869.3,"slope_deg":3.782,"nlcd_class":22,"has_weights":true,"lambda":10000.0,"counterfactuals":[{"site_id":"counterfactual_0002_01","lat":36.731081,"lon":-81.243677,"matched_treatment_id":"treatment_0002","control_rank":1,"elevation_m":853.6,"distance_m":7571,"w_scm":0.0,"w_ascm":-0.0,"w_mo1":0.0,"w_mo2":0.0},{"site_id":"counterfactual_0002_02","lat":36.589172,"lon":-81.385951,"matched_treatment_id":"treatment_0002","control_rank":2,"elevation_m":875.3,"distance_m":21931,"w_scm":0.0,"w_ascm":-0.0,"w_mo1":0.0,"w_mo2":0.0},{"site_id":"counterfactual_0002_03","lat":36.616472,"lon":-81.268153,"matched_treatment_id":"treatment_0002","control_rank":3,"elevation_m":820.2,"distance_m":11680,"w_scm":0.0715,"w_ascm":0.0715,"w_mo1":0.0,"w_mo2":0.3138},{"site_id":"counterfactual_0002_04","lat":36.56971,"lon":-80.963154,"matched_treatment_id":"treatment_0002","control_rank":4,"elevation_m":842.7,"distance_m":23238,"w_scm":0.0307,"w_ascm":0.0307,"w_mo1":0.0,"w_mo2":0.1078},{"site_id":"counterfactual_0002_05","lat":36.679993,"lon":-81.332536,"matched_treatment_id":"treatment_0002","control_rank":5,"elevation_m":920.2,"distance_m":14089,"w_scm":0.8979,"w_ascm":0.8979,"w_mo1":1.0,"w_mo2":0.5784},{"site_id":"counterfactual_0002_06","lat":36.757054,"lon":-81.414876,"matched_treatment_id":"treatment_0002","control_rank":6,"elevation_m":847.0,"distance_m":22618,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0002_07","lat":36.626969,"lon":-80.934317,"matched_treatment_id":"treatment_0002","control_rank":7,"elevation_m":807.3,"distance_m":22674,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0002_08","lat":36.620295,"lon":-81.455648,"matched_treatment_id":"treatment_0002","control_rank":8,"elevation_m":915.9,"distance_m":26235,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0002_09","lat":36.572916,"lon":-81.056873,"matched_treatment_id":"treatment_0002","control_rank":9,"elevation_m":805.1,"distance_m":16817,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0002_10","lat":36.804819,"lon":-81.216778,"matched_treatment_id":"treatment_0002","control_rank":10,"elevation_m":770.6,"distance_m":13194,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null}]},"treatment_0003":{"site_id":"treatment_0003","lat":36.691712,"lon":-81.707231,"elevation_m":875.3,"slope_deg":15.751,"nlcd_class":41,"has_weights":true,"lambda":10000.0,"counterfactuals":[{"site_id":"counterfactual_0003_01","lat":36.616979,"lon":-81.729621,"matched_treatment_id":"treatment_0003","control_rank":1,"elevation_m":871.2,"distance_m":8528,"w_scm":0.676,"w_ascm":0.676,"w_mo1":0.0,"w_mo2":0.6845},{"site_id":"counterfactual_0003_02","lat":36.640475,"lon":-81.760482,"matched_treatment_id":"treatment_0003","control_rank":2,"elevation_m":893.5,"distance_m":7413,"w_scm":0.0151,"w_ascm":0.0151,"w_mo1":0.0194,"w_mo2":0.0714},{"site_id":"counterfactual_0003_03","lat":36.615413,"lon":-81.735473,"matched_treatment_id":"treatment_0003","control_rank":3,"elevation_m":874.3,"distance_m":8832,"w_scm":0.143,"w_ascm":0.143,"w_mo1":0.1384,"w_mo2":0.0},{"site_id":"counterfactual_0003_04","lat":36.655295,"lon":-81.747287,"matched_treatment_id":"treatment_0003","control_rank":4,"elevation_m":889.2,"distance_m":5397,"w_scm":0.1453,"w_ascm":0.1453,"w_mo1":0.8422,"w_mo2":0.244},{"site_id":"counterfactual_0003_05","lat":36.843171,"lon":-81.643932,"matched_treatment_id":"treatment_0003","control_rank":5,"elevation_m":872.4,"distance_m":17726,"w_scm":0.0206,"w_ascm":0.0206,"w_mo1":0.0,"w_mo2":0.0},{"site_id":"counterfactual_0003_06","lat":36.612809,"lon":-81.69579,"matched_treatment_id":"treatment_0003","control_rank":6,"elevation_m":877.9,"distance_m":8812,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0003_07","lat":36.748432,"lon":-81.530683,"matched_treatment_id":"treatment_0003","control_rank":7,"elevation_m":864.2,"distance_m":16976,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0003_08","lat":36.724208,"lon":-81.588318,"matched_treatment_id":"treatment_0003","control_rank":8,"elevation_m":904.9,"distance_m":11216,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0003_09","lat":36.72365,"lon":-81.624395,"matched_treatment_id":"treatment_0003","control_rank":9,"elevation_m":838.8,"distance_m":8203,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0003_10","lat":36.64671,"lon":-81.754908,"matched_treatment_id":"treatment_0003","control_rank":10,"elevation_m":882.3,"distance_m":6563,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null}]},"treatment_0004":{"site_id":"treatment_0004","lat":36.652008,"lon":-82.097036,"elevation_m":593.1,"slope_deg":7.302,"nlcd_class":41,"has_weights":true,"lambda":5.0119,"counterfactuals":[{"site_id":"counterfactual_0004_01","lat":36.641704,"lon":-82.039203,"matched_treatment_id":"treatment_0004","control_rank":1,"elevation_m":598.2,"distance_m":5295,"w_scm":0.0,"w_ascm":0.262,"w_mo1":0.0,"w_mo2":0.0},{"site_id":"counterfactual_0004_02","lat":36.608401,"lon":-82.063314,"matched_treatment_id":"treatment_0004","control_rank":2,"elevation_m":572.6,"distance_m":5700,"w_scm":0.6197,"w_ascm":1.0693,"w_mo1":0.0,"w_mo2":0.9439},{"site_id":"counterfactual_0004_03","lat":36.659472,"lon":-81.997615,"matched_treatment_id":"treatment_0004","control_rank":3,"elevation_m":601.5,"distance_m":8925,"w_scm":0.0,"w_ascm":-0.5883,"w_mo1":0.0,"w_mo2":0.0},{"site_id":"counterfactual_0004_04","lat":36.628608,"lon":-82.161563,"matched_treatment_id":"treatment_0004","control_rank":4,"elevation_m":579.4,"distance_m":6326,"w_scm":0.3803,"w_ascm":0.2823,"w_mo1":0.0,"w_mo2":0.0},{"site_id":"counterfactual_0004_05","lat":36.594547,"lon":-82.13619,"matched_treatment_id":"treatment_0004","control_rank":5,"elevation_m":579.0,"distance_m":7273,"w_scm":0.0,"w_ascm":-0.0253,"w_mo1":1.0,"w_mo2":0.0561},{"site_id":"counterfactual_0004_06","lat":36.644712,"lon":-82.008348,"matched_treatment_id":"treatment_0004","control_rank":6,"elevation_m":572.5,"distance_m":7969,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0004_07","lat":36.745085,"lon":-82.101554,"matched_treatment_id":"treatment_0004","control_rank":7,"elevation_m":585.5,"distance_m":10334,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0004_08","lat":36.64158,"lon":-82.032121,"matched_treatment_id":"treatment_0004","control_rank":8,"elevation_m":601.0,"distance_m":5917,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0004_09","lat":36.616549,"lon":-81.952478,"matched_treatment_id":"treatment_0004","control_rank":9,"elevation_m":604.2,"distance_m":13510,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0004_10","lat":36.662206,"lon":-81.987406,"matched_treatment_id":"treatment_0004","control_rank":10,"elevation_m":612.1,"distance_m":9864,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null}]},"treatment_0005":{"site_id":"treatment_0005","lat":36.646268,"lon":-82.108876,"elevation_m":587.8,"slope_deg":5.149,"nlcd_class":41,"has_weights":true,"lambda":10000.0,"counterfactuals":[{"site_id":"counterfactual_0005_01","lat":36.599863,"lon":-82.111049,"matched_treatment_id":"treatment_0005","control_rank":1,"elevation_m":591.1,"distance_m":5152,"w_scm":0.5268,"w_ascm":0.5269,"w_mo1":0.0,"w_mo2":0.3702},{"site_id":"counterfactual_0005_02","lat":36.634498,"lon":-82.164357,"matched_treatment_id":"treatment_0005","control_rank":2,"elevation_m":574.1,"distance_m":5129,"w_scm":0.0,"w_ascm":-0.0007,"w_mo1":0.0,"w_mo2":0.0},{"site_id":"counterfactual_0005_03","lat":36.604619,"lon":-82.147761,"matched_treatment_id":"treatment_0005","control_rank":3,"elevation_m":575.0,"distance_m":5783,"w_scm":0.0659,"w_ascm":0.0661,"w_mo1":0.0,"w_mo2":0.0},{"site_id":"counterfactual_0005_04","lat":36.709429,"lon":-82.176871,"matched_treatment_id":"treatment_0005","control_rank":4,"elevation_m":596.0,"distance_m":9275,"w_scm":0.1851,"w_ascm":0.1853,"w_mo1":0.0,"w_mo2":0.3257},{"site_id":"counterfactual_0005_05","lat":36.712562,"lon":-82.130247,"matched_treatment_id":"treatment_0005","control_rank":5,"elevation_m":604.2,"distance_m":7599,"w_scm":0.2222,"w_ascm":0.2224,"w_mo1":1.0,"w_mo2":0.3041},{"site_id":"counterfactual_0005_06","lat":36.718907,"lon":-82.194411,"matched_treatment_id":"treatment_0005","control_rank":6,"elevation_m":594.2,"distance_m":11107,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0005_07","lat":36.620485,"lon":-82.02175,"matched_treatment_id":"treatment_0005","control_rank":7,"elevation_m":607.1,"distance_m":8299,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0005_08","lat":36.716913,"lon":-82.140555,"matched_treatment_id":"treatment_0005","control_rank":8,"elevation_m":593.8,"distance_m":8333,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0005_09","lat":36.624349,"lon":-82.013945,"matched_treatment_id":"treatment_0005","control_rank":9,"elevation_m":605.6,"distance_m":8829,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0005_10","lat":36.59719,"lon":-81.984428,"matched_treatment_id":"treatment_0005","control_rank":10,"elevation_m":606.5,"distance_m":12389,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null}]},"treatment_0006":{"site_id":"treatment_0006","lat":36.686746,"lon":-81.226737,"elevation_m":1136.1,"slope_deg":10.755,"nlcd_class":41,"has_weights":true,"lambda":0.0079,"counterfactuals":[{"site_id":"counterfactual_0006_01","lat":36.72968,"lon":-81.317624,"matched_treatment_id":"treatment_0006","control_rank":1,"elevation_m":1141.8,"distance_m":9412,"w_scm":0.0,"w_ascm":0.8879,"w_mo1":0.0,"w_mo2":0.2183},{"site_id":"counterfactual_0006_02","lat":36.744382,"lon":-81.279911,"matched_treatment_id":"treatment_0006","control_rank":2,"elevation_m":1129.1,"distance_m":7964,"w_scm":0.0,"w_ascm":-1.0561,"w_mo1":0.0,"w_mo2":0.0},{"site_id":"counterfactual_0006_03","lat":36.660412,"lon":-81.275414,"matched_treatment_id":"treatment_0006","control_rank":3,"elevation_m":1128.7,"distance_m":5239,"w_scm":0.0,"w_ascm":0.2047,"w_mo1":0.1198,"w_mo2":0.2832},{"site_id":"counterfactual_0006_04","lat":36.723238,"lon":-81.361674,"matched_treatment_id":"treatment_0006","control_rank":4,"elevation_m":1134.1,"distance_m":12714,"w_scm":0.7451,"w_ascm":0.2927,"w_mo1":0.0,"w_mo2":0.0},{"site_id":"counterfactual_0006_05","lat":36.711342,"lon":-81.298848,"matched_treatment_id":"treatment_0006","control_rank":5,"elevation_m":1125.0,"distance_m":6995,"w_scm":0.2549,"w_ascm":0.6709,"w_mo1":0.8802,"w_mo2":0.4985},{"site_id":"counterfactual_0006_06","lat":36.821934,"lon":-81.374937,"matched_treatment_id":"treatment_0006","control_rank":6,"elevation_m":1132.9,"distance_m":19997,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0006_07","lat":36.745576,"lon":-81.289359,"matched_treatment_id":"treatment_0006","control_rank":7,"elevation_m":1159.6,"distance_m":8594,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0006_08","lat":36.748978,"lon":-81.275279,"matched_treatment_id":"treatment_0006","control_rank":8,"elevation_m":1148.7,"distance_m":8152,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0006_09","lat":36.677451,"lon":-81.453668,"matched_treatment_id":"treatment_0006","control_rank":9,"elevation_m":1130.8,"distance_m":20302,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0006_10","lat":36.712827,"lon":-81.362197,"matched_treatment_id":"treatment_0006","control_rank":10,"elevation_m":1113.7,"distance_m":12441,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null}]},"treatment_0007":{"site_id":"treatment_0007","lat":36.616516,"lon":-82.382942,"elevation_m":568.6,"slope_deg":23.534,"nlcd_class":41,"has_weights":true,"lambda":10000.0,"counterfactuals":[{"site_id":"counterfactual_0007_01","lat":36.661145,"lon":-82.420249,"matched_treatment_id":"treatment_0007","control_rank":1,"elevation_m":531.7,"distance_m":5970,"w_scm":0.5767,"w_ascm":0.5772,"w_mo1":0.747,"w_mo2":0.404},{"site_id":"counterfactual_0007_02","lat":36.74374,"lon":-82.582913,"matched_treatment_id":"treatment_0007","control_rank":2,"elevation_m":572.6,"distance_m":22773,"w_scm":0.1055,"w_ascm":0.106,"w_mo1":0.0,"w_mo2":0.1486},{"site_id":"counterfactual_0007_03","lat":36.697294,"lon":-82.52403,"matched_treatment_id":"treatment_0007","control_rank":3,"elevation_m":550.5,"distance_m":15472,"w_scm":0.3177,"w_ascm":0.3182,"w_mo1":0.0,"w_mo2":0.4474},{"site_id":"counterfactual_0007_04","lat":36.618151,"lon":-82.44317,"matched_treatment_id":"treatment_0007","control_rank":4,"elevation_m":548.0,"distance_m":5390,"w_scm":0.0,"w_ascm":-0.0005,"w_mo1":0.2106,"w_mo2":0.0},{"site_id":"counterfactual_0007_05","lat":36.776099,"lon":-82.299627,"matched_treatment_id":"treatment_0007","control_rank":5,"elevation_m":561.1,"distance_m":19206,"w_scm":0.0,"w_ascm":-0.0009,"w_mo1":0.0424,"w_mo2":0.0},{"site_id":"counterfactual_0007_06","lat":36.691508,"lon":-82.370709,"matched_treatment_id":"treatment_0007","control_rank":6,"elevation_m":626.6,"distance_m":8392,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0007_07","lat":36.618428,"lon":-82.46876,"matched_treatment_id":"treatment_0007","control_rank":7,"elevation_m":516.2,"distance_m":7678,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0007_08","lat":36.635896,"lon":-82.547863,"matched_treatment_id":"treatment_0007","control_rank":8,"elevation_m":586.7,"distance_m":14905,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0007_09","lat":36.713006,"lon":-82.291544,"matched_treatment_id":"treatment_0007","control_rank":9,"elevation_m":531.6,"distance_m":13466,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0007_10","lat":36.734094,"lon":-82.589357,"matched_treatment_id":"treatment_0007","control_rank":10,"elevation_m":588.0,"distance_m":22594,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null}]},"treatment_0008":{"site_id":"treatment_0008","lat":36.663357,"lon":-82.216845,"elevation_m":673.2,"slope_deg":5.966,"nlcd_class":41,"has_weights":true,"lambda":3.1623,"counterfactuals":[{"site_id":"counterfactual_0008_01","lat":36.707157,"lon":-82.184531,"matched_treatment_id":"treatment_0008","control_rank":1,"elevation_m":675.5,"distance_m":5652,"w_scm":0.0,"w_ascm":-0.0402,"w_mo1":0.0,"w_mo2":0.0},{"site_id":"counterfactual_0008_02","lat":36.686652,"lon":-82.151888,"matched_treatment_id":"treatment_0008","control_rank":2,"elevation_m":674.5,"distance_m":6354,"w_scm":0.2451,"w_ascm":0.4202,"w_mo1":0.4297,"w_mo2":0.0515},{"site_id":"counterfactual_0008_03","lat":36.708435,"lon":-82.194501,"matched_treatment_id":"treatment_0008","control_rank":3,"elevation_m":684.1,"distance_m":5385,"w_scm":0.5449,"w_ascm":0.4841,"w_mo1":0.5186,"w_mo2":0.8761},{"site_id":"counterfactual_0008_04","lat":36.705793,"lon":-82.096998,"matched_treatment_id":"treatment_0008","control_rank":4,"elevation_m":663.9,"distance_m":11698,"w_scm":0.0,"w_ascm":-0.2811,"w_mo1":0.0,"w_mo2":0.0},{"site_id":"counterfactual_0008_05","lat":36.76338,"lon":-82.275562,"matched_treatment_id":"treatment_0008","control_rank":5,"elevation_m":672.4,"distance_m":12274,"w_scm":0.21,"w_ascm":0.417,"w_mo1":0.0517,"w_mo2":0.0723},{"site_id":"counterfactual_0008_06","lat":36.786851,"lon":-82.241799,"matched_treatment_id":"treatment_0008","control_rank":6,"elevation_m":666.5,"distance_m":13881,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0008_07","lat":36.699778,"lon":-82.118029,"matched_treatment_id":"treatment_0008","control_rank":7,"elevation_m":662.6,"distance_m":9711,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0008_08","lat":36.71725,"lon":-82.083343,"matched_treatment_id":"treatment_0008","control_rank":8,"elevation_m":681.1,"distance_m":13343,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0008_09","lat":36.756297,"lon":-82.257814,"matched_treatment_id":"treatment_0008","control_rank":9,"elevation_m":651.7,"distance_m":10941,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0008_10","lat":36.796734,"lon":-82.132881,"matched_treatment_id":"treatment_0008","control_rank":10,"elevation_m":683.9,"distance_m":16589,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null}]},"treatment_0009":{"site_id":"treatment_0009","lat":36.661887,"lon":-82.215554,"elevation_m":663.0,"slope_deg":1.599,"nlcd_class":41,"has_weights":true,"lambda":10000.0,"counterfactuals":[{"site_id":"counterfactual_0009_01","lat":36.722955,"lon":-82.092821,"matched_treatment_id":"treatment_0009","control_rank":1,"elevation_m":656.9,"distance_m":12890,"w_scm":0.4666,"w_ascm":0.4667,"w_mo1":0.1252,"w_mo2":0.3055},{"site_id":"counterfactual_0009_02","lat":36.715859,"lon":-82.114769,"matched_treatment_id":"treatment_0009","control_rank":2,"elevation_m":675.8,"distance_m":10814,"w_scm":0.0,"w_ascm":-0.0005,"w_mo1":0.2782,"w_mo2":0.0},{"site_id":"counterfactual_0009_03","lat":36.721165,"lon":-82.163533,"matched_treatment_id":"treatment_0009","control_rank":3,"elevation_m":700.0,"distance_m":8053,"w_scm":0.0,"w_ascm":0.0001,"w_mo1":0.0,"w_mo2":0.1331},{"site_id":"counterfactual_0009_04","lat":36.783822,"lon":-82.191235,"matched_treatment_id":"treatment_0009","control_rank":4,"elevation_m":663.9,"distance_m":13701,"w_scm":0.0,"w_ascm":0.0002,"w_mo1":0.0,"w_mo2":0.1656},{"site_id":"counterfactual_0009_05","lat":36.671863,"lon":-81.984094,"matched_treatment_id":"treatment_0009","control_rank":5,"elevation_m":670.9,"distance_m":20716,"w_scm":0.5334,"w_ascm":0.5336,"w_mo1":0.5966,"w_mo2":0.3958},{"site_id":"counterfactual_0009_06","lat":36.820576,"lon":-82.347986,"matched_treatment_id":"treatment_0009","control_rank":6,"elevation_m":668.4,"distance_m":21208,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0009_07","lat":36.725697,"lon":-81.967735,"matched_treatment_id":"treatment_0009","control_rank":7,"elevation_m":664.6,"distance_m":23245,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0009_08","lat":36.748307,"lon":-82.060069,"matched_treatment_id":"treatment_0009","control_rank":8,"elevation_m":656.2,"distance_m":16877,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0009_09","lat":36.70251,"lon":-82.020134,"matched_treatment_id":"treatment_0009","control_rank":9,"elevation_m":671.3,"distance_m":18034,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0009_10","lat":36.67225,"lon":-81.976943,"matched_treatment_id":"treatment_0009","control_rank":10,"elevation_m":646.8,"distance_m":21356,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null}]},"treatment_0010":{"site_id":"treatment_0010","lat":36.666097,"lon":-82.226304,"elevation_m":617.3,"slope_deg":8.0,"nlcd_class":41,"has_weights":true,"lambda":2.5119,"counterfactuals":[{"site_id":"counterfactual_0010_01","lat":36.700079,"lon":-82.181781,"matched_treatment_id":"treatment_0010","control_rank":1,"elevation_m":611.1,"distance_m":5481,"w_scm":0.3298,"w_ascm":0.5627,"w_mo1":0.0,"w_mo2":0.3289},{"site_id":"counterfactual_0010_02","lat":36.601873,"lon":-82.29568,"matched_treatment_id":"treatment_0010","control_rank":2,"elevation_m":630.0,"distance_m":9447,"w_scm":0.381,"w_ascm":0.2759,"w_mo1":0.5481,"w_mo2":0.2164},{"site_id":"counterfactual_0010_03","lat":36.720298,"lon":-82.135954,"matched_treatment_id":"treatment_0010","control_rank":3,"elevation_m":610.2,"distance_m":10066,"w_scm":0.0,"w_ascm":0.0074,"w_mo1":0.0,"w_mo2":0.2016},{"site_id":"counterfactual_0010_04","lat":36.755528,"lon":-82.263798,"matched_treatment_id":"treatment_0010","control_rank":4,"elevation_m":630.4,"distance_m":10472,"w_scm":0.2892,"w_ascm":0.4655,"w_mo1":0.4519,"w_mo2":0.253},{"site_id":"counterfactual_0010_05","lat":36.730235,"lon":-82.124401,"matched_treatment_id":"treatment_0010","control_rank":5,"elevation_m":627.0,"distance_m":11555,"w_scm":0.0,"w_ascm":-0.3115,"w_mo1":0.0,"w_mo2":0.0},{"site_id":"counterfactual_0010_06","lat":36.707072,"lon":-82.162093,"matched_treatment_id":"treatment_0010","control_rank":6,"elevation_m":623.9,"distance_m":7320,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0010_07","lat":36.782877,"lon":-82.34847,"matched_treatment_id":"treatment_0010","control_rank":7,"elevation_m":619.3,"distance_m":16938,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0010_08","lat":36.772508,"lon":-82.322638,"matched_treatment_id":"treatment_0010","control_rank":8,"elevation_m":607.7,"distance_m":14609,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0010_09","lat":36.762443,"lon":-82.263171,"matched_treatment_id":"treatment_0010","control_rank":9,"elevation_m":598.7,"distance_m":11185,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0010_10","lat":36.779558,"lon":-82.224435,"matched_treatment_id":"treatment_0010","control_rank":10,"elevation_m":621.1,"distance_m":12589,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null}]},"treatment_0011":{"site_id":"treatment_0011","lat":36.684037,"lon":-82.244274,"elevation_m":597.6,"slope_deg":5.56,"nlcd_class":41,"has_weights":false,"lambda":null,"counterfactuals":[{"site_id":"counterfactual_0011_01","lat":36.756051,"lon":-82.270237,"matched_treatment_id":"treatment_0011","control_rank":1,"elevation_m":590.5,"distance_m":8319,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0011_02","lat":36.599161,"lon":-82.319788,"matched_treatment_id":"treatment_0011","control_rank":2,"elevation_m":607.2,"distance_m":11587,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0011_03","lat":36.7708,"lon":-82.304362,"matched_treatment_id":"treatment_0011","control_rank":3,"elevation_m":599.6,"distance_m":11021,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0011_04","lat":36.59975,"lon":-82.27904,"matched_treatment_id":"treatment_0011","control_rank":4,"elevation_m":600.0,"distance_m":9854,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0011_05","lat":36.760727,"lon":-82.362459,"matched_treatment_id":"treatment_0011","control_rank":5,"elevation_m":590.0,"distance_m":13558,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0011_06","lat":36.714122,"lon":-82.149406,"matched_treatment_id":"treatment_0011","control_rank":6,"elevation_m":618.5,"distance_m":9109,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0011_07","lat":36.721226,"lon":-82.40865,"matched_treatment_id":"treatment_0011","control_rank":7,"elevation_m":590.8,"distance_m":15253,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0011_08","lat":36.599029,"lon":-82.309915,"matched_treatment_id":"treatment_0011","control_rank":8,"elevation_m":602.4,"distance_m":11108,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0011_09","lat":36.787416,"lon":-82.205324,"matched_treatment_id":"treatment_0011","control_rank":9,"elevation_m":617.2,"distance_m":11985,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0011_10","lat":36.713853,"lon":-82.343932,"matched_treatment_id":"treatment_0011","control_rank":10,"elevation_m":603.8,"distance_m":9498,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null}]},"treatment_0012":{"site_id":"treatment_0012","lat":36.676377,"lon":-82.256154,"elevation_m":565.7,"slope_deg":18.032,"nlcd_class":41,"has_weights":false,"lambda":null,"counterfactuals":[{"site_id":"counterfactual_0012_01","lat":36.71575,"lon":-82.307999,"matched_treatment_id":"treatment_0012","control_rank":1,"elevation_m":565.6,"distance_m":6367,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0012_02","lat":36.619734,"lon":-82.316289,"matched_treatment_id":"treatment_0012","control_rank":2,"elevation_m":562.2,"distance_m":8270,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0012_03","lat":36.73904,"lon":-82.152034,"matched_treatment_id":"treatment_0012","control_rank":3,"elevation_m":560.2,"distance_m":11612,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0012_04","lat":36.743682,"lon":-82.242182,"matched_treatment_id":"treatment_0012","control_rank":4,"elevation_m":545.8,"distance_m":7571,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0012_05","lat":36.729323,"lon":-82.149487,"matched_treatment_id":"treatment_0012","control_rank":5,"elevation_m":569.3,"distance_m":11194,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0012_06","lat":36.687654,"lon":-82.376935,"matched_treatment_id":"treatment_0012","control_rank":6,"elevation_m":574.6,"distance_m":10865,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0012_07","lat":36.752241,"lon":-82.362584,"matched_treatment_id":"treatment_0012","control_rank":7,"elevation_m":549.8,"distance_m":12697,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0012_08","lat":36.728864,"lon":-82.282717,"matched_treatment_id":"treatment_0012","control_rank":8,"elevation_m":590.3,"distance_m":6288,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0012_09","lat":36.619329,"lon":-82.05815,"matched_treatment_id":"treatment_0012","control_rank":9,"elevation_m":569.1,"distance_m":18798,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0012_10","lat":36.683087,"lon":-82.394306,"matched_treatment_id":"treatment_0012","control_rank":10,"elevation_m":571.7,"distance_m":12368,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null}]},"treatment_0013":{"site_id":"treatment_0013","lat":36.647157,"lon":-82.267704,"elevation_m":681.8,"slope_deg":29.045,"nlcd_class":41,"has_weights":false,"lambda":null,"counterfactuals":[{"site_id":"counterfactual_0013_01","lat":36.646478,"lon":-82.53341,"matched_treatment_id":"treatment_0013","control_rank":1,"elevation_m":687.1,"distance_m":23755,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0013_02","lat":36.806609,"lon":-82.002755,"matched_treatment_id":"treatment_0013","control_rank":2,"elevation_m":683.8,"distance_m":29543,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0013_03","lat":36.710175,"lon":-82.338642,"matched_treatment_id":"treatment_0013","control_rank":3,"elevation_m":731.9,"distance_m":9438,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0013_04","lat":36.748845,"lon":-82.071883,"matched_treatment_id":"treatment_0013","control_rank":4,"elevation_m":667.4,"distance_m":20817,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0013_05","lat":36.745176,"lon":-82.354302,"matched_treatment_id":"treatment_0013","control_rank":5,"elevation_m":679.4,"distance_m":13346,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0013_06","lat":36.673982,"lon":-82.457279,"matched_treatment_id":"treatment_0013","control_rank":6,"elevation_m":740.1,"distance_m":17205,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0013_07","lat":36.819624,"lon":-81.962827,"matched_treatment_id":"treatment_0013","control_rank":7,"elevation_m":670.6,"distance_m":33276,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0013_08","lat":36.813448,"lon":-81.980054,"matched_treatment_id":"treatment_0013","control_rank":8,"elevation_m":670.7,"distance_m":31626,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0013_09","lat":36.699919,"lon":-82.372043,"matched_treatment_id":"treatment_0013","control_rank":9,"elevation_m":739.9,"distance_m":11010,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0013_10","lat":36.829252,"lon":-82.346197,"matched_treatment_id":"treatment_0013","control_rank":10,"elevation_m":681.6,"distance_m":21384,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null}]},"treatment_0014":{"site_id":"treatment_0014","lat":36.666666,"lon":-82.313063,"elevation_m":481.2,"slope_deg":12.635,"nlcd_class":41,"has_weights":false,"lambda":null,"counterfactuals":[{"site_id":"counterfactual_0014_01","lat":36.671303,"lon":-82.419606,"matched_treatment_id":"treatment_0014","control_rank":1,"elevation_m":472.2,"distance_m":9536,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0014_02","lat":36.628947,"lon":-82.43905,"matched_treatment_id":"treatment_0014","control_rank":2,"elevation_m":470.9,"distance_m":12016,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0014_03","lat":36.670087,"lon":-82.386272,"matched_treatment_id":"treatment_0014","control_rank":3,"elevation_m":488.1,"distance_m":6554,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0014_04","lat":36.627197,"lon":-82.452991,"matched_treatment_id":"treatment_0014","control_rank":4,"elevation_m":485.5,"distance_m":13254,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0014_05","lat":36.637568,"lon":-82.444724,"matched_treatment_id":"treatment_0014","control_rank":5,"elevation_m":460.9,"distance_m":12205,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0014_06","lat":36.66843,"lon":-82.536821,"matched_treatment_id":"treatment_0014","control_rank":6,"elevation_m":483.8,"distance_m":20000,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0014_07","lat":36.753112,"lon":-82.212991,"matched_treatment_id":"treatment_0014","control_rank":7,"elevation_m":505.2,"distance_m":13111,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0014_08","lat":36.72606,"lon":-82.272319,"matched_treatment_id":"treatment_0014","control_rank":8,"elevation_m":440.5,"distance_m":7528,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0014_09","lat":36.754236,"lon":-82.182695,"matched_treatment_id":"treatment_0014","control_rank":9,"elevation_m":499.3,"distance_m":15166,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0014_10","lat":36.738796,"lon":-82.42746,"matched_treatment_id":"treatment_0014","control_rank":10,"elevation_m":507.2,"distance_m":12980,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null}]},"treatment_0015":{"site_id":"treatment_0015","lat":36.856457,"lon":-81.15402,"elevation_m":786.6,"slope_deg":7.087,"nlcd_class":43,"has_weights":false,"lambda":null,"counterfactuals":[{"site_id":"counterfactual_0015_01","lat":36.796485,"lon":-81.177459,"matched_treatment_id":"treatment_0015","control_rank":1,"elevation_m":785.6,"distance_m":6973,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0015_02","lat":36.977578,"lon":-81.193671,"matched_treatment_id":"treatment_0015","control_rank":2,"elevation_m":785.7,"distance_m":13893,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0015_03","lat":36.781598,"lon":-81.090748,"matched_treatment_id":"treatment_0015","control_rank":3,"elevation_m":789.4,"distance_m":10040,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0015_04","lat":36.810649,"lon":-81.216661,"matched_treatment_id":"treatment_0015","control_rank":4,"elevation_m":805.6,"distance_m":7551,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0015_05","lat":36.86867,"lon":-81.284354,"matched_treatment_id":"treatment_0015","control_rank":5,"elevation_m":775.1,"distance_m":11696,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0015_06","lat":36.891642,"lon":-81.116581,"matched_treatment_id":"treatment_0015","control_rank":6,"elevation_m":799.7,"distance_m":5135,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0015_07","lat":36.777985,"lon":-81.074195,"matched_treatment_id":"treatment_0015","control_rank":7,"elevation_m":782.1,"distance_m":11246,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0015_08","lat":36.778152,"lon":-81.108143,"matched_treatment_id":"treatment_0015","control_rank":8,"elevation_m":789.0,"distance_m":9602,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0015_09","lat":36.873947,"lon":-81.085134,"matched_treatment_id":"treatment_0015","control_rank":9,"elevation_m":747.2,"distance_m":6439,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0015_10","lat":36.870083,"lon":-81.210724,"matched_treatment_id":"treatment_0015","control_rank":10,"elevation_m":748.7,"distance_m":5276,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null}]},"treatment_0016":{"site_id":"treatment_0016","lat":36.696097,"lon":-81.154448,"elevation_m":868.1,"slope_deg":15.583,"nlcd_class":71,"has_weights":false,"lambda":null,"counterfactuals":[{"site_id":"counterfactual_0016_01","lat":37.130099,"lon":-81.21271,"matched_treatment_id":"treatment_0016","control_rank":1,"elevation_m":878.5,"distance_m":48424,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0016_02","lat":36.769919,"lon":-81.297539,"matched_treatment_id":"treatment_0016","control_rank":2,"elevation_m":895.1,"distance_m":15175,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0016_03","lat":37.157081,"lon":-81.163973,"matched_treatment_id":"treatment_0016","control_rank":3,"elevation_m":852.4,"distance_m":51145,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0016_04","lat":36.642829,"lon":-80.882934,"matched_treatment_id":"treatment_0016","control_rank":4,"elevation_m":786.0,"distance_m":24972,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0016_05","lat":36.866144,"lon":-81.222352,"matched_treatment_id":"treatment_0016","control_rank":5,"elevation_m":800.9,"distance_m":19813,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0016_06","lat":36.577632,"lon":-81.439697,"matched_treatment_id":"treatment_0016","control_rank":6,"elevation_m":884.1,"distance_m":28688,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0016_07","lat":36.65166,"lon":-81.399405,"matched_treatment_id":"treatment_0016","control_rank":7,"elevation_m":931.6,"distance_m":22436,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0016_08","lat":37.009642,"lon":-81.21913,"matched_treatment_id":"treatment_0016","control_rank":8,"elevation_m":839.1,"distance_m":35257,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0016_09","lat":36.763706,"lon":-81.385515,"matched_treatment_id":"treatment_0016","control_rank":9,"elevation_m":868.9,"distance_m":21953,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0016_10","lat":36.654637,"lon":-81.045057,"matched_treatment_id":"treatment_0016","control_rank":10,"elevation_m":738.9,"distance_m":10802,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null}]},"treatment_0017":{"site_id":"treatment_0017","lat":36.654497,"lon":-81.182947,"elevation_m":928.8,"slope_deg":19.222,"nlcd_class":41,"has_weights":false,"lambda":null,"counterfactuals":[{"site_id":"counterfactual_0017_01","lat":36.772043,"lon":-81.213028,"matched_treatment_id":"treatment_0017","control_rank":1,"elevation_m":937.2,"distance_m":13313,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0017_02","lat":36.753357,"lon":-81.207398,"matched_treatment_id":"treatment_0017","control_rank":2,"elevation_m":928.7,"distance_m":11182,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0017_03","lat":36.629827,"lon":-81.281736,"matched_treatment_id":"treatment_0017","control_rank":3,"elevation_m":934.2,"distance_m":9245,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0017_04","lat":36.75408,"lon":-81.178113,"matched_treatment_id":"treatment_0017","control_rank":4,"elevation_m":945.9,"distance_m":11055,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0017_05","lat":36.633296,"lon":-81.344778,"matched_treatment_id":"treatment_0017","control_rank":5,"elevation_m":925.9,"distance_m":14656,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0017_06","lat":36.687992,"lon":-81.356403,"matched_treatment_id":"treatment_0017","control_rank":6,"elevation_m":933.3,"distance_m":15939,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0017_07","lat":36.792607,"lon":-81.222673,"matched_treatment_id":"treatment_0017","control_rank":7,"elevation_m":929.3,"distance_m":15726,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0017_08","lat":36.63414,"lon":-81.286038,"matched_treatment_id":"treatment_0017","control_rank":8,"elevation_m":901.0,"distance_m":9488,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0017_09","lat":36.665765,"lon":-81.296102,"matched_treatment_id":"treatment_0017","control_rank":9,"elevation_m":924.1,"distance_m":10190,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0017_10","lat":36.728984,"lon":-81.282273,"matched_treatment_id":"treatment_0017","control_rank":10,"elevation_m":960.2,"distance_m":12125,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null}]},"treatment_0018":{"site_id":"treatment_0018","lat":36.647207,"lon":-81.171747,"elevation_m":821.7,"slope_deg":8.677,"nlcd_class":21,"has_weights":false,"lambda":null,"counterfactuals":[{"site_id":"counterfactual_0018_01","lat":36.641468,"lon":-81.11235,"matched_treatment_id":"treatment_0018","control_rank":1,"elevation_m":827.5,"distance_m":5347,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0018_02","lat":36.743622,"lon":-81.152348,"matched_treatment_id":"treatment_0018","control_rank":2,"elevation_m":815.2,"distance_m":10835,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0018_03","lat":36.674282,"lon":-81.322356,"matched_treatment_id":"treatment_0018","control_rank":3,"elevation_m":820.4,"distance_m":13791,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0018_04","lat":36.610449,"lon":-81.341329,"matched_treatment_id":"treatment_0018","control_rank":4,"elevation_m":813.5,"distance_m":15701,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0018_05","lat":36.622518,"lon":-81.299532,"matched_treatment_id":"treatment_0018","control_rank":5,"elevation_m":825.0,"distance_m":11748,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0018_06","lat":36.66719,"lon":-81.359574,"matched_treatment_id":"treatment_0018","control_rank":6,"elevation_m":848.6,"distance_m":16933,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0018_07","lat":36.629081,"lon":-81.117377,"matched_treatment_id":"treatment_0018","control_rank":7,"elevation_m":820.0,"distance_m":5260,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0018_08","lat":36.660077,"lon":-81.333898,"matched_treatment_id":"treatment_0018","control_rank":8,"elevation_m":814.8,"distance_m":14563,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0018_09","lat":36.598254,"lon":-81.029235,"matched_treatment_id":"treatment_0018","control_rank":9,"elevation_m":797.8,"distance_m":13851,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0018_10","lat":36.659912,"lon":-80.903649,"matched_treatment_id":"treatment_0018","control_rank":10,"elevation_m":832.7,"distance_m":24004,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null}]},"treatment_0019":{"site_id":"treatment_0019","lat":36.630347,"lon":-81.196926,"elevation_m":938.1,"slope_deg":25.887,"nlcd_class":41,"has_weights":false,"lambda":null,"counterfactuals":[{"site_id":"counterfactual_0019_01","lat":36.645244,"lon":-81.287846,"matched_treatment_id":"treatment_0019","control_rank":1,"elevation_m":968.0,"distance_m":8294,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0019_02","lat":36.754516,"lon":-81.094957,"matched_treatment_id":"treatment_0019","control_rank":2,"elevation_m":937.6,"distance_m":16514,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0019_03","lat":36.776455,"lon":-81.12174,"matched_treatment_id":"treatment_0019","control_rank":3,"elevation_m":933.8,"distance_m":17544,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0019_04","lat":36.641786,"lon":-81.294422,"matched_treatment_id":"treatment_0019","control_rank":4,"elevation_m":943.1,"distance_m":8808,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0019_05","lat":36.757661,"lon":-81.107482,"matched_treatment_id":"treatment_0019","control_rank":5,"elevation_m":958.3,"distance_m":16226,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0019_06","lat":36.652382,"lon":-81.340983,"matched_treatment_id":"treatment_0019","control_rank":6,"elevation_m":926.5,"distance_m":13108,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0019_07","lat":36.704189,"lon":-81.306591,"matched_treatment_id":"treatment_0019","control_rank":7,"elevation_m":950.4,"distance_m":12772,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0019_08","lat":36.786592,"lon":-81.173603,"matched_treatment_id":"treatment_0019","control_rank":8,"elevation_m":946.5,"distance_m":17457,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0019_09","lat":36.788971,"lon":-81.19901,"matched_treatment_id":"treatment_0019","control_rank":9,"elevation_m":940.1,"distance_m":17597,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0019_10","lat":36.771183,"lon":-81.237496,"matched_treatment_id":"treatment_0019","control_rank":10,"elevation_m":975.2,"distance_m":16038,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null}]},"treatment_0020":{"site_id":"treatment_0020","lat":36.697918,"lon":-81.084928,"elevation_m":822.1,"slope_deg":14.047,"nlcd_class":41,"has_weights":false,"lambda":null,"counterfactuals":[{"site_id":"counterfactual_0020_01","lat":36.731743,"lon":-81.025466,"matched_treatment_id":"treatment_0020","control_rank":1,"elevation_m":809.2,"distance_m":6502,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0020_02","lat":36.796064,"lon":-81.109436,"matched_treatment_id":"treatment_0020","control_rank":2,"elevation_m":806.3,"distance_m":11105,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0020_03","lat":36.613856,"lon":-80.988564,"matched_treatment_id":"treatment_0020","control_rank":3,"elevation_m":827.1,"distance_m":12694,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0020_04","lat":36.647377,"lon":-80.926274,"matched_treatment_id":"treatment_0020","control_rank":4,"elevation_m":826.1,"distance_m":15245,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0020_05","lat":36.706002,"lon":-80.938741,"matched_treatment_id":"treatment_0020","control_rank":5,"elevation_m":811.4,"distance_m":13089,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0020_06","lat":36.797303,"lon":-81.202818,"matched_treatment_id":"treatment_0020","control_rank":6,"elevation_m":817.2,"distance_m":15241,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0020_07","lat":36.799382,"lon":-80.99334,"matched_treatment_id":"treatment_0020","control_rank":7,"elevation_m":802.1,"distance_m":13911,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0020_08","lat":36.750033,"lon":-81.000087,"matched_treatment_id":"treatment_0020","control_rank":8,"elevation_m":825.6,"distance_m":9530,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0020_09","lat":36.649808,"lon":-81.325266,"matched_treatment_id":"treatment_0020","control_rank":9,"elevation_m":817.1,"distance_m":22128,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0020_10","lat":36.781726,"lon":-81.250371,"matched_treatment_id":"treatment_0020","control_rank":10,"elevation_m":826.7,"distance_m":17453,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null}]},"treatment_0021":{"site_id":"treatment_0021","lat":36.852148,"lon":-81.015562,"elevation_m":721.5,"slope_deg":8.702,"nlcd_class":43,"has_weights":false,"lambda":null,"counterfactuals":[{"site_id":"counterfactual_0021_01","lat":36.78191,"lon":-81.024438,"matched_treatment_id":"treatment_0021","control_rank":1,"elevation_m":725.9,"distance_m":7832,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0021_02","lat":36.808741,"lon":-81.094829,"matched_treatment_id":"treatment_0021","control_rank":2,"elevation_m":727.3,"distance_m":8553,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0021_03","lat":36.914021,"lon":-81.104448,"matched_treatment_id":"treatment_0021","control_rank":3,"elevation_m":711.3,"distance_m":10481,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0021_04","lat":36.786798,"lon":-80.966035,"matched_treatment_id":"treatment_0021","control_rank":4,"elevation_m":738.2,"distance_m":8489,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0021_05","lat":36.87015,"lon":-81.075407,"matched_treatment_id":"treatment_0021","control_rank":5,"elevation_m":722.9,"distance_m":5696,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0021_06","lat":36.91993,"lon":-81.037952,"matched_treatment_id":"treatment_0021","control_rank":6,"elevation_m":737.0,"distance_m":7779,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0021_07","lat":36.752414,"lon":-80.969358,"matched_treatment_id":"treatment_0021","control_rank":7,"elevation_m":726.5,"distance_m":11806,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0021_08","lat":36.72274,"lon":-80.97775,"matched_treatment_id":"treatment_0021","control_rank":8,"elevation_m":719.8,"distance_m":14746,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0021_09","lat":36.789535,"lon":-80.992582,"matched_treatment_id":"treatment_0021","control_rank":9,"elevation_m":738.4,"distance_m":7242,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0021_10","lat":36.761365,"lon":-80.937993,"matched_treatment_id":"treatment_0021","control_rank":10,"elevation_m":732.6,"distance_m":12219,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null}]},"treatment_0022":{"site_id":"treatment_0022","lat":36.850868,"lon":-81.015571,"elevation_m":695.1,"slope_deg":10.567,"nlcd_class":42,"has_weights":false,"lambda":null,"counterfactuals":[{"site_id":"counterfactual_0022_01","lat":36.748756,"lon":-80.894863,"matched_treatment_id":"treatment_0022","control_rank":1,"elevation_m":683.8,"distance_m":15629,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0022_02","lat":36.763238,"lon":-80.89339,"matched_treatment_id":"treatment_0022","control_rank":2,"elevation_m":705.3,"distance_m":14604,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0022_03","lat":36.890147,"lon":-80.82257,"matched_treatment_id":"treatment_0022","control_rank":3,"elevation_m":686.7,"distance_m":17745,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0022_04","lat":36.837026,"lon":-80.903546,"matched_treatment_id":"treatment_0022","control_rank":4,"elevation_m":666.8,"distance_m":10105,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0022_05","lat":36.716251,"lon":-80.963058,"matched_treatment_id":"treatment_0022","control_rank":5,"elevation_m":702.3,"distance_m":15651,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0022_06","lat":36.795938,"lon":-80.981081,"matched_treatment_id":"treatment_0022","control_rank":6,"elevation_m":705.6,"distance_m":6826,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0022_07","lat":36.755509,"lon":-80.950611,"matched_treatment_id":"treatment_0022","control_rank":7,"elevation_m":703.6,"distance_m":12061,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0022_08","lat":36.748858,"lon":-80.947095,"matched_treatment_id":"treatment_0022","control_rank":8,"elevation_m":714.6,"distance_m":12860,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0022_09","lat":36.927191,"lon":-81.131091,"matched_treatment_id":"treatment_0022","control_rank":9,"elevation_m":666.1,"distance_m":13328,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0022_10","lat":36.782766,"lon":-80.993923,"matched_treatment_id":"treatment_0022","control_rank":10,"elevation_m":713.8,"distance_m":7797,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null}]},"treatment_0023":{"site_id":"treatment_0023","lat":36.653278,"lon":-82.113126,"elevation_m":606.9,"slope_deg":8.481,"nlcd_class":81,"has_weights":false,"lambda":null,"counterfactuals":[{"site_id":"counterfactual_0023_01","lat":36.639934,"lon":-82.026187,"matched_treatment_id":"treatment_0023","control_rank":1,"elevation_m":604.6,"distance_m":7912,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0023_02","lat":36.743472,"lon":-82.06116,"matched_treatment_id":"treatment_0023","control_rank":2,"elevation_m":612.7,"distance_m":11031,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0023_03","lat":36.681948,"lon":-81.990746,"matched_treatment_id":"treatment_0023","control_rank":3,"elevation_m":618.5,"distance_m":11390,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0023_04","lat":36.659121,"lon":-82.039509,"matched_treatment_id":"treatment_0023","control_rank":4,"elevation_m":579.8,"distance_m":6612,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0023_05","lat":36.67425,"lon":-82.040537,"matched_treatment_id":"treatment_0023","control_rank":5,"elevation_m":622.7,"distance_m":6892,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0023_06","lat":36.652839,"lon":-81.991862,"matched_treatment_id":"treatment_0023","control_rank":6,"elevation_m":607.8,"distance_m":10840,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0023_07","lat":36.756678,"lon":-82.025892,"matched_treatment_id":"treatment_0023","control_rank":7,"elevation_m":603.0,"distance_m":13868,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0023_08","lat":36.753288,"lon":-82.004533,"matched_treatment_id":"treatment_0023","control_rank":8,"elevation_m":624.5,"distance_m":14738,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0023_09","lat":36.614532,"lon":-82.028144,"matched_treatment_id":"treatment_0023","control_rank":9,"elevation_m":590.9,"distance_m":8730,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0023_10","lat":36.676447,"lon":-82.030834,"matched_treatment_id":"treatment_0023","control_rank":10,"elevation_m":607.0,"distance_m":7791,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null}]},"treatment_0024":{"site_id":"treatment_0024","lat":36.593823,"lon":-81.560411,"elevation_m":1117.6,"slope_deg":17.477,"nlcd_class":41,"has_weights":false,"lambda":null,"counterfactuals":[{"site_id":"counterfactual_0024_01","lat":36.630768,"lon":-81.635277,"matched_treatment_id":"treatment_0024","control_rank":1,"elevation_m":1125.0,"distance_m":7850,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0024_02","lat":36.609102,"lon":-81.479817,"matched_treatment_id":"treatment_0024","control_rank":2,"elevation_m":1121.2,"distance_m":7405,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0024_03","lat":36.685709,"lon":-81.55816,"matched_treatment_id":"treatment_0024","control_rank":3,"elevation_m":1106.8,"distance_m":10195,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0024_04","lat":36.61468,"lon":-81.633397,"matched_treatment_id":"treatment_0024","control_rank":4,"elevation_m":1119.9,"distance_m":6926,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0024_05","lat":36.710277,"lon":-81.531445,"matched_treatment_id":"treatment_0024","control_rank":5,"elevation_m":1119.2,"distance_m":13175,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0024_06","lat":36.600828,"lon":-81.499647,"matched_treatment_id":"treatment_0024","control_rank":6,"elevation_m":1105.8,"distance_m":5490,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0024_07","lat":36.673939,"lon":-81.569232,"matched_treatment_id":"treatment_0024","control_rank":7,"elevation_m":1090.4,"distance_m":8922,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0024_08","lat":36.687621,"lon":-81.5737,"matched_treatment_id":"treatment_0024","control_rank":8,"elevation_m":1105.1,"distance_m":10473,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0024_09","lat":36.689924,"lon":-81.526544,"matched_treatment_id":"treatment_0024","control_rank":9,"elevation_m":1144.3,"distance_m":11082,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0024_10","lat":36.721281,"lon":-81.391546,"matched_treatment_id":"treatment_0024","control_rank":10,"elevation_m":1119.0,"distance_m":20681,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null}]},"treatment_0025":{"site_id":"treatment_0025","lat":36.629587,"lon":-81.197066,"elevation_m":908.3,"slope_deg":26.714,"nlcd_class":41,"has_weights":false,"lambda":null,"counterfactuals":[{"site_id":"counterfactual_0025_01","lat":36.774657,"lon":-81.178481,"matched_treatment_id":"treatment_0025","control_rank":1,"elevation_m":924.3,"distance_m":16178,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0025_02","lat":36.752822,"lon":-81.084046,"matched_treatment_id":"treatment_0025","control_rank":2,"elevation_m":915.2,"distance_m":16995,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0025_03","lat":36.778642,"lon":-81.183359,"matched_treatment_id":"treatment_0025","control_rank":3,"elevation_m":868.9,"distance_m":16580,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0025_04","lat":36.794746,"lon":-81.132626,"matched_treatment_id":"treatment_0025","control_rank":4,"elevation_m":898.4,"distance_m":19203,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0025_05","lat":36.590482,"lon":-81.308708,"matched_treatment_id":"treatment_0025","control_rank":5,"elevation_m":870.3,"distance_m":10886,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0025_06","lat":36.75388,"lon":-81.066207,"matched_treatment_id":"treatment_0025","control_rank":6,"elevation_m":914.1,"distance_m":18076,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0025_07","lat":36.735017,"lon":-81.499025,"matched_treatment_id":"treatment_0025","control_rank":7,"elevation_m":912.4,"distance_m":29405,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0025_08","lat":36.790288,"lon":-81.119558,"matched_treatment_id":"treatment_0025","control_rank":8,"elevation_m":872.9,"distance_m":19123,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0025_09","lat":36.753607,"lon":-81.055201,"matched_treatment_id":"treatment_0025","control_rank":9,"elevation_m":957.6,"distance_m":18705,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0025_10","lat":36.771289,"lon":-81.25634,"matched_treatment_id":"treatment_0025","control_rank":10,"elevation_m":950.9,"distance_m":16587,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null}]},"treatment_0027":{"site_id":"treatment_0027","lat":36.575497,"lon":-81.157586,"elevation_m":724.7,"slope_deg":17.852,"nlcd_class":21,"has_weights":false,"lambda":null,"counterfactuals":[{"site_id":"counterfactual_0027_01","lat":36.633038,"lon":-80.901515,"matched_treatment_id":"treatment_0027","control_rank":1,"elevation_m":728.2,"distance_m":23775,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0027_02","lat":36.604043,"lon":-81.078347,"matched_treatment_id":"treatment_0027","control_rank":2,"elevation_m":722.9,"distance_m":7763,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0027_03","lat":36.708275,"lon":-81.000225,"matched_treatment_id":"treatment_0027","control_rank":3,"elevation_m":707.7,"distance_m":20367,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0027_04","lat":36.670676,"lon":-80.920831,"matched_treatment_id":"treatment_0027","control_rank":4,"elevation_m":766.3,"distance_m":23656,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0027_05","lat":36.672207,"lon":-81.032604,"matched_treatment_id":"treatment_0027","control_rank":5,"elevation_m":697.6,"distance_m":15491,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0027_06","lat":36.71754,"lon":-80.912549,"matched_treatment_id":"treatment_0027","control_rank":6,"elevation_m":726.0,"distance_m":26981,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0027_07","lat":36.881364,"lon":-80.75294,"matched_treatment_id":"treatment_0027","control_rank":7,"elevation_m":713.8,"distance_m":49565,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0027_08","lat":36.586367,"lon":-81.21892,"matched_treatment_id":"treatment_0027","control_rank":8,"elevation_m":765.0,"distance_m":5618,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0027_09","lat":36.866762,"lon":-80.772106,"matched_treatment_id":"treatment_0027","control_rank":9,"elevation_m":677.9,"distance_m":47211,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null},{"site_id":"counterfactual_0027_10","lat":36.651232,"lon":-80.916693,"matched_treatment_id":"treatment_0027","control_rank":10,"elevation_m":732.9,"distance_m":23122,"w_scm":null,"w_ascm":null,"w_mo1":null,"w_mo2":null}]}}
+;
+
+// ── Map init (deferred until slide is visible) ───────────────────────
+let mapInitialized = false;
+let leafletMap = null;
+let activeLayer = null;
+let cfLayers = {};
+
+function initMap() {
+  if (mapInitialized) return;
+  mapInitialized = true;
+
+  leafletMap = L.map('map', {zoomControl: true}).setView([36.5, -81.8], 9);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+    {attribution:'&copy; OpenStreetMap contributors &copy; CARTO', maxZoom:18}).addTo(leafletMap);
+
+  const METHOD_COLORS = {
+    scm: '#1a6faf', ascm: '#00897b', mo1: '#e65100', mo2: '#6a1b9a'
+  };
+
+  // Add treatment site markers
+  Object.values(SITES).forEach(site => {
+    const hasW = site.has_weights;
+    const color = hasW ? '#c62828' : '#757575';
+    const marker = L.circleMarker([site.lat, site.lon], {
+      radius: hasW ? 9 : 6,
+      fillColor: color,
+      color: '#fff',
+      weight: 2,
+      fillOpacity: 0.9
+    }).addTo(leafletMap);
+
+    marker.bindTooltip(site.site_id.replace('treatment_','T-'), {permanent:false, direction:'top'});
+    marker.on('click', () => showSite(site, marker));
+  });
+}
+
+function showSite(site, clickedMarker) {
+  // Clear previous CF layers
+  Object.values(cfLayers).forEach(l => {
+    if (leafletMap.hasLayer(l)) leafletMap.removeLayer(l);
+  });
+  cfLayers = {};
+
+  const panel = document.getElementById('info-panel');
+
+  if (!site.has_weights) {
+    panel.innerHTML = `<h3>${site.site_id}</h3>
+      <div class="site-info">
+        <b>Lat:</b> ${site.lat} &nbsp; <b>Lon:</b> ${site.lon}<br/>
+        <b>Elevation:</b> ${site.elevation_m} m &nbsp; <b>Slope:</b> ${site.slope_deg}°
+      </div>
+      <p style="color:#888;font-style:italic;font-size:0.85em;">Weight data not available for this site (only sites 0001–0010 have estimated weights).</p>`;
+    return;
+  }
+
+  const METHOD_COLORS = {scm:'#1a6faf', ascm:'#00897b', mo1:'#e65100', mo2:'#6a1b9a'};
+  const METHOD_LABELS = {scm:'SCM', ascm:'ASCM', mo1:'MO-Exp1', mo2:'MO-Exp2'};
+
+  // Draw CF markers and lines
+  site.counterfactuals.forEach(cf => {
+    const hasW = cf.w_scm !== null;
+    const cfColor = hasW ? '#1565c0' : '#aaa';
+    const cfMarker = L.circleMarker([cf.lat, cf.lon], {
+      radius: hasW ? 7 : 5,
+      fillColor: cfColor,
+      color: '#fff',
+      weight: 1.5,
+      fillOpacity: 0.85
+    }).addTo(leafletMap);
+    cfMarker.bindTooltip(`CF-${cf.control_rank}: ${cf.site_id.replace('counterfactual_','').replace(/_/g,'-')}`, {direction:'top'});
+
+    // Draw line from treatment to CF
+    if (hasW) {
+      const line = L.polyline([[site.lat, site.lon],[cf.lat, cf.lon]], {
+        color: '#1a6faf', weight: 1.5, opacity: 0.5, dashArray:'4,4'
+      }).addTo(leafletMap);
+      cfLayers[cf.site_id + '_line'] = line;
+    }
+    cfLayers[cf.site_id] = cfMarker;
+  });
+
+  // Build info panel
+  const cfsWithWeights = site.counterfactuals.filter(cf => cf.w_scm !== null);
+  const cfsWithout    = site.counterfactuals.filter(cf => cf.w_scm === null);
+
+  function wBar(w, method) {
+    if (w === null) return '—';
+    const v = parseFloat(w);
+    const maxW = 60;
+    const barW = Math.abs(v) * maxW;
+    const neg = v < 0;
+    const col = METHOD_COLORS[method];
+    const barStyle = neg
+      ? `background:${METHOD_COLORS.ascm};`
+      : `background:${col};`;
+    return `<span style="font-family:monospace;${neg?'color:#c62828;':''}">${v >= 0 ? ' ' : ''}${v.toFixed(4)}</span>
+      <span class="wbar${neg?' neg':''}" style="width:${barW}px;${barStyle}"></span>`;
+  }
+
+  let rows = cfsWithWeights.map(cf => `
+    <tr>
+      <td style="font-weight:600;text-align:left;">${cf.site_id.split('_').slice(-2).join('-')}</td>
+      <td style="text-align:right;">${cf.control_rank}</td>
+      <td>${wBar(cf.w_scm,'scm')}</td>
+      <td>${wBar(cf.w_ascm,'ascm')}</td>
+      <td>${wBar(cf.w_mo1,'mo1')}</td>
+      <td>${wBar(cf.w_mo2,'mo2')}</td>
+    </tr>`).join('');
+
+  const lambdaTxt = site.lambda !== null
+    ? `<b>ASCM λ:</b> ${site.lambda.toLocaleString()} &nbsp;`
+    : '';
+
+  panel.innerHTML = `
+    <h3>${site.site_id}</h3>
+    <div class="site-info">
+      <b>Lat:</b> ${site.lat} &nbsp; <b>Lon:</b> ${site.lon}<br/>
+      <b>Elevation:</b> ${site.elevation_m} m &nbsp; <b>Slope:</b> ${site.slope_deg}°<br/>
+      ${lambdaTxt}<b>CFs w/ weights:</b> ${cfsWithWeights.length} &nbsp; <b>Total CFs:</b> ${site.counterfactuals.length}
+    </div>
+    <div class="method-legend">
+      <span><span class="method-dot" style="background:#1a6faf;"></span>SCM</span>
+      <span><span class="method-dot" style="background:#00897b;"></span>ASCM</span>
+      <span><span class="method-dot" style="background:#e65100;"></span>MO-Exp1</span>
+      <span><span class="method-dot" style="background:#6a1b9a;"></span>MO-Exp2</span>
+    </div>
+    <table class="weight-table">
+      <thead>
+        <tr>
+          <th style="text-align:left;">Site</th>
+          <th>Rank</th>
+          <th>SCM</th>
+          <th>ASCM</th>
+          <th>MO-Exp1</th>
+          <th>MO-Exp2</th>
+        </tr>
+      </thead>
+      <tbody>${rows}</tbody>
+    </table>
+    ${cfsWithout.length > 0 ? `<p style="font-size:0.78em;color:#888;margin-top:6px;">⚠ ${cfsWithout.length} additional candidate site(s) not used in weight estimation (ranks ${cfsWithout.map(c=>c.control_rank).join(', ')}).</p>` : ''}
+  `;
+}
+
+// Init map when slide 7 becomes visible
+Reveal.on('slidechanged', e => {
+  if (e.indexh === 6) {
+    setTimeout(() => {
+      initMap();
+      if (leafletMap) leafletMap.invalidateSize();
+    }, 200);
+  }
+});
+</script>
+</body>
+</html>

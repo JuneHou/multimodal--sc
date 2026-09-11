@@ -1,0 +1,1766 @@
+16:16:42 --> 16:16:56
+Jun Hou: Run一个regression，然后去Y对这个T做一个regression x对这个T做一个regression，然后把这个东西给弄出来，然后就把把它带进去，就得到这种所谓的这个ut这个ut嘛。然后呢。
+
+16:16:56 --> 16:17:00
+Jun Hou: 它这个curry smooth estimate就是做了一个me而已啊。
+
+16:17:01 --> 16:17:06
+Jun Hou: 这就是个me啊，它就把这个me就当成是个这个。呃呃呃，lt了吗？
+
+16:17:09 --> 16:17:14
+Jun Hou: 如果就是按这个implementation。
+
+16:17:14 --> 16:17:30
+Jun Hou: 写的，他这这个kernel就是源。呃，他是表示，哎，对啊，他这个就是做了一个。呃，local carson不是他是做了一个local media的这个额kernel estimation，嗯，然后这个local carson就是他的那个estimate。
+
+16:17:30 --> 16:17:33
+Jun Hou: 嗯呃。为为什么？
+
+16:17:34 --> 16:17:37
+Jun Hou: 这个，这个就我没没看懂的地方。
+
+16:17:37 --> 16:17:40
+Jun Hou: 它就这个estimation没什么，它就是就是。
+
+16:17:40 --> 16:17:51
+Jun Hou: 就是就做了两步法，把它变成一个receiver，然后变成一个receiver以后呢？然后又又做了一个local的这个额submission。
+
+16:17:51 --> 16:17:57
+Jun Hou: 这个local initi estimation。这个ice是什么？这个S跟t是怎么定义啊？T是。
+
+16:17:58 --> 16:18:14
+Jun Hou: 嗯，t是我们比如说要观测第八期的late，然后。嗯，ice照。我的理解是，呃，就是所有的period before the treatment。然后比如说。
+
+16:18:14 --> 16:18:30
+Jun Hou: 一的话，那么他就是，呃一减七，这样他就离得远一些，所以就会给他一个更小的位置。呃，对对，对，对，这。这其实他就是一个regression，你看你就把他想象，你就把他想象成是一个regression。他regression。呃，这个。
+
+16:18:32 --> 16:18:34
+Jun Hou: 这个you，这个。
+
+16:18:34 --> 16:18:44
+Jun Hou: 哦，时间嘛，对吧？嗯，其实就是时间。然后呢？但是他对每一期的这个T他做的就像一个regression。
+
+16:18:44 --> 16:18:46
+Jun Hou: Okay?
+
+16:18:46 --> 16:18:52
+Jun Hou: 那就等于是说把你拿了一个列在每一每一期，他们这个local里面做了一个average而已。
+
+16:18:53 --> 16:19:03
+Jun Hou: 嗯，但是他先把先估计出beta来，这样先把be他这个beta里面没有意义，他在这里其实其实就没有用上这个beta。
+
+16:19:03 --> 16:19:07
+Jun Hou: 我，我就没有看到，说这里面是怎么怎么样。
+
+16:19:07 --> 16:19:20
+Jun Hou: 呃，他只是把杯它这里面，他觉得这个贝塔不重要嘛，所以它的，最后得到的得到的是，这个额estimate对他在第二步估计位置的时候，他要先把。
+
+16:19:20 --> 16:19:24
+Jun Hou: 嗯对啊。
+
+16:19:24 --> 16:19:31
+Jun Hou: 哦，这个没有什么问题，那那他把他把这个lt弄完以后，他怎么能够把它弄到T5零以后呢？
+
+16:19:32 --> 16:19:37
+Jun Hou: 哦，以后他也是用同样的方法，那就做不到呀。
+
+16:19:37 --> 16:19:38
+Jun Hou: 它肯定做不到。
+
+16:19:38 --> 16:19:54
+Jun Hou: 整整个的原因就是它没有办法把那个额lt给separate出来，现在它能够estimate到的这个lt就是在T0之前。假设，假设这个trimer是假设这个呃，是2000年发生的话。
+
+16:19:54 --> 16:20:09
+Jun Hou: 那我就只能是把所有的2000年以前发生的lt给估计出来，我能估计出来L2000L21999l，1998，但是L2001我就估计不出来了。
+
+16:20:09 --> 16:20:12
+Jun Hou: 如果我有x，按它的。
+
+16:20:12 --> 16:20:25
+Jun Hou: 我写，写，写了就是他，其实最后都是用了那个ated factor。我只要是有那个post treatment的x，我就可以去。
+
+16:20:25 --> 16:20:27
+Jun Hou: 他这个。呃。
+
+16:20:28 --> 16:20:37
+Jun Hou: 他这个pray和他的这个host我就不是特别的，就上面是host，下面是pray。
+
+16:20:37 --> 16:20:53
+Jun Hou: 然后呃，左边第一列是treated blocks，右边是相当于我们之前的counter units，但是相当于是moving的这么一个block，就是在他这个对你现在他比如说之前。呃，第二个calling十98765。
+
+16:20:53 --> 16:21:05
+Jun Hou: 他就是我们的donor一，然后十和九，就是donna1。Post intervention observed outcomes8765就是呃，pray。
+
+16:21:05 --> 16:21:08
+Jun Hou: Pray. Ah treatment out of cops.
+
+16:21:09 --> 16:21:20
+Jun Hou: 就相当就相当几个block就相当于几个donor对，如果十十9876就是一个donor，这个多少是什么。
+
+16:21:21 --> 16:21:36
+Jun Hou: 两个block，现现在现在就十二十一。是什么？额，他是absorbed outcomes post intervention，inert，treated block就inter treated。就是有，有两有两个被treated，嗯，ok。
+
+16:21:36 --> 16:21:52
+Jun Hou: 然后这里面是在两个period的这个，这个就是在定义在某一个那个change period是吧，那个是portraited period七。呃。Peer七的的period七的observed的outcome。
+
+16:21:52 --> 16:22:01
+Jun Hou: 对，所以那就是如果按你那个例子来说，我们的我们的要要assume，predict的是P10。
+
+16:22:01 --> 16:22:18
+Jun Hou: 那P10就是这个，这个T0就是十。嗯，在我们的data里面，11是开始treat的时间。P11是开始，然后一到十是不不不但是我们evaluate的时候不是fit p01到08，然后predict九和十。
+
+16:22:18 --> 16:22:31
+Jun Hou: 因为我们当时是想用所有没有被twitter的看它的拟核情况，所以我们用。十作为了predict，其实我们是从11才开始被internet。所以所以这里还还是有。
+
+16:22:31 --> 16:22:46
+Jun Hou: 还是post没有？十，是指historic，对吧？对，它只是一个一个一个site的historic，那你这些告诉这个block我要怎么看呢？呃，就是它有四部分，然后比如说。
+
+16:22:46 --> 16:23:01
+Jun Hou: Top panel十十一就第一列第一行和第二行，它都是after intervention的data，然后十和十十二和11，那就是被treated的period。
+
+16:23:01 --> 16:23:11
+Jun Hou: 他，他，他只有一个treatment size，然后十和九，本来他应该是pre treated，但是我用它来作为我contact factory。
+
+16:23:11 --> 16:23:13
+Jun Hou: Units.
+
+16:23:13 --> 16:23:14
+Jun Hou: 呃。
+
+16:23:14 --> 16:23:30
+Jun Hou: 这样子的话，我们第一列就是treated block12和11是我们真正可以观测到的post intervention outcome十987777其实就是其实就是七八，九是十，十，12。
+
+16:23:30 --> 16:23:49
+Jun Hou: 这个，这个是我真实的数据，嗯，对吧？嗯，然后我现在只是。呃，我现在又把它延伸下来，把把把这个十跟19放在这里，嗯，然后7654321对。然然后现在我现在我就把那个呃呃，998放在这里，嗯，然后七八放在这里。
+
+16:23:49 --> 16:23:57
+Jun Hou: 其实不断的把我的那那个两个当时是我的那个我相当于一个slide window，一直move。
+
+16:23:57 --> 16:24:03
+Jun Hou: 就是我每每次都是把两个data points当成是这个post。嗯嗯，对吧。
+
+16:24:04 --> 16:24:14
+Jun Hou: Ok，然后把前面的这个数据把它当成是一个disturb data，但是我每每一次这里面我都是只考虑额四个pretrin，嗯，是这个意思吗？是。
+
+16:24:14 --> 16:24:16
+Jun Hou: Okay?
+
+16:24:16 --> 16:24:34
+Jun Hou: 然后这只有一个，这就是所谓的这个额，其实其实本来就是他不是suit control，他就是sule给这个regina set，然后把它当成是一个额control来来累计来这样考虑对，而且都是later，不是直接observed，outcome是later factors。
+
+16:24:35 --> 16:24:41
+Jun Hou: 就是去掉X之后的去掉event from x之后，native factors。
+
+16:24:41 --> 16:24:51
+Jun Hou: 就是那个received，不是received，这就是l，是吗？对，就是把所有的L拿出来，但是那那那那那L的话，我其实就是没有这里的啊。
+
+16:24:51 --> 16:25:09
+Jun Hou: 我是测不出来这里的，它就直接用。呃post trait之后observed x还是靠那个workflow去估计的不不不，不不，你，这是这是我，我，我config的地方。哦，对对，就是这个地方，这个是没有的，这个我是算不出来的，我的data是算不出来的。
+
+16:25:09 --> 16:25:18
+Jun Hou: 为什么我，我没有跟你们算这个，我你看这里面它它这里面能算出来就是ice小于等于T0。
+
+16:25:21 --> 16:25:28
+Jun Hou: 嗯嗯嗯嗯嗯嗯嗯。
+
+16:25:28 --> 16:25:42
+Jun Hou: 他，他估计了所有的他大雨提零的时候也是这么算的，但是他后面就对你这个他也进行了处理，因为他说，大雨的时候，我的有可能就是会有，这不是肯定是错的嘛。
+
+16:25:42 --> 16:25:49
+Jun Hou: 因为它，因为因为因为它就达不到，因为它这个，这个，这个对它的一个威胁就太大了。
+
+16:25:49 --> 16:26:04
+Jun Hou: 对他说了这个问题，然后他其实也是进行了处理，但他处理的角度是说，呃，他在post treatment之后，x里面可能包含like why？意思是说我的Y已经被受到影响，然后这时候他就用。
+
+16:26:04 --> 16:26:23
+Jun Hou: Counterfeter，也就是我们的historical data去estimate那个y，然后再放回去重新估计factor，但是就我没有进行那一步，他那个是extension，我就还是先按照他这个standard。还有个问题，还有个问题。
+
+16:26:23 --> 16:26:33
+Jun Hou: 就是在他这个里面，所以我们只有真实的只有11和12，真正的是post98，978，我们都只是assumed。
+
+16:26:33 --> 16:26:49
+Jun Hou: Exin，它是一个呃ok，反正就是，反正就是两两以两期，它在这里面就是有以两期为这个单位，然后去构造它的这个。呃，这个pretrin peer。
+
+16:26:51 --> 16:27:04
+Jun Hou: Code，但是为为什么他这样子，他能做到什么？只有这个method到现在我看的用了这个post treatment的，因为他说的是，在有些情况下。
+
+16:27:04 --> 16:27:13
+Jun Hou: Projection loadable，就是我没有跟它可以对比，就比如放到我们的里面。
+
+16:27:13 --> 16:27:32
+Jun Hou: 如果我们所有，就是我们想找一些near region去做content，但是像你，你是你是不是这个没问题，这个我觉得这是为什么问题？那就不用close sectionode，你这里可以就是用你之前的这个数据，就是为什么你你上次提到那个很很很重的那个很重的那个点。
+
+16:27:32 --> 16:27:53
+Jun Hou: 就是说你上次说的那个卫星图片，它在任何一个时候它的position是一样的，对，所以它就变得有意义了，它就纯粹可以用以前的这个东西来来来来做这个事情。对，但是我读这个，我以为它纯粹是用以前的historical来做，但是它还涉及了post，它只是自己。
+
+16:27:53 --> 16:28:06
+Jun Hou: 他只是自己control的一个这个。呃，去搜这个，这个东西出来，那其实11，12也不是真正的post，这就是它真实的数据。
+
+16:28:06 --> 16:28:24
+Jun Hou: 但是这些就是它真实的，它是它是assuming发生在十，还是说这个treatment真正的就发生在不是11，就真正的发生在了11，所以11和12是我们的post treatment，这是真实的，这这一页的是真实的数据。
+
+16:28:24 --> 16:28:38
+Jun Hou: Ok，那在我们的数据里，我们就要用11和12，然后用一和十，然后就等于是呃，对呃，七七到十啊，我这个就是明白了什么意思了。
+
+16:28:38 --> 16:28:59
+Jun Hou: 呃哦，那我一开始搞错了，对我们完全没有用counter site的data，我们全部都。呃，这个我理解，但是我就是没想到他，我以为他是假设某一个点是T0，因为我没想到他真的用了post treat，因为前面的方法都没有用这个post treat他在ice没有位置的时候没有，但是他在最后。
+
+16:28:59 --> 16:29:14
+Jun Hou: 呃，估计fact的时候肯定是会用post，他在estimates的时候，他都是你，你要是你，你就这么想啊，你就这么想，其实是这样的，呃，我没有这个control units嘛，我没有control site。我，我那个我没有don't。
+
+16:29:14 --> 16:29:31
+Jun Hou: 然后呢？其实呢，首先先确定一下donor site。这个意思是什么？Donor side的意思就是说他们是没有经历过这个的对对对，嗯，好，那我没有这个东西，那我怎么办呢？我从我过去去找我，没有经历过的时候，我没有经历过的时候。
+
+16:29:31 --> 16:29:46
+Jun Hou: 所以我没有经历过的时候就是这点。嗯，所以它任何这个东西呢？它都是没有经历过的。嗯，那我那但是呢？我，我又不能够纯粹说随便的去找过去，来来来来，那个什么嘛，我要把，因为这个是时间。
+
+16:29:46 --> 16:30:03
+Jun Hou: 所以时间的这个长度，我必须要保证它们之间的这个长度，它们之间这个关系。那怎么保证呢？我就必须一次一次的去解。嗯，所以我，我，我现在要。呃呃，构构造出来一个123456嘛，我要有六个pip吧。
+
+16:30:03 --> 16:30:21
+Jun Hou: 我要去之前找出来同样六个peer是没有经历过的，因为这样的话，我才能保证那个时间序列上time，share上面他的这个dependence，他的这个structure不是被打出打破，所以在这里面呢？我就把这个这个。呃呃呃，这个后面的这个六个拿上来这里。
+
+16:30:21 --> 16:30:31
+Jun Hou: 然后在这里面又拿下来留在这里，所以他每一次拿下来的时候呢，我都能够保证到这六个observation是呃，一个真正的时间训练。
+
+16:30:31 --> 16:30:37
+Jun Hou: 但是他是从没有经历过的这个时间来的，对吧？那就这样意思。
+
+16:30:37 --> 16:30:53
+Jun Hou: 呃，就真的我明白了，那那那那等于说你control了这个东西以后，它就等于就是可以把所有的这些东西就当成一个control site，用了是吧？对他估计的时候只用了下面的data去iceman wade哦，那其实它上面那个pose没有用。
+
+16:30:53 --> 16:31:08
+Jun Hou: 就是他的estimate时候没有okay，okay。每个estimate是没有用的哦。Post intervention上面那些panel data，它是用的parade intervention。呃。下面这些data去estimate的位置。
+
+16:31:09 --> 16:31:25
+Jun Hou: 当然，他在validation啊，对对对对对，这就跟我们现在做的是一样的。嗯，就我我们现在做的时候，也是只用pretend这个peer来来来看的嘛？嗯，对，那就就等等等。于就是说，呃，我。
+
+16:31:25 --> 16:31:42
+Jun Hou: 等等于就是说我，我之前的这个。呃呃，这个卫星图片，然后呢？我能够拿出来。呃呃。譬如说，呃呃，十545年前的。然后呢？拿来看我们现在。呃呃。能不能match。
+
+16:31:42 --> 16:31:47
+Jun Hou: 出来，现在的这个这个trune，他就能够把这个东西给继续下去。嗯。
+
+16:31:47 --> 16:31:59
+Jun Hou: 这个，但他在哦，这挺巧妙的，那这个我知道你这个方法就完全用到了洪俊上次讲的那个，那那个卫星图片的这个特征啊。如果要是你们做的话。
+
+16:31:59 --> 16:32:15
+Jun Hou: 对，但是我现在还是按，每一个feature都是每一个band做的，其实还是一样，先stack到，然后把不同的band stack到一个，因为这里面出现的最大的问题也就很多，就是那个multimation的一个问题。
+
+16:32:15 --> 16:32:30
+Jun Hou: 嗯啊，是我是我是做了一些，但是效果不好。然后我就在想，为什么，然后可能因为我这个period错了，我没有我是assume了一个前面的时间，因为我没有，因为我没有理解它，真的用了post treatment。
+
+16:32:30 --> 16:32:45
+Jun Hou: 就是你就可以再改一下啊，他一到十字会，但他这里面每一个outcome是个num的，但是我又把所有的一一张图片之后，你其实是可以这样的。
+
+16:32:45 --> 16:32:49
+Jun Hou: 呃，把那个图片直接拿出来。
+
+16:32:49 --> 16:32:54
+Jun Hou: 对吧？我们假设我们有六六张图片了，你就把这六张图片这样这样填上去。
+
+16:32:54 --> 16:32:56
+Jun Hou: 嗯嗯嗯。
+
+16:32:56 --> 16:33:17
+Jun Hou: 哦，你会把就是说replace十987对，就在在在这在这里的时候，对啊呃12就是我们最后一张图片嗯，对吧？11，就是这个，老是掉一张图片，然后，然后，然后前面就是十九八，就那个图片放上去了，然后那个那时候我们就很快就能看到它每张图片啊，这这个图片就要掉到这里去了。
+
+16:33:17 --> 16:33:22
+Jun Hou: 就是在这里去了。嗯，那我们礼拜六at的话。
+
+16:33:22 --> 16:33:48
+Jun Hou: 我们，怎么我们还能像以前一样对，然后他那个validation的方法，他自己是有两种，一种是我这个。Observe完之后。Wait。我现在这些late factors，然后再跟我真正的late factors去比较，然后另一种就是跟我observed outcomes去比较，然后他没有用那个就拿出来一个去比较，然后我也用那个去比较了。
+
+16:33:48 --> 16:34:06
+Jun Hou: 然后就感觉，呃，反正它最后挑出来的位置其实是一样的，因为这里有个问题啊，就是我们现在就是说，比如说他这个的话，它这个是actually，比如说，呃十，就是我，呃，不是11。或者说它。11。因为它是一个呃。
+
+16:34:06 --> 16:34:09
+Jun Hou: 哦，好的。
+
+16:34:06 --> 16:34:09
+Xuan Wang: 哦可以可以可以听到。
+
+16:34:09 --> 16:34:24
+Jun Hou: 哦呃，我懂。我懂得，就是我们对对对能看到就是比如说它这个方法，那它就是estimate一个真正的treated set，然后再un treated。你在这里能够看。
+
+16:34:24 --> 16:34:31
+Jun Hou: 就搞搞懂了一件事情，就是说我，他就是纯粹把原来自己有的这些数据。嗯。
+
+16:34:31 --> 16:34:37
+Jun Hou: 这里面就是我们要设设置，那它不是就是问题，是它sinetic做出来的时候，它是哪个time的呢？
+
+16:34:38 --> 16:34:55
+Jun Hou: 它是pt等于几的，就比如说咱们之前是他们这个，他们就是这个样子的。然后。呃呃，它就是做了一个位置嘛，你现在就是这些东西就弄成位置了它的这个。呃，wade呢？就是用十9876的这个东西做了一个位置嘛。
+
+16:34:55 --> 16:35:10
+Jun Hou: 然后就得到了他的这个就他这个target的time是11还是12，啊，不，不，你看它对应的哦就都有对，就是它，我这个数字其实它太远，一就是用98765的位置来得到。
+
+16:35:10 --> 16:35:26
+Jun Hou: 二十五十9876的，为什么要得到okay，就它相当于一个metrics，它都解出来了。这样的话，其实我们可以做得更漂亮一点呢？就是我们可以说，额额，今天是额额，今天是。呃呃呃呃呃。九九月s。
+
+16:35:26 --> 16:35:31
+Jun Hou: 今天是9月4号，那么我们其实可以用去年的9月4号。
+
+16:35:31 --> 16:35:38
+Jun Hou: 和前年的9月4号前天的9月4号，就是说，你看他们在每一个的这个season上面嘛，你这边，因为我们还是在同样的match嘛。
+
+16:35:38 --> 16:35:55
+Jun Hou: 嗯，对所所以其实我们可以，我们这个方法可以做得更漂亮一些的就是我们用同一天，然后呢？在去年的，前年的这个不同的，这个时候或者接近的，这个时候，然后呢？他们的这个额，这个额，这个应该更像我们自己嘛。
+
+16:35:55 --> 16:36:03
+Jun Hou: 嗯嗯，所以你意思是用去年我们考虑的哦，我现在我们就把这个systemality都考虑进去了。
+
+16:36:03 --> 16:36:23
+Jun Hou: 对我，我，我是这样控制nat，但是我觉得你那个说的也对，就是用，直接用去年今天我还没有完我的问题，那我们怎么evaluate？那我们之前是比如说我们assume一个untreated，然后我们这个untreated跟我们的ground truth对比，但是他现在这个是。
+
+16:36:23 --> 16:36:42
+Jun Hou: 他，我，我就是我那，因为这里都是这这这都是。呃，manufacturer，是吧？嗯，我就用这些。呃，这这些peer，这是王璇之前提过的了。Ok，我能找一个。呃，我可以找我们可以做两件事情，一个事情呢，是用用之前的data看。
+
+16:36:42 --> 16:36:58
+Jun Hou: 来来留出两栖。嗯，然后呢？王璇之间提出了，就是说我可以用其中一个control嘛，就用dc嘛嗯，dc没有发生这个事情，那我就看了一下，我现在坐上这个位置能不能predict这个dc是不是有effect啊，它应该没有effect吧？对它这但是。
+
+16:36:58 --> 16:37:15
+Jun Hou: 那这个wet出来的话，那我是有了一个sync的，从七八，九，十，11，12都有了嘛？嗯，它是每一个都能。Peer就是每个calling它都会给一个weight，所以给五个比如八七，六五，它会估计一个wid7654，它才估计尾就是。
+
+16:37:15 --> 16:37:30
+Jun Hou: 你就相当于第一个column里面的time的时间点的sunset我就都有了。对，然后他会估计一个weight，我估计一个weight就是估计，但是估计的，但就就还是估计的，这个weight出来的是。
+
+16:37:31 --> 16:37:49
+Jun Hou: 对啊，十，21还是九还是9876吧嗯，十9876的位置是得出来的，你是12的，是12的，98765，得出来的位置是11的。对，那这样的话，那我们就只有11的和12的，那我们就没有一个subset的一个ground truth，那不有吗？
+
+16:37:49 --> 16:37:53
+Jun Hou: 因为11和12是treat的。
+
+16:37:53 --> 16:38:03
+Jun Hou: 那我没有按春节19我十9876这里面我已经知道十跟九了呀然后我就用9876来free十啊。
+
+16:38:03 --> 16:38:22
+Jun Hou: 因为这个也是control的ok，对他，他不是。那那如果要是用9876。Predict我，我用98765就pred十嘛，我要是一定要保证有五个的话，因为我这里面可以无限的让我把它呃，用这个历史上延伸下去的呀。
+
+16:38:22 --> 16:38:31
+Jun Hou: 哦，okay。那但是要是根据他这个方式不是变成87654。Predict十了，对不是九。
+
+16:38:31 --> 16:38:33
+Jun Hou: 你的吃酒。
+
+16:38:34 --> 16:38:46
+Jun Hou: Ok，然后呢？我又可以这样我又可以。呃，我又其实可以反过来，然后我可以用。19，呃，十98765，然后去predict one，所以我们是用role。
+
+16:38:46 --> 16:39:07
+Jun Hou: 呃，它其实是两个，第一个是如果你想做graduation，比如看这个位置好不好，它是算出位置之后用八七，六，五，四。跟十去比看它命呃，standard error有多大，但是你要对graduate，你就用8765。
+
+16:39:07 --> 16:39:22
+Jun Hou: 得到一个位置，乘起来去predict。九。对啊，然后9876去predict十吗？对一个是怎么violet，这个位置好不好，一个是怎，么？你是横着去yay的？他位置好不好，然后你竖着去算他的branch。
+
+16:39:24 --> 16:39:39
+Jun Hou: 没有，你还是chat，就是你，你，你，你把你把所有的这些信息按照以前的想法去match，你就把这个当你control了这个东西之后，你就把这个东西是当成是一个triple site。嗯。
+
+16:39:39 --> 16:39:43
+Jun Hou: 这个当时是control size1control side2，control side3。
+
+16:39:43 --> 16:39:53
+Jun Hou: 嗯，对吧？嗯，然后呢，就像我完全上次讨论的时候说，那万万一dc，我知道他肯定没有发生嘛。嗯，那么我就这个就是dc的话。
+
+16:39:53 --> 16:40:02
+Jun Hou: 那我就看看其他的这个control site。用statue control得出来的东西能不能pre，能不能得到predict。
+
+16:40:02 --> 16:40:05
+Jun Hou: 如果没有一份，那是对的，有一份就是错的。
+
+16:40:05 --> 16:40:07
+Jun Hou: 哦。
+
+16:40:09 --> 16:40:20
+Jun Hou: 大概就是我后面可能也会讲一下他是怎么validation。如果我，我，我在present这个东西的话，那我就会这样present。
+
+16:40:20 --> 16:40:33
+Jun Hou: 你就要你看，原来你我，我一上来你就可以不用去管那些mathematical data，这些就是太distracting了。名义上来就是说现在这个东西是。呃呃，先先摆摆一个那个control side，有的东西。
+
+16:40:33 --> 16:40:41
+Jun Hou: 对吧，现在它就不是用时间来看的你，你你回去那个，那个图，如果是我的话，我就exactly present这个block。
+
+16:40:41 --> 16:40:51
+Jun Hou: 但是呢，我就一个block是十，21，十987，但是他是个control side，12345对吧。然后呢？这就是左边。
+
+16:40:51 --> 16:40:57
+Jun Hou: 那么右边的时候，是呢？我就是先不要这一块，什么都不要。
+
+16:40:57 --> 16:41:03
+Jun Hou: 什么叫web present？我就present这个first cover，这就是我的data，现在我就什么data都没有了。
+
+16:41:03 --> 16:41:08
+Jun Hou: 但是呢，我通过历史数据把它变成了一个叫block。
+
+16:41:08 --> 16:41:27
+Jun Hou: 那你这样子两边比较的起来你就清楚了。嗯，那也就是说，你当你把这个东西cancel出来以后，你特别就是有这个数据的，这个号码嘛。然后呢？那他他们之间。如果你现在control这一之后，就把它当成是control side，one to three，four，five的话，那跟之前的这个东西是没有任何区别的。
+
+16:41:28 --> 16:41:35
+Jun Hou: 然后你再回过来说，哦，现在我们怎么去得到这些东西是要用app？嗯。
+
+16:41:35 --> 16:41:37
+Jun Hou: 对吧？嗯。
+
+16:41:37 --> 16:41:41
+Jun Hou: 这样的话就会更加更加更加清楚，直接一些。嗯。
+
+16:41:41 --> 16:42:03
+Jun Hou: 就是你，你。而且我觉得你一个confuse，就他在计算wait的时候，他是要去比较grant truth和synthetic，他这时候是用zone的数据，但他validate这个data好不好的时候，他其实对他这个横和竖就让我很对，就是他validate这个data好不好的时候，他是比如说算出来wait，然后乘以。
+
+16:42:03 --> 16:42:11
+Jun Hou: 87654就是我竖的数据。Evaluate，我用横的数据用把这个位置套在这个数据上做validate。
+
+16:42:11 --> 16:42:12
+Jun Hou: 嗯嗯。
+
+16:42:13 --> 16:42:28
+Jun Hou: 是这个意思，我反正你说的是烦，他就是呃，我用横的event。我用竖的validate对，我看我后面没事儿，你先讲对，就是这个，他不是有这个公式嘛。然后你在看这个wait的时候。
+
+16:42:28 --> 16:42:39
+Jun Hou: 比如是说，我就是。呃，我其实相当于是每一个都有一个这个block。然后是呃。
+
+16:42:41 --> 16:42:49
+Jun Hou: 怎么讲，就是因为他pre treat的intervention是从七到十。嗯。
+
+16:42:49 --> 16:42:54
+Jun Hou: 那我对于每一个都有一个。呃。
+
+16:42:54 --> 16:43:05
+Jun Hou: Pre intervention的L是在treaty的blocks里面。然后我算出来这个wait乘到每一个他。呃，这个。
+
+16:43:05 --> 16:43:21
+Jun Hou: Subtle control里面这个位置都应该是最小的，所以他在位estimate这个位置的时候，其实就是要让我这个treated block里面这个il和位置完之后的syntet。
+
+16:43:21 --> 16:43:24
+Jun Hou: Control的这个donald的距离是最小的。
+
+16:43:25 --> 16:43:29
+Jun Hou: 所以它是相当于是这样。嗯。
+
+16:43:29 --> 16:43:33
+Jun Hou: 七块钱，他这个donation其实也是错的。
+
+16:43:33 --> 16:43:46
+Jun Hou: 然后是我标错了吗？不是你，这个肯定是输入，是它的配送里面来的是吧，不是我自己就是写的哦，那那那自己根据咱们那个数据标的数据，肯定是用这个肯定的。
+
+16:43:47 --> 16:44:04
+Jun Hou: 他就是用的，估计出来对他那个latin的东西肯定是L加delta。哦，对，就是他先就是假设这个是对的，然后他extension的时候，他就是l data，他肯定要al焦，然后你才要需要去做extend，没有他，他就是。
+
+16:44:04 --> 16:44:05
+Jun Hou: 喔，对，但他。
+
+16:44:05 --> 16:44:11
+Jun Hou: 对啊对啊，就就就这个东西，它肯定它肯定是lj。
+
+16:44:11 --> 16:44:16
+Jun Hou: 要加chip，因为你的在你在你在post trim以后你是分不开的嘛。
+
+16:44:16 --> 16:44:25
+Jun Hou: 然后你是通过通过找出来那个能分开的那个嘛。嗯，然后不再相减嘛，所以他才能得到这个delta。
+
+16:44:26 --> 16:44:32
+Jun Hou: 嗯，懂你明白我意思吧。嗯，他，所以他这个notation肯定是有问题的。
+
+16:44:33 --> 16:44:38
+Jun Hou: 对，就是说，这这这里面，那就完全用上了。说的那个idea。
+
+16:44:39 --> 16:44:54
+Jun Hou: 然后我自己用了啥？用错了。如果这个文章我也看得懂，你看它下面下面这一块，它其实就是比如说我们选十到七作为pretend period，然后这个就是我们。
+
+16:44:55 --> 16:45:04
+Jun Hou: 呃，他在post treat的时候是会被到，所以他在treat他。他目前还没有被L10，嗯。
+
+16:45:04 --> 16:45:13
+Jun Hou: 然后，然后我们就可以predict to这个L10就就还是我们之前那个比较的方法，对，他就把它又又把它set对吧？
+
+16:45:13 --> 16:45:18
+Jun Hou: 对把它scack起来，然后后面这些就是我。
+
+16:45:18 --> 16:45:25
+Jun Hou: 用它来作为counterfeit period，然后去estimate。Wait。
+
+16:45:25 --> 16:45:33
+Jun Hou: 所以这个相当于用7654？Asked十，嗯，然后6543。Smy的九对，然后run位置最小。
+
+16:45:36 --> 16:45:39
+Jun Hou: 但是为什么这跟前面这个又不一样。
+
+16:45:40 --> 16:45:48
+Jun Hou: 一样的一样的，这个是每一个column跟他这个后面这个叉二，这个是叉三。
+
+16:45:51 --> 16:45:53
+Jun Hou: 对啊，他就call them too嘛。
+
+16:45:54 --> 16:45:56
+Jun Hou: 提出说法。
+
+16:45:57 --> 16:46:06
+Jun Hou: 哦，那我对我这个可能就是那个example多了一个。
+
+16:46:06 --> 16:46:25
+Jun Hou: 嗯，就是我举这个例子的时候可能没有跟前面对。Okok明白了，明白了，对，但他其实就是用的，下面这一块就是用的，下面这一块，反正就是用的他那个T0减M减一的那个对，就是用试算出来用的。下面这个panel对，如果这个这个，如果这个web的话，就解决了这个问题，就是我们之前。
+
+16:46:25 --> 16:46:30
+Jun Hou: 第一就是怎么样才能够使得一个average是有意义的。
+
+16:46:30 --> 16:46:37
+Jun Hou: 因为现在这里面pixel对pixel是对应的嘛。嗯嗯，就我们都不需要。
+
+16:46:37 --> 16:46:48
+Jun Hou: 我们都不需要说说sides，就我，我，我们都不需要所谓的说什么embedding去。呃，一对一去那个什么呢？它它它它的pixel之前就是对的嗯嗯。
+
+16:46:49 --> 16:47:07
+Jun Hou: 对，但那那你还是需要一个number，你还是需要把bandwid提取出来，那你这个pixel没有任何value，你还是需要一个就是个number，对他现在的诶，就就是后，现现在在这种情况之下，火炬的那个event，他就是number，对他就是number对number的呀。
+
+16:47:07 --> 16:47:24
+Jun Hou: 就是就是两个方法都是一样的嘛，它的本质上没有区别，你是做了一个application以后找出来这个可以对比的这个dimension嘛，我们原来原来那个办法是因为它做出来invadix这些东西对比是没有没有意义的。
+
+16:47:24 --> 16:47:43
+Jun Hou: 嗯嗯，但是现在它因为是pixel都已经能对上的话，在这个卫星图片都能对上的话，那它就是有意义的。嗯，就是对donor来说，它是没有意义的，但是对自己的history来说，它对对对，就是这这就是卫星图片的这个有利指数就，那那这个方法就能够完全把它capture到。
+
+16:47:43 --> 16:47:53
+Jun Hou: 就如果真的是work的话，那就是一个极端的contribution，那你就是你可以后面看对我后面再重新把这个改一下，因为之前理解的不太对。
+
+16:47:54 --> 16:48:06
+Jun Hou: 只要删除，然后这个你只能在呃呃，image上面用上，因为因为因为你要是用什么mr，什么东西，你都没办法做到这个东西，那没必要。
+
+16:48:06 --> 16:48:12
+Jun Hou: 你明白，因为你不一定说每一次的那个，那个center是一样的。
+
+16:48:13 --> 16:48:18
+Jun Hou: 嗯，快没电了，那你你有充电器哦，我有忘记改。
+
+16:48:18 --> 16:48:21
+Jun Hou: 轩，你有什么问题吗？
+
+16:48:21 --> 16:48:25
+Xuan Wang: 哦，没有，我觉得挺清楚的。对嗯，就是。
+
+16:48:24 --> 16:48:31
+Jun Hou: 我这么nice，呵呵，我开始，我压根就没听你们呵呵呵呵。
+
+16:48:26 --> 16:48:27
+Xuan Wang: 呃。
+
+16:48:27 --> 16:48:29
+Xuan Wang: 哦。
+
+16:48:29 --> 16:48:38
+Xuan Wang: 啊。对，我就是。呃，想看看，如果侯振他们有什么结果？我刚刚听侯军说，那个。
+
+16:48:31 --> 16:48:34
+Jun Hou: 哦这嗯。
+
+16:48:37 --> 16:48:50
+Jun Hou: 对我一开始理解的不太对，因为我的P0我是选了，还是按我们之前选的那个方法，但其实他这个是真正是考虑了post treatment的data。
+
+16:48:44 --> 16:48:45
+Xuan Wang: 嗯。
+
+16:48:50 --> 16:49:01
+Jun Hou: 所以我，我，我，我的结果就不太对，然后我会，我会，我会再改一下，到时候我先填多人做到那儿去行，我做到，我做到那儿去。
+
+16:48:50 --> 16:48:52
+Xuan Wang: 嗯嗯。
+
+16:49:02 --> 16:49:04
+Jun Hou: 等下这边。
+
+16:49:05 --> 16:49:07
+Jun Hou: 可以做完这儿。
+
+16:49:08 --> 16:49:13
+Jun Hou: 我坐这儿在这上面能做，那会塌吗？应该你做应该能做。
+
+16:49:13 --> 16:49:21
+Jun Hou: 没事儿，可以站在这儿王老师有可能做的，王老师已经很qa，至于我还要继续呵呵呵。
+
+16:49:21 --> 16:49:34
+Jun Hou: 打一招，哎，把你把你关在把你关在里面了，王老师已经很苗条了。
+
+16:49:36 --> 16:49:38
+Jun Hou: 好的知道，那么。
+
+16:49:38 --> 16:49:42
+Jun Hou: 没有可以欸？碰到了吗？
+
+16:49:43 --> 16:49:45
+Jun Hou: 哦，到了吗？
+
+16:49:46 --> 16:49:49
+Jun Hou: 没有啊，连着呢。
+
+16:49:49 --> 16:49:52
+Jun Hou: 就完全还在上面这个嗯，对。
+
+16:49:56 --> 16:50:01
+Jun Hou: 线线没有动，可能那个关掉了好了。
+
+16:50:01 --> 16:50:05
+Jun Hou: 嗯，那我们先去。
+
+16:50:05 --> 16:50:10
+Jun Hou: 哦，你再讲，你在上面讲我，我听不见。
+
+16:50:10 --> 16:50:16
+Jun Hou: 对哦，你可以开你的麦克风，把你的外放关掉就行。
+
+16:50:18 --> 16:50:19
+Jun Hou: 找一个。
+
+16:50:33 --> 16:50:34
+Yujuan Gao: 嗯嗯嗯嗯嗯。
+
+16:50:34 --> 16:50:35
+Yujuan Gao: 不行，太冷。
+
+16:50:42 --> 16:50:43
+Yujuan Gao: 你发给我。
+
+16:50:43 --> 16:50:48
+Yujuan Gao: 你把audio关掉了，完全关掉你这个。
+
+16:50:48 --> 16:50:54
+Yujuan Gao: 你要把它完全管理好好走，不然它发给声音出来了。很快。
+
+16:50:54 --> 16:50:56
+Yujuan Gao: 对价格。
+
+16:50:56 --> 16:50:58
+Yujuan Gao: 哦，那我就继续。
+
+16:50:59 --> 16:51:02
+Yujuan Gao: 哎，哪儿去了。
+
+16:51:02 --> 16:51:04
+Yujuan Gao: 哦，这个方法还挺有意思。
+
+16:51:04 --> 16:51:12
+Yujuan Gao: 呃，我就把它存下来。
+
+16:51:13 --> 16:51:14
+Yujuan Gao: Hmm.
+
+16:51:16 --> 16:51:29
+Yujuan Gao: I have estimated the weights. The whole megablock is based on the counterfactual size. The whole task is to constrain the megawatts to a diagonal.
+
+16:51:29 --> 16:51:46
+Yujuan Gao: Well, you don't even, oh. That's so pretentious. The constraint is that wave should be non-negative and equal, then summarize equals to one.
+
+16:51:47 --> 16:51:48
+Yujuan Gao: Negative.
+
+16:51:50 --> 16:51:55
+Yujuan Gao: Negative. Negative.
+
+16:51:56 --> 16:52:08
+Yujuan Gao: Non-positive.
+
+16:52:08 --> 16:52:30
+Yujuan Gao: So the paper also provide how to choose post-period number and pre-treated period. So they from the two ways intuitively, it's best to only use immediately period because it's most likely being in fact from numbers.
+
+16:52:30 --> 16:52:38
+Yujuan Gao: They compare the observer, the y and the s. What? And it's a dimension of the pause. The period of time.
+
+16:52:38 --> 16:52:40
+Yujuan Gao: Wolfgang.
+
+16:52:40 --> 16:52:49
+Yujuan Gao: I chose to two hours or a time after treated. So going back to your block is the number of rows or number of columns?
+
+16:52:49 --> 16:52:51
+Yujuan Gao: Oh, number…
+
+16:52:51 --> 16:52:57
+Yujuan Gao: It's not a row column, it's the number of rows.
+
+16:52:57 --> 16:52:59
+Yujuan Gao: In the posting.
+
+16:52:59 --> 16:53:03
+Yujuan Gao: Yeah, post-intervention.
+
+16:53:03 --> 16:53:06
+Yujuan Gao: Not data is fine.
+
+16:53:06 --> 16:53:18
+Yujuan Gao: objectively choose, but they also use some equation to show why N is. Uh, the N is not, uh, determinant. We can choose N, but it shows it's…
+
+16:53:18 --> 16:53:41
+Yujuan Gao: But, for example, if now we have hurricane data. Oh, okay, that means you actually can choose how many time periods immediately after that. Yeah. So intuitively, we should choose the short period because they are more likely affected by hurricane. But they also provide the equation. They give a best fund. It's compare the observed y and the synthetic weighted y and.
+
+16:53:41 --> 16:53:57
+Yujuan Gao: The bias bond is a Taylor expansion and we can say K is the period after treated with the increase of K, the best bond will increase.
+
+16:53:57 --> 16:54:13
+Yujuan Gao: It's good to have a smaller. It means it's good to have a short period. But we should choose by ourselves. Just give us some evidence why we choose the smaller.
+
+16:54:14 --> 16:54:26
+Yujuan Gao: Because we typically want to — if we do want to have a good average treatment effect, you do want to have a longer time period in order for you to compute the averages so that you can apply law of large numbers.
+
+16:54:27 --> 16:54:29
+Yujuan Gao: Investigate that.
+
+16:54:29 --> 16:54:37
+Yujuan Gao: Yeah, so it's the trade-off, but the mean square error will become bigger if you use long-term.
+
+16:54:38 --> 16:54:40
+Yujuan Gao: Um, yeah.
+
+16:54:40 --> 16:54:56
+Yujuan Gao: So I think it's also very interesting, like, or we need to see the difference time period of the truth, like the M and the N are all assigned by the user. So the longer the poster treatment period from your 2 examples.
+
+16:54:56 --> 16:55:03
+Yujuan Gao: the longer the time lag between the treatment and the pre-treatment.
+
+16:55:03 --> 16:55:18
+Yujuan Gao: So that I, I don't know how it will affect, but I think it will be a factor. Yeah. Yeah. Because given the total number of period, if we have a bigger m and n, we will have less period used as a donor pool.
+
+16:55:18 --> 16:55:36
+Yujuan Gao: And then also maybe a larger N means more previous, like the steps that, and also a larger M, like you said, means higher RTMS in those arrows because the period is back to very early. Your M means how many pre-treatment.
+
+16:55:37 --> 16:55:47
+Yujuan Gao: data loss. But it also meant have a more information contribute to build. Yeah. So the the end of the.
+
+16:55:47 --> 16:55:58
+Yujuan Gao: Trade off. Also maybe I was looking for or we can both try to say there may be a trade off curve that at a certain point like we.
+
+16:55:58 --> 16:56:12
+Yujuan Gao: For the information, we sacrifice the RMSE to get more information. And if ideally there is curve, we can have the margin like the most we can get.
+
+16:56:12 --> 16:56:28
+Yujuan Gao: the information with the lowest RMSE. Yeah, so in this paper, they use two MIC. One is acceptable. When given a threshold, like one, they choose the largest acceptable MIC that…
+
+16:56:28 --> 16:56:44
+Yujuan Gao: That means as long as it's below the threshold, we choose the largest M, but they also give the minimum MSE, and it's the optimal. So it depends if we want to use a longer period or we want to.
+
+16:56:44 --> 16:57:06
+Yujuan Gao: have a minimum MSE. It's, yeah, it depends to us. So as you mentioned, there are the trade-offs. So when we see, when we look at the MSE, the bigger M means smaller MSE, but if we choose the bigger, longer protruding period, we will have a.
+
+16:57:06 --> 16:57:12
+Yujuan Gao: less as the donor pool because, the number of, there is.
+
+16:57:13 --> 16:57:28
+Yujuan Gao: Because N is the available donor pool, it depends how many M and N we will choose. So if we choose too much pre-intervention, we will have less.
+
+16:57:28 --> 16:57:33
+Yujuan Gao: down a period. So yeah, there is a trade off.
+
+16:57:33 --> 16:57:51
+Yujuan Gao: So they also provide some steps how to choose the donor pool. They not suggest use all as a donor pool. So they use stepwise matching. So first.
+
+16:57:51 --> 16:58:01
+Yujuan Gao: they only choose a single block as the donor pool and calculate the MSE then.
+
+16:58:01 --> 16:58:17
+Yujuan Gao: choose the best single port. It means it has the me mind the Mse. After that, like, if one is the block, one is the best donor port, keep it, and and the donor port 2.
+
+16:58:17 --> 16:58:27
+Yujuan Gao: into the estimation and calculate MSE if one and two have improved the.
+
+16:58:27 --> 16:58:35
+Yujuan Gao: improve the MSE. It means reduce the number of MSE. It will keep two.
+
+16:58:35 --> 16:58:51
+Yujuan Gao: But if it cannot reduce MSE, it will try three. And after that, if we link one and the block one and the two, the optimal block, we will end three into the donor pool. So it's a use stepwise matching to choose the donor pool.
+
+16:58:57 --> 16:59:04
+Yujuan Gao: So you're using one period, so every dome, every column.
+
+16:59:05 --> 16:59:07
+Yujuan Gao: What else should we…
+
+16:59:08 --> 16:59:11
+Yujuan Gao: Much closer to what we talk about.
+
+16:59:11 --> 16:59:19
+Yujuan Gao: So what we can do, just like what we just talked about, is we can potentially pick last year at the exact same time.
+
+16:59:19 --> 16:59:27
+Yujuan Gao: as our first donor pool, right? Because in our case, that is going to be the closest.
+
+16:59:27 --> 16:59:45
+Yujuan Gao: You know, it's historical comparison is going to be a lot more direct in probably the satellite image is going to be there's not going to be any any houses built or there's not going to be any changes in the land cover and stuff like that. So that will be a more direct comparison.
+
+16:59:45 --> 16:59:47
+Yujuan Gao: that we can use.
+
+16:59:47 --> 17:00:02
+Yujuan Gao: And yeah, yeah, but according to our data, finally, I found the most recent period actually the best donor pool and ending into previous period can not improve the MSE or reduce MSE anymore. Yeah.
+
+17:00:03 --> 17:00:20
+Yujuan Gao: But we cannot? Cannot. So the most recent period actually is the best. Yeah, so according to our data. So it's the basic workflow, choose the MNN, estimate the beta, then get the latent factor, use that to.
+
+17:00:20 --> 17:00:32
+Yujuan Gao: estimate the weights. And also we use the stepwise donor selection to select the optimal donor pool.
+
+17:00:33 --> 17:00:52
+Yujuan Gao: And after that, uh, can use weight to estimate the effect. So, we… so, in… so, I only stop at the… after estimate the weights. Uh, so, I use the monthly data for the, uh, uh, Sentinel-1, Sentinel data size, so…
+
+17:00:52 --> 17:01:10
+Yujuan Gao: Why I use monthly? Because before I use bi-weekly, but for the Sentinel-2, the wide pixels is very low, about 50%. After I use the monthly mid-8 pixels, it's become about 90%.
+
+17:01:10 --> 17:01:26
+Yujuan Gao: But when we use monthly data, it means we should extend the way before so that we can have 10 months before the hurricane and 10 months after the hurricane. So I download the data.
+
+17:01:26 --> 17:01:41
+Yujuan Gao: So because we now use monthly, so it can across 10 months, so there will be the seasonality of that comparison, right? Yeah, so I — I said before that the most recent current is much better than…
+
+17:01:41 --> 17:02:00
+Yujuan Gao: Long back period. Would that be possible because the seasonal weapon is not ? So, so in, so why do this? I use the, I control the seasonality before estimate later factors. Actually this use as observed.
+
+17:02:00 --> 17:02:10
+Yujuan Gao: covariance to estimate beta after that to estimate latent factors. So why use?
+
+17:02:11 --> 17:02:17
+Yujuan Gao: Yeah, the the sign for sign. So before we want to.
+
+17:02:17 --> 17:02:33
+Yujuan Gao: get the latent factors. So first we should estimate beta and we need to observe the covariance. So in here I want to choose the same narrative because the environmental change basically based on the wet season.
+
+17:02:33 --> 17:02:51
+Yujuan Gao: like, in December and, uh, in the May, the, uh, land cover and land surface would be very different on vegetation greenness, so should control the seasonality. But you cannot control the months directly, because one, like, the January is 1, December is 12.
+
+17:02:51 --> 17:03:01
+Yujuan Gao: But actually they are very close. They are in the similarity. So, but if you include M as the month.
+
+17:03:01 --> 17:03:09
+Yujuan Gao: It's from 1 to 12. If you include the SANS and COSTAT, it can mimic the SANS pattern.
+
+17:03:13 --> 17:03:16
+Yujuan Gao: So if I'm using the inviting…
+
+17:03:16 --> 17:03:18
+Yujuan Gao: Oh, God.
+
+17:03:18 --> 17:03:20
+Yujuan Gao: I don't know.
+
+17:03:20 --> 17:03:23
+Yujuan Gao: Okay, this is another question.
+
+17:03:23 --> 17:03:30
+Yujuan Gao: I didn't consider for current experiment. Maybe you can choose a… Because it seems like we have to…
+
+17:03:30 --> 17:03:41
+Yujuan Gao: I'm going to convert it to be considerable. so I think we should, you don't have to. What what it does for you is improving the predictions and.
+
+17:03:41 --> 17:03:42
+Yujuan Gao: improving the fit.
+
+17:03:42 --> 17:03:58
+Yujuan Gao: But if we use historical data as a donor pool, the seasonality become very important. But because before that we use the counterfactual sites, they should at the same season because we choose the nearby counterfactual sites. But right now we use their historical data.
+
+17:03:58 --> 17:04:12
+Yujuan Gao: historical data sets. Maybe we want to time period 4. It means maybe it's in February, and to compare the data. Yeah, I I definitely agree.
+
+17:04:12 --> 17:04:13
+Yujuan Gao: And…
+
+17:04:14 --> 17:04:21
+Yujuan Gao: What what I'm thinking is seasonality is nothing but a function of data itself as well.
+
+17:04:21 --> 17:04:22
+Yujuan Gao: But, um…
+
+17:04:22 --> 17:04:32
+Yujuan Gao: It's a function of t. So that is what the residuals is actually detecting is any non-parametric function of t.
+
+17:04:32 --> 17:04:47
+Yujuan Gao: The reason why you're using the kernel smoothing and local linear one is because you're fitting a non-parametric function. Yeah. So when I use the sine cosine, actually, I cannot use a kernel regression anymore because the kernel regression themselves.
+
+17:04:47 --> 17:05:02
+Yujuan Gao: capture the variation of T. If I end the sine and the cosine of the month, basically residual equals to zero, so cannot identify beta, so I only use the linear regression when I estimate the beta, but when I estimate later.
+
+17:05:02 --> 17:05:05
+Yujuan Gao: factors, I still use kernel functions.
+
+17:05:05 --> 17:05:12
+Yujuan Gao: Is this proposed in their paper? No, because they don't talk about synthetics.
+
+17:05:13 --> 17:05:16
+Yujuan Gao: What is a good sensor?
+
+17:05:16 --> 17:05:28
+Yujuan Gao: Yeah, but here the month is really just time, not the time varying variable like the vegetation or something. It's the time.
+
+17:05:28 --> 17:05:35
+Yujuan Gao: It's a function of time. Yeah, so if you put that in the kernel function, then you cannot —.
+
+17:05:35 --> 17:05:40
+Yujuan Gao: estimate beta because the residual almost equals two.
+
+17:05:40 --> 17:05:50
+Yujuan Gao: This is almost equal to zero. So the beta cannot identify. So I choose to use ordinary linear regression when I estimate beta.
+
+17:05:50 --> 17:05:55
+Yujuan Gao: No. No. No. Yes. That's exactly my my my point, is is that.
+
+17:05:55 --> 17:06:05
+Yujuan Gao: The reason is because XT, what the original method is identifying is a non-parametric function of T.
+
+17:06:06 --> 17:06:11
+Yujuan Gao: And so now, because the seasonality is a function of P itself.
+
+17:06:12 --> 17:06:19
+Yujuan Gao: You don't have to estimate it at all. You don't have to pre-treat process it.
+
+17:06:19 --> 17:06:21
+Yujuan Gao: That's what I'm saying.
+
+17:06:21 --> 17:06:34
+Yujuan Gao: then how to use that. Well, it's because I think it's because of the type of variable that you have is very specific. X, so there's no re, there's no point of actually using it all at all. Oh.
+
+17:06:35 --> 17:06:51
+Yujuan Gao: So think about this, right? You have a y is a f of t plus epsilon, right? Now, what you're saying is y is equal to x.
+
+17:06:51 --> 17:06:56
+Yujuan Gao: Which is a function of t plus gt.
+
+17:06:56 --> 17:07:02
+Yujuan Gao: But because XT is a function of the T, you can just write it as FT.
+
+17:07:02 --> 17:07:05
+Yujuan Gao: It's because it's not parametric.
+
+17:07:05 --> 17:07:18
+Yujuan Gao: So, if you just… this is a parametric form, you just have to take out a very specific additive form that you have a seasonality as a function of T plus another G function of T.
+
+17:07:18 --> 17:07:20
+Yujuan Gao: It's still in a permission form.
+
+17:07:21 --> 17:07:25
+Yujuan Gao: So maybe just use observer minus.
+
+17:07:25 --> 17:07:30
+Yujuan Gao: So I think in that sense, the seasonality is already taken into account.
+
+17:07:30 --> 17:07:33
+Yujuan Gao: In the process.
+
+17:07:34 --> 17:07:35
+Yujuan Gao: Mmhm.
+
+17:07:36 --> 17:07:48
+Yujuan Gao: Yeah, because we don't have a other observed. Yeah, no, I think that that's the reason why that's the reason why Xt and minus.
+
+17:07:48 --> 17:07:58
+Yujuan Gao: expected value of XT or key is equal to 0. Just because you this is deterministic function of key. You can perfectly fit that.
+
+17:07:59 --> 17:08:03
+Yujuan Gao: Yeah. So there's no procedures. There's no procedures.
+
+17:08:03 --> 17:08:14
+Yujuan Gao: Yeah. So the idea is to just ignore, just ignore the, the, this analogy here, simply just fit a, a, a, a function of T and get that.
+
+17:08:14 --> 17:08:17
+Yujuan Gao: and use that now. Okay.
+
+17:08:17 --> 17:08:20
+Yujuan Gao: Oh, but in that way…
+
+17:08:22 --> 17:08:24
+Yujuan Gao: Oh, there are still some, uh…
+
+17:08:25 --> 17:08:35
+Yujuan Gao: So this is very, very expected, right? The reason why xt minus expected value of xt given t is because xt is deterministic function of t.
+
+17:08:36 --> 17:08:41
+Yujuan Gao: There's no reason why I cannot perfectly predict that. Yeah, so.
+
+17:08:41 --> 17:08:47
+Yujuan Gao: So do me. I don't have to consider Cincinnati at all, because. Yeah.
+
+17:08:47 --> 17:08:54
+Yujuan Gao: No, no, no, you don't have to control for X in this model.
+
+17:08:54 --> 17:08:59
+Yujuan Gao: Because everything when you're estimating the Lt.
+
+17:09:00 --> 17:09:15
+Yujuan Gao: Yeah, but but when I want to estimate IoT, first I have to predict, I have to estimate the beta. The beta is from observed time varying. No, no, you should go back, you should go back, you should go back to the beginning.
+
+17:09:17 --> 17:09:22
+Yujuan Gao: Yeah, here I don't. I don't have to use one or 2.
+
+17:09:22 --> 17:09:27
+Yujuan Gao: So what I have is simply is going to be why.
+
+17:09:27 --> 17:09:30
+Yujuan Gao: And this actually is a constant.
+
+17:09:31 --> 17:09:34
+Yujuan Gao: Okay, so simply I have YT, I don't have this.
+
+17:09:34 --> 17:09:39
+Yujuan Gao: Yeah, I just use YT. Why I use latent factors? That's right.
+
+17:09:39 --> 17:09:49
+Yujuan Gao: No, no, no, you simply, you simply use YT in place of U here to estimate the LT.
+
+17:09:50 --> 17:10:05
+Yujuan Gao: Because your YT is a combination of, yeah, that's right. You actually don't have to do that at all. Yeah, because doing latent factor is to remove the effect from the observed time varying covariance.
+
+17:10:05 --> 17:10:10
+Yujuan Gao: And the reason is because you now still want to fit a function of t.
+
+17:10:10 --> 17:10:19
+Yujuan Gao: So that you get rid of the, epsilons. Yeah. It's the type of varying. Yeah. The the errors.
+
+17:10:19 --> 17:10:34
+Yujuan Gao: Okay, so that that's the reason why you cannot distinguish between the Lt. And Delta T. But you can actually distinguish those 2 things from axles, the errors.
+
+17:10:34 --> 17:10:41
+Yujuan Gao: Yeah, well, I think that's a very, very good point.
+
+17:10:41 --> 17:10:44
+Yujuan Gao: Uh, okay, can you go back to.
+
+17:10:45 --> 17:10:47
+Yujuan Gao: Here, uh…
+
+17:10:47 --> 17:10:51
+Yujuan Gao: I don't know if like the banner feature.
+
+17:10:51 --> 17:10:52
+Yujuan Gao: Well.
+
+17:10:52 --> 17:10:58
+Yujuan Gao: affected or the pixel like the snow will become the white on the land.
+
+17:10:58 --> 17:11:04
+Yujuan Gao: So the RGB kind of those things or the inviting of the pixels. Yeah.
+
+17:11:04 --> 17:11:11
+Yujuan Gao: So the service would be different, so the bandwidth value definitely will change in different settings.
+
+17:11:11 --> 17:11:17
+Yujuan Gao: No, but if you're looking at a raw image, then you have to consider.
+
+17:11:18 --> 17:11:22
+Yujuan Gao: If you're looking at raw image, if you look at the band, you don't have.
+
+17:11:22 --> 17:11:39
+Yujuan Gao: The raw image is going to be. Yeah, because raw. Even for band, it's different at a different series. It should because it's reflect vegetation or greenness in different.
+
+17:11:39 --> 17:11:42
+Yujuan Gao: Yeah, yeah, it is.
+
+17:11:42 --> 17:11:44
+Yujuan Gao: Questions. Yeah.
+
+17:11:44 --> 17:11:50
+Yujuan Gao: Yeah, so even for the band values, it will change. No, no, but the thing is.
+
+17:11:50 --> 17:12:02
+Yujuan Gao: What I'm thinking is… No, actually, that's correct. Yeah, why don't we use… It's fine. Like, oh, what Dr. Wong said.
+
+17:12:02 --> 17:12:04
+Yujuan Gao: Gives you the same loss.
+
+17:12:04 --> 17:12:20
+Yujuan Gao: First, to be the historical. That way, don't worry about the seasonality first. See, this historical data will work. That way, add the control of the seasonality after we prove this mass of time.
+
+17:12:20 --> 17:12:36
+Yujuan Gao: Yeah, it's like use this month like the April use last year, April, previous year, April, like we're fine. Yeah, but but we only use the same day like we'll have to use many years data.
+
+17:12:36 --> 17:12:46
+Yujuan Gao: But, like, over 10 years, there are many changes on the land, like, build the house, or the land use will change.
+
+17:12:46 --> 17:12:51
+Yujuan Gao: So at least we can use the same season or same month.
+
+17:12:51 --> 17:12:53
+Yujuan Gao: Hester Donald.
+
+17:12:54 --> 17:13:04
+Yujuan Gao: Because right now we use all the historical in the past 10 months, but one cannot compare to the the Y in the. Yeah, in the.
+
+17:13:04 --> 17:13:10
+Yujuan Gao: Yeah. So we can use the same. Why, let's just try it first without this is enough.
+
+17:13:10 --> 17:13:16
+Yujuan Gao: And I I think that's probably not necessarily gonna be too big of an issue, just because.
+
+17:13:16 --> 17:13:18
+Yujuan Gao: According to this method.
+
+17:13:19 --> 17:13:23
+Yujuan Gao: We are already controlling for we are already thinking about time.
+
+17:13:23 --> 17:13:28
+Yujuan Gao: So seasonality is already a function of T. That is when you're building it.
+
+17:13:28 --> 17:13:33
+Yujuan Gao: So we estimate. That's the reason why we're going to think about estimating the Lt.
+
+17:13:34 --> 17:13:39
+Yujuan Gao: We don't have to consider the seasonality when we estimate Lg.
+
+17:13:40 --> 17:13:57
+Yujuan Gao: But the reason why I'm worried about it is it's affecting the features of the T here, maybe more expand the difference about the close to the treatment time. I'm far from the treatment. No, no, no. So actually coming back to the original model.
+
+17:13:57 --> 17:14:05
+Yujuan Gao: I think that's the reason why it's useful to discipline the thinking. Let me go back to the very. Yeah.
+
+17:14:05 --> 17:14:07
+Yujuan Gao: Go back to the original model.
+
+17:14:08 --> 17:14:10
+Yujuan Gao: Yes.
+
+17:14:10 --> 17:14:13
+Yujuan Gao: I think here is the first one.
+
+17:14:13 --> 17:14:17
+Yujuan Gao: Is where we probably need to think about image.
+
+17:14:17 --> 17:14:20
+Yujuan Gao: It's whether or not image can be broken down.
+
+17:14:20 --> 17:14:23
+Yujuan Gao: As something like this.
+
+17:14:24 --> 17:14:27
+Yujuan Gao: It's like the curls.
+
+17:14:27 --> 17:14:32
+Yujuan Gao: Remember the first line. The YG here is image.
+
+17:14:32 --> 17:14:33
+Yujuan Gao: Right.
+
+17:14:33 --> 17:14:35
+Yujuan Gao: And…
+
+17:14:36 --> 17:14:41
+Yujuan Gao: Then we have to think about what is LT here then.
+
+17:14:41 --> 17:14:43
+Yujuan Gao: Yah.
+
+17:14:47 --> 17:14:50
+Yujuan Gao: So the RT is the…
+
+17:14:51 --> 17:14:53
+Yujuan Gao: Excellent.
+
+17:14:53 --> 17:15:05
+Yujuan Gao: So I think this is the unique part for the image. Yeah, I think the image also have unobserved factors that not reflect on the image themselves.
+
+17:15:05 --> 17:15:09
+Yujuan Gao: And but it's a change.
+
+17:15:09 --> 17:15:12
+Yujuan Gao: Um, but how we calculate.
+
+17:15:12 --> 17:15:16
+Yujuan Gao: 哎呀。
+
+17:15:16 --> 17:15:22
+Yujuan Gao: 这个我要选这里，我们这里可能又回到我们去年的讨论了。
+
+17:15:22 --> 17:15:23
+Xuan Wang: 嗯。
+
+17:15:24 --> 17:15:30
+Yujuan Gao: 又回到了那个image，怎么把它变成space，然后这个能不能让让它变回来。
+
+17:15:31 --> 17:15:33
+Yujuan Gao: 就是。
+
+17:15:32 --> 17:15:33
+Xuan Wang: 嗯嗯。
+
+17:15:33 --> 17:15:35
+Yujuan Gao: 可以这样好了。
+
+17:15:35 --> 17:15:39
+Yujuan Gao: 就是我们知道的这个latest space，我们是可以把它变回来的。
+
+17:15:39 --> 17:15:40
+Yujuan Gao: 嗯嗯嗯。
+
+17:15:40 --> 17:15:45
+Yujuan Gao: 如果你不对它做，就是那个number做任何按摩的时候。
+
+17:15:45 --> 17:15:51
+Yujuan Gao: 或者说是改变他这个之后的这个。呃。Distribution。
+
+17:15:51 --> 17:15:54
+Yujuan Gao: 按理说它是可以再抵扣的。
+
+17:15:54 --> 17:16:03
+Yujuan Gao: 对那那那其实就是说，我们这里面想象成的这个lt就应该是两个latent variable。
+
+17:16:04 --> 17:16:06
+Yujuan Gao: Image to our religion. Verbal.
+
+17:16:06 --> 17:16:08
+Yujuan Gao: 嗯嗯嗯。
+
+17:16:08 --> 17:16:26
+Yujuan Gao: 两个类型的。对，就在在post trauma以后，我们还有一个东西吗？Post shiner image post对对，对，对，因为它你，你，你就可以想象成是说。呃，我如果有了一个treatment，它对整个picture，每一个pixel都会有影响。
+
+17:16:26 --> 17:16:27
+Yujuan Gao: 对啊啊。
+
+17:16:27 --> 17:16:43
+Yujuan Gao: 所以对，就这么一份在这么一份在我们这里其实是一个呃呃，它它其实是，一就是一个，就是一个定位本身对就假设假设是呃呃。1024乘以一，024的话。
+
+17:16:43 --> 17:16:49
+Yujuan Gao: 那么他的这个应该是1024051024。
+
+17:16:49 --> 17:17:04
+Yujuan Gao: 因为每个git都有它都会被影响的那那那这里面就是说我们怎么样能够把？呃。这两个latent factor？呃，原来有的这个data就是我，我不知道它是什么嘛，对吧，但是我这里有个data。
+
+17:17:04 --> 17:17:08
+Yujuan Gao: 然后呢？在它有另外一个微量在这里。
+
+17:17:10 --> 17:17:20
+Yujuan Gao: 就多了一个true response，它的，它的特特别之处，它这个lt它不再是一个vector了。
+
+17:17:20 --> 17:17:36
+Yujuan Gao: 它就是一个就是零，他就就是就是一个，那相当于是这个。这个number减掉这个pixel，okay，那那那可以可以可以做出来。但是我觉得即使你是对应的对。
+
+17:17:36 --> 17:17:51
+Yujuan Gao: 啊，就是就从它的运输起来了什么？就是你即使再比较两个，因为者他要除了这个之后，他自己本身也有一个变化，比如季节呀，什么的。
+
+17:17:52 --> 17:18:04
+Yujuan Gao: 那这个就是lt，之前咱们讨论那个对，就是你。所以你之前那个现在是用这个CC带来的effect。
+
+17:18:04 --> 17:18:26
+Yujuan Gao: 就below没有。就是说你所所有这个lt就catch了所有你说的是吧？就是说，呃，所有的这个所有随着时间会改变的这个东西。呃，但是没有没有出门的情况之下会变化的东西都catch在这个lt里面了，我不知道它是什么。
+
+17:18:26 --> 17:18:37
+Yujuan Gao: 但是它已经被挑选掉了。然后呢？呃呃，在这种情况下，我这个随著时间会变化的这个东西，包括functionality，加上我的这个tray的effect，它变成了就是外替。
+
+17:18:37 --> 17:18:43
+Yujuan Gao: 现在我想要的就是把这两个这个东西要不要把它分开，要不要把它decor。
+
+17:18:43 --> 17:18:49
+Yujuan Gao: 对，就是在我这个我可以估计，我们去年讨论的这个东西也是一模一样的。
+
+17:18:50 --> 17:18:53
+Yujuan Gao: 嗯，拼多多。
+
+17:18:53 --> 17:19:08
+Yujuan Gao: 对就是，如果是我这儿可以直接用这个，比如function，估计那他如果在做inviting时候，那他怎么解决什么呢？就是回过来。我说我是从去年应该回去讨论这个问题是，那就回过是同样的问题了。
+
+17:19:08 --> 17:19:10
+Xuan Wang: 嗯。
+
+17:19:09 --> 17:19:15
+Jun Hou: Martin老师，你有什么你的team，我，我开了mike，你说的时候。
+
+17:19:09 --> 17:19:15
+Yujuan Gao: 嗯，你的主要是机构的话，你说你说这个食堂吗？
+
+17:19:13 --> 17:19:16
+Xuan Wang: 哦，就是就是这两个。
+
+17:19:15 --> 17:19:20
+Jun Hou: 呃，就是如果我们take这个把你的audio。
+
+17:19:15 --> 17:19:19
+Yujuan Gao: 呃，如果我们前三个。
+
+17:19:18 --> 17:19:22
+Xuan Wang: 呃，我能听到我能听到。嗯嗯。
+
+17:19:24 --> 17:19:30
+Xuan Wang: 对，就是就是这两个latent vector是已经估计出来的，是吗？
+
+17:19:30 --> 17:19:43
+Yujuan Gao: 就是我们要怎么把它估计出来就这两个image两个image吗？就是一个前面的image。呃，就是。呃，就是说在image的情况之下，怎么能够把这个latest估计出来。
+
+17:19:44 --> 17:19:57
+Yujuan Gao: 不首先就是这两个latency space就是这两个image是我们知道的，对吧？对，有的对对，然后我们现在把这两个知道的image变成了两个invalid。
+
+17:19:57 --> 17:20:03
+Yujuan Gao: 然后它们在同一个呃，late的space里面对，然后我们知道，如果把它们相减。
+
+17:20:03 --> 17:20:14
+Yujuan Gao: 是不是就是这个fact？这个effect不是，但是他没有去掉对，然后你现在要把这个effect分成两个factor。
+
+17:20:14 --> 17:20:21
+Yujuan Gao: 我不，我不需要，我，不需要，我，不需要，就是我，我我得到的就是在同一个lady。
+
+17:20:21 --> 17:20:35
+Yujuan Gao: 好。然后呢，这个同一个space里面呢？在出门的这个情况之下呢，我区分不开来这个所谓的lt还有这个，所以这就为什么我要去。呃，用这个tray space。
+
+17:20:35 --> 17:20:48
+Yujuan Gao: 就是这个space去把那个呃，control的时候的那个东西给它培训起来，然后这样两者相减，它应该是一个有意义的这个。
+
+17:20:49 --> 17:20:59
+Yujuan Gao: 我不知道，也不是对，我觉得是汪雪老师，你觉得就是说，如果我们只是说把这两个inviting相减，是不是可以能估计出来他他的这个effect。
+
+17:20:58 --> 17:21:01
+Xuan Wang: 我觉得你应该做一个猫斗。
+
+17:20:59 --> 17:21:01
+Yujuan Gao: 不行。
+
+17:21:01 --> 17:21:13
+Yujuan Gao: 因为inviting它本身是包含了这个图像的这个所有的information嘛，对，包括这种其实就是量化呀。类似的一个encoder，它在同样的。
+
+17:21:01 --> 17:21:03
+Xuan Wang: 就是。
+
+17:21:13 --> 17:21:28
+Yujuan Gao: 你，你，你，我们之前一直为什么？呃，在整个literature里面之前，还早些就用到这个cosine simulated的原因就是它们之间不能相解，它们是一个vector，它vector之间的这个距离，它不能够通过减减来代代代替的。
+
+17:21:28 --> 17:21:46
+Xuan Wang: 呃，就就是我觉得就是你可以trun两个模型，就是就是你把它想象成一个function，这个function take的音铺的是啊，这个之前的image对吧？然后还有两个factor，一个factor是这个l，这个L是没有treatment的，只是自然变化。
+
+17:21:40 --> 17:21:41
+Yujuan Gao: 对。
+
+17:21:46 --> 17:22:04
+Xuan Wang: 然后它会生成这这个是image零吧，这个是image一。然后这这一对input output数据是你的所有control就比如说啊，这个image零是T0到T1，什么image一是T2，t3。
+
+17:22:04 --> 17:22:21
+Xuan Wang: 然后这些时间你没有发生过任何的treatment，然后你你这是这个function可以是个neuran network image generator defusion model any model。但是你的这个。呃，你只有一个需要估计的parameter，但是你有input auto的data。
+
+17:22:21 --> 17:22:37
+Xuan Wang: 所以你可以把这个function fit出来，你可以先得到这个，然后你再fit另一个function。他take这零。他take l。呃。是normal vector。他take t，对吧？是treatment，然后你的output是。
+
+17:22:37 --> 17:22:42
+Xuan Wang: Image to。呃，这个这里就是你的before treatment。
+
+17:22:42 --> 17:22:52
+Xuan Wang: 这个I0，i2是after treatment，你现在已经知道了，l通过上面一个fit，你在fit下面一个方式，你可以得到你的key。
+
+17:22:53 --> 17:23:05
+Xuan Wang: 就是这个function就是any image generator。呃，它可以是，呃。Newer network any就是那种image generation model。
+
+17:23:05 --> 17:23:10
+Yujuan Gao: 就是相当于一个decode的model defusion还是。
+
+17:23:09 --> 17:23:16
+Xuan Wang: 对对对我们不知道这两个factor，但是我们可以认为他现他他这两个factor。
+
+17:23:14 --> 17:23:20
+Yujuan Gao: 但是这个J和i都是，呃，都是这个embedding，也包括。
+
+17:23:16 --> 17:23:17
+Xuan Wang: 嗯。
+
+17:23:19 --> 17:23:31
+Xuan Wang: 这这个I你可以认为它就是这个model，因为event，你要得到的是一个function对吧？它是map i0和l two ie。第二个function是map。
+
+17:23:31 --> 17:23:48
+Xuan Wang: I0lt到I2，然后你怎么定义这个function就是就是通过这个啊，就就其实就是你要估计的这些parameter，你不一定要要把它变成一个非常确定的，比如说。
+
+17:23:48 --> 17:24:01
+Xuan Wang: 你这个function第一个function对吧？你假设这是一个newer network image generator就是一个cnn，for example，那其实你可以认为这个cnn里面的parameter就是你的l。
+
+17:24:02 --> 17:24:03
+Yujuan Gao: Okay?
+
+17:24:03 --> 17:24:12
+Xuan Wang: 你明白我的意思是吧，对吧。所以所以其实就是你trun一个model。呃，然然后你得到了。
+
+17:24:11 --> 17:24:15
+Yujuan Gao: 这个tray还是我只是把cn fit找。
+
+17:24:16 --> 17:24:18
+Xuan Wang: 就是就是这个。
+
+17:24:16 --> 17:24:22
+Yujuan Gao: 在这个team没有的情况下怎么fit啊，就第二个的时候。
+
+17:24:21 --> 17:24:41
+Xuan Wang: 呃，就是就是因为我们这个function是认为是不知道的，我们，所以我们需要trun，所以就是我有这个image，我有这两边的image，然后我还有这个某一个vector，然后我，我认为我所有不知道的都是被包含在我这个new network里。
+
+17:24:26 --> 17:24:27
+Yujuan Gao: 对。
+
+17:24:28 --> 17:24:29
+Yujuan Gao: 喔喔。
+
+17:24:41 --> 17:24:52
+Xuan Wang: 如果我的newer network能呃。就是perfectly的fit。这个这个i too，我就已经学到了这个t，这个T是隐含在对。
+
+17:24:49 --> 17:24:54
+Yujuan Gao: 相当。于是我，我学了一个mapping。
+
+17:24:53 --> 17:25:01
+Xuan Wang: Function对这个T不是一一个vector，它是隐含在一个network的参数里面，所有的参数里面。
+
+17:24:54 --> 17:24:56
+Yujuan Gao: 嗯嗯。
+
+17:24:59 --> 17:25:08
+Yujuan Gao: 就是一个mapping model，我就可以从maip到二，我能学到所有怎么把这种类似于一的变成类似于二的。
+
+17:25:01 --> 17:25:03
+Xuan Wang: 对，对，对，对，对，对。
+
+17:25:07 --> 17:25:09
+Xuan Wang: 对，对，对，对，对，对。
+
+17:25:08 --> 17:25:15
+Yujuan Gao: 哦哦哦对，然后那个那个I1就是可以，我们用static control给control出来。
+
+17:25:09 --> 17:25:11
+Xuan Wang: 对，然后。
+
+17:25:14 --> 17:25:21
+Xuan Wang: 对的就是你没有任何treat的，比如说history data，或者一个没有被affect地方的data。
+
+17:25:16 --> 17:25:18
+Yujuan Gao: 四。
+
+17:25:21 --> 17:25:31
+Yujuan Gao: 是不不但是I1是我们所所有的I0和I1应该都是我们的pre treatment，然后I2是treated。对啊。但是就是说。
+
+17:25:31 --> 17:25:47
+Yujuan Gao: 呃，你，你，你在要把这个东西ext出来的时候，你首先要能够去learn到一个这样的东西。然后呢？你在，呃，同样在用这个东西去。呃。
+
+17:25:47 --> 17:25:59
+Yujuan Gao: 呃，论到一个这样的东西。对啊，因为你首先先问到一个L嘛，嗯，然后呢？通过通过L以后呢？又通过control，你能够用到一个这样的东西。
+
+17:25:59 --> 17:26:13
+Yujuan Gao: 所以ie我不能是ground truth的image，只要是sinetic control之后的invading，所以这样就考虑进了since，但是我其实就没必要有这个第一步了。
+
+17:26:13 --> 17:26:16
+Yujuan Gao: 就是我如果论到了这个。
+
+17:26:16 --> 17:26:24
+Yujuan Gao: 如果，但是你想知道之前和treatment之后的之前就是我的气味。
+
+17:26:24 --> 17:26:34
+Yujuan Gao: 那就等于是说，我已。如果我已经能够有all。然后呢？我又能够有一个。呃，这个pretriment这个东西的话。
+
+17:26:34 --> 17:26:44
+Yujuan Gao: 那。呃，我，然后我这个是我的这个treatment吧。嗯，这个image的话，那我就已经能够把这个东西给弄出来。
+
+17:26:44 --> 17:26:54
+Yujuan Gao: 就是说我们df额fit pret把我就能够把。
+
+17:26:45 --> 17:26:46
+Xuan Wang: 对。
+
+17:26:54 --> 17:26:57
+Yujuan Gao: 我就能够把这个东西给fix来。
+
+17:26:56 --> 17:27:02
+Xuan Wang: 对，如果你已经能做since，就说明你已经学到了F1。
+
+17:27:03 --> 17:27:05
+Yujuan Gao: 对对啊。
+
+17:27:03 --> 17:27:07
+Xuan Wang: 对F1就是synthetic control。
+
+17:27:05 --> 17:27:16
+Yujuan Gao: 对啊对啊对啊对啊对啊，那就是就没有意义了。那所以我们只需要下面那个，我觉得不需要去弄它了，因为对啊，因为我就把我就把那个L已经给。
+
+17:27:07 --> 17:27:08
+Xuan Wang: 对。
+
+17:27:16 --> 17:27:17
+Yujuan Gao: 这样。
+
+17:27:22 --> 17:27:24
+Yujuan Gao: 嗯。
+
+17:27:26 --> 17:27:27
+Yujuan Gao: 四。
+
+17:27:28 --> 17:27:33
+Yujuan Gao: 对，那那你这里说明了一个最大的问题就是。
+
+17:27:33 --> 17:27:41
+Yujuan Gao: 呃，你，你你回去你的那个，那个，那个，那个slide里面，那我。而且老是说这个东西。
+
+17:27:41 --> 17:27:46
+Yujuan Gao: 就是一个最大的悖论，就是说，那就这个之前做的有什么意义吗？
+
+17:27:46 --> 17:28:01
+Xuan Wang: 就是对我们来说，可能，如果我们有，就是这个input output，我们对我们不需要特别严格，我们只需要fit一个new network，他就in place可以学到怎么generate control。
+
+17:27:50 --> 17:27:51
+Yujuan Gao: 哦，对对，对。
+
+17:28:01 --> 17:28:08
+Yujuan Gao: 那个最大的问题是什么，我想给弄弄个白纸就在这里。
+
+17:28:04 --> 17:28:06
+Xuan Wang: 嗯嗯。
+
+17:28:08 --> 17:28:17
+Yujuan Gao: 我玩起来，我们，我们现在最大的问题是，在我们这里面，我们其实是estimate不到那个L的。
+
+17:28:16 --> 17:28:18
+Xuan Wang: 嗯。
+
+17:28:18 --> 17:28:20
+Yujuan Gao: 这个l。
+
+17:28:20 --> 17:28:24
+Yujuan Gao: 它是S美不甩的，因为现在这个L其实是。
+
+17:28:24 --> 17:28:31
+Yujuan Gao: 这就是为什么我刚才说那个医生那个location是错的。呃，应该这个L里面应该是L跟t。
+
+17:28:31 --> 17:28:33
+Xuan Wang: 嗯嗯。
+
+17:28:32 --> 17:28:40
+Yujuan Gao: 他有一个composer的这个variable这个东西是我们惹的，但是这个东西就没有办法能够让我们在这里。
+
+17:28:40 --> 17:28:53
+Yujuan Gao: 把它isolate出来。为什么要isolated的原因就是因为我们看到的是L跟t。然后呢？通过static control呢？把这个L给。呃，imper出来，想想对接。
+
+17:28:53 --> 17:28:54
+Xuan Wang: 嗯嗯。
+
+17:28:55 --> 17:28:56
+Yujuan Gao: 嗯。
+
+17:28:59 --> 17:29:06
+Yujuan Gao: 所以L是syni control对，l是然后这里面其实是L跟t嘛。
+
+17:29:09 --> 17:29:30
+Xuan Wang: 对，就是我觉得对我来说就是两组数据，一组是呃，就是不是说synthetic control就是说没有treatment，那我就是任何的历史数据，然后历史数据我可以通过过去预测现在的一个点就是没有发生任何treatment，那这种情况我就可以feed一个function。
+
+17:29:30 --> 17:29:47
+Xuan Wang: 通过历史的替零到替某个时刻预测下一个时刻，然后有了这个function，未来就是当我需要做control的时候，我就直接apply这个function我就可以generate。呃，在没有treatment的时候。
+
+17:29:47 --> 17:29:54
+Yujuan Gao: 那这样我们就需要很多组的这个，这里面出现一个问题，嗯。
+
+17:29:47 --> 17:29:49
+Xuan Wang: 真的是没了。
+
+17:29:55 --> 17:30:04
+Yujuan Gao: 但是还是没有isolate那个effect和它自然的标准了。用T就capture所有这个。
+
+17:30:04 --> 17:30:09
+Yujuan Gao: 没有没有，就是说你，你，你把你的那个给我换一下。
+
+17:30:09 --> 17:30:10
+Yujuan Gao: 谢谢老师。
+
+17:30:11 --> 17:30:26
+Yujuan Gao: 但是我们是不是就需要很多组的这种。呃，和来做这个来来来学这个。呃，是这样的，就是说我，我就现现在现在出现一个。呃，这个问题是。
+
+17:30:26 --> 17:30:30
+Yujuan Gao: 嗯，我们其实已经有办法。
+
+17:30:30 --> 17:30:33
+Yujuan Gao: 把这个lt。
+
+17:30:33 --> 17:30:38
+Yujuan Gao: 跟这个。呃，delta t给isolay出来了。
+
+17:30:38 --> 17:30:39
+Xuan Wang: 嗯。
+
+17:30:39 --> 17:30:50
+Yujuan Gao: 现在问题在于说他isolate isolate出来的这个东西它是不是在image上是有意义的。
+
+17:30:50 --> 17:30:52
+Xuan Wang: 嗯嗯。
+
+17:30:53 --> 17:30:56
+Yujuan Gao: 现在的control，我们就能做到这点了嘛。
+
+17:30:55 --> 17:30:57
+Xuan Wang: 嗯嗯。
+
+17:30:57 --> 17:30:59
+Yujuan Gao: 不是吗？回去。
+
+17:31:00 --> 17:31:01
+Yujuan Gao: 就是。
+
+17:31:03 --> 17:31:08
+Yujuan Gao: 你写下一个出来就是你的这个。
+
+17:31:08 --> 17:31:24
+Yujuan Gao: 不是啊，如果是用现在这种方法你直接从它里出来，跟我做国外比完还是lt加高铁T比完那个还是既包含lt是真实的一个还是，但你还有。
+
+17:31:24 --> 17:31:28
+Yujuan Gao: 哦哦no no no no。我现在那我清。
+
+17:31:28 --> 17:31:35
+Yujuan Gao: 可能更加清楚，就是说，我现在在image的情况之下，我怎么能把这个lt给估计出来。
+
+17:31:37 --> 17:31:49
+Yujuan Gao: 就是那些即使不发生characters白的在下面是绿的，即使没有这个character，它也会这个有一个变化。
+
+17:31:49 --> 17:31:50
+Yujuan Gao: 这个比较划算。
+
+17:31:51 --> 17:32:06
+Yujuan Gao: 对。其实其实我们把自己绕进去了，绕绕绕进去的就是在在在这个点上面就是你刚才那个问题，其实是说，在image的这个情况之下，因为这个yt是一个image嘛，那我怎么能把这个lt给估计出来。
+
+17:32:07 --> 17:32:11
+Yujuan Gao: 因为这个lt应该是一个latent factor嘛。
+
+17:32:13 --> 17:32:17
+Yujuan Gao: 那那如果只说是绿的，是白的的问题。
+
+17:32:17 --> 17:32:33
+Yujuan Gao: 那我们就就也是用自己的一个，那那那就是你这里面你就找，找到一个feature了嘛，但是我，我，我，我们现在其实想要知道，就是说，呃，因对，我不知道这个是什么feature，就image，它就是等。
+
+17:32:33 --> 17:32:43
+Yujuan Gao: Image就是等同于一个假设他是一个latency，这个image late，再加上另外一个error。
+
+17:32:44 --> 17:32:55
+Yujuan Gao: 就是说在image里面能不能这么去想这样一个model呢？因为你看你看，因为王王璇现在很naturally，写下来的model就是一个not permit model。
+
+17:32:58 --> 17:33:01
+Yujuan Gao: 它就不存在这种形式了。
+
+17:33:01 --> 17:33:02
+Xuan Wang: 嗯嗯。
+
+17:33:03 --> 17:33:16
+Yujuan Gao: 对，就是说就是等于说这个。呃，现在就应该应该用的就是我们这里应该用的是王璇的这个notation是image是一个。呃呃。呃。Function。
+
+17:33:16 --> 17:33:19
+Yujuan Gao: Of lateen, verbal.
+
+17:33:21 --> 17:33:26
+Yujuan Gao: 问题是说我们能不能把这个later给弄出来。
+
+17:33:29 --> 17:33:31
+Yujuan Gao: 嗯嗯。
+
+17:33:31 --> 17:33:34
+Yujuan Gao: 就是等于说embedding就是我们的late。
+
+17:33:36 --> 17:33:38
+Yujuan Gao: 但是我们一般用户是。
+
+17:33:38 --> 17:33:39
+Yujuan Gao: 知道了。
+
+17:33:41 --> 17:33:48
+Yujuan Gao: 对embedding知道的原因是因为我们已经有了一个方法，把它map到把image map到那个vector上面。
+
+17:33:49 --> 17:33:51
+Yujuan Gao: 对，对，对。
+
+17:33:51 --> 17:34:04
+Yujuan Gao: 对吧？然后这个是你的意思是这个出来的，然后这里不能再变回应了。对，就是我，我就是在这个invaling上面我再加一些数字的话。呃，这个就是我的出一份嘛。
+
+17:34:04 --> 17:34:11
+Yujuan Gao: 那它能够变回来，就是它对这个image变回来之后能不能看出来这个对。
+
+17:34:18 --> 17:34:23
+Yujuan Gao: 这就是所以王权王璇的这个表达形式是更加。
+
+17:34:23 --> 17:34:25
+Yujuan Gao: 更加准确的。
+
+17:34:25 --> 17:34:27
+Yujuan Gao: You.
+
+17:34:27 --> 17:34:35
+Yujuan Gao: 因为他一上来想的就是在一个那个model里面去考虑这个latent factor的问题。
+
+17:34:36 --> 17:34:40
+Yujuan Gao: 那我们需要能解释这个我们不需要嘛。
+
+17:34:40 --> 17:34:41
+Xuan Wang: 嗯嗯。
+
+17:34:40 --> 17:34:55
+Yujuan Gao: 我，我们，我们现在只需要，就是我们需要在在乎的是说我们在得到一个。呃，这个tray effect之后，就是他。他有了tray以后，他对每一个呃，每一个dimension是怎么影响的？
+
+17:34:56 --> 17:34:59
+Yujuan Gao: 这个东西。
+
+17:35:01 --> 17:35:04
+Yujuan Gao: 方式啊，就是每个人新的。
+
+17:35:04 --> 17:35:10
+Yujuan Gao: 呃，mapping从你原来这个image到你的image的这个mapping。
+
+17:35:11 --> 17:35:16
+Yujuan Gao: 就相当于是所有的都conce在。
+
+17:35:17 --> 17:35:19
+Yujuan Gao: 就是这个normalizer。
+
+17:35:20 --> 17:35:22
+Yujuan Gao: 嗯嗯。
+
+17:35:26 --> 17:35:30
+Yujuan Gao: 那现在问题是不我我？呃。
+
+17:35:31 --> 17:35:32
+Yujuan Gao: 我好。呃。
+
+17:35:32 --> 17:35:36
+Yujuan Gao: 我觉得现在我们是没有，这个，里面是没有想清楚的。
+
+17:35:37 --> 17:35:40
+Yujuan Gao: 因为因为这个image这个东西变得极其复杂。
+
+17:35:42 --> 17:35:47
+Yujuan Gao: 就是说，我们现在就就现在我现在我们是打算找到一个contacts嘛。
+
+17:35:47 --> 17:35:53
+Yujuan Gao: Manufacturers，然后通过contacts就这个image。他是一个image。
+
+17:35:53 --> 17:36:04
+Yujuan Gao: 然后这个image我们。呃，就通过这个control得出来，如果需要得需要得出来的话，我们必须要能够找到一个。
+
+17:36:05 --> 17:36:13
+Yujuan Gao: 办法去把这个latency给它估计出来这个lt就是完完全这里面的第一步，要把它估计出来。
+
+17:36:20 --> 17:36:24
+Yujuan Gao: 然后才能够帮助我们predict到那个下一步嘛。
+
+17:36:28 --> 17:36:33
+Yujuan Gao: 呃，对，就我们先估计从pro trade到。
+
+17:36:33 --> 17:36:38
+Yujuan Gao: 然后我们再估计中推trade到呃trit。
+
+17:36:38 --> 17:36:40
+Yujuan Gao: 醉。
+
+17:36:40 --> 17:36:43
+Yujuan Gao: 然后我们再。
+
+17:36:44 --> 17:36:46
+Yujuan Gao: 呃。找到他们之间的。
+
+17:36:46 --> 17:36:49
+Yujuan Gao: 就是说这个ts类都不出来了。
+
+17:36:49 --> 17:36:50
+Yujuan Gao: 嗯嗯嗯。
+
+17:36:51 --> 17:36:55
+Xuan Wang: 哦。王老师不好意思，我要去接孩子了。
+
+17:36:53 --> 17:36:54
+Yujuan Gao: 对对。
+
+17:36:54 --> 17:36:57
+Yujuan Gao: 啊，对对对我，我也差不多了。对对对。
+
+17:36:55 --> 17:37:05
+Xuan Wang: 哦，那个对，我也在想一想，何俊也在想想，对我，我，我general的就是impression就是。呃，他是一个function mapping。
+
+17:37:05 --> 17:37:16
+Yujuan Gao: 不是你，你说你说的最后这两个我觉得太好了，这两这两个绝绝对就是我们。我们现在卡在这个点上我们，我回头再聊，你先赶紧去拜拜拜。
+
+17:37:05 --> 17:37:07
+Xuan Wang: 对。然后这。
+
+17:37:14 --> 17:37:18
+Xuan Wang: 行行，我先学接一下孩子，嗯，好明白，嗯。
+
+17:37:16 --> 17:37:19
+Yujuan Gao: 呃拜拜拜拜嗯。
+
+17:37:18 --> 17:37:19
+Xuan Wang: 哦。

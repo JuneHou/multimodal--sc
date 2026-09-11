@@ -1,0 +1,8 @@
+# Server envs on tinkercliffs (/projects/slmreasoning/junh/envs/), created by setup_tinkercliffs.sh
+vlmgen  (Qwen-Image-Edit-2511):  python=3.10, torch==2.5.1 cu124, torchvision==0.20.1, diffusers>=0.36 (0.40 installed),
+        latest transformers/tokenizers, safetensors>=0.8, accelerate, pillow, huggingface_hub, numpy, pandas
+bagel   (BAGEL-7B-MoT):          python=3.10, the BAGEL repo's requirements.txt as pinned (transformers 4.49, safetensors 0.4,
+        torch 2.5.1), + pillow, huggingface_hub, accelerate; flash_attn 2.5.8 optional
+        Separate env because BAGEL's pins are too old for the diffusers that ships the Qwen edit pipeline.
+weights: Qwen/Qwen-Image-Edit-2511 in HF cache ($PROJ/hf_cache); BAGEL-7B-MoT in $PROJ/hf_models/BAGEL-7B-MoT
+job:     MODEL=qwen LAYOUT=persite sbatch vg_generate.sbatch   |   MODEL=bagel LAYOUT=sheet ENV=bagel sbatch vg_generate.sbatch

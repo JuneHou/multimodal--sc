@@ -1,0 +1,32 @@
+sensor,family,arm,outcome_set,raw_rmse,std_rmse
+sentinel1,baseline,equal-weight donor average,3 band means,0.7916,0.782
+sentinel1,baseline,own-history mean P01-P09,3 band means,0.4820,0.726
+sentinel1,collaborator-style,standard SCM per band,3 band means,0.2245,0.352
+sentinel1,collaborator-style,SCM-MO joint T0=9,3 band means,0.2591,0.378
+sentinel1,collaborator-style,standard SCM per band + demeaning,3 band means,0.1398,0.263
+sentinel1,collaborator-style,SCM-MO joint + demeaning (Exp2 analog),3 band means,0.1463,0.278
+sentinel1,collaborator-style,SCM-MO joint T0=1 P09 (Exp1 analog),3 band means,0.2223,0.456
+sentinel1,ours,SCM-MO joint (nb11 chip_mean),5 TerraMind channels,,0.701
+sentinel1,ours,per-channel SCM,5 TerraMind channels,,0.625
+sentinel1,ours,per-channel SCM + demeaning,5 TerraMind channels,,0.447
+sentinel1,ours,SCM-MO joint + demeaning,5 TerraMind channels,,0.385
+sentinel1,ours,gram pooled representation,15-d,,0.732
+sentinel1,ours,quantile pooled representation,pooled,,0.887
+sentinel1,ours,latent980 same-coordinate,980-d,,1.082
+sentinel1,ours,latent980 aligned D_min,980-d,,0.797
+sentinel2,baseline,equal-weight donor average,8 band means,0.0257,0.471
+sentinel2,baseline,own-history mean P01-P09,8 band means,0.0573,1.118
+sentinel2,collaborator-style,standard SCM per band,8 band means,0.0217,0.352
+sentinel2,collaborator-style,SCM-MO joint T0=9,8 band means,0.0216,0.400
+sentinel2,collaborator-style,standard SCM per band + demeaning,8 band means,0.0204,0.349
+sentinel2,collaborator-style,SCM-MO joint + demeaning (Exp2 analog),8 band means,0.0206,0.393
+sentinel2,collaborator-style,SCM-MO joint T0=1 P09 (Exp1 analog),8 band means,0.0282,0.556
+sentinel2,ours,SCM-MO joint (nb11 chip_mean),5 TerraMind channels,,0.395
+sentinel2,ours,per-channel SCM,5 TerraMind channels,,0.376
+sentinel2,ours,per-channel SCM + demeaning,5 TerraMind channels,,0.369
+sentinel2,ours,SCM-MO joint + demeaning,5 TerraMind channels,,0.380
+sentinel2,ours,gram pooled representation,15-d,,0.466
+sentinel2,ours,quantile pooled representation,pooled,,0.581
+sentinel2,ours,latent980 same-coordinate,980-d,,1.234
+sentinel2,ours,latent980 aligned D_min,980-d,,0.903
+sentinel2,ours,latent980 hybrid own-history + aligned (histfill),980-d,,0.866

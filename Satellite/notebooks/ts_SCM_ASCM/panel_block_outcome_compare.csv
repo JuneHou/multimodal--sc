@@ -1,0 +1,19 @@
+cache,sensor,outcome,arm,test_rmse
+chipmean,sentinel1,980-d,A_samecoord,1.0819691750008738
+chipmean,sentinel1,980-d,D_min_aligned,0.7966267439316668
+chipmean,sentinel1,980-d,H0_own_mean,0.6849337501377524
+chipmean,sentinel1,245-d (2x2 block),A_samecoord,1.0523672277099798
+chipmean,sentinel1,245-d (2x2 block),D_min_aligned,0.8324377111692277
+chipmean,sentinel1,245-d (2x2 block),H0_own_mean,0.6538075780726912
+chipmean,sentinel2,980-d,A_samecoord,1.233543874844322
+chipmean,sentinel2,980-d,D_min_aligned,0.9026346322726384
+chipmean,sentinel2,980-d,H0_own_mean,0.9730633132148829
+chipmean,sentinel2,245-d (2x2 block),A_samecoord,1.025595744690309
+chipmean,sentinel2,245-d (2x2 block),D_min_aligned,0.7499302663195625
+chipmean,sentinel2,245-d (2x2 block),H0_own_mean,0.8601020517201764
+histfill,sentinel2,980-d,A_samecoord,1.2230321679615181
+histfill,sentinel2,980-d,D_min_aligned,0.9044577804334641
+histfill,sentinel2,980-d,H0_own_mean,0.9059421547866338
+histfill,sentinel2,245-d (2x2 block),A_samecoord,1.1066376148948343
+histfill,sentinel2,245-d (2x2 block),D_min_aligned,0.8398622007001787
+histfill,sentinel2,245-d (2x2 block),H0_own_mean,0.8617975095663233

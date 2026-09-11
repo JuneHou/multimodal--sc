@@ -12,12 +12,12 @@ Three pooled representations, each an isometric embedding into a Hilbert space s
 Okano–Kurisu's FSC applies (their examples 2 and 3):
 
     chip_mean            5  channel means                      (baseline, not FSC)
-    quantile_functions 500  per-channel quantile function on their `grids`, concatenated
+    quantile_functions 100  per-channel quantile function on GRIDS_Q (20 pts), concatenated
                             over the 5 channels — 2-Wasserstein / their mortality.R case
     gram_vector         15  upper triangle incl. diagonal of A Aᵀ/196 — their `covvec`
                             convention exactly (service.R L92-95), Frobenius / their
                             example 3
-    combined           515  quantile ⊕ gram, each block scaled to unit mean square
+    combined           115  quantile ⊕ gram, each block scaled to unit mean square
 
 What each answers, concretely: the quantile arm says *how much of each thing is present*
 (land-cover composition); the Gram arm says *what fires together at the same parcel*

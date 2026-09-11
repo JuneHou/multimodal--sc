@@ -1,0 +1,210 @@
+method,sensor,band,mean_nmse
+Kimi-K3-thinking-low,sentinel1,VV,0.694930151292645
+Kimi-K3-thinking-low,sentinel1,VH,0.2516003675697965
+Kimi-K3-thinking-low,sentinel1,VV-VH,0.11195224122541513
+Kimi-K3-thinking-low,sentinel2,B2,1.5107499871788852
+Kimi-K3-thinking-low,sentinel2,B3,1.0186582616384563
+Kimi-K3-thinking-low,sentinel2,B4,2.830426626520982
+Kimi-K3-thinking-low,sentinel2,B8,0.054764408023935125
+Kimi-K3-thinking-low,sentinel2,B11,2.173215935590045
+Kimi-K3-thinking-low,sentinel2,B12,1.7204288698432595
+Kimi-K3-thinking-low,sentinel2,NDVI,0.390064780265981
+Kimi-K3-thinking-low,sentinel2,NDWI,1.062606460574001
+Kimi-K3-thinking-low [anon],sentinel1,VV,0.6896065212893605
+Kimi-K3-thinking-low [anon],sentinel1,VH,0.26673562544101376
+Kimi-K3-thinking-low [anon],sentinel1,VV-VH,0.1277955938450805
+Kimi-K3-thinking-low [anon],sentinel2,B2,1.1404852600246562
+Kimi-K3-thinking-low [anon],sentinel2,B3,0.6396969943269333
+Kimi-K3-thinking-low [anon],sentinel2,B4,1.494603669639621
+Kimi-K3-thinking-low [anon],sentinel2,B8,0.13845403301050982
+Kimi-K3-thinking-low [anon],sentinel2,B11,1.2864190271777098
+Kimi-K3-thinking-low [anon],sentinel2,B12,0.959282665721445
+Kimi-K3-thinking-low [anon],sentinel2,NDVI,0.15249095674924687
+Kimi-K3-thinking-low [anon],sentinel2,NDWI,0.2863791639184467
+Kimi-K3-thinking-low [nocal],sentinel1,VV,0.6860651989192784
+Kimi-K3-thinking-low [nocal],sentinel1,VH,0.22528750797247046
+Kimi-K3-thinking-low [nocal],sentinel1,VV-VH,0.090925880051629
+Kimi-K3-thinking-low [nocal],sentinel2,B2,1.5168129987253876
+Kimi-K3-thinking-low [nocal],sentinel2,B3,1.0060570082990765
+Kimi-K3-thinking-low [nocal],sentinel2,B4,2.516180373337643
+Kimi-K3-thinking-low [nocal],sentinel2,B8,0.09132258859772333
+Kimi-K3-thinking-low [nocal],sentinel2,B11,2.117259676864291
+Kimi-K3-thinking-low [nocal],sentinel2,B12,1.5093258149564435
+Kimi-K3-thinking-low [nocal],sentinel2,NDVI,0.34426324610979925
+Kimi-K3-thinking-low [nocal],sentinel2,NDWI,0.7590893118278385
+Kimi-K3-thinking-low [noguide],sentinel1,VV,0.8259860237771552
+Kimi-K3-thinking-low [noguide],sentinel1,VH,0.2382525152724818
+Kimi-K3-thinking-low [noguide],sentinel1,VV-VH,0.12252322052783216
+Kimi-K3-thinking-low [noguide],sentinel2,B2,1.0909132212545019
+Kimi-K3-thinking-low [noguide],sentinel2,B3,0.7065362911978963
+Kimi-K3-thinking-low [noguide],sentinel2,B4,2.6878739242286738
+Kimi-K3-thinking-low [noguide],sentinel2,B8,0.05764337695171613
+Kimi-K3-thinking-low [noguide],sentinel2,B11,1.9685083348291805
+Kimi-K3-thinking-low [noguide],sentinel2,B12,1.519137126229363
+Kimi-K3-thinking-low [noguide],sentinel2,NDVI,0.34428239652495646
+Kimi-K3-thinking-low [noguide],sentinel2,NDWI,0.47651767765616987
+Kimi-K3-thinking-low [rule],sentinel1,VV,0.6651221447761239
+Kimi-K3-thinking-low [rule],sentinel1,VH,0.27605804012608454
+Kimi-K3-thinking-low [rule],sentinel1,VV-VH,0.1421833459532481
+Kimi-K3-thinking-low [rule],sentinel2,B2,1.3123765324099566
+Kimi-K3-thinking-low [rule],sentinel2,B3,0.8199704588389711
+Kimi-K3-thinking-low [rule],sentinel2,B4,2.8472353794319663
+Kimi-K3-thinking-low [rule],sentinel2,B8,0.08169750313589767
+Kimi-K3-thinking-low [rule],sentinel2,B11,2.315741487447914
+Kimi-K3-thinking-low [rule],sentinel2,B12,1.5454050847540455
+Kimi-K3-thinking-low [rule],sentinel2,NDVI,0.41031539599994127
+Kimi-K3-thinking-low [rule],sentinel2,NDWI,0.7899549662409797
+ensemble,sentinel1,VV,0.733730432612976
+ensemble,sentinel1,VH,0.2399875316507738
+ensemble,sentinel1,VV-VH,0.1479694245427286
+ensemble,sentinel2,B2,1.4025551455389895
+ensemble,sentinel2,B3,0.9350063739223932
+ensemble,sentinel2,B4,2.1479871988175856
+ensemble,sentinel2,B8,0.056996201793298895
+ensemble,sentinel2,B11,1.6169299430835937
+ensemble,sentinel2,B12,1.2121254143850961
+ensemble,sentinel2,NDVI,0.25877402624319273
+ensemble,sentinel2,NDWI,0.5975400460288456
+gpt-oss-120b,sentinel1,VV,0.8210400291896657
+gpt-oss-120b,sentinel1,VH,0.25052591955740716
+gpt-oss-120b,sentinel1,VV-VH,0.20491908259256833
+gpt-oss-120b,sentinel2,B2,1.316471713235952
+gpt-oss-120b,sentinel2,B3,0.8866912109868095
+gpt-oss-120b,sentinel2,B4,1.5830505668962362
+gpt-oss-120b,sentinel2,B8,0.12367062526645953
+gpt-oss-120b,sentinel2,B11,1.1690386141539901
+gpt-oss-120b,sentinel2,B12,0.8255158543475516
+gpt-oss-120b,sentinel2,NDVI,0.17207257838728485
+gpt-oss-120b,sentinel2,NDWI,0.294966295247933
+gpt-oss-120b (default effort),sentinel1,VV,0.8201746783008496
+gpt-oss-120b (default effort),sentinel1,VH,0.2538754133429458
+gpt-oss-120b (default effort),sentinel1,VV-VH,0.14555590917907382
+gpt-oss-120b (default effort),sentinel2,B2,1.0709095594065012
+gpt-oss-120b (default effort),sentinel2,B3,0.6081202264618848
+gpt-oss-120b (default effort),sentinel2,B4,1.804158302653056
+gpt-oss-120b (default effort),sentinel2,B8,0.07659154615657665
+gpt-oss-120b (default effort),sentinel2,B11,2.050161932864947
+gpt-oss-120b (default effort),sentinel2,B12,1.3170917929989443
+gpt-oss-120b (default effort),sentinel2,NDVI,0.2756467626375722
+gpt-oss-120b (default effort),sentinel2,NDWI,0.3535272016628618
+gpt-oss-120b [anon],sentinel1,VV,0.9064234802806471
+gpt-oss-120b [anon],sentinel1,VH,0.4589712949807209
+gpt-oss-120b [anon],sentinel1,VV-VH,0.2525898907151431
+gpt-oss-120b [anon],sentinel2,B2,1.1397103660136254
+gpt-oss-120b [anon],sentinel2,B3,0.5629363424484705
+gpt-oss-120b [anon],sentinel2,B4,1.4260096789529657
+gpt-oss-120b [anon],sentinel2,B8,0.24043288739492616
+gpt-oss-120b [anon],sentinel2,B11,1.4079391950815465
+gpt-oss-120b [anon],sentinel2,B12,1.0023350330412784
+gpt-oss-120b [anon],sentinel2,NDVI,0.09077098034220216
+gpt-oss-120b [anon],sentinel2,NDWI,0.16969368083508046
+gpt-oss-120b [nocal],sentinel1,VV,0.6180380548397285
+gpt-oss-120b [nocal],sentinel1,VH,0.5750342010951707
+gpt-oss-120b [nocal],sentinel1,VV-VH,0.5361796168006685
+gpt-oss-120b [nocal],sentinel2,B2,1.6689867788089279
+gpt-oss-120b [nocal],sentinel2,B3,0.8697922420363812
+gpt-oss-120b [nocal],sentinel2,B4,1.9178149643731943
+gpt-oss-120b [nocal],sentinel2,B8,0.27935413993004216
+gpt-oss-120b [nocal],sentinel2,B11,1.6681455555387439
+gpt-oss-120b [nocal],sentinel2,B12,0.8902866884523224
+gpt-oss-120b [nocal],sentinel2,NDVI,0.11962247748467525
+gpt-oss-120b [nocal],sentinel2,NDWI,0.3234597704788337
+gpt-oss-120b [noguide],sentinel1,VV,0.5970111025481872
+gpt-oss-120b [noguide],sentinel1,VH,0.20991457612368436
+gpt-oss-120b [noguide],sentinel1,VV-VH,0.18496049785596638
+gpt-oss-120b [noguide],sentinel2,B2,1.2999977372165161
+gpt-oss-120b [noguide],sentinel2,B3,0.8635152172093865
+gpt-oss-120b [noguide],sentinel2,B4,1.834961522997922
+gpt-oss-120b [noguide],sentinel2,B8,0.23150566166845632
+gpt-oss-120b [noguide],sentinel2,B11,1.1762909693709314
+gpt-oss-120b [noguide],sentinel2,B12,0.8038315745241504
+gpt-oss-120b [noguide],sentinel2,NDVI,0.16096293939310652
+gpt-oss-120b [noguide],sentinel2,NDWI,0.3321127228715283
+gpt-oss-120b [rule],sentinel1,VV,0.7038944838831139
+gpt-oss-120b [rule],sentinel1,VH,0.2511339711594908
+gpt-oss-120b [rule],sentinel1,VV-VH,0.141738591417881
+gpt-oss-120b [rule],sentinel2,B2,1.7228595747709463
+gpt-oss-120b [rule],sentinel2,B3,1.0842593371656717
+gpt-oss-120b [rule],sentinel2,B4,1.7784805070531433
+gpt-oss-120b [rule],sentinel2,B8,0.1728339525367822
+gpt-oss-120b [rule],sentinel2,B11,1.250896144842264
+gpt-oss-120b [rule],sentinel2,B12,0.6089989627927399
+gpt-oss-120b [rule],sentinel2,NDVI,0.18659647455417686
+gpt-oss-120b [rule],sentinel2,NDWI,0.3154308866826154
+holt_damped,sentinel1,VV,0.6007856952101825
+holt_damped,sentinel1,VH,0.17254007098707594
+holt_damped,sentinel1,VV-VH,0.0647419272452624
+holt_damped,sentinel2,B2,0.9167854764889156
+holt_damped,sentinel2,B3,0.6643675394092433
+holt_damped,sentinel2,B4,1.2007295222896448
+holt_damped,sentinel2,B8,0.10619579256651988
+holt_damped,sentinel2,B11,1.3757679026909388
+holt_damped,sentinel2,B12,0.5372633388305014
+holt_damped,sentinel2,NDVI,0.27544514353517763
+holt_damped,sentinel2,NDWI,0.410701170135354
+last3_mean,sentinel1,VV,0.5493257334710572
+last3_mean,sentinel1,VH,0.17127768461146764
+last3_mean,sentinel1,VV-VH,0.07464299960065239
+last3_mean,sentinel2,B2,0.757313060309107
+last3_mean,sentinel2,B3,0.6943439604579378
+last3_mean,sentinel2,B4,0.9728933229224631
+last3_mean,sentinel2,B8,0.37390848267368304
+last3_mean,sentinel2,B11,0.8690451345507534
+last3_mean,sentinel2,B12,0.4473022688361245
+last3_mean,sentinel2,NDVI,0.057416124593867024
+last3_mean,sentinel2,NDWI,0.15975141566866288
+linear4,sentinel1,VV,0.8293073975825286
+linear4,sentinel1,VH,0.2046009413737185
+linear4,sentinel1,VV-VH,0.6450274999307463
+linear4,sentinel2,B2,1.9481335049006983
+linear4,sentinel2,B3,0.9678558608192921
+linear4,sentinel2,B4,1.93465452567934
+linear4,sentinel2,B8,0.9291523353575939
+linear4,sentinel2,B11,0.7209358530517347
+linear4,sentinel2,B12,0.8151254783347539
+linear4,sentinel2,NDVI,0.6918637471489906
+linear4,sentinel2,NDWI,1.5485494090592902
+linear9,sentinel1,VV,0.8143369304859297
+linear9,sentinel1,VH,0.1895713552191758
+linear9,sentinel1,VV-VH,0.08300211255172149
+linear9,sentinel2,B2,1.468891392894655
+linear9,sentinel2,B3,1.7363172090062071
+linear9,sentinel2,B4,1.4899032306793465
+linear9,sentinel2,B8,0.8509004285014236
+linear9,sentinel2,B11,2.3403997054071777
+linear9,sentinel2,B12,0.970032609275771
+linear9,sentinel2,NDVI,0.11066107173238407
+linear9,sentinel2,NDWI,0.1635680450489896
+own_mean,sentinel1,VV,0.21846550970227865
+own_mean,sentinel1,VH,0.8048158994228243
+own_mean,sentinel1,VV-VH,1.0054306115564595
+own_mean,sentinel2,B2,0.47224227156860993
+own_mean,sentinel2,B3,0.4023231962351889
+own_mean,sentinel2,B4,2.143151734137314
+own_mean,sentinel2,B8,0.5096068227270956
+own_mean,sentinel2,B11,0.6871126319001423
+own_mean,sentinel2,B12,1.9853182411908408
+own_mean,sentinel2,NDVI,1.4293361841738512
+own_mean,sentinel2,NDWI,1.3027475060683622
+persistence,sentinel1,VV,1.0016150563855926
+persistence,sentinel1,VH,0.36115607255254534
+persistence,sentinel1,VV-VH,0.11461209186783909
+persistence,sentinel2,B2,1.2276798927929238
+persistence,sentinel2,B3,0.7644025014875405
+persistence,sentinel2,B4,1.6170204135790123
+persistence,sentinel2,B8,0.1270637618753981
+persistence,sentinel2,B11,1.3750131906769714
+persistence,sentinel2,B12,0.8554820092228616
+persistence,sentinel2,NDVI,0.10177422257784802
+persistence,sentinel2,NDWI,0.24235261081499862
+shc,sentinel1,VV,1.0016150563855926
+shc,sentinel1,VH,0.36115607255254534
+shc,sentinel1,VV-VH,0.11461209186783909
+shc,sentinel2,B2,1.2187931980186844
+shc,sentinel2,B3,0.7620253496832329
+shc,sentinel2,B4,1.6141137656015128
+shc,sentinel2,B8,0.12544887870967283
+shc,sentinel2,B11,1.3791331148023482
+shc,sentinel2,B12,0.8585842454732424
+shc,sentinel2,NDVI,0.09976033897341366
+shc,sentinel2,NDWI,0.23583499782727976
