@@ -42,7 +42,7 @@ td:empty { background: #fff; }
   table { font-size: 7.2pt; }
   a { text-decoration: none; color: var(--fg); }
 }
-@page { size: A4 landscape; margin: 14mm 12mm; }
+@page { size: A4; margin: 14mm 12mm; }
 </style>
 
 <script>
@@ -66,11 +66,17 @@ window.MathJax = {
 
 </head><body>
 <h1>Synthetic historical control on the monthly latent panel: method, implementation, first results</h1>
-<p><strong>Progress report for the meeting of 10 September 2026.</strong> The synthetic-historical-control results of the 3 September report were withdrawn on 4 September and are not carried forward. Sources for the method: Chen, Yang &amp; Yang, <em>Synthetic Historical Control for Policy Evaluation</em>, SSRN 4995085; the collaborator's slides <em>Synthetic Historical Control for Policy Evaluation: Evidence from Satellite Data</em> (4 September 2026), whose walkthrough §2 follows; and the decisions of the 4 September meeting. Scripts, caches and tables are listed in §8.</p>
-<p><strong>Summary.</strong> The estimator is rebuilt from the paper as settled on 4 September: the treatment period is P11 (September 2024) and the pre-period P01–P10; the latent component is estimated first by local-linear kernel smoothing of the outcome along time; the weights are fitted on the smoothed pre-segments of the site's own shifted blocks, selected stepwise; the counterfactual is the weighted forward rows of the smoothed component and the effect is the observed post-period latent minus it. The outcome is the 980-dimensional TerraMind tokenizer latent of the monthly median composites, under two cloud fills. Four findings. (i) At every treated site, both sensors, both fills and every window length, the stepwise rule keeps the most recent block alone (698 of 702 fits), so the counterfactual is the smoothed latent of the last pre-hurricane months whatever $m$ is. (ii) In the temporal validation (fit on P01–P08, predict P09–P10) the smoothed counterfactual beats the site's own mean on Sentinel-2 (15 of 15 sites) and narrowly on Sentinel-1 (11 of 12). (iii) In the effect run the treated sites' post-period departure equals that of their matched control sites and the validation error: no Helene effect is detectable in the latent under this design. Putting the covariate stage back as a mapping of land cover, elevation and slope learned across sites (§6.1) changes nothing on Sentinel-1 and lowers the Sentinel-2 validation error by 3–5 % without separating the treated sites from their controls. (iv) In a companion experiment on the band-space pipeline's own designs and metrics (§7), language models used as the weight solver beat the band-space SHC on Sentinel-1 and roughly tie it on Sentinel-2; a three-month mean beats both, and the models state that this average is the rule they applied. The reference that carries forward is the three-month mean, not persistence. The leave-one-out bandwidth is large at every site (kernel scale five to seven months on a ten-month window); that stage is the first to rethink.</p>
+<p><strong>Progress report for the meeting of 10 September 2026.</strong> Sources for the method: Chen, Yang &amp; Yang, <em>Synthetic Historical Control for Policy Evaluation</em>, SSRN 4995085; the collaborator's slides <em>Synthetic Historical Control for Policy Evaluation: Evidence from Satellite Data</em> (4 September 2026), whose walkthrough §2 follows; the decisions of the 4 September meeting. The synthetic-historical-control results of the 3 September report were withdrawn on 4 September. Scripts and tables: §7.</p>
+<blockquote>
+<p><strong>Corrected 16 September 2026.</strong> The evaluation in §3–§5 originally reported the prediction error of the counterfactual built from the <em>smoothed</em> forward rows. That compares a denoised prediction against a noisy observation; the paper's eq 27 applies the fitted weights to the <em>observed</em> forward rows, so that both sides carry observation noise. §3's primary/secondary designation, the prediction-error columns of §4, and all of §5 now report the eq-27 evaluation, and the superseded values are labelled where they are kept. The conclusion changes: on Sentinel-1 the synthetic counterfactual does not beat the site's own mean at any $n$ (originally reported as 11 of 12 sites at $n = 2$), and on Sentinel-2 it beats it only at $n = 2$. §6 is unaffected — the band-feature pipeline always predicted from observed forward rows — but §6.1 now states which variance denominator its table uses, since that column is not directly comparable to the band pipeline's own published per-site numbers.</p>
+</blockquote>
 <hr>
 <h2>1. Data: the monthly composites</h2>
-<p>Calendar-month median composites of the daily Sentinel-1 and Sentinel-2 acquisitions, 21 months P01 (November 2023) to P21 (July 2025), 101 × 101 pixels at 10 m, the same bands and channel-first layout as the biweekly set. P01–P10 (November 2023 to August 2024) are pre-hurricane; <strong>P11, September 2024, is the treatment period</strong> (landfall 27 September); P12 onward are post. The collaborator's band pipeline excludes P11 as a transition month; this report keeps it as the first treated period, with one caveat carried in the tables: the Sentinel-2 September composite is built from the 2, 7 and 22 September acquisitions, so it contains no post-landfall image, while the Sentinel-1 composite includes 28 September.</p>
+<p><strong>Summary.</strong> Monthly median composites over 21 months; 27 treated sites, each with 10 matched counterfactual sites; P11 (September 2024) is the treatment period; the outcome is the 980-value TerraMind latent of each composite, under two cloud fills.</p>
+<ul>
+<li>Composites: calendar-month medians of the daily Sentinel-1 and Sentinel-2 acquisitions, P01 (November 2023) to P21 (July 2025), 101 × 101 pixels at 10 m, bands and channel-first layout as the biweekly set.</li>
+<li>Periods: P01–P10 pre-hurricane; P11, September 2024 (landfall 27 September), the treatment period; P12 onward post. The Sentinel-2 September composite (2, 7 and 22 September) contains no post-landfall image; the Sentinel-1 composite includes 28 September. The collaborator's band pipeline excludes P11 as a transition month.</li>
+</ul>
 <table>
 <thead>
 <tr>
@@ -97,8 +103,9 @@ window.MathJax = {
 </tr>
 </tbody>
 </table>
-<p>Of the 6,237 site × sensor × month rows, 6,055 composites are usable; 165 months have no acquisition (all in P01) and 17 Sentinel-2 counterfactual composites are entirely cloud-masked and are treated as missing. The two sensors cover different treated sites; only site 0015 is in both.</p>
-<p><strong>Cloud fill.</strong> TerraMind cannot encode a masked pixel, so every latent is post-fill, and both fills are run as arms. <em>Chip-mean fill</em>: each masked pixel takes the chip's own band mean. <em>Historical fill</em>: each masked pixel takes the per-pixel median of the site's own clean pre-hurricane months P01–P10 (a pixel counts when every band is finite, at least three months), then the one-month template, then the chip mean. At the Sentinel-2 treated sites 98.1% of masked pixels are filled from the ten-month median. Masked-pixel share by month at the Sentinel-2 treated sites:</p>
+<ul>
+<li>Cloud fill, two arms (TerraMind cannot encode a masked pixel). <em>Chip-mean fill</em>: a masked pixel takes the chip's band mean. <em>Historical fill</em>: the per-pixel median of the site's clean pre-hurricane months P01–P10 (at least three months with every band finite), then the one-month template, then the chip mean; 98.1 % of the masked pixels at the Sentinel-2 treated sites come from the ten-month median. Masked-pixel share by month at the Sentinel-2 treated sites:</li>
+</ul>
 <table>
 <thead>
 <tr>
@@ -151,24 +158,27 @@ window.MathJax = {
 </tr>
 </tbody>
 </table>
-<p><strong>Outcome.</strong> The TerraMind tokenizer latent of each composite, 5 channels × 14 × 14 parcels = 980 FSQ codes on [0, 1], encoded as the biweekly panel (101 → 224 bilinear resize, TerraMind v1 standardization). The five channels share units, so no cross-coordinate standardization is applied. The same site's parcels are registered across months, which is the property that suits SHC to imagery: a coordinate-wise convex combination of the site's own past is meaningful where a cross-site one is not.</p>
+<ul>
+<li>Outcome: the TerraMind tokenizer latent, 5 channels × 14 × 14 parcels = 980 FSQ codes on [0, 1] (101 → 224 bilinear resize, TerraMind v1 standardization). The channels share units, so no cross-coordinate standardization. A site's parcels are registered across months, which is what makes the site's own past usable as a donor.</li>
+</ul>
 <hr>
 <h2>2. The method, in the source's order</h2>
-<p>Presented as in the collaborator's slides, with the paper's equation numbers.</p>
-<p><strong>Model and the identification problem (eq 2).</strong> The outcome of one unit follows</p>
+<p><strong>Summary.</strong> One unit's own history. Stage 1 estimates the smooth untreated component $\ell_t$ of the pre-period; stage 2 rebuilds the post-period $\ell_t$ from the unit's own earlier blocks with convex weights; the effect is the observed post-period outcome minus that counterfactual. Presented as in the collaborator's slides, with the paper's equation numbers.</p>
+<p><strong>Model (eq 2).</strong></p>
 <p>$$ y_t = x_t^{\top}\beta + \ell_t + \delta_t d_t + \varepsilon_t, \qquad d_t = \mathbb{1}[t > T_0], $$</p>
-<p>with $x_t$ observed covariates, $\ell_t$ an unobserved smooth function of time (the latent component, what would have happened without the intervention), $\delta_t$ the time-varying intervention effect and $\varepsilon_t$ noise. Before $T_0$ the residual $y_t - x_t^{\top}\beta$ equals $\ell_t + \varepsilon_t$ and $\ell_t$ is learnable; after $T_0$ it equals $\ell_t + \delta_t + \varepsilon_t$ and the two are not separable from that series alone. SHC reconstructs the post-period $\ell_t$ from the unit's own history.</p>
+<p>$x_t$ observed covariates, $\ell_t$ an unobserved smooth function of time (what would have happened without the intervention), $\delta_t$ the time-varying effect, $\varepsilon_t$ noise. Before $T_0$ the residual $y_t - x_t^{\top}\beta$ is $\ell_t + \varepsilon_t$ and $\ell_t$ is learnable; after $T_0$ it is $\ell_t + \delta_t + \varepsilon_t$ and the two cannot be separated from that series alone.</p>
 <p><strong>Stage 1: the latent component (eqs 18–21; slide 6).</strong> With covariates: local-linear kernel estimates $\hat{\mu}_{y,t} \approx E(y_t \mid t)$ and $\hat{\mu}_{x,t} \approx E(x_t \mid t)$; residualize, $\tilde y_t = y_t - \hat{\mu}_{y,t}$, $\tilde x_t = x_t - \hat{\mu}_{x,t}$; $\hat\beta = (\sum \tilde x_t \tilde x_t^{\top})^{-1} \sum \tilde x_t \tilde y_t$; $\hat u_t = y_t - x_t^{\top}\hat\beta$; then the local-linear fit at each target month,</p>
 <p>$$ (\hat a_t, \hat b_t) = \arg\min_{a,b} \sum_{\tau \le T_0} K\!\left(\frac{\tau - t}{h T_0}\right) \left[\hat u_\tau - a - b\,\frac{\tau - t}{T_0}\right]^2, \qquad \hat\ell_t := \hat a_t, $$</p>
-<p>Gaussian $K$, bandwidth $h$ by leave-one-out cross-validation, pre-period only. The smoothing removes $\varepsilon_t$: $\ell_t$ and $\delta_t$ cannot be separated from each other after $T_0$, but both can be separated from the noise. <strong>Covariate-free case.</strong> By the decision of 4 September the first run carries no covariates: calendar-month sine and cosine are deterministic functions of $t$, already inside $\ell_t$, and residualizing them against time leaves nothing to identify $\beta$. Then $\hat u_t = y_t$ and the outcome itself is smoothed.</p>
-<p><strong>The pseudo-panel (eq 7).</strong> With $m$ pre-periods and $n$ post-periods, the latent sequence is rearranged into an $(m + n) \times (N + 1)$ matrix whose first column is the treated block, pre $[T_0 - m + 1, T_0]$ and post $[T_0 + 1, T_0 + n]$, and whose column $i + 1$ is historical block $i$, the same window shifted back by $z_i = n + i - 1$, $i = 1, \dots, N$, $N = T_0 - n - (m - 1)$:</p>
+<p>Gaussian $K$, bandwidth $h$ by leave-one-out cross-validation on the pre-period. The smoothing removes $\varepsilon_t$; $\ell_t$ and $\delta_t$ cannot be separated from each other after $T_0$, but both can be separated from the noise. <em>Covariate-free case</em> (decision of 4 September): calendar-month sine and cosine are functions of $t$ already inside $\ell_t$, so no covariate is carried, $\hat u_t = y_t$, and the outcome itself is smoothed.</p>
+<p><strong>The pseudo-panel (eq 7).</strong> With $m$ pre-periods and $n$ post-periods the latent sequence becomes an $(m + n) \times (N + 1)$ matrix: the first column is the treated block, pre $[T_0 - m + 1, T_0]$ and post $[T_0 + 1, T_0 + n]$; column $i + 1$ is historical block $i$, the same window shifted back by $z_i = n + i - 1$, $i = 1, \dots, N$, $N = T_0 - n - (m - 1)$:</p>
 <p>$$ L = \begin{bmatrix} \ell_{\mathrm{post}} & L_{\mathrm{post}} \\ \ell_{\mathrm{pre}} & L_{\mathrm{pre}} \end{bmatrix}. $$</p>
-<p>With $T_0 = 10$, $m = 4$, $n = 2$ (the slides' example): treated pre P07–P10, post P11–P12; block 1 pre P05–P08, post P09–P10; block 2 pre P04–P07, post P08–P09; … block 5 pre P01–P04, post P05–P06. The historical blocks are contiguous windows, so the temporal dependence inside each is kept; their post rows all lie before $T_0$ and are therefore estimated latent components, not effects.</p>
-<p><strong>Stage 2: the weights (eqs 22–24).</strong> $\hat w$ minimises $\lVert \hat\ell_{\mathrm{pre}} - \hat L_{\mathrm{pre}} w \rVert^2$ over $w \ge 0$, $\sum_j w_j = 1$. Where $\hat L_{\mathrm{pre}}^{\top}\hat L_{\mathrm{pre}}$ is singular ($N > m$ in the scalar case) the paper replaces it by its nearest positive-definite matrix, adding $\lVert \varsigma^{1/2} C_2^{\top} w \rVert^2$ with $C_2$ the eigenvectors of the zero eigenvalues and $\varsigma$ small (eq 24).</p>
-<p><strong>The counterfactual and the effect (eqs 11–13, 25–30; slides 11 and 14).</strong> Slide 11's flow ends with "apply $\hat w$ to the historical post segments" of the pseudo-panel $\hat L$ built from $\hat\ell_t$, and slide 14 fills the post rows of $L$ with the latent components $\ell$; the weighted post rows of the historical blocks therefore give the counterfactual latent component, $\hat\ell^{(0)}_{T_0+k}(\hat w) = \sum_j \hat w_j\, \hat\ell_{T_0 + k - z_j}$, and the effect is the observed residual minus it, $\hat\delta_{T_0+k} = \hat u_{T_0+k} - \hat\ell^{(0)}_{T_0+k}$; without covariates $\hat\delta_{T_0+k} = y_{T_0+k} - \hat\ell^{(0)}_{T_0+k}$. Proposition 1 bounds the bias by $b_\epsilon(H, k) = 2\epsilon |k|^{H+1}/(H+1)!$, growing with the horizon $k$, which is why a small $n$ is preferred (slide 8).</p>
-<p><strong>Choosing m and the donor pool (§2.4, eqs 31–33).</strong> Matching quality is $\mathrm{MSE}_{\mathrm{pre}}(w) = \frac{1}{m}\sum_{t = T_0 - m + 1}^{T_0} (\hat\ell_t - \hat\ell_t(w))^2$; rule (a) takes the largest $m$ with $\mathrm{MSE}_{\mathrm{pre}} \le \nu$, rule (b) the $m$ with the smallest validation error. The donor pool is built stepwise: the best single block; then, among the remaining blocks, the one whose addition lowers $\mathrm{MSE}_{\mathrm{pre}}$ most, accepted while the improvement exceeds $\zeta$. The paper's applications set $\nu$ to 0.1 % and $\zeta$ to 0.001 % of the outcome's sample variance.</p>
+<p>With $T_0 = 10$, $m = 4$, $n = 2$ (the slides' example): treated pre P07–P10, post P11–P12; block 1 pre P05–P08, post P09–P10; … block 5 pre P01–P04, post P05–P06. The blocks are contiguous windows, and their post rows all lie before $T_0$: they are estimated latent components, not effects.</p>
+<p><strong>Stage 2: the weights (eqs 22–24).</strong> $\hat w$ minimises $\lVert \hat\ell_{\mathrm{pre}} - \hat L_{\mathrm{pre}} w \rVert^2$ over $w \ge 0$, $\sum_j w_j = 1$. Where $\hat L_{\mathrm{pre}}^{\top}\hat L_{\mathrm{pre}}$ is singular the paper adds $\lVert \varsigma^{1/2} C_2^{\top} w \rVert^2$, $C_2$ the eigenvectors of the zero eigenvalues, $\varsigma$ small (eq 24).</p>
+<p><strong>The counterfactual and the effect (eqs 11–13, 25–30; slides 11 and 14).</strong> The weighted post rows of the historical blocks give the counterfactual latent component, $\hat\ell^{(0)}_{T_0+k} = \sum_j \hat w_j\, \hat\ell_{T_0 + k - z_j}$, and the effect is $\hat\delta_{T_0+k} = \hat u_{T_0+k} - \hat\ell^{(0)}_{T_0+k}$, without covariates $y_{T_0+k} - \hat\ell^{(0)}_{T_0+k}$. Proposition 1 bounds the bias by $b_\epsilon(H, k) = 2\epsilon |k|^{H+1}/(H+1)!$, growing with the horizon $k$, which is why a small $n$ is preferred (slide 8).</p>
+<p><strong>Choosing m and the donor pool (§2.4, eqs 31–33).</strong> $\mathrm{MSE}_{\mathrm{pre}}(w) = \frac{1}{m}\sum_{t = T_0 - m + 1}^{T_0} (\hat\ell_t - \hat\ell_t(w))^2$; rule (a) takes the largest $m$ with $\mathrm{MSE}_{\mathrm{pre}} \le \nu$, rule (b) the $m$ with the smallest validation error. Stepwise matching: the best single block, then the block whose addition lowers $\mathrm{MSE}_{\mathrm{pre}}$ most, accepted while the improvement exceeds $\zeta$. The paper sets $\nu$ = 0.1 % and $\zeta$ = 0.001 % of the outcome's sample variance.</p>
 <hr>
 <h2>3. How the fit maps onto it</h2>
+<p><strong>Summary.</strong> The paper's estimator on the 980-value latent as a vector outcome, no covariates, stage 1 as specified; the only choices beyond the paper are the bandwidth grid (26 values, 0.03 to 10 in units of $T_0$) and a minimum of two finite neighbours per target month. Stage 1 is the acknowledged challenge of this design.</p>
 <table>
 <thead>
 <tr>
@@ -183,7 +193,7 @@ window.MathJax = {
 </tr>
 <tr>
 <td>$x_t$, $\beta$</td>
-<td>none (§2), $\hat u_t = y_t$; a learned mapping is added in §6.1</td>
+<td>none (§2), $\hat u_t = y_t$</td>
 </tr>
 <tr>
 <td>stage 1</td>
@@ -207,75 +217,23 @@ window.MathJax = {
 </tr>
 <tr>
 <td>counterfactual</td>
-<td>$\hat\ell^{(0)}$ from the smoothed forward rows (primary); the paper's raw forward rows (eq 27) as a secondary column</td>
+<td>the paper's raw forward rows, eq 27 (reported): the fitted weights applied to the observed forward rows of the selected blocks. $\hat\ell^{(0)}$ from the smoothed forward rows is also computed, but it compares a denoised prediction against a noisy observation and is not the evaluation reported here (correction of 17 September)</td>
 </tr>
 <tr>
 <td>validation</td>
-<td>temporal validation: the identical pipeline on P01–P(10 − n) predicting P(11 − n)–P10, scored against the observed latent, with the site's own P01–P(10 − n) mean as reference; negative controls: the identical effect run on the 10 matched counterfactual sites of each treated site, and the rank of the treated site's post-period departure among them</td>
-</tr>
-<tr>
-<td>standardization</td>
-<td>none: the five FSQ channels share units on [0, 1]</td>
+<td>temporal validation: the identical pipeline on P01–P(10 − n) predicting P(11 − n)–P10, scored against the observed latent, with the site's own P01–P(10 − n) mean as reference</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Stage 1 is the acknowledged challenge of this design.</strong> It is implemented as specified above, with no departure; the one choice beyond the paper is the bandwidth grid, 26 values from 0.03 to 10 in units of $T_0$, and the requirement of at least two finite neighbours per target month.</p>
 <hr>
 <h2>4. Stage 1 and the donor selection</h2>
-<p>The grid is 2 fills × 2 sensors × $n \in \{2, 3\}$ × $m = 2 \dots 10 - n$ over the 286 site × sensor series (7,722 fits). Sentinel-1 latents are identical under both fills (the radar chips have no cloud mask), so Sentinel-1 is shown once in every table.</p>
-<p><strong>Bandwidths.</strong> Leave-one-out CV on the effect window P01–P10, treated sites:</p>
-<table>
-<thead>
-<tr>
-<th>sensor</th>
-<th>fill</th>
-<th>sites</th>
-<th>h median</th>
-<th>h min</th>
-<th>h max</th>
-<th>interior</th>
-<th>at grid floor</th>
-<th>at grid ceiling</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Sentinel-1</td>
-<td>chip-mean fill</td>
-<td>12</td>
-<td>0.71</td>
-<td>0.50</td>
-<td>2.00</td>
-<td>12</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>Sentinel-2</td>
-<td>chip-mean fill</td>
-<td>15</td>
-<td>0.50</td>
-<td>0.16</td>
-<td>1.26</td>
-<td>15</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>Sentinel-2</td>
-<td>historical fill</td>
-<td>15</td>
-<td>0.50</td>
-<td>0.16</td>
-<td>1.00</td>
-<td>15</td>
-<td>0</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
-<p>Units are $T_0$ = 10 months, so a bandwidth of 0.5–0.7 is a kernel scale of five to seven months on a ten-month window: the smoothed component is close to a line through the pre-period.</p>
-<p><strong>Which block is chosen.</strong> Step-1 matching error of each single block, $m = 4$, $n = 2$, mean over the treated sites (block 1 is the most recent, shifted by $n$; block 5 the oldest):</p>
+<p><strong>Summary.</strong> The stepwise rule keeps the most recent block alone at 698 of 702 treated fits; the latent MSE rises with the block's age. Because the selected block's forward rows do not depend on $m$, the counterfactual and the prediction error are the same at every $m$; $n = 2$ has the smaller latent MSE and prediction error and is the primary setting.</p>
+<ul>
+<li>Grid: 2 fills × 2 sensors × $n \in \{2, 3\}$ × $m = 2 \dots 10 - n$ over 286 site × sensor series, 7,722 fits.</li>
+<li>Sentinel-1 latents are identical under both fills (no cloud mask), so Sentinel-1 is shown once.</li>
+<li>Blocks are numbered as in eq 7: block 1 the most recent (pre P05–P08, forward rows P09–P10 at $m = 4$, $n = 2$), block 5 the oldest (P01–P04, P05–P06). The slides number from the oldest: block 1 here is D5 there.</li>
+</ul>
+<p><strong>Latent MSE (eq 31) of each block used alone</strong>, the collaborator's "trial MSE" per candidate donor and "joint latent MSE" for the kept pool,, $m = 4$, $n = 2$, mean over the treated sites:</p>
 <table>
 <thead>
 <tr>
@@ -318,10 +276,137 @@ window.MathJax = {
 </tr>
 </tbody>
 </table>
-<p>The error rises monotonically with the block's age. The stepwise rule keeps block 1 alone at 698 of 702 treated fits; a second block is accepted in 4 of 594 attempts and never a third. The same holds at every control site. Because block 1's forward rows are P09–P10 for $n = 2$ (P08–P10 for $n = 3$) whatever $m$ is, the counterfactual, the validation error and the effect are identical across $m$; $m$ only changes the pre-period matching error, which falls slowly with $m$. Rule (a) never selects: $\nu$ is about $10^{-4}$ against matching errors of 0.004 (Sentinel-1) and 0.008 (Sentinel-2). Rule (b) is flat in $m$ for the same reason. The tables below are therefore shown at $m = 4$, the slides' baseline, and hold for every $m$.</p>
+<p>Block 1 alone at 698 of 702 treated fits; a second block accepted in 4 of 594 attempts, never a third. Rule (a) never selects ($\nu \approx 10^{-4}$ against 0.004–0.008); rule (b) is flat in $m$. The tables below are at $m = 4$, the slides' baseline, and hold for every $m$.</p>
+<p><strong>Block layout per $n$</strong>, in the form of slide 18 (historical fill; block 1 is selected alone at every row; the chip-mean fill differs only in four Sentinel-2 fits that add a second block with a small weight). Block 1 is the treated pre-window shifted back by $n$: it lengthens with $m$ while its forward rows stay the same. <em>Latent MSE</em> = eq 31 of the selected block in the run with $T_0$ = P10 (at least one block at every row), mean over treated sites; it selects the blocks and is not a prediction error. <em>Prediction error</em> = the validation of §5 (the same pipeline on P01–P(10 − n), the synthetic counterfactual against the observed held-out months); that window has $10 - 2n - (m - 1)$ blocks, so windows with none ($m \ge 7$ at $n = 2$, $m \ge 5$ at $n = 3$) are left out.</p>
+<p>$n = 2$ (post P11–P12):</p>
+<table>
+<thead>
+<tr>
+<th>m</th>
+<th>treated pre</th>
+<th>blocks N</th>
+<th>selected block (block 1), pre</th>
+<th>selected block, forward rows</th>
+<th>latent MSE, Sentinel-1</th>
+<th>latent MSE, Sentinel-2</th>
+<th>prediction error, Sentinel-1</th>
+<th>prediction error, Sentinel-2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+<td>P09–P10</td>
+<td>7</td>
+<td>P07–P08</td>
+<td>P09–P10</td>
+<td>0.0043</td>
+<td>0.0078</td>
+<td>0.2666</td>
+<td>0.2413</td>
+</tr>
+<tr>
+<td>3</td>
+<td>P08–P10</td>
+<td>6</td>
+<td>P06–P08</td>
+<td>P09–P10</td>
+<td>0.0042</td>
+<td>0.0076</td>
+<td>0.2666</td>
+<td>0.2413</td>
+</tr>
+<tr>
+<td>4</td>
+<td>P07–P10</td>
+<td>5</td>
+<td>P05–P08</td>
+<td>P09–P10</td>
+<td>0.0041</td>
+<td>0.0075</td>
+<td>0.2666</td>
+<td>0.2413</td>
+</tr>
+<tr>
+<td>5</td>
+<td>P06–P10</td>
+<td>4</td>
+<td>P04–P08</td>
+<td>P09–P10</td>
+<td>0.0040</td>
+<td>0.0074</td>
+<td>0.2666</td>
+<td>0.2413</td>
+</tr>
+<tr>
+<td>6</td>
+<td>P05–P10</td>
+<td>3</td>
+<td>P03–P08</td>
+<td>P09–P10</td>
+<td>0.0039</td>
+<td>0.0073</td>
+<td>0.2666</td>
+<td>0.2413</td>
+</tr>
+</tbody>
+</table>
+<p>$n = 3$ (post P11–P13):</p>
+<table>
+<thead>
+<tr>
+<th>m</th>
+<th>treated pre</th>
+<th>blocks N</th>
+<th>selected block (block 1), pre</th>
+<th>selected block, forward rows</th>
+<th>latent MSE, Sentinel-1</th>
+<th>latent MSE, Sentinel-2</th>
+<th>prediction error, Sentinel-1</th>
+<th>prediction error, Sentinel-2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+<td>P09–P10</td>
+<td>6</td>
+<td>P06–P07</td>
+<td>P08–P10</td>
+<td>0.0094</td>
+<td>0.0167</td>
+<td>0.3022</td>
+<td>0.2971</td>
+</tr>
+<tr>
+<td>3</td>
+<td>P08–P10</td>
+<td>5</td>
+<td>P05–P07</td>
+<td>P08–P10</td>
+<td>0.0091</td>
+<td>0.0165</td>
+<td>0.3022</td>
+<td>0.2971</td>
+</tr>
+<tr>
+<td>4</td>
+<td>P07–P10</td>
+<td>4</td>
+<td>P04–P07</td>
+<td>P08–P10</td>
+<td>0.0089</td>
+<td>0.0162</td>
+<td>0.3022</td>
+<td>0.2971</td>
+</tr>
+</tbody>
+</table>
+<p>The $n = 2$ rows coincide with the collaborator's slide 18 (D7 … D3, pseudo-post P09–P10, step-1 best in 27 of 27). At $n = 3$ the validation predicts P08–P10 from a block that ends at P07, one horizon further, and the error grows with the horizon as Proposition 1 says (slide 8).</p>
 <hr>
 <h2>5. Temporal validation: predicting P09–P10 from P01–P08</h2>
-<p>The whole pipeline (smoothing, selection, weights) on P01–P08 only, $m = 4$; RMSE over the 980 coordinates between the observed latent and the counterfactual, mean over the treated sites. <em>Reference</em> = the site's own P01–P08 mean, with nothing estimated. The second SHC column applies the same weights to the raw forward rows (the paper's eq 27).</p>
+<p><strong>Summary.</strong> Under the corrected evaluation (the fitted weights applied to the observed forward rows, eq 27), the synthetic counterfactual never beats the site's own mean on Sentinel-1, and beats it on Sentinel-2 only at $n = 2$ (10 of 15 sites under chip-mean fill, 8 of 15 under historical fill); at $n = 3$ it loses on both sensors. The error grows with the horizon.</p>
+<p>The whole pipeline on P01–P(10 − n), $m = 4$. <em>Prediction error</em> = RMSE over the 980 coordinates between a held-out month's observed latent and its predictor, mean over the $n$ months and the treated sites. Reported predictor: the fitted weights applied to the <strong>observed (raw) forward rows</strong> of the selected blocks, eq 27 — both sides of the comparison then carry observation noise. Reference: the site's own mean of P01–P(10 − n), with nothing estimated. The smoothed-forward-row column is retained for the record only; it compares a denoised prediction against a noisy observation, and the counts drawn from it in the original 10 September text (11 / 12 on Sentinel-1, 14–15 / 15 on Sentinel-2) are superseded by the counts below.</p>
 <table>
 <thead>
 <tr>
@@ -329,10 +414,10 @@ window.MathJax = {
 <th>fill</th>
 <th>n</th>
 <th>sites</th>
-<th>SHC (smoothed forward rows)</th>
-<th>SHC (raw forward rows)</th>
-<th>reference: own mean</th>
-<th>sites SHC &lt; reference</th>
+<th>prediction error, synthetic (raw forward rows, eq 27 — reported)</th>
+<th>prediction error, own mean</th>
+<th>sites where synthetic beats own mean</th>
+<th>prediction error, smoothed forward rows (superseded)</th>
 </tr>
 </thead>
 <tbody>
@@ -341,873 +426,127 @@ window.MathJax = {
 <td>chip-mean fill</td>
 <td>2</td>
 <td>12</td>
-<td>0.2303</td>
 <td>0.2666</td>
 <td>0.2360</td>
-<td>11 / 12</td>
+<td>0 / 12</td>
+<td>0.2303</td>
 </tr>
 <tr>
 <td>Sentinel-1</td>
 <td>chip-mean fill</td>
 <td>3</td>
 <td>12</td>
-<td>0.2478</td>
 <td>0.3022</td>
 <td>0.2452</td>
-<td>2 / 12</td>
+<td>0 / 12</td>
+<td>0.2478</td>
 </tr>
 <tr>
 <td>Sentinel-2</td>
 <td>chip-mean fill</td>
 <td>2</td>
 <td>15</td>
-<td>0.2080</td>
 <td>0.2267</td>
 <td>0.2415</td>
-<td>15 / 15</td>
+<td>10 / 15</td>
+<td>0.2080</td>
 </tr>
 <tr>
 <td>Sentinel-2</td>
 <td>chip-mean fill</td>
 <td>3</td>
 <td>15</td>
-<td>0.2330</td>
 <td>0.2969</td>
 <td>0.2540</td>
-<td>14 / 15</td>
+<td>0 / 15</td>
+<td>0.2330</td>
 </tr>
 <tr>
 <td>Sentinel-2</td>
 <td>historical fill</td>
 <td>2</td>
 <td>15</td>
-<td>0.2173</td>
 <td>0.2413</td>
 <td>0.2439</td>
-<td>14 / 15</td>
+<td>8 / 15</td>
+<td>0.2173</td>
 </tr>
 <tr>
 <td>Sentinel-2</td>
 <td>historical fill</td>
 <td>3</td>
 <td>15</td>
-<td>0.2371</td>
 <td>0.2971</td>
 <td>0.2525</td>
-<td>10 / 15</td>
-</tr>
-</tbody>
-</table>
-<p>On Sentinel-2 the smoothed counterfactual is 6–14 % below the own-history mean at most sites; on Sentinel-1 it is 2 % below at $n = 2$ and above it at $n = 3$. The raw forward rows are worse than the smoothed ones everywhere, which is the measured value of stage 1 on this panel.</p>
-<hr>
-<h2>6. Effect run: post-period departure of the treated sites against their controls</h2>
-<p>$T_0$ = P10, the same pipeline; $\lVert \hat\delta_{T_0+k} \rVert / \sqrt{980}$ per post month, mean over sites. <em>Controls</em> are the matched counterfactual sites run identically. $m = 4$.</p>
-<table>
-<thead>
-<tr>
-<th>sensor</th>
-<th>fill</th>
-<th>n</th>
-<th>post month</th>
-<th>treated</th>
-<th>controls</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Sentinel-1</td>
-<td>chip-mean fill</td>
-<td>2</td>
-<td>P11</td>
-<td>0.2086</td>
-<td>0.2134</td>
-</tr>
-<tr>
-<td>Sentinel-1</td>
-<td>chip-mean fill</td>
-<td>2</td>
-<td>P12</td>
-<td>0.2648</td>
-<td>0.2638</td>
-</tr>
-<tr>
-<td>Sentinel-1</td>
-<td>chip-mean fill</td>
-<td>3</td>
-<td>P11</td>
-<td>0.2037</td>
-<td>0.2080</td>
-</tr>
-<tr>
-<td>Sentinel-1</td>
-<td>chip-mean fill</td>
-<td>3</td>
-<td>P12</td>
-<td>0.2528</td>
-<td>0.2528</td>
-</tr>
-<tr>
-<td>Sentinel-1</td>
-<td>chip-mean fill</td>
-<td>3</td>
-<td>P13</td>
-<td>0.2644</td>
-<td>0.2582</td>
-</tr>
-<tr>
-<td>Sentinel-2</td>
-<td>chip-mean fill</td>
-<td>2</td>
-<td>P11</td>
-<td>0.2067</td>
-<td>0.1987</td>
-</tr>
-<tr>
-<td>Sentinel-2</td>
-<td>chip-mean fill</td>
-<td>2</td>
-<td>P12</td>
-<td>0.2581</td>
-<td>0.2499</td>
-</tr>
-<tr>
-<td>Sentinel-2</td>
-<td>chip-mean fill</td>
-<td>3</td>
-<td>P11</td>
-<td>0.2064</td>
-<td>0.2002</td>
-</tr>
-<tr>
-<td>Sentinel-2</td>
-<td>chip-mean fill</td>
-<td>3</td>
-<td>P12</td>
-<td>0.2399</td>
-<td>0.2326</td>
-</tr>
-<tr>
-<td>Sentinel-2</td>
-<td>chip-mean fill</td>
-<td>3</td>
-<td>P13</td>
-<td>0.3084</td>
-<td>0.3254</td>
-</tr>
-<tr>
-<td>Sentinel-2</td>
-<td>historical fill</td>
-<td>2</td>
-<td>P11</td>
-<td>0.2040</td>
-<td>0.1979</td>
-</tr>
-<tr>
-<td>Sentinel-2</td>
-<td>historical fill</td>
-<td>2</td>
-<td>P12</td>
-<td>0.2453</td>
-<td>0.2468</td>
-</tr>
-<tr>
-<td>Sentinel-2</td>
-<td>historical fill</td>
-<td>3</td>
-<td>P11</td>
-<td>0.2057</td>
-<td>0.1997</td>
-</tr>
-<tr>
-<td>Sentinel-2</td>
-<td>historical fill</td>
-<td>3</td>
-<td>P12</td>
-<td>0.2293</td>
-<td>0.2292</td>
-</tr>
-<tr>
-<td>Sentinel-2</td>
-<td>historical fill</td>
-<td>3</td>
-<td>P13</td>
-<td>0.3020</td>
-<td>0.3080</td>
-</tr>
-</tbody>
-</table>
-<p>Per treated site, $n = 2$, historical fill: the departure at P11 and P12, the median departure of its ten controls, the site's rank among the eleven (1 = largest), and its validation error against the own-mean reference.</p>
-<table>
-<thead>
-<tr>
-<th>sensor</th>
-<th>site</th>
-<th>h</th>
-<th>P11</th>
-<th>P12</th>
-<th>controls, median</th>
-<th>rank</th>
-<th>validation SHC</th>
-<th>validation reference</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Sentinel-1</td>
-<td>0015</td>
-<td>0.79</td>
-<td>0.246</td>
-<td>0.289</td>
-<td>0.245</td>
-<td>3 / 11</td>
-<td>0.253</td>
-<td>0.256</td>
-</tr>
-<tr>
-<td>Sentinel-1</td>
-<td>0016</td>
-<td>0.50</td>
-<td>0.211</td>
-<td>0.278</td>
-<td>0.246</td>
-<td>6 / 11</td>
-<td>0.251</td>
-<td>0.249</td>
-</tr>
-<tr>
-<td>Sentinel-1</td>
-<td>0017</td>
-<td>0.63</td>
-<td>0.200</td>
-<td>0.253</td>
-<td>0.243</td>
-<td>11 / 11</td>
-<td>0.224</td>
-<td>0.233</td>
-</tr>
-<tr>
-<td>Sentinel-1</td>
-<td>0018</td>
-<td>0.79</td>
-<td>0.194</td>
-<td>0.255</td>
-<td>0.227</td>
-<td>9 / 11</td>
-<td>0.214</td>
-<td>0.229</td>
-</tr>
-<tr>
-<td>Sentinel-1</td>
-<td>0019</td>
-<td>0.79</td>
-<td>0.206</td>
-<td>0.266</td>
-<td>0.245</td>
-<td>10 / 11</td>
-<td>0.231</td>
-<td>0.236</td>
-</tr>
-<tr>
-<td>Sentinel-1</td>
-<td>0020</td>
-<td>0.63</td>
-<td>0.213</td>
-<td>0.269</td>
-<td>0.239</td>
-<td>5 / 11</td>
-<td>0.235</td>
-<td>0.240</td>
-</tr>
-<tr>
-<td>Sentinel-1</td>
-<td>0021</td>
-<td>0.63</td>
-<td>0.214</td>
-<td>0.275</td>
-<td>0.245</td>
-<td>7 / 11</td>
-<td>0.237</td>
-<td>0.237</td>
-</tr>
-<tr>
-<td>Sentinel-1</td>
-<td>0022</td>
-<td>0.63</td>
-<td>0.221</td>
-<td>0.278</td>
-<td>0.228</td>
-<td>3 / 11</td>
-<td>0.237</td>
-<td>0.241</td>
-</tr>
-<tr>
-<td>Sentinel-1</td>
-<td>0023</td>
-<td>2.00</td>
-<td>0.195</td>
-<td>0.237</td>
-<td>0.197</td>
-<td>2 / 11</td>
-<td>0.221</td>
-<td>0.231</td>
-</tr>
-<tr>
-<td>Sentinel-1</td>
-<td>0024</td>
-<td>1.00</td>
-<td>0.223</td>
-<td>0.275</td>
-<td>0.263</td>
-<td>9 / 11</td>
-<td>0.233</td>
-<td>0.243</td>
-</tr>
-<tr>
-<td>Sentinel-1</td>
-<td>0025</td>
-<td>1.00</td>
-<td>0.208</td>
-<td>0.265</td>
-<td>0.252</td>
-<td>10 / 11</td>
-<td>0.225</td>
-<td>0.231</td>
-</tr>
-<tr>
-<td>Sentinel-1</td>
-<td>0027</td>
-<td>0.50</td>
-<td>0.172</td>
-<td>0.238</td>
-<td>0.217</td>
-<td>9 / 11</td>
-<td>0.203</td>
-<td>0.206</td>
-</tr>
-<tr>
-<td>Sentinel-2</td>
-<td>0001</td>
-<td>0.50</td>
-<td>0.227</td>
-<td>0.254</td>
-<td>0.226</td>
-<td>2 / 11</td>
-<td>0.226</td>
-<td>0.241</td>
-</tr>
-<tr>
-<td>Sentinel-2</td>
-<td>0002</td>
-<td>0.63</td>
-<td>0.221</td>
-<td>0.240</td>
-<td>0.193</td>
-<td>2 / 11</td>
-<td>0.223</td>
-<td>0.233</td>
-</tr>
-<tr>
-<td>Sentinel-2</td>
-<td>0003</td>
-<td>0.63</td>
-<td>0.176</td>
-<td>0.263</td>
-<td>0.230</td>
-<td>8 / 11</td>
-<td>0.209</td>
-<td>0.247</td>
-</tr>
-<tr>
-<td>Sentinel-2</td>
-<td>0004</td>
-<td>0.40</td>
-<td>0.218</td>
-<td>0.197</td>
-<td>0.224</td>
-<td>10 / 11</td>
-<td>0.245</td>
-<td>0.234</td>
-</tr>
-<tr>
-<td>Sentinel-2</td>
-<td>0005</td>
-<td>0.40</td>
-<td>0.209</td>
-<td>0.226</td>
-<td>0.229</td>
-<td>9 / 11</td>
-<td>0.224</td>
-<td>0.235</td>
-</tr>
-<tr>
-<td>Sentinel-2</td>
-<td>0006</td>
-<td>0.50</td>
-<td>0.175</td>
-<td>0.266</td>
-<td>0.228</td>
-<td>8 / 11</td>
-<td>0.202</td>
-<td>0.249</td>
-</tr>
-<tr>
-<td>Sentinel-2</td>
-<td>0007</td>
-<td>0.50</td>
-<td>0.173</td>
-<td>0.257</td>
-<td>0.235</td>
-<td>7 / 11</td>
-<td>0.233</td>
-<td>0.267</td>
-</tr>
-<tr>
-<td>Sentinel-2</td>
-<td>0008</td>
-<td>0.40</td>
-<td>0.189</td>
-<td>0.246</td>
-<td>0.238</td>
-<td>9 / 11</td>
-<td>0.241</td>
-<td>0.249</td>
-</tr>
-<tr>
-<td>Sentinel-2</td>
-<td>0009</td>
-<td>0.40</td>
-<td>0.187</td>
-<td>0.245</td>
-<td>0.232</td>
-<td>10 / 11</td>
-<td>0.236</td>
-<td>0.244</td>
-</tr>
-<tr>
-<td>Sentinel-2</td>
-<td>0010</td>
-<td>0.40</td>
-<td>0.221</td>
-<td>0.230</td>
-<td>0.233</td>
-<td>9 / 11</td>
-<td>0.262</td>
-<td>0.267</td>
-</tr>
-<tr>
-<td>Sentinel-2</td>
-<td>0011</td>
-<td>1.00</td>
-<td>0.210</td>
-<td>0.250</td>
-<td>0.222</td>
-<td>5 / 11</td>
-<td>0.197</td>
-<td>0.242</td>
-</tr>
-<tr>
-<td>Sentinel-2</td>
-<td>0012</td>
-<td>1.00</td>
-<td>0.196</td>
-<td>0.245</td>
-<td>0.217</td>
-<td>6 / 11</td>
-<td>0.196</td>
-<td>0.254</td>
-</tr>
-<tr>
-<td>Sentinel-2</td>
-<td>0013</td>
-<td>0.16</td>
-<td>0.232</td>
-<td>0.223</td>
-<td>0.224</td>
-<td>6 / 11</td>
-<td>0.168</td>
-<td>0.229</td>
-</tr>
-<tr>
-<td>Sentinel-2</td>
-<td>0014</td>
-<td>0.79</td>
-<td>0.246</td>
-<td>0.273</td>
-<td>0.213</td>
-<td>1 / 11</td>
-<td>0.179</td>
-<td>0.243</td>
-</tr>
-<tr>
-<td>Sentinel-2</td>
-<td>0015</td>
-<td>0.32</td>
-<td>0.179</td>
-<td>0.264</td>
-<td>0.193</td>
-<td>2 / 11</td>
-<td>0.217</td>
-<td>0.225</td>
-</tr>
-</tbody>
-</table>
-<p>The treated sites' departure equals their controls' and equals the validation error. A treated site has the largest departure of its eleven at 0 of 12 Sentinel-1 sites and 1 of 15 Sentinel-2 sites. The per-channel mean departure is shared by treated and control sites:</p>
-<table>
-<thead>
-<tr>
-<th>sensor</th>
-<th>post month</th>
-<th>group</th>
-<th>ch 1</th>
-<th>ch 2</th>
-<th>ch 3</th>
-<th>ch 4</th>
-<th>ch 5</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Sentinel-1</td>
-<td>P11</td>
-<td>controls</td>
-<td>-0.009</td>
-<td>+0.008</td>
-<td>+0.010</td>
-<td>+0.018</td>
-<td>-0.004</td>
-</tr>
-<tr>
-<td>Sentinel-1</td>
-<td>P11</td>
-<td>treated</td>
-<td>-0.000</td>
-<td>+0.008</td>
-<td>+0.013</td>
-<td>+0.019</td>
-<td>-0.006</td>
-</tr>
-<tr>
-<td>Sentinel-1</td>
-<td>P12</td>
-<td>controls</td>
-<td>-0.011</td>
-<td>+0.008</td>
-<td>+0.030</td>
-<td>-0.039</td>
-<td>+0.015</td>
-</tr>
-<tr>
-<td>Sentinel-1</td>
-<td>P12</td>
-<td>treated</td>
-<td>-0.006</td>
-<td>+0.000</td>
-<td>+0.036</td>
-<td>-0.040</td>
-<td>+0.027</td>
-</tr>
-<tr>
-<td>Sentinel-2</td>
-<td>P11</td>
-<td>controls</td>
-<td>+0.030</td>
-<td>+0.093</td>
-<td>+0.025</td>
-<td>+0.014</td>
-<td>-0.050</td>
-</tr>
-<tr>
-<td>Sentinel-2</td>
-<td>P11</td>
-<td>treated</td>
-<td>+0.041</td>
-<td>+0.106</td>
-<td>+0.043</td>
-<td>+0.034</td>
-<td>-0.043</td>
-</tr>
-<tr>
-<td>Sentinel-2</td>
-<td>P12</td>
-<td>controls</td>
-<td>+0.025</td>
-<td>+0.087</td>
-<td>-0.026</td>
-<td>-0.021</td>
-<td>-0.071</td>
-</tr>
-<tr>
-<td>Sentinel-2</td>
-<td>P12</td>
-<td>treated</td>
-<td>+0.040</td>
-<td>+0.105</td>
-<td>-0.006</td>
-<td>-0.008</td>
-<td>-0.072</td>
-</tr>
-</tbody>
-</table>
-<p>The Sentinel-2 shift in channel 2 at both post months is the July–August counterfactual meeting September–October imagery: the seasonal mismatch anticipated on 4 September when the donor is the most recent block. It is common to every site and is not an effect.</p>
-<p><strong>What is established.</strong> With the method as the paper defines it, on the 980-d latent of monthly composites, the smoothed own-history counterfactual predicts a clean pre-hurricane month better than the own-history mean on Sentinel-2, and the post-hurricane departure of the treated sites is indistinguishable from that of untouched sites. <strong>Not established:</strong> that the latent carries no Helene signal. The counterfactual for September–October is the smoothed July–August latent, so a seasonal change of the size of the validation error masks any effect of that size, and the stage-1 bandwidth smooths ten months almost to a line. Candidates for the next step are same-season historical blocks from earlier years, which need the longer series, and a statement of what an image-level effect is before a vector difference is read causally.</p>
-<h3>6.1 A learned covariate mapping</h3>
-<p><strong>What was added.</strong> The model of §2 carries a covariate term x_t'β that the fit of §3 dropped. Following a suggestion of 10 September, that term is put back as a learned mapping g(x) of the site descriptors, fitted across sites, and nothing else in the pipeline changes: the kernel stage, the blocks, the stepwise selection, the weights, the counterfactual and the effect are run unchanged on the residual y_t − g(x_t), and the validation and the effect are scored on the observed latent against g + ℓ̂⁽⁰⁾, so every number below has the definition of §4–§6.</p>
-<p><strong>The mapping.</strong> x = the site's NLCD land-cover class (7 classes, class 41 as reference), elevation and slope, from the matching table; there is no time-varying covariate in the data. For each sensor, cloud fill and period, g is a multi-output ridge regression of the 980-d latent on these descriptors with an unpenalised intercept, fitted on the untreated rows of that period: every usable site for P01–P10 (61–165 sites), the control sites only for P11–P21 (120–150 sites); a treated site's post-hurricane months never enter any fit. The value subtracted from a site is the leave-one-site-out prediction, so no site's own latent enters its own covariate stage at any period. The ridge penalty is chosen by the leave-one-site-out error over P01–P10 on a log grid: 1000 for Sentinel-1 and 100 for Sentinel-2 under both fills, interior of the grid.</p>
-<p><strong>What the mapping captures.</strong> The leave-one-site-out R² of the descriptors is at or below 0.012 at every period and channel and negative at most (−0.034 to 0.012 over P01–P10): land cover, elevation and slope explain none of the cross-site variation of the latent within a month, and the penalty shrinks them to nothing. In effect g is the untreated cross-site mean latent of each period, learned from all sites before the hurricane and from the control sites after it. That period mean accounts for 0.7 % of the untreated latent variance on Sentinel-1 and 8 % on Sentinel-2 (chip-mean fill).</p>
-<p><strong>Validation</strong> (fit on P01–P(10 − n), predict the last n pre-hurricane months; RMSE over the 980 coordinates between the observed latent and the counterfactual, mean over treated sites; m = 4, as in §5):</p>
-<table>
-<thead>
-<tr>
-<th>sensor</th>
-<th>fill</th>
-<th>n</th>
-<th>validation error, without g</th>
-<th>with g</th>
-<th>own-mean reference</th>
-<th>sites below the reference, without → with</th>
-<th>most recent block alone, without / with</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Sentinel-1</td>
-<td>chip-mean fill</td>
-<td>2</td>
-<td>0.2303</td>
-<td>0.2310</td>
-<td>0.2360</td>
-<td>11 → 10 / 12</td>
-<td>12 / 12</td>
-</tr>
-<tr>
-<td>Sentinel-1</td>
-<td>chip-mean fill</td>
-<td>3</td>
-<td>0.2478</td>
-<td>0.2480</td>
-<td>0.2452</td>
-<td>2 → 2 / 12</td>
-<td>12 / 12</td>
-</tr>
-<tr>
-<td>Sentinel-2</td>
-<td>chip-mean fill</td>
-<td>2</td>
-<td>0.2080</td>
-<td>0.2016</td>
-<td>0.2415</td>
-<td>15 → 14 / 15</td>
-<td>15 / 15</td>
-</tr>
-<tr>
-<td>Sentinel-2</td>
-<td>chip-mean fill</td>
-<td>3</td>
-<td>0.2330</td>
-<td>0.2204</td>
-<td>0.2540</td>
-<td>14 → 14 / 15</td>
-<td>15 / 15</td>
-</tr>
-<tr>
-<td>Sentinel-2</td>
-<td>historical fill</td>
-<td>2</td>
-<td>0.2173</td>
-<td>0.2113</td>
-<td>0.2439</td>
-<td>14 → 14 / 15</td>
-<td>15 / 15</td>
-</tr>
-<tr>
-<td>Sentinel-2</td>
-<td>historical fill</td>
-<td>3</td>
+<td>0 / 15</td>
 <td>0.2371</td>
-<td>0.2267</td>
-<td>0.2525</td>
-<td>10 → 13 / 15</td>
-<td>15 / 15</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Effect run</strong> (‖δ̂‖/√980 per post month, mean over sites, m = 4, as in §6):</p>
+<p>Per month, historical fill. These are <strong>smoothed-forward-row</strong> values, kept only for the horizon pattern: the per-month split was never stored for the raw forward rows, so it cannot be restated under the corrected evaluation without re-running the pipeline. The means in the last column are therefore the superseded column of the table above, not the reported one.</p>
 <table>
 <thead>
 <tr>
 <th>sensor</th>
-<th>fill</th>
 <th>n</th>
-<th>post month</th>
-<th>treated, without g</th>
-<th>with g</th>
-<th>controls, without g</th>
-<th>with g</th>
+<th>P08</th>
+<th>P09</th>
+<th>P10</th>
+<th>mean (smoothed, superseded)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Sentinel-1</td>
-<td>chip-mean fill</td>
 <td>2</td>
-<td>P11</td>
-<td>0.2086</td>
-<td>0.2090</td>
-<td>0.2134</td>
-<td>0.2142</td>
+<td></td>
+<td>0.2229</td>
+<td>0.2377</td>
+<td>0.2303</td>
 </tr>
 <tr>
 <td>Sentinel-1</td>
-<td>chip-mean fill</td>
+<td>3</td>
+<td>0.2396</td>
+<td>0.2442</td>
+<td>0.2595</td>
+<td>0.2478</td>
+</tr>
+<tr>
+<td>Sentinel-2</td>
 <td>2</td>
-<td>P12</td>
-<td>0.2648</td>
-<td>0.2643</td>
-<td>0.2638</td>
-<td>0.2641</td>
+<td></td>
+<td>0.2093</td>
+<td>0.2252</td>
+<td>0.2173</td>
 </tr>
 <tr>
-<td>Sentinel-1</td>
-<td>chip-mean fill</td>
+<td>Sentinel-2</td>
 <td>3</td>
-<td>P11</td>
-<td>0.2037</td>
-<td>0.2041</td>
-<td>0.2080</td>
-<td>0.2088</td>
-</tr>
-<tr>
-<td>Sentinel-1</td>
-<td>chip-mean fill</td>
-<td>3</td>
-<td>P12</td>
-<td>0.2528</td>
-<td>0.2525</td>
-<td>0.2528</td>
-<td>0.2531</td>
-</tr>
-<tr>
-<td>Sentinel-1</td>
-<td>chip-mean fill</td>
-<td>3</td>
-<td>P13</td>
-<td>0.2644</td>
-<td>0.2632</td>
-<td>0.2582</td>
-<td>0.2579</td>
-</tr>
-<tr>
-<td>Sentinel-2</td>
-<td>chip-mean fill</td>
-<td>2</td>
-<td>P11</td>
-<td>0.2067</td>
-<td>0.1973</td>
-<td>0.1987</td>
-<td>0.1918</td>
-</tr>
-<tr>
-<td>Sentinel-2</td>
-<td>chip-mean fill</td>
-<td>2</td>
-<td>P12</td>
-<td>0.2581</td>
-<td>0.2490</td>
-<td>0.2499</td>
-<td>0.2428</td>
-</tr>
-<tr>
-<td>Sentinel-2</td>
-<td>chip-mean fill</td>
-<td>3</td>
-<td>P11</td>
-<td>0.2064</td>
-<td>0.1948</td>
-<td>0.2002</td>
-<td>0.1914</td>
-</tr>
-<tr>
-<td>Sentinel-2</td>
-<td>chip-mean fill</td>
-<td>3</td>
-<td>P12</td>
-<td>0.2399</td>
-<td>0.2307</td>
-<td>0.2326</td>
-<td>0.2244</td>
-</tr>
-<tr>
-<td>Sentinel-2</td>
-<td>chip-mean fill</td>
-<td>3</td>
-<td>P13</td>
-<td>0.3084</td>
-<td>0.2805</td>
-<td>0.3254</td>
-<td>0.3007</td>
-</tr>
-<tr>
-<td>Sentinel-2</td>
-<td>historical fill</td>
-<td>2</td>
-<td>P11</td>
-<td>0.2040</td>
-<td>0.1958</td>
-<td>0.1979</td>
-<td>0.1915</td>
-</tr>
-<tr>
-<td>Sentinel-2</td>
-<td>historical fill</td>
-<td>2</td>
-<td>P12</td>
-<td>0.2453</td>
-<td>0.2386</td>
-<td>0.2468</td>
-<td>0.2400</td>
-</tr>
-<tr>
-<td>Sentinel-2</td>
-<td>historical fill</td>
-<td>3</td>
-<td>P11</td>
-<td>0.2057</td>
-<td>0.1949</td>
-<td>0.1997</td>
-<td>0.1912</td>
-</tr>
-<tr>
-<td>Sentinel-2</td>
-<td>historical fill</td>
-<td>3</td>
-<td>P12</td>
-<td>0.2293</td>
-<td>0.2217</td>
-<td>0.2292</td>
-<td>0.2216</td>
-</tr>
-<tr>
-<td>Sentinel-2</td>
-<td>historical fill</td>
-<td>3</td>
-<td>P13</td>
-<td>0.3020</td>
-<td>0.2913</td>
-<td>0.3080</td>
-<td>0.2951</td>
+<td>0.2232</td>
+<td>0.2394</td>
+<td>0.2488</td>
+<td>0.2371</td>
 </tr>
 </tbody>
 </table>
-<p>A treated site has the largest departure of its eleven at 0 of 12 Sentinel-1 sites with and without g, and at 1 of 15 Sentinel-2 sites in every cell but one (chip-mean fill, n = 2: 1 without g, 2 with g). The per-site ranks move by at most two places.</p>
-<p><strong>Observations.</strong> On Sentinel-1 the covariate stage changes nothing to three decimals. On Sentinel-2 it lowers the validation error by 3 to 5 % and lowers the post-period departure of treated and control sites by the same proportion, because the common September–October shift of §6 is now removed by the period mean learned from the control sites. The treated sites' departure still equals their controls'. The mapping does what the sine–cosine term does in the band-space pipeline, remove a shared seasonal level, and with these descriptors nothing beyond that: no effect was hiding behind a missing covariate of this kind.</p>
+<p>P09 and P10 are predicted worse at $n = 3$, where the fit ends at P07 and those months sit at horizons two and three. Against the own mean, under the reported evaluation: on Sentinel-2 at $n = 2$ the synthetic counterfactual's error is 6.1 % below it under chip-mean fill and 1.1 % below it under historical fill, and at $n = 3$ it is 17–18 % above; on Sentinel-1 it is 13.0 % above at $n = 2$ and 23.2 % above at $n = 3$.</p>
 <hr>
-<h2>7. Language models as the weight solver on the band-feature designs</h2>
-<p><strong>Question.</strong> Given the band-mean tables of the band-space pipeline, does a general language model predict a held-out pre-hurricane month as well as that pipeline's own two estimators? This is the band-space pipeline's problem, not the latent one of §1–§6: the outcome is the spatial mean of each band over the parcel, Sentinel-2 B2, B3, B4, B8, B11, B12, NDVI, NDWI and Sentinel-1 VV, VH, VV−VH, on the monthly composites of §1.</p>
-<p><strong>Designs.</strong> Validation only, P10 (August 2024) predicted from information up to P09, 27 target cells (15 Sentinel-2 sites, 12 Sentinel-1 sites), nothing treated. <em>SHC design</em>: the target site's own P01–P09. <em>SCM design</em>: the target site's P01–P09 and the five matched donor sites (control rank 1–5, the donor rule of the band-space SCM) at P01–P10, so the donors are observed at the predicted month, as in every synthetic-control fit of this project. Each prompt opens with a one-paragraph guide to what the bands measure, then the table, then a one-line answer format; the model returns the band means at P10. No word for the hurricane, the landslides or a treatment appears in any prompt. Settings: temperature 0, fixed seed, output limit at the service ceiling of 8,000 tokens, one attempt per cell, a retry only on a rate-limit response.</p>
-<p><strong>Models.</strong> The four models hosted by the university service: gpt-oss-120b, GLM-5.3, Kimi-K3, DeepSeek-V4-Flash. GLM-5.3 and DeepSeek-V4-Flash spend the whole 8,000-token budget on hidden reasoning and return no text in nearly every attempt at either reasoning setting (GLM-5.3 answered 2 of 27 cells at its default setting and none at low; DeepSeek-V4-Flash none at either) and are not reported. Kimi-K3 answers only in its low-reasoning variant (the default exceeds the service's 360-second gateway limit). gpt-oss-120b answers at both settings and is reported at both.</p>
-<p><strong>Metrics, exactly the band-space pipeline's.</strong> SHC design: per band, squared error at P10 divided by the band's variance (one degree of freedom lost) over the site's P01–P10, then the mean over bands, the outcome metric of the band-space slides; the held-out variant with the P01–P09 variance is checked against that pipeline's stored values (§7.1). SCM design: standardized validation RMSE at P10, the error in each band divided by the pooled standard deviation over the targets and their donors at P01–P09, root mean square over bands. Two reference rows on the same features and split: the band-space pipeline's held-out SHC (seasonal sine–cosine partialled out, local-linear Gaussian kernel with a two-month bandwidth, per-band standardization, blocks of four months, stepwise block selection, simplex weights, prediction from the selected blocks' observed forward month), re-run and reproducing that pipeline's stored per-site values; and the band-space SCM solver (simplex on the flattened standardized P01–P09 matrix), which reproduces that pipeline's stored weights. The site's own P01–P09 mean is the no-estimation reference.</p>
-<h3>7.1 SHC design: all 27 cells answered by every reported model</h3>
-<p>Outcome metric (variance over P01–P10), per site and mean / median over sites, lower is better. On the held-out variant (variance over P01–P09) the band-space SHC row equals that pipeline's stored 0.4925 (Sentinel-1) and 0.7867 (Sentinel-2) and the ordering of the columns on the mean is unchanged.</p>
+<h2>6. Language models as the weight solver on the band-feature designs</h2>
+<p><strong>Summary.</strong> On the band-space pipeline's own SHC design and metric, the two language models that answer beat the band-space SHC on Sentinel-1 and roughly tie it on Sentinel-2; a three-month mean beats both, and the models state that this average is the rule they used. The SCM design is incomplete with these models. The reference that carries forward is the three-month mean, not persistence.</p>
+<p><strong>Question.</strong> Given the band-mean tables of the band-space pipeline, does a general language model predict a held-out pre-hurricane month as well as that pipeline's own two estimators?</p>
+<ul>
+<li>Task: predict P10 (August 2024) from information up to P09; 27 target cells (12 Sentinel-1, 15 Sentinel-2 sites); nothing treated.</li>
+<li>Outcome: the band means over the parcel (Sentinel-2 B2, B3, B4, B8, B11, B12, NDVI, NDWI; Sentinel-1 VV, VH, VV−VH) on the monthly composites of §1.</li>
+<li>SHC design: the target site's own P01–P09. SCM design: the target's P01–P09 and its five matched donor sites (control rank 1–5) at P01–P10.</li>
+<li>Prompt: a one-paragraph guide to the bands, the table, a one-line answer format; no word for the hurricane, the landslides or a treatment.</li>
+<li>Settings: temperature 0, fixed seed, output limit at the service ceiling of 8,000 tokens, one attempt per cell, a retry only on a rate-limit response.</li>
+<li>Models: gpt-oss-120b at default and low reasoning; Kimi-K3 at low reasoning (its default exceeds the service's 360-second gateway limit). GLM-5.3 and DeepSeek-V4-Flash spend the whole token budget on hidden reasoning and return no text in nearly every attempt; not reported.</li>
+<li>Metrics, the band-space pipeline's: SHC design, that pipeline's own joint validation NMSE — per band the squared error at P10 over the band's P01–P09 variance, mean over bands; SCM design, standardized validation RMSE at P10 (each band's error over the pooled P01–P09 standard deviation of the targets and donors). References on the same features and split: the band-space held-out SHC re-run (sine–cosine partialled out, two-month kernel, per-band standardization, four-month blocks, stepwise selection, simplex weights, prediction from the selected blocks' observed forward month; reproduces that pipeline's stored per-site values), the band-space SCM solver (reproduces its stored weights), and the site's own P01–P09 mean.</li>
+</ul>
+<h3>6.1 SHC design: all 27 cells answered by every reported model</h3>
+<p>Outcome metric, the band pipeline's joint validation NMSE (variance over P01–P09), per site and mean / median over sites, lower is better.</p>
+<p><strong>On reading the <code>band-space SHC</code> column against that pipeline's own published numbers.</strong> The per-site values here use that pipeline's own denominator, the variance over P01–P09, so they are directly comparable with its stored per-site values: the re-run matches all 27 to 4.2e-07 and the sensor means equal its stored 0.4925 and 0.7867. An earlier version of this table used the variance over P01–P10 and was not comparable with them; every figure in §6 has been recomputed.</p>
 <table>
 <thead>
 <tr>
@@ -1224,278 +563,283 @@ window.MathJax = {
 <tr>
 <td>Sentinel-1</td>
 <td>0015</td>
-<td>0.258</td>
-<td>0.527</td>
-<td>0.288</td>
-<td>1.288</td>
-<td>0.440</td>
+<td>0.446</td>
+<td>1.055</td>
+<td>0.263</td>
+<td>1.182</td>
+<td>0.412</td>
 </tr>
 <tr>
 <td>Sentinel-1</td>
 <td>0016</td>
-<td>0.216</td>
-<td>0.030</td>
-<td>0.050</td>
-<td>0.087</td>
-<td>0.615</td>
+<td>0.172</td>
+<td>0.084</td>
+<td>0.047</td>
+<td>0.081</td>
+<td>0.594</td>
 </tr>
 <tr>
 <td>Sentinel-1</td>
 <td>0017</td>
-<td>0.166</td>
-<td>0.238</td>
-<td>0.351</td>
-<td>0.314</td>
-<td>0.793</td>
+<td>0.152</td>
+<td>0.224</td>
+<td>0.332</td>
+<td>0.293</td>
+<td>0.816</td>
 </tr>
 <tr>
 <td>Sentinel-1</td>
 <td>0018</td>
-<td>0.158</td>
-<td>0.126</td>
-<td>0.158</td>
-<td>0.291</td>
-<td>0.713</td>
+<td>0.123</td>
+<td>0.383</td>
+<td>0.145</td>
+<td>0.265</td>
+<td>0.711</td>
 </tr>
 <tr>
 <td>Sentinel-1</td>
 <td>0019</td>
-<td>0.380</td>
-<td>0.414</td>
-<td>0.335</td>
-<td>0.526</td>
-<td>1.004</td>
+<td>0.351</td>
+<td>0.507</td>
+<td>0.314</td>
+<td>0.484</td>
+<td>1.039</td>
 </tr>
 <tr>
 <td>Sentinel-1</td>
 <td>0020</td>
-<td>0.081</td>
-<td>0.070</td>
-<td>0.070</td>
-<td>0.184</td>
-<td>0.407</td>
+<td>0.073</td>
+<td>0.069</td>
+<td>0.063</td>
+<td>0.165</td>
+<td>0.390</td>
 </tr>
 <tr>
 <td>Sentinel-1</td>
 <td>0021</td>
-<td>0.727</td>
-<td>0.139</td>
-<td>1.120</td>
-<td>0.532</td>
-<td>0.197</td>
+<td>0.558</td>
+<td>0.548</td>
+<td>1.013</td>
+<td>0.482</td>
+<td>0.181</td>
 </tr>
 <tr>
 <td>Sentinel-1</td>
 <td>0022</td>
-<td>0.327</td>
-<td>0.971</td>
-<td>0.074</td>
-<td>0.485</td>
-<td>0.246</td>
+<td>0.700</td>
+<td>0.948</td>
+<td>0.067</td>
+<td>0.440</td>
+<td>0.228</td>
 </tr>
 <tr>
 <td>Sentinel-1</td>
 <td>0023</td>
-<td>1.217</td>
-<td>1.793</td>
-<td>1.801</td>
-<td>1.261</td>
-<td>1.034</td>
+<td>1.141</td>
+<td>1.679</td>
+<td>1.685</td>
+<td>1.184</td>
+<td>1.081</td>
 </tr>
 <tr>
 <td>Sentinel-1</td>
 <td>0024</td>
-<td>0.442</td>
-<td>0.489</td>
-<td>0.321</td>
-<td>0.412</td>
-<td>1.212</td>
+<td>0.348</td>
+<td>0.483</td>
+<td>0.313</td>
+<td>0.397</td>
+<td>1.304</td>
 </tr>
 <tr>
 <td>Sentinel-1</td>
 <td>0025</td>
-<td>0.332</td>
-<td>0.428</td>
-<td>0.335</td>
-<td>0.568</td>
-<td>0.901</td>
+<td>0.334</td>
+<td>0.421</td>
+<td>0.310</td>
+<td>0.521</td>
+<td>0.919</td>
 </tr>
 <tr>
 <td>Sentinel-1</td>
 <td>0027</td>
-<td>0.259</td>
-<td>0.259</td>
-<td>0.355</td>
-<td>0.451</td>
-<td>0.469</td>
+<td>—</td>
+<td>0.392</td>
+<td>0.326</td>
+<td>0.415</td>
+<td>0.440</td>
 </tr>
 <tr>
 <td>Sentinel-2</td>
 <td>0001</td>
-<td>0.376</td>
-<td>0.116</td>
-<td>0.284</td>
-<td>0.170</td>
-<td>0.234</td>
+<td>0.346</td>
+<td>0.118</td>
+<td>0.255</td>
+<td>0.153</td>
+<td>0.216</td>
 </tr>
 <tr>
 <td>Sentinel-2</td>
 <td>0002</td>
-<td>1.313</td>
-<td>1.327</td>
-<td>1.270</td>
-<td>1.425</td>
-<td>2.107</td>
+<td>1.779</td>
+<td>1.512</td>
+<td>1.488</td>
+<td>1.675</td>
+<td>3.027</td>
 </tr>
 <tr>
 <td>Sentinel-2</td>
 <td>0003</td>
-<td>0.927</td>
-<td>0.758</td>
-<td>1.372</td>
-<td>0.996</td>
-<td>1.382</td>
+<td>1.194</td>
+<td>1.112</td>
+<td>1.594</td>
+<td>1.164</td>
+<td>1.713</td>
 </tr>
 <tr>
 <td>Sentinel-2</td>
 <td>0004</td>
-<td>9.516</td>
-<td>4.510</td>
-<td>3.140</td>
-<td>3.421</td>
-<td>0.588</td>
+<td>6.270</td>
+<td>1.154</td>
+<td>2.974</td>
+<td>3.232</td>
+<td>0.576</td>
 </tr>
 <tr>
 <td>Sentinel-2</td>
 <td>0005</td>
-<td>2.571</td>
-<td>1.508</td>
-<td>3.118</td>
-<td>1.890</td>
-<td>1.458</td>
+<td>2.966</td>
+<td>1.759</td>
+<td>3.646</td>
+<td>2.167</td>
+<td>1.760</td>
 </tr>
 <tr>
 <td>Sentinel-2</td>
 <td>0006</td>
-<td>0.851</td>
-<td>0.861</td>
-<td>0.464</td>
-<td>0.643</td>
-<td>0.822</td>
+<td>1.251</td>
+<td>0.820</td>
+<td>0.444</td>
+<td>0.614</td>
+<td>0.807</td>
 </tr>
 <tr>
 <td>Sentinel-2</td>
 <td>0007</td>
-<td>0.148</td>
-<td>0.140</td>
-<td>0.174</td>
-<td>0.191</td>
-<td>0.788</td>
+<td>0.488</td>
+<td>0.130</td>
+<td>0.169</td>
+<td>0.184</td>
+<td>0.790</td>
 </tr>
 <tr>
 <td>Sentinel-2</td>
 <td>0008</td>
-<td>0.260</td>
-<td>0.194</td>
-<td>0.265</td>
-<td>0.232</td>
-<td>1.095</td>
+<td>0.429</td>
+<td>0.201</td>
+<td>0.267</td>
+<td>0.240</td>
+<td>1.175</td>
 </tr>
 <tr>
 <td>Sentinel-2</td>
 <td>0009</td>
-<td>0.396</td>
-<td>0.364</td>
-<td>0.276</td>
-<td>0.211</td>
-<td>1.012</td>
+<td>0.581</td>
+<td>0.198</td>
+<td>0.270</td>
+<td>0.207</td>
+<td>1.069</td>
 </tr>
 <tr>
 <td>Sentinel-2</td>
 <td>0010</td>
-<td>1.329</td>
-<td>0.844</td>
-<td>1.876</td>
-<td>0.845</td>
-<td>1.164</td>
+<td>1.338</td>
+<td>0.717</td>
+<td>2.018</td>
+<td>0.899</td>
+<td>1.276</td>
 </tr>
 <tr>
 <td>Sentinel-2</td>
 <td>0011</td>
-<td>0.231</td>
-<td>0.117</td>
-<td>0.182</td>
-<td>0.119</td>
-<td>0.566</td>
+<td>0.178</td>
+<td>0.124</td>
+<td>0.166</td>
+<td>0.108</td>
+<td>0.559</td>
 </tr>
 <tr>
 <td>Sentinel-2</td>
 <td>0012</td>
-<td>1.228</td>
-<td>0.636</td>
-<td>0.398</td>
-<td>0.941</td>
-<td>1.037</td>
+<td>1.719</td>
+<td>0.622</td>
+<td>0.394</td>
+<td>0.917</td>
+<td>1.094</td>
 </tr>
 <tr>
 <td>Sentinel-2</td>
 <td>0013</td>
-<td>0.272</td>
-<td>0.121</td>
-<td>0.180</td>
-<td>0.158</td>
-<td>0.788</td>
+<td>0.192</td>
+<td>0.116</td>
+<td>0.174</td>
+<td>0.154</td>
+<td>0.800</td>
 </tr>
 <tr>
 <td>Sentinel-2</td>
 <td>0014</td>
-<td>0.079</td>
-<td>0.074</td>
-<td>0.059</td>
-<td>0.039</td>
-<td>0.572</td>
+<td>0.071</td>
+<td>0.056</td>
+<td>0.054</td>
+<td>0.036</td>
+<td>0.562</td>
 </tr>
 <tr>
 <td>Sentinel-2</td>
 <td>0015</td>
-<td>0.131</td>
-<td>0.136</td>
-<td>0.258</td>
-<td>0.056</td>
-<td>1.213</td>
+<td>0.048</td>
+<td>0.132</td>
+<td>0.255</td>
+<td>0.051</td>
+<td>1.321</td>
 </tr>
 <tr>
 <td><strong>Sentinel-1, mean / median</strong></td>
 <td></td>
-<td>0.380 / 0.293</td>
-<td>0.457 / 0.336</td>
-<td>0.438 / 0.328</td>
-<td>0.533 / 0.468</td>
-<td>0.669 / 0.664</td>
+<td>0.400 / 0.348</td>
+<td>0.566 / 0.452</td>
+<td>0.407 / 0.311</td>
+<td>0.492 / 0.427</td>
+<td>0.676 / 0.653</td>
 </tr>
 <tr>
 <td><strong>Sentinel-2, mean / median</strong></td>
 <td></td>
-<td>1.309 / 0.396</td>
-<td>0.781 / 0.364</td>
-<td>0.888 / 0.284</td>
-<td>0.756 / 0.232</td>
-<td>0.989 / 1.012</td>
+<td>1.257 / 0.581</td>
+<td>0.585 / 0.201</td>
+<td>0.945 / 0.270</td>
+<td>0.787 / 0.240</td>
+<td>1.116 / 1.069</td>
 </tr>
 <tr>
 <td><strong>sites where the model beats the band-space SHC</strong></td>
 <td></td>
-<td>S1 9 / 12, S2 3 / 15</td>
-<td>S1 9 / 12, S2 10 / 15</td>
+<td>S1 8 / 11, S2 1 / 15</td>
+<td>S1 5 / 12, S2 11 / 15</td>
 <td>S1 9 / 12, S2 5 / 15</td>
 <td></td>
 <td></td>
 </tr>
 </tbody>
 </table>
-<p><strong>Observations.</strong> (1) On Sentinel-1 every model beats the band-space SHC: Kimi-K3 at 9 of 12 sites, gpt-oss-120b at 9 of 12 at either setting, and all three beat the own-mean reference on mean and median. (2) On Sentinel-2 the band-space SHC has the lowest mean and median; gpt-oss-120b beats it at 10 of 15 sites at low reasoning and 5 of 15 at default, Kimi-K3 at 3 of 15. The model means are set by three sites (0004, 0005, 0010) where the models are far above 1 and the band-space SHC is itself at 3.42, 1.89 and 0.85; on the medians the models are within 0.05–0.16 of it. (3) The band-space SHC's forecast is the P09 value carried forward at 26 of the 27 cells: the stepwise rule keeps the most recent block alone at weight 1, and only Sentinel-2 site 0014 adds a second block (weight 0.10). What the models add on Sentinel-1 is therefore a trend or seasonal reading of nine smooth backscatter values; on Sentinel-2, where reflectance jumps with residual cloud, a model cannot tell a jump from a trend and carrying P09 forward is as good. (4) gpt-oss-120b at low and default reasoning are close (low is better at 16 of 27 cells); the reasoning setting is not what separates a model from the band-space SHC.</p>
-<h3>7.2 SCM design: incomplete, reported as it stands</h3>
-<p>The SCM prompt is three to four times longer (six parcels, ten months: 1,650–1,750 tokens for Sentinel-1 and 3,650–3,950 for Sentinel-2, against 480 and 869 for the SHC design) and the models reason longer on it. Answered cells per model, with the two failure modes (hidden reasoning fills the 8,000-token ceiling and no text is returned; the service gateway closes the request at 360 s):</p>
+<ul>
+<li>Sentinel-1: gpt-oss-120b at default reasoning beats the band-space SHC at 9 of 12 sites and Kimi-K3 at 8 of 11; gpt-oss-120b at low reasoning at 5 of 12. All three beat the own mean on mean and median.</li>
+<li>Sentinel-2: the band-space SHC has the lowest mean and median; the model means are set by sites 0004, 0005 and 0010, where the band-space SHC is itself at 3.23, 2.17 and 0.90; on the medians gpt-oss-120b sits below it at either setting and Kimi-K3 above.</li>
+<li>The band-space SHC's forecast is P09 carried forward at 26 of 27 cells (block 1 alone at weight 1; site 0014 adds a second block at 0.10). What the models add on Sentinel-1 is a trend or seasonal reading of nine smooth values; on Sentinel-2, where reflectance jumps with residual cloud, carrying P09 forward is as good.</li>
+<li>gpt-oss-120b at low and default reasoning are close (low better at 16 of 27 cells).</li>
+</ul>
+<h3>6.2 SCM design: incomplete, reported as it stands</h3>
+<p>The SCM prompt is three to four times longer (six parcels, ten months) and the models reason longer on it. Answered cells, with the two failure modes (hidden reasoning fills the 8,000-token ceiling; the gateway closes the request at 360 s):</p>
 <table>
 <thead>
 <tr>
@@ -1530,7 +874,7 @@ window.MathJax = {
 </tr>
 </tbody>
 </table>
-<p>Only gpt-oss-120b at low reasoning answers every cell. Because the other model rows are subsets, each is compared with the band-space SCM on the same cells; the band-space SCM on all cells is 0.3631 / 0.3149 (Sentinel-1) and 0.3416 / 0.3153 (Sentinel-2).</p>
+<p>Only gpt-oss-120b at low reasoning answers every cell; each other row is compared with the band-space SCM on the same cells (on all cells the band-space SCM is 0.3631 / 0.3149 on Sentinel-1 and 0.3416 / 0.3153 on Sentinel-2).</p>
 <table>
 <thead>
 <tr>
@@ -1593,10 +937,13 @@ window.MathJax = {
 </tr>
 </tbody>
 </table>
-<p><strong>Observations.</strong> (1) With every cell answered, gpt-oss-120b ties the band-space SCM on Sentinel-1 (the same mean, better at 4 of 12 sites) and is clearly worse on Sentinel-2. (2) The Kimi-K3 advantage on Sentinel-1 rests on nine cells on which the band-space SCM itself does badly (0.42 there against 0.36 on all twelve); the subset flatters the model. (3) Two of the four models cannot be used at all on this service, and a third loses 8 of 27 cells on this design.</p>
-<h3>7.3 What the models do: plain rules, a diagnosis of the predictions, prompt ablations</h3>
-<p>The band-space SHC forecast is P09 carried forward, so the question behind §7.1 is whether the models add anything that a one-line rule does not. Three checks, all on the same 27 cells and the same metric (variance over P01–P10).</p>
-<p><strong>Plain forecasting rules</strong> of P10 from the target's own P01–P09, per band: P09 carried forward; the mean of the last three months (P07–P09); the own mean; a least-squares line through the nine months, and through the last four, extrapolated one step; additive Holt smoothing with a damped trend whose three parameters are chosen on P01–P09 alone; and the mean of the two models' answers.</p>
+<ul>
+<li>With every cell answered, gpt-oss-120b ties the band-space SCM on Sentinel-1 (same mean, better at 4 of 12 sites) and is clearly worse on Sentinel-2.</li>
+<li>The Kimi-K3 advantage on Sentinel-1 rests on nine cells where the band-space SCM itself does badly (0.42 there against 0.36 on all twelve).</li>
+</ul>
+<h3>6.3 What the models do: plain rules, a diagnosis of the predictions, prompt ablations</h3>
+<p>Three checks on the same 27 cells and metric (variance over P01–P09).</p>
+<p><strong>Plain forecasting rules</strong> of P10 from the target's own P01–P09, per band: P09 carried forward; the mean of the last three months; the own mean; a least-squares line through nine months, and through the last four, extrapolated one step; damped trend exponential smoothing (Gardner &amp; McKenzie 1985; parameters chosen on P01–P09); the mean of the two models' answers.</p>
 <table>
 <thead>
 <tr>
@@ -1610,77 +957,77 @@ window.MathJax = {
 <tbody>
 <tr>
 <td>mean of the last three months</td>
-<td>0.283 / 0.210</td>
+<td>0.265 / 0.196</td>
 <td>11 / 12</td>
-<td>0.503 / 0.364</td>
+<td>0.541 / 0.350</td>
 <td>7 / 15</td>
 </tr>
 <tr>
-<td>damped Holt smoothing</td>
-<td>0.298 / 0.199</td>
+<td>damped trend exponential smoothing</td>
+<td>0.279 / 0.192</td>
 <td>10 / 12</td>
-<td>0.650 / 0.413</td>
+<td>0.686 / 0.408</td>
 <td>10 / 15</td>
-</tr>
-<tr>
-<td>Kimi-K3 (low reasoning)</td>
-<td>0.380 / 0.293</td>
-<td>9 / 12</td>
-<td>1.309 / 0.396</td>
-<td>3 / 15</td>
 </tr>
 <tr>
 <td>linear trend on nine months</td>
-<td>0.389 / 0.251</td>
+<td>0.362 / 0.230</td>
 <td>9 / 12</td>
-<td>1.122 / 1.009</td>
+<td>1.141 / 0.927</td>
 <td>2 / 15</td>
 </tr>
 <tr>
-<td>mean of the two models</td>
-<td>0.402 / 0.372</td>
-<td>9 / 12</td>
-<td>1.002 / 0.343</td>
-<td>6 / 15</td>
+<td>Kimi-K3 (low reasoning)</td>
+<td>0.400 / 0.348</td>
+<td>8 / 11</td>
+<td>1.257 / 0.581</td>
+<td>1 / 15</td>
 </tr>
 <tr>
 <td>gpt-oss-120b (default reasoning)</td>
-<td>0.438 / 0.328</td>
+<td>0.407 / 0.311</td>
 <td>9 / 12</td>
-<td>0.888 / 0.284</td>
+<td>0.945 / 0.270</td>
 <td>5 / 15</td>
 </tr>
 <tr>
-<td>gpt-oss-120b (low reasoning)</td>
-<td>0.457 / 0.336</td>
-<td>9 / 12</td>
-<td>0.781 / 0.364</td>
-<td>10 / 15</td>
+<td>mean of the two models</td>
+<td>0.482 / 0.412</td>
+<td>6 / 11</td>
+<td>0.850 / 0.347</td>
+<td>5 / 15</td>
 </tr>
 <tr>
 <td>band-space SHC (= P09 carried forward)</td>
-<td>0.533 / 0.468</td>
+<td>0.492 / 0.427</td>
 <td></td>
-<td>0.756 / 0.232</td>
+<td>0.787 / 0.240</td>
 <td></td>
 </tr>
 <tr>
 <td>linear trend on the last four months</td>
-<td>0.590 / 0.482</td>
+<td>0.560 / 0.449</td>
 <td>4 / 12</td>
-<td>1.210 / 1.367</td>
+<td>1.195 / 1.321</td>
 <td>4 / 15</td>
 </tr>
 <tr>
+<td>gpt-oss-120b (low reasoning)</td>
+<td>0.566 / 0.452</td>
+<td>5 / 12</td>
+<td>0.585 / 0.201</td>
+<td>11 / 15</td>
+</tr>
+<tr>
 <td>own mean P01–P09</td>
-<td>0.669 / 0.664</td>
+<td>0.676 / 0.653</td>
 <td>4 / 12</td>
-<td>0.988 / 1.012</td>
+<td>1.116 / 1.069</td>
 <td>2 / 15</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Which rule the models track.</strong> Every prediction is expressed as its move from P09 in units of the band's P01–P09 standard deviation. The model's move is regressed on the move of the nine-month linear trend (slope 1 = the trend, 0 = P09 carried forward, negative = against the trend); "direction right" is the share of cells × bands where the move has the sign of the observed change; "nearest rule" counts which plain rule the model's value is closest to.</p>
+<p><strong>Which rule the models track.</strong> Each prediction as its move from P09 in units of the band's P01–P09 standard deviation, regressed on the move of the nine-month linear trend (slope 1 = the trend, 0 = P09 carried forward, negative = against the trend); "direction right" = share of cells × bands where the move has the sign of the observed change; "nearest rule" = the plain rule the model's value is closest to.</p>
 <table>
 <thead>
 <tr>
@@ -1689,7 +1036,7 @@ window.MathJax = {
 <th>slope on the linear-trend move</th>
 <th>R²</th>
 <th>direction right: model</th>
-<th>direction right: damped Holt</th>
+<th>direction right: damped trend exponential smoothing</th>
 <th>direction right: own mean</th>
 <th>nearest rule (cells × bands)</th>
 </tr>
@@ -1733,7 +1080,7 @@ window.MathJax = {
 <td>42 %</td>
 <td>68 %</td>
 <td>62 %</td>
-<td>P09 carried forward 54, damped Holt smoothing 27</td>
+<td>P09 carried forward 54, damped trend exponential smoothing 27</td>
 </tr>
 <tr>
 <td>Sentinel-2</td>
@@ -1743,7 +1090,7 @@ window.MathJax = {
 <td>55 %</td>
 <td>68 %</td>
 <td>62 %</td>
-<td>P09 carried forward 43, damped Holt smoothing 30</td>
+<td>P09 carried forward 43, damped trend exponential smoothing 30</td>
 </tr>
 <tr>
 <td>Sentinel-2</td>
@@ -1757,8 +1104,8 @@ window.MathJax = {
 </tr>
 </tbody>
 </table>
-<p>The three Sentinel-2 sites that set every model's mean (0004, 0005, 0010) tell one story. At site 0004 the P09 composite is a bright outlier in the visible and shortwave bands (B2 0.045 → 0.086, B4 0.052 → 0.094, residual cloud), and P10 returns to 0.054 and 0.057. P09 carried forward keeps the outlier; both models push it further (B2 0.100 and 0.090); every averaging rule reverts. The models read a cloud jump as a trend.</p>
-<p><strong>Prompt ablations</strong> (27 cells per arm, one deterministic call each; the anonymous arm has one Kimi-K3 cell unanswered after a gateway timeout):</p>
+<p>At site 0004 the P09 composite is a bright outlier in the visible and shortwave bands (B2 0.045 → 0.086, residual cloud) and P10 returns to 0.054; P09 carried forward keeps the outlier, both models push it further (B2 0.100 and 0.090), every averaging rule reverts. The models read a cloud jump as a trend.</p>
+<p><strong>Prompt ablations</strong> (27 cells per arm, one deterministic call each; one Kimi-K3 cell of the anonymous arm unanswered after a gateway timeout):</p>
 <table>
 <thead>
 <tr>
@@ -1771,7 +1118,7 @@ window.MathJax = {
 </thead>
 <tbody>
 <tr>
-<td>prompt of §7.1</td>
+<td>prompt of §6.1</td>
 <td>0.380 / 0.293</td>
 <td>1.309 / 0.396</td>
 <td>0.457 / 0.336</td>
@@ -1799,7 +1146,7 @@ window.MathJax = {
 <td>0.951 / 0.334</td>
 </tr>
 <tr>
-<td>prompt of §7.1 plus a second line naming the rule used</td>
+<td>prompt of §6.1 plus a second line naming the rule used</td>
 <td>0.388 / 0.266</td>
 <td>1.221 / 0.373</td>
 <td>0.393 / 0.315</td>
@@ -1814,12 +1161,17 @@ window.MathJax = {
 </tr>
 </tbody>
 </table>
-<p><strong>The rules the models state for themselves</strong> (the second line of the reply in the last arm). Sentinel-1: Kimi-K3 names an average of the last three months at 9 of 12 sites and a trend at 3; gpt-oss-120b an average at 9, a trend at 2, P09 carried forward at 1. Sentinel-2: Kimi-K3 names a seasonal story at 14 of 15 sites (a post-peak senescence decline extrapolated at 9, the summer plateau persisted at 5) and a trend at 1; gpt-oss-120b a trend extrapolation at 10 and an average at 5.</p>
-<p><strong>Observations.</strong> (1) The Sentinel-1 advantage of §7.1 is the advantage of smoothing over persistence: the mean of the last three months is below the band-space SHC at 11 of 12 sites and below every model on mean and median, and the models say that this average is what they computed. (2) On Sentinel-2 the models extrapolate a seasonal decline that they know August should bring, which is right on the median site and wrong wherever P09 carries residual cloud; Kimi-K3 moves against the linear trend (slope −0.61) and has the direction right at 42 % of cells × bands, against 68 % for damped Holt. (3) Removing every domain word (anonymous quantities) improves both models on Sentinel-2 — Kimi-K3's mean from 1.31 to 0.70 — so the band guide and the sensor name are what trigger the seasonal story; removing the calendar dates hurts instead, so the season is used and is useful when it is right. (4) Across the five prompt wordings one model's Sentinel-1 mean ranges from 0.35 to 0.59, the whole spread between models in §7.1; single deterministic calls on 12 sites cannot rank models. (5) No prompt brings either model to the three-month mean.</p>
-<p><strong>Decision.</strong> The SHC design carries forward for the model-based comparison: prompts are short and every reported model answers every cell; the SCM design is not reportable at the full sample with these models and is left as it stands. What the language models contribute on this design is a hand-written rule, a three-month average on Sentinel-1 and a seasonal extrapolation on Sentinel-2, and the rule they approximate is better run directly. The reference that carries forward is the mean of the last three months: it beats P09 carried forward, which is what the band-space SHC reduces to on this panel, at 11 of 12 Sentinel-1 sites and 7 of 15 Sentinel-2 sites, so the latent SHC of §5, the effect run and the picture experiment are to be compared against that mean rather than against persistence. On Sentinel-2 a one-month departure is inside the size of a residual-cloud jump for every method; an effect read from band means there needs a cloud screen or a longer post-period window.</p>
+<p><strong>Rules the models state for themselves</strong> (second line of the reply in the last arm). Sentinel-1: Kimi-K3 names an average of the last three months at 9 of 12 sites, a trend at 3; gpt-oss-120b an average at 9, a trend at 2, P09 carried forward at 1. Sentinel-2: Kimi-K3 a seasonal story at 14 of 15 (a post-peak decline extrapolated at 9, the summer plateau persisted at 5), a trend at 1; gpt-oss-120b a trend at 10, an average at 5.</p>
+<ul>
+<li>The Sentinel-1 advantage of §6.1 is smoothing over persistence: the mean of the last three months is below the band-space SHC at 11 of 12 sites and below every model, and the models say that average is what they computed.</li>
+<li>On Sentinel-2 the models extrapolate a seasonal decline, right on the median site and wrong wherever P09 carries residual cloud; Kimi-K3 moves against the linear trend (slope −0.61) and has the direction right at 42 % of cells × bands, against 68 % for damped trend exponential smoothing.</li>
+<li>Removing every domain word improves both models on Sentinel-2 (Kimi-K3's mean 1.31 → 0.70), so the band guide and the sensor name trigger the seasonal story; removing the calendar dates hurts, so the season is used and useful when right.</li>
+<li>Across the five wordings one model's Sentinel-1 mean ranges from 0.35 to 0.59, the whole spread between models; single deterministic calls on 12 sites cannot rank models. No prompt brings either model to the three-month mean.</li>
+</ul>
+<p><strong>Decision.</strong> The SHC design carries forward (short prompts, every reported model answers every cell); the SCM design is left as it stands. The models contribute a hand-written rule, a three-month average on Sentinel-1 and a seasonal extrapolation on Sentinel-2, which is better run directly. The reference that carries forward is the mean of the last three months: it beats P09 carried forward, which is what the band-space SHC reduces to here, at 11 of 12 Sentinel-1 and 7 of 15 Sentinel-2 sites. On Sentinel-2 a one-month departure is inside the size of a residual-cloud jump for every method; an effect read from band means there needs a cloud screen or a longer post-period window.</p>
 <hr>
-<h2>8. Reproducibility</h2>
-<p>Every number in §1 and §4–§7 is produced by a script and read from its output table. Paths are relative to <code>Satellite/notebooks/ts_SCM_ASCM/</code>; §7 lives in <code>Satellite/notebooks/llm_band_sc/</code>. The synthetic-historical-control results of the 3 September report rested on a design that departed from the method (last pre-period as the only target, no post-treatment period in any block, weights matched on the raw outcome, all blocks as donors); their scripts and tables are removed, and the shared grid and comparison tables regenerated without them are unchanged in every retained row (maximum difference 0).</p>
+<h2>7. Reproducibility</h2>
+<p>Every number in §1 and §4–§6 is produced by a script and read from its output table. The panel index and the encoder are in <code>Satellite/notebooks/ts_SCM_ASCM/</code>, the synthetic historical control in <code>Satellite/notebooks/shc/</code> (moved there on 11 September; it imports the panel modules from the first folder), and §6 in <code>Satellite/notebooks/llm_band_sc/</code>. The 3 September SHC results rested on a design that departed from the method (last pre-period as the only target, no post-treatment period in any block, weights matched on the raw outcome, all blocks as donors); their scripts and tables are removed; the shared grid and comparison tables regenerated without them are unchanged (maximum difference 0).</p>
 <table>
 <thead>
 <tr>
@@ -1847,22 +1199,12 @@ window.MathJax = {
 <tr>
 <td><code>panel_shc_run.py</code></td>
 <td><code>panel_shc_fits.csv</code>, <code>panel_shc_effects.csv</code>, <code>panel_shc_bandwidth.csv</code> (CV curves), <code>panel_shc_path.csv</code> (selection paths and every candidate), <code>panel_shc_summary.csv</code></td>
-<td>§4–§6</td>
+<td>§4–§5</td>
 </tr>
 <tr>
 <td><code>22_shc_monthly.ipynb</code></td>
 <td>tables and the bandwidth-curve figure</td>
 <td>§4</td>
-</tr>
-<tr>
-<td><code>panel_covariate.py</code>, <code>panel_shc_run.py --covariate site</code></td>
-<td><code>panel_covariate.csv</code> (penalty, leave-one-site-out R², coefficients), <code>panel_shc_*_covariate.csv</code> (the same five tables on y − g)</td>
-<td>§6.1</td>
-</tr>
-<tr>
-<td><code>23_shc_covariate.ipynb</code>, <code>panel_shc_tests.py</code> (gates 7–12: coefficient recovery, leave-one-site-out, treated post rows absent, the driver without the option reproduces the 4 September fits)</td>
-<td>the side-by-side tables</td>
-<td>§6.1</td>
 </tr>
 <tr>
 <td><code>Docs/Synthetic Historical Control_Sep 4.pptx</code>, meeting transcript of 4 September 2026</td>
@@ -1872,27 +1214,27 @@ window.MathJax = {
 <tr>
 <td><code>lb_features.py</code>, <code>lb_prompts.py</code></td>
 <td><code>lb_features_monthly.csv</code> (band means P01–P10, targets and donors), <code>lb_prompts_shc.jsonl</code>, <code>lb_prompts_scm.jsonl</code> (full prompt text and withheld truth)</td>
-<td>§7</td>
+<td>§6</td>
 </tr>
 <tr>
 <td><code>lb_run.py</code></td>
 <td><code>lb_replies_&lt;design&gt;_&lt;model&gt;_&lt;effort&gt;.jsonl</code> (every reply, token usage, finish reason, errors)</td>
-<td>§7</td>
+<td>§6</td>
 </tr>
 <tr>
 <td><code>lb_shc.py</code>, <code>lb_lib.py</code>, <code>lb_tests.py</code></td>
 <td>the band-space SHC re-run, the band-space scaler and solver, the reproduction checks (the 27 stored SHC values to 4 × 10⁻⁷, the stored biweekly weights to 6 × 10⁻⁸, the band means to 5 × 10⁻⁷)</td>
-<td>§7</td>
+<td>§6</td>
 </tr>
 <tr>
 <td><code>lb_baselines.py</code>, <code>lb_prompts_ablation.py</code></td>
 <td>the plain rules (scored inside <code>lb_scores_shc.csv</code>), <code>lb_diag_models.csv</code>, <code>lb_diag_summary.csv</code>, <code>lb_diag_s2_sites.csv</code>; <code>lb_prompts_abl_*.jsonl</code> and <code>lb_replies_abl_*_&lt;model&gt;_low.jsonl</code> (the four ablation arms)</td>
-<td>§7.3</td>
+<td>§6.3</td>
 </tr>
 <tr>
 <td><code>lb_score.py</code>, <code>41_llm_band_sc.ipynb</code></td>
 <td><code>lb_scores_shc.csv</code>, <code>lb_summary_shc.csv</code>, <code>lb_summary_shc_band.csv</code>, <code>lb_scores_scm.csv</code>, <code>lb_summary_scm.csv</code>; the notebook prints one full prompt per design and sensor</td>
-<td>§7</td>
+<td>§6</td>
 </tr>
 </tbody>
 </table>

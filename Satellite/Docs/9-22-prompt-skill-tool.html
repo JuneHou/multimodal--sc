@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Three ways to give a language model a method, and what each one changed</title>
+<style>
+:root { --fg:#1a1a1a; --muted:#555; --rule:#d0d0d0; --accent:#0b5394; --code-bg:#f6f8fa; }
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body { font-family: "Charter","Georgia","Times New Roman",serif; color: var(--fg);
+       font-size: 10.5pt; line-height: 1.45; max-width: 52em; margin: 2.5em auto;
+       padding: 0 1.5em; }
+h1 { font-size: 19pt; line-height: 1.2; border-bottom: 2px solid var(--fg);
+     padding-bottom: .25em; margin-bottom: .8em; }
+h2 { font-size: 14pt; margin-top: 1.8em; border-bottom: 1px solid var(--rule);
+     padding-bottom: .15em; }
+h3 { font-size: 11.5pt; margin-top: 1.4em; color: var(--accent); }
+h4 { font-size: 10.5pt; margin-top: 1.2em; }
+p, li { orphans: 3; widows: 3; }
+a { color: var(--accent); }
+code { font-family: "DejaVu Sans Mono",Menlo,Consolas,monospace; font-size: .88em;
+       background: var(--code-bg); padding: .1em .3em; border-radius: 3px; }
+pre { background: var(--code-bg); border: 1px solid var(--rule); border-radius: 4px;
+      padding: .7em .9em; overflow-x: auto; page-break-inside: avoid; }
+pre code { background: none; padding: 0; font-size: .84em; line-height: 1.4; }
+blockquote { border-left: 3px solid var(--rule); margin-left: 0; padding-left: 1em;
+             color: var(--muted); }
+hr { border: none; border-top: 1px solid var(--rule); margin: 2em 0; }
+img { max-width: 100%; }
+.math { margin: 1.1em 0; text-align: center; page-break-inside: avoid; overflow-x: auto; }
+mjx-container[display="true"] { margin: .6em 0 !important; }
+
+table { border-collapse: collapse; width: 100%; margin: 1em 0; font-size: 8.2pt;
+        font-family: "Helvetica Neue",Arial,sans-serif; page-break-inside: avoid; }
+th, td { border: 1px solid var(--rule); padding: 3px 6px; text-align: left;
+         vertical-align: top; }
+th { background: #eef2f6; font-weight: 600; }
+tr:nth-child(even) td { background: #fafafa; }
+td:empty { background: #fff; }
+
+@media print {
+  body { margin: 0; max-width: none; padding: 0; font-size: 9.5pt; }
+  h1, h2, h3, h4 { page-break-after: avoid; }
+  table { font-size: 7.2pt; }
+  a { text-decoration: none; color: var(--fg); }
+}
+@page { size: A4; margin: 14mm 12mm; }
+</style>
+
+</head><body>
+<h1>Three ways to give a language model a method, and what each one changed</h1>
+<p><strong>Design note for the meeting of 22 September 2026.</strong> Continues the language-model section of the
+19 September analysis (<code>9-19-llm-analysis.md</code>). That analysis asked what kind of error the models
+make when the synthetic historical control procedure is written into the prompt. This note
+separates three different mechanisms for handing a model a method — a prompt description, a skill,
+and a tool — establishes what each one actually is, and reports what the project has measured for
+each. Only the first has been run. The other two are described as designs, and every statement
+about them is marked as such.</p>
+<hr>
+<h2>1. The three mechanisms are not three sizes of the same thing</h2>
+<p><strong>Method.</strong> The band-space synthetic historical control design, with hosted language models used as
+the weight solver.</p>
+<p>The three differ on one axis: <strong>who holds the procedure, and who executes it.</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Prompt description</th>
+<th>Skill</th>
+<th>Tool</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>What it is</td>
+<td>text in the request</td>
+<td>a directory of files: instructions, reference documents, executable scripts</td>
+<td>a callable interface declared to the model</td>
+</tr>
+<tr>
+<td>Where the procedure lives</td>
+<td>in the request, every call</td>
+<td>on a filesystem, read when relevant</td>
+<td>split — the model chooses arguments, the host owns the code</td>
+</tr>
+<tr>
+<td>Who executes the arithmetic</td>
+<td>the model, in its own reasoning</td>
+<td>a script the model runs itself</td>
+<td>the host, outside the model</td>
+</tr>
+<tr>
+<td>What the model sees of the code</td>
+<td>there is none</td>
+<td>the source, and it may edit or extend it</td>
+<td>nothing — only the returned result</td>
+</tr>
+<tr>
+<td>Cost per call</td>
+<td>the full text, always</td>
+<td>about 100 tokens until triggered, then the instruction body</td>
+<td>the schema, always</td>
+</tr>
+<tr>
+<td>Can exist alone</td>
+<td>yes</td>
+<td><strong>no</strong></td>
+<td>yes</td>
+</tr>
+</tbody>
+</table>
+<p>The last row is the one that settles the question of how a skill differs from a tool. A skill is not
+a peer of a tool; it is built on one. The published specification is explicit that skills on the
+Claude API require the code execution tool, <em>"whose container Skills run in"</em>
+(fetched 21 September 2026 from the Agent Skills overview). The instructions are read with a shell
+command; the bundled scripts are run with a shell command. Remove the shell and a skill is an
+unreadable folder.</p>
+<p>A working statement of the distinction:</p>
+<blockquote>
+<p>A <strong>tool</strong> adds a verb the model did not have. A <strong>skill</strong> adds knowledge of what to do,
+and may ship code the model runs through a verb it already had. A <strong>prompt description</strong> adds
+neither, only the request that the model do it in its head.</p>
+</blockquote>
+<h3>The parts of a skill, and which part is the new one</h3>
+<p>A skill is read in three stages, each entering the request at a different time:</p>
+<ol>
+<li><strong>Name and description</strong> — always present, about 100 tokens, used only to decide whether the
+   skill is relevant at all.</li>
+<li><strong>The instruction body</strong> — the procedure in prose, under 5,000 tokens, read when the skill is
+   triggered.</li>
+<li><strong>Bundled files and scripts</strong> — read or run only when the instructions call for them. A script's
+   source never enters the request; only its output does.</li>
+</ol>
+<p>Two skills installed on this machine show the shape in practice. The spreadsheet skill is a
+99-line instruction file plus one 11 KB recalculation script; the instructions do not explain how to
+recalculate a workbook, they say to run the script and refuse to ship while it reports errors. The
+PDF skill is 314 lines plus eight scripts and two reference documents that are read only when
+needed.</p>
+<p><strong>The consequence for this project is the third stage.</strong> Stages one and two are prose — the same
+material as a prompt description, delivered from disk instead of from the request. Our step-by-step
+prompt is already an instruction body without frontmatter. A skill that ships no executable script
+would test nothing the 19 September analysis has not tested.</p>
+<hr>
+<h2>2. Only the prompt description has been run, and it is the arm that is measured</h2>
+<p><strong>Method.</strong> The same design, two prompts carrying identical evidence and the same one-line answer
+format. The direct prompt gives a band guide, the site's nine monthly rows, and the instruction to
+predict the tenth month. The step-by-step prompt adds the procedure from the collaborator's paper
+in prose — smoothing, five overlapping four-month windows, stepwise selection of windows on fit,
+and a weighted combination of the months that followed the kept windows. The step block is a fixed
+1,161 characters.</p>
+<p>Nothing in the runner supports the other two mechanisms. The request body built at
+<code>notebooks/llm_band_sc/lb_lib.py:310</code> carries the model name, the messages, the temperature, a
+token cap and a seed. There is no tool declaration and no second turn, so no model in this study
+has ever been offered a callable or a filesystem.</p>
+<h3>The step block costs 279 tokens of request and changes how much the models think</h3>
+<p>Median tokens per call, from the stored usage records in the reply files:</p>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Arm</th>
+<th>Calls</th>
+<th>Request tokens</th>
+<th>Reasoning and answer tokens</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>gpt-oss-120b</td>
+<td>direct</td>
+<td>54</td>
+<td>869</td>
+<td>471</td>
+</tr>
+<tr>
+<td>gpt-oss-120b</td>
+<td>step-by-step</td>
+<td>27</td>
+<td>1,148</td>
+<td><strong>102</strong></td>
+</tr>
+<tr>
+<td>Kimi-K3</td>
+<td>direct</td>
+<td>26</td>
+<td>901</td>
+<td>1,482</td>
+</tr>
+<tr>
+<td>Kimi-K3</td>
+<td>step-by-step</td>
+<td>19</td>
+<td>803</td>
+<td><strong>5,714</strong></td>
+</tr>
+</tbody>
+</table>
+<p>The gpt-oss-120b rows are the clean comparison: the same 27 sites in both arms, so the 279-token
+rise is the step block itself. The same added prose moves the two models in opposite directions.
+Given the procedure, gpt-oss-120b produces about a fifth of the reasoning it produced without it.
+Kimi-K3 produces close to four times as much. Neither arrives anywhere better. The Kimi-K3 rows sit
+on different site sets — eight of its step-by-step calls failed — so the request-token figures for
+that model are not comparable across arms and no inference is drawn from them.</p>
+<h3>Neither model was made more accurate by being told the procedure</h3>
+<p>Mean over sites of the squared error at P10 divided by the variance of that band across P01–P09,
+averaged over bands — the collaborator's held-out measure. Lower is better.</p>
+<table>
+<thead>
+<tr>
+<th>Arm</th>
+<th>Sentinel-1</th>
+<th>Sentinel-2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Kimi-K3, direct</td>
+<td>0.400 (n=11)</td>
+<td>1.257 (n=15)</td>
+</tr>
+<tr>
+<td>Kimi-K3, step-by-step</td>
+<td>0.448 (n=11)</td>
+<td>0.918 (n=8)</td>
+</tr>
+<tr>
+<td>gpt-oss-120b, direct</td>
+<td>0.566 (n=12)</td>
+<td>0.585 (n=15)</td>
+</tr>
+<tr>
+<td>gpt-oss-120b, step-by-step</td>
+<td>0.495 (n=12)</td>
+<td>0.769 (n=15)</td>
+</tr>
+<tr>
+<td>Reference implementation of the design</td>
+<td>0.492 (n=12)</td>
+<td>0.787 (n=15)</td>
+</tr>
+<tr>
+<td>Repeating the last observed month</td>
+<td>0.492 (n=12)</td>
+<td>0.789 (n=15)</td>
+</tr>
+<tr>
+<td>Mean of the last three months</td>
+<td><strong>0.265</strong> (n=12)</td>
+<td><strong>0.541</strong> (n=15)</td>
+</tr>
+</tbody>
+</table>
+<p>The sign of the change is different for each model on each sensor, and the largest movement rests
+on eight sites. The arithmetic mean of the last three months is better than every language-model
+arm and better than the reference implementation, on both sensors.</p>
+<h3>The reasoning traces show the description was read, and not executed</h3>
+<p>Classification of every stored trace on the step-by-step arm, from
+<code>notebooks/llm_band_sc/lb_why_p09.csv</code>:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Traces</th>
+<th>Compared the five windows</th>
+<th>Derived why the last window wins</th>
+<th>Objected to the result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Kimi-K3</td>
+<td>19</td>
+<td>19</td>
+<td>19</td>
+<td>7</td>
+</tr>
+<tr>
+<td>gpt-oss-120b</td>
+<td>27</td>
+<td>3</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>GPT-5.5 (summaries)</td>
+<td>25</td>
+<td>9</td>
+<td>2</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>Kimi-K3 read the description, worked out from it that the nearest window is the treated window moved
+back one month, said in seven traces that the procedure was therefore trivial, and returned the
+answer anyway. No weight was ever fitted and no fit was ever computed. The GPT-5.5 column is
+written by a separate summarizer rather than by the model, and is never pooled with the other two.</p>
+<p><strong>What the prompt description achieved, stated exactly:</strong> the models can restate the procedure and
+reason about its structure. None of them ran it.</p>
+<hr>
+<h2>3. What a skill would change, and what it would confound</h2>
+<p><strong>Not yet built. Every statement in this section is a design expectation, not a result.</strong></p>
+<p>A skill for this design would be an instruction file plus a fitting script in a sandbox the model
+can run. The model would read the instructions, write its own code around the script, and call it.</p>
+<p>What it would add over the prompt description is the third stage only — the executable script. The
+prose is what we already have.</p>
+<p>Two obstacles make it the wrong instrument for the immediate question.</p>
+<ul>
+<li><strong>It measures two things at once.</strong> A model that fails would have failed either at the design or
+  at writing the code around it, and the transcript will not separate them. The question from the
+  19 September analysis is specifically whether the models can set the problem up; a skill arm
+  answers a broader and less decidable question.</li>
+<li><strong>It cannot be run across the four models.</strong> A skill requires a filesystem and shell per model.
+  The research gateway serving Kimi-K3, gpt-oss-120b and GLM-5.3 is called single-shot, and whether
+  it passes tool calls through at all is unverified. Only GPT-5.5 could plausibly run a skill, and
+  a single-model result cannot be compared with the table in §2.</li>
+</ul>
+<hr>
+<h2>4. What a tool would change, and why the interface has to be thin</h2>
+<p><strong>Not yet built. Every statement in this section is a design expectation, not a result.</strong></p>
+<p>A tool arm declares a callable, the model chooses its arguments, and the host runs the fit. It
+works over an ordinary chat request with a second turn, which keeps all four models on the same
+footing and keeps the §2 table as the comparison.</p>
+<p>The risk is that the argument list gives the method away. A callable declared as
+<code>run_shc(donor_sites, blocks, pre_window)</code> puts the entire design into its own signature; a model
+that fills three named slots has demonstrated nothing about the design, and the arm would measure
+form-filling.</p>
+<p><strong>The interface should therefore expose the arithmetic and nothing else</strong> — a matrix and a target
+vector in, a weight vector out, with no notion of sites, months or blocks in the signature. Then
+constructing the matrix is the whole test: which columns are donors, which rows are the fitting
+period, which month is withheld. That is precisely the part no trace in §2 performs, and the
+fitting itself is arithmetic there is no reason to score.</p>
+<p>A tool arm is decidable in a way the current arms are not. On the step-by-step prompt, following
+the procedure correctly and skipping it entirely both produce the last observed month, so the two
+cannot be told apart in the answer. With the fit handed over, the arguments are recorded, and what
+the model chose is visible whatever it answers.</p>
+<hr>
+<h2>5. What this note establishes and what remains open</h2>
+<p>Established, from measurement: the prompt description raises request cost by 279 tokens, moves the
+two models' reasoning volume in opposite directions by factors of roughly five and four, improves
+neither model reliably, and produces traces in which the procedure is understood and not executed.</p>
+<p>Established, from the specification and from the installed examples: a skill is instructions plus
+bundled code that the model runs itself, requires a shell to exist at all, and differs from a prompt
+description only in its executable stage; a tool is a callable the host executes and the model never
+sees.</p>
+<p>Open, and not answered here: whether either model, given a fitting routine it does not have to
+implement, supplies a donor set, a fitting period and a withheld month that are correct — and
+whether the result beats repeating the last observed month. No arm in this project addresses that,
+and the runner cannot currently run one.</p>
+<hr>
+<h2>6. Sources</h2>
+<table>
+<thead>
+<tr>
+<th>Claim</th>
+<th>Source</th>
+<th>Checked</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Skill structure, the three reading stages, the shell requirement</td>
+<td>Agent Skills overview, platform.claude.com</td>
+<td>21 September 2026</td>
+</tr>
+<tr>
+<td>Instruction-file and script sizes of two installed skills</td>
+<td><code>~/.claude/skills/synced/.../xlsx</code>, <code>.../pdf</code></td>
+<td>21 September 2026</td>
+</tr>
+<tr>
+<td>Request body carries no tool declaration</td>
+<td><code>notebooks/llm_band_sc/lb_lib.py:310</code></td>
+<td>22 September 2026</td>
+</tr>
+<tr>
+<td>Step block length, 1,161 characters</td>
+<td><code>notebooks/llm_band_sc/lb_lib.py</code>, the step constant</td>
+<td>22 September 2026</td>
+</tr>
+<tr>
+<td>Token medians per model and arm</td>
+<td><code>notebooks/llm_band_sc/lb_replies_shc_*.jsonl</code>, stored usage records</td>
+<td>22 September 2026</td>
+</tr>
+<tr>
+<td>Outcome table</td>
+<td><code>notebooks/llm_band_sc/lb_summary_shc.csv</code></td>
+<td>22 September 2026</td>
+</tr>
+<tr>
+<td>Trace classification</td>
+<td><code>notebooks/llm_band_sc/lb_why_p09.csv</code></td>
+<td>22 September 2026</td>
+</tr>
+</tbody>
+</table>
+<p>The outcome figures use the collaborator's held-out measure and no other: per band, the squared
+error at P10 over the variance of that band across P01–P09, averaged over bands.</p>
+</body></html>

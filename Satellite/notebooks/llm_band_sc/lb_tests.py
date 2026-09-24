@@ -1,8 +1,8 @@
 """lb_tests — gates before any API call (plan 'Verification').
 1. Her notebook-14 solver + scaler + validation RMSE, run on her shipped biweekly table with her window
    P01-P08 / P09-P10, reproduce her shipped 02_scm_weights.csv and 06_scm_site_summary.csv.
-2. Our monthly extraction equals her notebook-26 feature values printed in the notebook output.
-3. 27 parsed per-site notebook-26 values; their sensor means equal her printed sensor table.
+2. Our monthly extraction equals her notebook 10 feature values printed in the notebook output.
+3. 27 parsed per-site notebook 10 values; their sensor means equal her printed sensor table.
 4. parse() round trip; 5. no forbidden word in any prompt; then one prompt per experiment x sensor.
     python lb_tests.py
 """
@@ -43,7 +43,7 @@ def gate_her14():
 
 def gate_extraction():
     ours = pd.read_csv(lb.FEATURES_CSV)
-    hers = pd.read_csv(lb.HER26_FEATURE_ROWS)
+    hers = pd.read_csv(lb.HER10_FEATURE_ROWS)
     hers = hers[hers.period_id.str[1:].astype(int) <= lb.TARGET]
     worst, n = 0.0, 0
     for r in hers.itertuples():
@@ -56,7 +56,7 @@ def gate_extraction():
 
 
 def gate_her26():
-    S = pd.read_csv(lb.HER26_SITES); T = pd.read_csv(lb.HER26_TABLES)
+    S = pd.read_csv(lb.HER10_SITES); T = pd.read_csv(lb.HER10_TABLES)
     assert len(S) == 27 and S.groupby("sensor").size().to_dict() == {"sentinel1": 12, "sentinel2": 15}, S.groupby("sensor").size()
     m = S.groupby("sensor").her_joint_validation_nmse.mean()
     hers = T[T.kind == "sensor"].set_index("sensor").standardized_sq_error
@@ -68,7 +68,7 @@ def gate_her26():
 
 def gate_shc_reproduction():
     import lb_shc
-    df = lb_shc.run_all(); her = pd.read_csv(lb.HER26_SITES)
+    df = lb_shc.run_all(); her = pd.read_csv(lb.HER10_SITES)
     m = df.merge(her, on=["sensor", "site_id"]); d = float((m.joint_validation_nmse - m.her_joint_validation_nmse).abs().max())
     assert len(m) == 27 and d <= 1e-5, (len(m), d)
     print(f"3b. our run of her held-out SHC reproduces her 27 stored per-site values: max|diff| = {d:.1e}")
@@ -157,6 +157,24 @@ def gate_ablation_prompts():
     print("8-9. anon labels round-trip; 4 ablation prompt files x 27 cells, same truth, no forbidden word, intended edits present")
 
 
+def gate_steps_prompt():
+    """10. lb_prompts_shc_steps.jsonl: 27 rows, same truth/train as the base shc prompt (data given to
+    the model is unchanged), no forbidden word, SHC_STEPS text present, band guide and calendar dates
+    still present (steps is additive, not a replacement for the base prompt)."""
+    base = {json.loads(l)["prompt_id"]: json.loads(l) for l in open(lb.LB / "lb_prompts_shc.jsonl")}
+    n = 0
+    for line in open(lb.LB / "lb_prompts_shc_steps.jsonl"):
+        p = json.loads(line); n += 1
+        b = base[p["prompt_id"][:-6] + "_shc"]
+        assert p["truth"] == b["truth"] and p["train"] == b["train"]
+        low = p["prompt"].lower()
+        assert not any(w in low for w in lb.FORBIDDEN)
+        assert lb.SHC_STEPS in p["prompt"]
+        assert "Band guide" in p["prompt"] and lb.CALENDAR[lb.TARGET] in p["prompt"]
+    assert n == 27
+    print("10. shc_steps prompt file: 27 cells, same truth/train as base shc prompt, no forbidden word, SHC_STEPS present")
+
+
 def show_prompts():
     for exp in ("shc", "scm"):
         seen = set()
@@ -170,5 +188,9 @@ def show_prompts():
 
 if __name__ == "__main__":
     gate_her14(); gate_extraction(); gate_her26(); gate_shc_reproduction(); gate_parse_and_words()
-    gate_prompt_builder(); gate_rules(); gate_ablation_prompts(); show_prompts()
+    gate_prompt_builder(); gate_rules(); gate_ablation_prompts(); gate_steps_prompt(); show_prompts()
+    import lb_spec_tests                     # 2026-09-23 build: extractor, panel, drift, parity, arms
+    lb_spec_tests.main()
+    import lb_skill_tests                    # 2026-09-24 skill arms
+    lb_skill_tests.main()
     print("\nlb_tests: all gates passed")

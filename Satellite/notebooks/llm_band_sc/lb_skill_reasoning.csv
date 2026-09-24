@@ -1,0 +1,15 @@
+model,gateway,key,populated,n
+DeepSeek-V4.1-Flash-thinking-low,arc,assembled_message.reasoning,True,555
+DeepSeek-V4.1-Flash-thinking-low,arc,usage_chunk.completion_tokens_details.reasoning_tokens,True,555
+DeepSeek-V4.1-Flash-thinking-low,arc,finish_reason,True,585
+DeepSeek-V4.1-Flash-thinking-low,arc,usage_chunk.completion_tokens_details.reasoning_tokens,False,30
+GLM-5.3,arc,usage_chunk.completion_tokens_details.reasoning_tokens,False,313
+GLM-5.3,arc,finish_reason,True,577
+GLM-5.3,arc,assembled_message.reasoning,True,264
+GLM-5.3,arc,usage_chunk.completion_tokens_details.reasoning_tokens,True,264
+gpt-oss-120b,arc,assembled_message.reasoning,True,418
+gpt-oss-120b,arc,usage_chunk.completion_tokens_details.reasoning_tokens,False,419
+gpt-oss-120b,arc,finish_reason,True,419
+openai:gpt-5.5,openai,choices[].finish_reason,True,408
+openai:gpt-5.5,openai,usage.completion_tokens_details.reasoning_tokens,True,310
+openai:gpt-5.5,openai,usage.completion_tokens_details.reasoning_tokens,False,98

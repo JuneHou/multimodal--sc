@@ -1,0 +1,325 @@
+model,arm,sensor,ok,kind,chars,average,trend/slope,seasonal,smoothing,weights,persistence,nearest rule,distance
+gpt-5.5,direct,sentinel1,True,chain,0,False,False,False,False,False,False,mean last 2,0.23612163002664302
+gpt-5.5,direct,sentinel1,True,chain,0,False,False,False,False,False,False,slope from last 3,0.0920999767346915
+gpt-5.5,direct,sentinel1,True,chain,0,False,False,False,False,False,False,repeat P09,0.07464405258525438
+gpt-5.5,direct,sentinel1,True,chain,0,False,False,False,False,False,False,repeat P09,0.06734493424642464
+gpt-5.5,direct,sentinel1,True,chain,0,False,False,False,False,False,False,line through all 9,0.014284626872661896
+gpt-5.5,direct,sentinel1,True,chain,0,False,False,False,False,False,False,mean last 3,0.017951167028918382
+gpt-5.5,direct,sentinel1,True,chain,0,False,False,False,False,False,False,slope from last 3,0.0978856514578685
+gpt-5.5,direct,sentinel1,True,chain,0,False,False,False,False,False,False,repeat P09,0.08745159441675736
+gpt-5.5,direct,sentinel1,True,chain,0,False,False,False,False,False,False,repeat P09,0.01603990161513959
+gpt-5.5,direct,sentinel1,True,chain,0,False,False,False,False,False,False,repeat P09,0.03712894520924446
+gpt-5.5,direct,sentinel1,True,chain,0,False,False,False,False,False,False,mean last 3,0.0066445458460732834
+gpt-5.5,direct,sentinel1,True,chain,0,False,False,False,False,False,False,slope from last 3,0.040235974815770216
+gpt-5.5,direct,sentinel2,True,chain,0,False,False,False,False,False,False,slope from last 3,0.12427506542037545
+gpt-5.5,direct,sentinel2,True,chain,0,False,False,False,False,False,False,repeat P09,0.13322641990917844
+gpt-5.5,direct,sentinel2,True,chain,0,False,False,False,False,False,False,slope from last 3,0.18727137260453824
+gpt-5.5,direct,sentinel2,True,chain,0,False,False,False,False,False,False,slope from last 3,0.6758184248828675
+gpt-5.5,direct,sentinel2,True,chain,0,False,False,False,False,False,False,slope from last 3,0.1959597744176721
+gpt-5.5,direct,sentinel2,True,chain,0,False,False,False,False,False,False,repeat P09,0.17303233293588677
+gpt-5.5,direct,sentinel2,True,chain,0,False,False,False,False,False,False,slope from last 3,0.2303489439000968
+gpt-5.5,direct,sentinel2,True,chain,0,False,False,False,False,False,False,repeat P09,0.35178266817042236
+gpt-5.5,direct,sentinel2,True,chain,0,False,False,False,False,False,False,repeat P09,0.44455250409430774
+gpt-5.5,direct,sentinel2,True,chain,0,False,False,False,False,False,False,slope from last 3,0.07100334593565136
+gpt-5.5,direct,sentinel2,True,chain,0,False,False,False,False,False,False,slope from last 3,0.1773956909053659
+gpt-5.5,direct,sentinel2,True,chain,0,False,False,False,False,False,False,slope from last 3,0.4282499187997413
+gpt-5.5,direct,sentinel2,True,chain,0,False,False,False,False,False,False,slope from last 3,0.41409439685836424
+gpt-5.5,direct,sentinel2,True,chain,0,False,False,False,False,False,False,repeat P09,0.0367139491427265
+gpt-5.5,direct,sentinel2,True,chain,0,False,False,False,False,False,False,repeat P09,0.18045334375087896
+gpt-5.5,steps,sentinel1,True,chain,0,False,False,False,False,False,False,repeat P09,0.13887702613297218
+gpt-5.5,steps,sentinel1,True,chain,0,False,False,False,False,False,False,repeat P09,0.004198325327322363
+gpt-5.5,steps,sentinel1,True,chain,0,False,False,False,False,False,False,repeat P09,0.07750571314878284
+gpt-5.5,steps,sentinel1,True,chain,0,False,False,False,False,False,False,repeat P09,0.0032472818677814117
+gpt-5.5,steps,sentinel1,True,chain,0,False,False,False,False,False,False,repeat P09,0.00592446041065317
+gpt-5.5,steps,sentinel1,True,chain,0,False,False,False,False,False,False,mean last 3,0.1655106694803258
+gpt-5.5,steps,sentinel1,True,chain,0,False,False,False,False,False,False,repeat P09,0.0063507300984466135
+gpt-5.5,steps,sentinel1,True,chain,0,False,False,False,False,False,False,repeat P09,0.008056480387139903
+gpt-5.5,steps,sentinel1,True,chain,0,False,False,False,False,False,False,repeat P09,0.006727273785574862
+gpt-5.5,steps,sentinel1,True,chain,0,False,False,False,False,False,False,mean last 3,0.1405189583769018
+gpt-5.5,steps,sentinel1,True,chain,0,False,False,False,False,False,False,own 9-month mean,0.3247487111161062
+gpt-5.5,steps,sentinel1,True,chain,0,False,False,False,False,False,False,repeat P09,0.004954472060511483
+gpt-5.5,steps,sentinel2,True,chain,0,False,False,False,False,False,False,repeat P09,0.007748460526648542
+gpt-5.5,steps,sentinel2,True,chain,0,False,False,False,False,False,False,repeat P09,0.10187803325962867
+gpt-5.5,steps,sentinel2,True,chain,0,False,False,False,False,False,False,repeat P09,0.010163852191542162
+gpt-5.5,steps,sentinel2,True,chain,0,False,False,False,False,False,False,repeat P09,0.00899258176757408
+gpt-5.5,steps,sentinel2,True,chain,0,False,False,False,False,False,False,repeat P09,0.009740249346464688
+gpt-5.5,steps,sentinel2,True,chain,0,False,False,False,False,False,False,repeat P09,0.010077601514452566
+gpt-5.5,steps,sentinel2,True,chain,0,False,False,False,False,False,False,repeat P09,0.004696186627117616
+gpt-5.5,steps,sentinel2,True,chain,0,False,False,False,False,False,False,repeat P09,0.005928095354976789
+gpt-5.5,steps,sentinel2,True,chain,0,False,False,False,False,False,False,repeat P09,0.003598230631855059
+gpt-5.5,steps,sentinel2,True,chain,0,False,False,False,False,False,False,repeat P09,0.006729433554856667
+gpt-5.5,steps,sentinel2,True,chain,0,False,False,False,False,False,False,repeat P09,0.00713542644026482
+gpt-5.5,steps,sentinel2,True,chain,0,False,False,False,False,False,False,repeat P09,0.008008968987646872
+gpt-5.5,steps,sentinel2,True,chain,0,False,False,False,False,False,False,repeat P09,0.00953177506542784
+gpt-5.5,steps,sentinel2,True,chain,0,False,False,False,False,False,False,repeat P09,0.007429693528246352
+gpt-5.5,steps,sentinel2,True,chain,0,False,False,False,False,False,False,repeat P09,0.008837366949858837
+DeepSeek-V4-Flash-thinking-low,direct,sentinel1,False,chain,0,False,False,False,False,False,False,,
+DeepSeek-V4-Flash-thinking-low,direct,sentinel1,False,chain,0,False,False,False,False,False,False,,
+DeepSeek-V4-Flash-thinking-low,direct,sentinel1,False,chain,0,False,False,False,False,False,False,,
+GLM-5.3,direct,sentinel1,False,chain,0,False,False,False,False,False,False,,
+GLM-5.3,direct,sentinel1,False,chain,0,False,False,False,False,False,False,,
+Kimi-K3-thinking-low,direct,sentinel1,True,chain,10790,True,True,True,True,False,False,mean last 2,0.16550424298749122
+Kimi-K3-thinking-low,direct,sentinel1,True,chain,4959,True,True,True,False,False,False,slope from last 3,0.0920999767346915
+Kimi-K3-thinking-low,direct,sentinel1,True,chain,3437,True,True,True,True,False,False,mean last 3,0.0032636033842206847
+Kimi-K3-thinking-low,direct,sentinel1,True,chain,5441,True,True,True,False,True,False,line through all 9,0.008617949826364662
+Kimi-K3-thinking-low,direct,sentinel1,True,chain,6703,True,True,True,True,False,False,line through all 9,0.06433906506018171
+Kimi-K3-thinking-low,direct,sentinel1,True,chain,4236,True,True,True,True,True,False,mean last 3,0.00508813776145282
+Kimi-K3-thinking-low,direct,sentinel1,True,chain,5806,True,True,True,False,False,True,repeat P09,0.1308126446970085
+Kimi-K3-thinking-low,direct,sentinel1,True,chain,5297,True,True,True,False,False,False,repeat P09,0.3022001143809865
+Kimi-K3-thinking-low,direct,sentinel1,True,chain,6474,True,True,True,True,False,False,mean last 3,0.011215950442650474
+Kimi-K3-thinking-low,direct,sentinel1,True,chain,3942,False,True,True,False,False,True,repeat P09,0.04696719094294873
+Kimi-K3-thinking-low,direct,sentinel1,True,chain,3824,False,True,True,False,False,False,line through all 9,0.03267331568381677
+Kimi-K3-thinking-low,direct,sentinel1,True,chain,0,False,False,False,False,False,False,mean last 3,0.0025691710331221056
+Kimi-K3-thinking-low,direct,sentinel2,True,chain,160,False,True,True,False,False,False,slope from last 3,0.1501032353625686
+Kimi-K3-thinking-low,direct,sentinel2,True,chain,118,False,False,True,False,False,False,repeat P09,0.07200400959905603
+Kimi-K3-thinking-low,direct,sentinel2,True,chain,1079,False,True,True,False,False,False,slope from last 3,0.08508881405762383
+Kimi-K3-thinking-low,direct,sentinel2,True,chain,8522,False,True,True,False,False,False,slope from last 3,0.4628111065984788
+Kimi-K3-thinking-low,direct,sentinel2,True,chain,2087,False,True,True,False,False,False,slope from last 3,0.1288381135310592
+Kimi-K3-thinking-low,direct,sentinel2,True,chain,1406,False,False,True,False,False,False,slope from last 3,0.14879421922981742
+Kimi-K3-thinking-low,direct,sentinel2,True,chain,1507,False,True,True,False,False,False,slope from last 3,0.31926090559603226
+Kimi-K3-thinking-low,direct,sentinel2,True,chain,7133,False,True,True,True,False,False,slope from last 3,0.1992239152575857
+Kimi-K3-thinking-low,direct,sentinel2,True,chain,8235,False,True,True,True,False,False,mean last 3,0.4090833748169619
+Kimi-K3-thinking-low,direct,sentinel2,True,chain,820,False,True,True,False,False,False,own 9-month mean,0.23591334036602968
+Kimi-K3-thinking-low,direct,sentinel2,True,chain,179,False,True,False,False,False,False,slope from last 3,0.14729351143878794
+Kimi-K3-thinking-low,direct,sentinel2,True,chain,8832,False,True,True,False,False,False,slope from last 3,0.4093649525634843
+Kimi-K3-thinking-low,direct,sentinel2,True,chain,147,False,True,True,False,False,False,slope from last 3,0.13812655479002955
+Kimi-K3-thinking-low,direct,sentinel2,True,chain,6134,False,True,True,True,False,False,repeat P09,0.034098938318989296
+Kimi-K3-thinking-low,direct,sentinel2,True,chain,198,False,True,True,False,False,False,repeat P09,0.13742501049771016
+gpt-oss-120b,direct,sentinel1,True,chain,221,False,True,False,False,False,False,repeat P09,0.07936918298488814
+gpt-oss-120b,direct,sentinel1,True,chain,396,False,True,True,False,False,False,repeat P09,0.14495598588869543
+gpt-oss-120b,direct,sentinel1,True,chain,207,False,True,False,False,False,False,repeat P09,0.07464405258525438
+gpt-oss-120b,direct,sentinel1,True,chain,283,False,False,True,False,False,False,repeat P09,0.12744521290810132
+gpt-oss-120b,direct,sentinel1,True,chain,518,False,True,False,False,False,False,slope from last 3,0.05235341232766535
+gpt-oss-120b,direct,sentinel1,True,chain,332,True,True,False,False,False,False,mean last 3,0.012347130850627509
+gpt-oss-120b,direct,sentinel1,True,chain,263,False,True,False,False,False,False,repeat P09,0.05583006601870615
+gpt-oss-120b,direct,sentinel1,True,chain,563,False,True,True,False,False,False,slope from last 3,0.3336725964041276
+gpt-oss-120b,direct,sentinel1,True,chain,244,False,True,True,False,False,False,line through all 9,0.02569563148245375
+gpt-oss-120b,direct,sentinel1,True,chain,239,False,True,True,False,False,False,line through all 9,0.061107771283875456
+gpt-oss-120b,direct,sentinel1,True,chain,385,False,True,False,False,False,False,repeat P09,0.09588879088840035
+gpt-oss-120b,direct,sentinel1,True,chain,280,False,True,True,False,False,False,slope from last 3,0.04143857246119897
+gpt-oss-120b,direct,sentinel2,True,chain,614,True,True,True,False,False,False,mean last 3,0.009918935521774015
+gpt-oss-120b,direct,sentinel2,True,chain,208,False,True,True,False,False,False,repeat P09,0.1260149575179682
+gpt-oss-120b,direct,sentinel2,True,chain,271,False,True,True,False,False,False,repeat P09,0.11760291882017757
+gpt-oss-120b,direct,sentinel2,True,chain,420,False,True,True,False,False,False,mean last 2,0.384001137529513
+gpt-oss-120b,direct,sentinel2,True,chain,349,False,True,True,False,False,False,repeat P09,0.14963762011837617
+gpt-oss-120b,direct,sentinel2,True,chain,220,False,True,True,False,False,False,repeat P09,0.18666327425047652
+gpt-oss-120b,direct,sentinel2,True,chain,418,True,True,True,False,False,False,mean last 2,0.014588250179054418
+gpt-oss-120b,direct,sentinel2,True,chain,250,False,True,True,False,False,False,repeat P09,0.09875943877042949
+gpt-oss-120b,direct,sentinel2,True,chain,253,False,True,True,False,False,False,repeat P09,0.14657789175304095
+gpt-oss-120b,direct,sentinel2,True,chain,348,True,True,True,False,False,False,repeat P09,0.20799679966080165
+gpt-oss-120b,direct,sentinel2,True,chain,206,False,True,True,False,False,False,slope from last 3,0.09929646202216372
+gpt-oss-120b,direct,sentinel2,True,chain,248,False,True,True,False,False,False,repeat P09,0.21264375940390234
+gpt-oss-120b,direct,sentinel2,True,chain,351,False,True,True,False,False,False,slope from last 3,0.10998253402607291
+gpt-oss-120b,direct,sentinel2,True,chain,372,True,True,True,False,False,False,repeat P09,0.09539236298212173
+gpt-oss-120b,direct,sentinel2,True,chain,240,False,True,True,False,False,False,repeat P09,0.2221196953246754
+DeepSeek-V4-Flash-thinking-low,direct,sentinel1,False,chain,0,False,False,False,False,False,False,,
+DeepSeek-V4-Flash-thinking-low,direct,sentinel1,False,chain,0,False,False,False,False,False,False,,
+DeepSeek-V4-Flash-thinking-low,direct,sentinel1,False,chain,0,False,False,False,False,False,False,,
+DeepSeek-V4-Flash-thinking-low,direct,sentinel1,False,chain,0,False,False,False,False,False,False,,
+DeepSeek-V4-Flash-thinking-low,direct,sentinel1,False,chain,0,False,False,False,False,False,False,,
+DeepSeek-V4-Flash-thinking-low,direct,sentinel1,False,chain,0,False,False,False,False,False,False,,
+DeepSeek-V4-Flash-thinking-low,direct,sentinel1,False,chain,0,False,False,False,False,False,False,,
+DeepSeek-V4-Flash-thinking-low,direct,sentinel1,False,chain,0,False,False,False,False,False,False,,
+DeepSeek-V4-Flash-thinking-low,direct,sentinel1,False,chain,0,False,False,False,False,False,False,,
+DeepSeek-V4-Flash-thinking-low,direct,sentinel2,False,chain,0,False,False,False,False,False,False,,
+DeepSeek-V4-Flash-thinking-low,direct,sentinel2,False,chain,0,False,False,False,False,False,False,,
+DeepSeek-V4-Flash-thinking-low,direct,sentinel2,False,chain,0,False,False,False,False,False,False,,
+DeepSeek-V4-Flash-thinking-low,direct,sentinel2,False,chain,0,False,False,False,False,False,False,,
+DeepSeek-V4-Flash-thinking-low,direct,sentinel2,False,chain,0,False,False,False,False,False,False,,
+DeepSeek-V4-Flash-thinking-low,direct,sentinel2,False,chain,0,False,False,False,False,False,False,,
+DeepSeek-V4-Flash-thinking-low,direct,sentinel2,False,chain,0,False,False,False,False,False,False,,
+DeepSeek-V4-Flash-thinking-low,direct,sentinel2,False,chain,0,False,False,False,False,False,False,,
+DeepSeek-V4-Flash-thinking-low,direct,sentinel2,False,chain,0,False,False,False,False,False,False,,
+DeepSeek-V4-Flash-thinking-low,direct,sentinel2,False,chain,0,False,False,False,False,False,False,,
+DeepSeek-V4-Flash-thinking-low,direct,sentinel2,False,chain,0,False,False,False,False,False,False,,
+DeepSeek-V4-Flash-thinking-low,direct,sentinel2,False,chain,0,False,False,False,False,False,False,,
+DeepSeek-V4-Flash-thinking-low,direct,sentinel2,False,chain,0,False,False,False,False,False,False,,
+DeepSeek-V4-Flash-thinking-low,direct,sentinel2,False,chain,0,False,False,False,False,False,False,,
+DeepSeek-V4-Flash-thinking-low,direct,sentinel2,False,chain,0,False,False,False,False,False,False,,
+GLM-5.3,direct,sentinel1,False,chain,36928,False,False,True,False,False,False,,
+GLM-5.3,direct,sentinel1,False,chain,24233,True,True,True,True,False,False,,
+GLM-5.3,direct,sentinel1,False,chain,25293,True,True,True,True,False,False,,
+GLM-5.3,direct,sentinel1,False,chain,28662,True,True,True,True,False,False,,
+GLM-5.3,direct,sentinel1,False,chain,22554,False,True,True,True,False,False,,
+GLM-5.3,direct,sentinel1,False,chain,22419,False,True,True,True,False,False,,
+GLM-5.3,direct,sentinel1,False,chain,26386,True,True,True,True,False,False,,
+GLM-5.3,direct,sentinel1,False,chain,25594,True,True,True,True,False,True,,
+GLM-5.3,direct,sentinel1,False,chain,25780,True,True,True,True,False,False,,
+GLM-5.3,direct,sentinel1,False,chain,25864,True,True,True,True,False,True,,
+GLM-5.3,direct,sentinel2,False,chain,26442,False,True,True,True,False,False,,
+GLM-5.3,direct,sentinel2,True,chain,88,False,False,True,False,False,True,repeat P09,0.08112022012482327
+GLM-5.3,direct,sentinel2,False,chain,23924,False,True,True,False,False,True,,
+GLM-5.3,direct,sentinel2,True,chain,173,False,False,True,False,False,False,slope from last 3,0.27801489229413134
+GLM-5.3,direct,sentinel2,False,chain,25699,False,True,True,True,False,False,,
+GLM-5.3,direct,sentinel2,False,chain,26190,True,True,True,True,False,False,,
+GLM-5.3,direct,sentinel2,False,chain,25820,True,True,True,False,False,False,,
+GLM-5.3,direct,sentinel2,False,chain,25611,True,True,True,True,True,False,,
+GLM-5.3,direct,sentinel2,False,chain,23402,True,True,True,True,True,False,,
+GLM-5.3,direct,sentinel2,False,chain,21382,True,True,True,True,False,False,,
+GLM-5.3,direct,sentinel2,False,chain,24906,True,True,True,True,False,False,,
+GLM-5.3,direct,sentinel2,False,chain,23844,True,True,True,True,True,False,,
+GLM-5.3,direct,sentinel2,False,chain,25297,True,True,True,False,False,False,,
+GLM-5.3,direct,sentinel2,True,chain,135,False,False,True,False,False,False,slope from last 3,0.14271043264100136
+GLM-5.3,direct,sentinel2,False,chain,25255,False,True,True,True,False,True,,
+openai:gpt-5.5,direct,sentinel1,True,summary,380,False,False,False,False,False,False,own 9-month mean,0.28169042843571285
+openai:gpt-5.5,direct,sentinel1,True,summary,466,False,True,True,False,False,False,repeat P09,0.05259893262436344
+openai:gpt-5.5,direct,sentinel1,True,summary,525,False,False,True,False,False,False,mean last 3,0.007179812624439005
+openai:gpt-5.5,direct,sentinel1,True,summary,0,False,False,False,False,False,False,mean last 3,0.03853798836477277
+openai:gpt-5.5,direct,sentinel1,True,summary,0,False,False,False,False,False,False,line through all 9,0.02290907123501379
+openai:gpt-5.5,direct,sentinel1,True,summary,465,False,False,True,False,False,False,mean last 3,0.017951167028918382
+openai:gpt-5.5,direct,sentinel1,True,summary,445,False,True,True,False,False,False,slope from last 3,0.09076219410077015
+openai:gpt-5.5,direct,sentinel1,True,summary,871,False,True,True,False,False,False,slope from last 3,0.06636496794421946
+openai:gpt-5.5,direct,sentinel1,True,summary,410,False,False,True,False,False,False,mean last 3,0.07308136133723396
+openai:gpt-5.5,direct,sentinel1,True,summary,488,False,False,True,False,False,False,repeat P09,0.0498921704859086
+openai:gpt-5.5,direct,sentinel1,True,summary,920,False,True,True,False,False,False,repeat P09,0.166660872622609
+openai:gpt-5.5,direct,sentinel1,True,summary,0,False,False,False,False,False,False,mean last 3,0.07500378947540663
+openai:gpt-5.5,direct,sentinel2,True,summary,438,False,False,True,False,False,False,slope from last 3,0.19479730665686
+openai:gpt-5.5,direct,sentinel2,True,summary,0,False,False,False,False,False,False,repeat P09,0.1692126792347509
+openai:gpt-5.5,direct,sentinel2,True,summary,449,False,False,True,False,False,False,slope from last 3,0.3513934931668945
+openai:gpt-5.5,direct,sentinel2,True,summary,530,False,False,True,False,False,False,slope from last 3,0.7175541115403595
+openai:gpt-5.5,direct,sentinel2,True,summary,977,False,True,True,False,False,False,slope from last 3,0.2199909462266821
+openai:gpt-5.5,direct,sentinel2,True,summary,954,False,True,True,False,False,False,repeat P09,0.10118516721160072
+openai:gpt-5.5,direct,sentinel2,True,summary,0,False,False,False,False,False,False,own 9-month mean,0.27754668121832815
+openai:gpt-5.5,direct,sentinel2,True,summary,0,False,False,False,False,False,False,repeat P09,0.347497166679534
+openai:gpt-5.5,direct,sentinel2,True,summary,947,False,False,True,False,False,False,repeat P09,0.17469204685019946
+openai:gpt-5.5,direct,sentinel2,True,summary,1003,False,True,True,False,False,False,slope from last 3,0.17719104797430946
+openai:gpt-5.5,direct,sentinel2,True,summary,997,False,True,True,False,False,False,slope from last 3,0.22108911717583848
+openai:gpt-5.5,direct,sentinel2,True,summary,1018,False,True,True,False,False,False,slope from last 3,0.9399876080968642
+openai:gpt-5.5,direct,sentinel2,True,summary,938,False,False,True,False,False,False,slope from last 3,0.24915357981863004
+openai:gpt-5.5,direct,sentinel2,True,summary,1088,False,False,True,False,False,False,slope from last 3,0.24406439307405062
+openai:gpt-5.5,direct,sentinel2,True,summary,968,False,False,True,False,False,False,mean last 2,0.1914635774537155
+openai:gpt-5.5,steps,sentinel1,True,summary,1010,True,False,False,True,True,False,repeat P09,0.15170494115964736
+openai:gpt-5.5,steps,sentinel1,True,summary,1981,True,False,False,True,True,False,repeat P09,0.004198325327322363
+openai:gpt-5.5,steps,sentinel1,True,summary,402,False,False,False,False,False,False,repeat P09,0.20004765686179474
+openai:gpt-5.5,steps,sentinel1,True,summary,503,True,False,False,True,True,False,repeat P09,0.0032472818677814117
+openai:gpt-5.5,steps,sentinel1,True,summary,1050,True,False,False,True,True,False,repeat P09,0.00592446041065317
+openai:gpt-5.5,steps,sentinel1,True,summary,1868,True,False,False,True,True,False,repeat P09,0.12384377604461898
+openai:gpt-5.5,steps,sentinel1,True,summary,501,True,False,False,True,False,True,repeat P09,0.0063507300984466135
+openai:gpt-5.5,steps,sentinel1,True,summary,469,True,False,False,True,False,False,repeat P09,0.008056480387139903
+openai:gpt-5.5,steps,sentinel1,True,summary,517,True,False,False,True,True,False,repeat P09,0.006727273785574862
+openai:gpt-5.5,steps,sentinel1,True,summary,1015,True,False,False,True,True,False,repeat P09,0.005417713189076055
+openai:gpt-5.5,steps,sentinel1,True,summary,967,True,False,False,True,False,False,repeat P09,0.0034529284474871767
+openai:gpt-5.5,steps,sentinel1,True,summary,1490,True,False,False,True,True,False,own 9-month mean,0.2620722875938146
+openai:gpt-5.5,steps,sentinel2,True,summary,465,False,False,False,False,True,False,repeat P09,0.007748460526648542
+openai:gpt-5.5,steps,sentinel2,True,summary,935,False,False,True,True,True,False,repeat P09,0.011727090990428412
+openai:gpt-5.5,steps,sentinel2,True,summary,1041,True,False,False,True,True,False,repeat P09,0.010163852191542162
+openai:gpt-5.5,steps,sentinel2,True,summary,1551,True,False,False,True,False,False,repeat P09,0.00899258176757408
+openai:gpt-5.5,steps,sentinel2,True,summary,959,True,False,False,True,True,False,repeat P09,0.009740249346464688
+openai:gpt-5.5,steps,sentinel2,True,summary,892,False,True,False,False,True,True,repeat P09,0.010077601514452566
+openai:gpt-5.5,steps,sentinel2,True,summary,1630,True,False,True,True,True,False,repeat P09,0.004696186627117616
+openai:gpt-5.5,steps,sentinel2,True,summary,946,False,False,False,True,True,False,repeat P09,0.005928095354976789
+openai:gpt-5.5,steps,sentinel2,True,summary,0,False,False,False,False,False,False,repeat P09,0.003598230631855059
+openai:gpt-5.5,steps,sentinel2,True,summary,960,True,False,False,True,True,False,repeat P09,0.006729433554856667
+openai:gpt-5.5,steps,sentinel2,True,summary,0,False,False,False,False,False,False,repeat P09,0.00713542644026482
+openai:gpt-5.5,steps,sentinel2,True,summary,1552,True,False,False,True,True,True,repeat P09,0.008008968987646872
+openai:gpt-5.5,steps,sentinel2,True,summary,2014,True,True,False,True,True,False,repeat P09,0.00953177506542784
+openai:gpt-5.5,steps,sentinel2,True,summary,1428,True,False,False,True,True,False,repeat P09,0.007429693528246352
+openai:gpt-5.5,steps,sentinel2,True,summary,486,False,False,False,True,False,False,repeat P09,0.008837366949858837
+DeepSeek-V4-Flash-thinking-low,steps,sentinel1,False,chain,0,False,False,False,False,False,False,,
+DeepSeek-V4-Flash-thinking-low,steps,sentinel1,False,chain,0,False,False,False,False,False,False,,
+DeepSeek-V4-Flash-thinking-low,steps,sentinel1,False,chain,0,False,False,False,False,False,False,,
+DeepSeek-V4-Flash-thinking-low,steps,sentinel1,False,chain,0,False,False,False,False,False,False,,
+DeepSeek-V4-Flash-thinking-low,steps,sentinel1,False,chain,0,False,False,False,False,False,False,,
+DeepSeek-V4-Flash-thinking-low,steps,sentinel1,False,chain,0,False,False,False,False,False,False,,
+DeepSeek-V4-Flash-thinking-low,steps,sentinel1,False,chain,0,False,False,False,False,False,False,,
+DeepSeek-V4-Flash-thinking-low,steps,sentinel1,False,chain,0,False,False,False,False,False,False,,
+DeepSeek-V4-Flash-thinking-low,steps,sentinel1,False,chain,0,False,False,False,False,False,False,,
+DeepSeek-V4-Flash-thinking-low,steps,sentinel1,False,chain,0,False,False,False,False,False,False,,
+DeepSeek-V4-Flash-thinking-low,steps,sentinel1,False,chain,0,False,False,False,False,False,False,,
+DeepSeek-V4-Flash-thinking-low,steps,sentinel1,False,chain,0,False,False,False,False,False,False,,
+DeepSeek-V4-Flash-thinking-low,steps,sentinel2,False,chain,0,False,False,False,False,False,False,,
+DeepSeek-V4-Flash-thinking-low,steps,sentinel2,False,chain,0,False,False,False,False,False,False,,
+DeepSeek-V4-Flash-thinking-low,steps,sentinel2,False,chain,0,False,False,False,False,False,False,,
+DeepSeek-V4-Flash-thinking-low,steps,sentinel2,False,chain,0,False,False,False,False,False,False,,
+DeepSeek-V4-Flash-thinking-low,steps,sentinel2,False,chain,0,False,False,False,False,False,False,,
+DeepSeek-V4-Flash-thinking-low,steps,sentinel2,False,chain,0,False,False,False,False,False,False,,
+DeepSeek-V4-Flash-thinking-low,steps,sentinel2,False,chain,0,False,False,False,False,False,False,,
+DeepSeek-V4-Flash-thinking-low,steps,sentinel2,False,chain,0,False,False,False,False,False,False,,
+DeepSeek-V4-Flash-thinking-low,steps,sentinel2,False,chain,0,False,False,False,False,False,False,,
+DeepSeek-V4-Flash-thinking-low,steps,sentinel2,False,chain,0,False,False,False,False,False,False,,
+DeepSeek-V4-Flash-thinking-low,steps,sentinel2,False,chain,0,False,False,False,False,False,False,,
+DeepSeek-V4-Flash-thinking-low,steps,sentinel2,False,chain,0,False,False,False,False,False,False,,
+DeepSeek-V4-Flash-thinking-low,steps,sentinel2,False,chain,0,False,False,False,False,False,False,,
+DeepSeek-V4-Flash-thinking-low,steps,sentinel2,False,chain,0,False,False,False,False,False,False,,
+DeepSeek-V4-Flash-thinking-low,steps,sentinel2,False,chain,0,False,False,False,False,False,False,,
+GLM-5.3,steps,sentinel1,False,chain,22939,True,True,False,True,True,True,,
+GLM-5.3,steps,sentinel1,False,chain,20515,True,True,False,True,True,True,,
+GLM-5.3,steps,sentinel1,False,chain,20403,True,True,False,True,True,True,,
+GLM-5.3,steps,sentinel1,False,chain,17530,True,True,False,True,True,True,,
+GLM-5.3,steps,sentinel1,False,chain,22765,True,True,False,True,True,True,,
+GLM-5.3,steps,sentinel1,False,chain,20219,True,True,False,True,True,True,,
+GLM-5.3,steps,sentinel1,False,chain,18861,True,True,False,True,True,True,,
+GLM-5.3,steps,sentinel1,False,chain,19144,True,True,False,True,True,True,,
+GLM-5.3,steps,sentinel1,False,chain,19531,True,True,False,True,True,True,,
+GLM-5.3,steps,sentinel1,False,chain,20305,True,True,False,True,True,True,,
+GLM-5.3,steps,sentinel1,False,chain,38029,True,False,False,True,True,False,,
+GLM-5.3,steps,sentinel1,False,chain,18351,True,True,False,True,True,True,,
+GLM-5.3,steps,sentinel2,False,chain,20997,True,True,False,True,True,True,,
+GLM-5.3,steps,sentinel2,False,chain,22924,True,True,False,True,True,True,,
+GLM-5.3,steps,sentinel2,False,chain,21604,True,True,True,True,True,True,,
+GLM-5.3,steps,sentinel2,False,chain,19972,True,True,True,True,True,True,,
+GLM-5.3,steps,sentinel2,False,chain,21635,True,True,True,True,True,True,,
+GLM-5.3,steps,sentinel2,False,chain,23282,True,True,False,True,True,True,,
+GLM-5.3,steps,sentinel2,False,chain,23768,True,True,False,True,True,True,,
+GLM-5.3,steps,sentinel2,False,chain,22760,True,True,True,True,True,True,,
+GLM-5.3,steps,sentinel2,False,chain,21825,True,True,True,True,True,True,,
+GLM-5.3,steps,sentinel2,False,chain,19181,True,True,False,True,True,True,,
+GLM-5.3,steps,sentinel2,False,chain,24214,True,True,True,True,True,True,,
+GLM-5.3,steps,sentinel2,False,chain,20280,True,True,True,True,True,True,,
+GLM-5.3,steps,sentinel2,False,chain,23982,True,True,False,True,True,True,,
+GLM-5.3,steps,sentinel2,False,chain,21980,True,True,True,True,True,True,,
+GLM-5.3,steps,sentinel2,False,chain,40125,True,False,False,True,True,True,,
+Kimi-K3-thinking-low,steps,sentinel1,True,chain,8134,True,False,False,True,True,False,repeat P09,0.23996880860894532
+Kimi-K3-thinking-low,steps,sentinel1,True,chain,15166,True,True,False,True,True,True,repeat P09,0.004198325327322363
+Kimi-K3-thinking-low,steps,sentinel1,True,chain,2097,True,False,False,True,True,False,repeat P09,0.0037748768131481264
+Kimi-K3-thinking-low,steps,sentinel1,True,chain,13147,True,False,False,True,True,True,repeat P09,0.004267120030504481
+Kimi-K3-thinking-low,steps,sentinel2,True,chain,14338,True,True,True,True,True,True,repeat P09,0.011727090990428412
+Kimi-K3-thinking-low,steps,sentinel2,True,chain,15731,True,True,True,True,True,True,repeat P09,0.010077601514452566
+Kimi-K3-thinking-low,steps,sentinel2,True,chain,13800,True,True,True,True,True,True,repeat P09,0.003598230631855059
+Kimi-K3-thinking-low,steps,sentinel2,True,chain,18493,True,True,True,True,True,True,repeat P09,0.008837366949858837
+Kimi-K3-thinking-low,steps,sentinel1,True,chain,14529,True,True,False,True,True,False,repeat P09,0.0032472818677814117
+Kimi-K3-thinking-low,steps,sentinel1,True,chain,19752,True,True,False,True,True,True,repeat P09,0.00592446041065317
+Kimi-K3-thinking-low,steps,sentinel1,False,chain,24025,True,True,False,True,True,True,,
+Kimi-K3-thinking-low,steps,sentinel1,True,chain,23993,True,True,True,True,True,True,repeat P09,0.008056480387139903
+Kimi-K3-thinking-low,steps,sentinel1,True,chain,18069,True,True,True,True,True,True,repeat P09,0.006727273785574862
+Kimi-K3-thinking-low,steps,sentinel1,True,chain,20672,True,True,False,True,True,True,repeat P09,0.005417713189076055
+Kimi-K3-thinking-low,steps,sentinel1,True,chain,17731,True,True,True,True,True,True,repeat P09,0.0034529284474871767
+Kimi-K3-thinking-low,steps,sentinel1,True,chain,17014,True,True,False,True,True,True,repeat P09,0.004954472060511483
+Kimi-K3-thinking-low,steps,sentinel2,False,chain,24702,True,True,True,True,True,True,,
+Kimi-K3-thinking-low,steps,sentinel2,True,chain,24157,True,True,True,True,True,True,repeat P09,0.010163852191542162
+Kimi-K3-thinking-low,steps,sentinel2,True,chain,18468,True,True,True,True,True,True,repeat P09,0.00899258176757408
+Kimi-K3-thinking-low,steps,sentinel2,False,chain,22957,True,True,True,True,True,True,,
+Kimi-K3-thinking-low,steps,sentinel2,False,chain,21200,True,True,True,True,True,True,,
+Kimi-K3-thinking-low,steps,sentinel2,True,chain,20774,True,True,True,True,True,True,repeat P09,0.005928095354976789
+Kimi-K3-thinking-low,steps,sentinel2,False,chain,27487,True,True,True,True,True,True,,
+Kimi-K3-thinking-low,steps,sentinel2,False,chain,25477,True,True,False,True,True,True,,
+Kimi-K3-thinking-low,steps,sentinel2,False,chain,19058,True,True,True,True,True,True,,
+Kimi-K3-thinking-low,steps,sentinel2,True,chain,23888,True,True,False,True,True,True,repeat P09,0.00953177506542784
+Kimi-K3-thinking-low,steps,sentinel2,False,chain,24224,True,True,True,True,True,True,,
+gpt-oss-120b,steps,sentinel1,True,chain,2141,True,True,False,True,False,True,line through all 9,0.1001563645271837
+gpt-oss-120b,steps,sentinel1,True,chain,3060,True,False,False,True,True,True,repeat P09,0.004198325327322363
+gpt-oss-120b,steps,sentinel1,True,chain,95,False,False,False,False,False,False,repeat P09,0.07464405258525438
+gpt-oss-120b,steps,sentinel1,True,chain,2744,True,False,False,True,False,True,repeat P09,0.0032472818677814117
+gpt-oss-120b,steps,sentinel1,True,chain,1918,True,False,False,True,False,False,mean last 3,0.3003757550055281
+gpt-oss-120b,steps,sentinel1,True,chain,812,True,False,False,True,False,False,mean last 3,0.06864941000482162
+gpt-oss-120b,steps,sentinel1,True,chain,3756,True,True,False,True,True,True,repeat P09,0.0063507300984466135
+gpt-oss-120b,steps,sentinel1,True,chain,548,True,True,False,True,False,False,repeat P09,0.1471556371732212
+gpt-oss-120b,steps,sentinel1,True,chain,150,False,True,False,False,False,False,repeat P09,0.06850617416192929
+gpt-oss-120b,steps,sentinel1,True,chain,97,False,True,False,False,False,False,mean last 3,0.07619191303754395
+gpt-oss-120b,steps,sentinel1,True,chain,547,True,False,False,True,False,False,own 9-month mean,0.30026379550666527
+gpt-oss-120b,steps,sentinel1,True,chain,4043,True,True,False,True,True,False,repeat P09,0.004954472060511483
+gpt-oss-120b,steps,sentinel2,True,chain,244,False,True,True,False,False,False,repeat P09,0.06481466942278591
+gpt-oss-120b,steps,sentinel2,True,chain,124,False,False,False,False,False,True,repeat P09,0.011727090990428412
+gpt-oss-120b,steps,sentinel2,True,chain,124,False,False,False,False,False,True,repeat P09,0.010163852191542162
+gpt-oss-120b,steps,sentinel2,True,chain,150,False,True,False,False,False,True,repeat P09,0.00899258176757408
+gpt-oss-120b,steps,sentinel2,True,chain,339,False,False,False,False,False,False,repeat P09,0.13500773904283947
+gpt-oss-120b,steps,sentinel2,True,chain,168,False,False,False,False,False,True,repeat P09,0.010077601514452566
+gpt-oss-120b,steps,sentinel2,True,chain,116,False,False,False,False,False,True,repeat P09,0.004696186627117616
+gpt-oss-120b,steps,sentinel2,True,chain,124,False,False,False,False,False,True,repeat P09,0.005928095354976789
+gpt-oss-120b,steps,sentinel2,True,chain,119,False,False,False,False,False,True,repeat P09,0.003598230631855059
+gpt-oss-120b,steps,sentinel2,True,chain,124,False,False,False,False,False,True,repeat P09,0.006729433554856667
+gpt-oss-120b,steps,sentinel2,True,chain,117,False,False,False,False,False,False,repeat P09,0.00713542644026482
+gpt-oss-120b,steps,sentinel2,True,chain,124,False,False,False,False,False,True,repeat P09,0.008008968987646872
+gpt-oss-120b,steps,sentinel2,True,chain,117,False,False,False,False,False,False,repeat P09,0.00953177506542784
+gpt-oss-120b,steps,sentinel2,True,chain,321,False,False,False,False,False,False,repeat P09,0.007429693528246352
+gpt-oss-120b,steps,sentinel2,True,chain,168,False,True,False,False,False,True,repeat P09,0.008837366949858837

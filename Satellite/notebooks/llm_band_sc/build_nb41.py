@@ -4,7 +4,7 @@ nb = nbf.v4.new_notebook(); C = []
 C.append(nbf.v4.new_markdown_cell("""# 41 — LLMs as the weight solver on the collaborator's band-feature designs (monthly data)
 
 Plan `quirky-growing-wombat` (2026-09-09). Two designs, both validation only, both predicting **P10 from
-inputs up to P09** on the monthly composites: **SHC** (her notebook 26: the target site's own P01–P09) and
+inputs up to P09** on the monthly composites: **SHC** (her notebook 10: the target site's own P01–P09) and
 **SCM** (her notebook 14 method: the target site P01–P09 and its 5 matched donor sites P01–P10). Scored with
 her metrics exactly (`lb_lib.her_nmse`, `lb_lib.her_rmse`, `lb_lib.her_scaler`, `lb_lib.her_solve` — gate 1 of
 `lb_tests.py` reproduces her shipped notebook-14 weights and RMSE to 1e-7). All of P01–P10 are pre-hurricane
@@ -19,9 +19,9 @@ print("methods:", sorted(S_shc.method.unique()))"""))
 C.append(nbf.v4.new_markdown_cell("## 1. SHC design — her outcome metric (slide 16 step 10 / `data/shc/10`): squared error / outcome variance over P01–P10 (ddof 1) per band, mean over the 8 or 3 bands\n\n`shc` = our run of her held-out SHC pipeline (`lb_shc.py`, reproduces her 27 stored per-site values); `own_mean` = the target's P01–P09 mean, nothing estimated. The held-out variant (variance over P01–P09, her notebook step 11) is in the same CSV as `joint_nmse`."))
 C.append(nbf.v4.new_code_cell("""for s in ("sentinel1", "sentinel2"):
     print(f"\\n=== {s} ===")
-    print(summ_shc[summ_shc.sensor == s].sort_values("mean_joint_nmse_p10var").to_string(index=False, float_format=f4))
+    print(summ_shc[summ_shc.sensor == s].sort_values("mean_joint_nmse").to_string(index=False, float_format=f4))
     print(band_shc[band_shc.sensor == s].pivot(index="band", columns="method", values="mean_nmse").to_string(float_format=f4))"""))
-C.append(nbf.v4.new_code_cell("""piv = S_shc[S_shc.ok == True].pivot_table(index=["sensor","site_id"], columns="method", values="joint_nmse_p10var")
+C.append(nbf.v4.new_code_cell("""piv = S_shc[S_shc.ok == True].pivot_table(index=["sensor","site_id"], columns="method", values="joint_nmse")
 print(piv.to_string(float_format=f4))"""))
 C.append(nbf.v4.new_markdown_cell("## 2. SCM design — her notebook-14 metric: standardized validation RMSE at P10 (her pooled scaler over targets + donors at P01–P09)\n\n`scm` = her SLSQP simplex solver on the same standardized P01–P09 matrix, with her training RMSE, ratio, flag, largest weight and effective donors."))
 C.append(nbf.v4.new_code_cell("""for s in ("sentinel1", "sentinel2"):
@@ -50,16 +50,16 @@ C.append(nbf.v4.new_markdown_cell("""## 4. What do the models actually do? Plain
 
 **C. Prompt ablations** (`[noguide]` no band guide, `[anon]` no guide, sensor or band names, `[nocal]` no calendar dates, `[rule]` the base prompt plus a second line naming the rule used) appear in the table of section 1 once their reply files exist; the rules the models state are listed at the end."""))
 C.append(nbf.v4.new_code_cell("""ok = S_shc[S_shc.ok == True]
-ref = ok[ok.method == "shc"].set_index(["sensor", "site_id"]).joint_nmse_p10var
+ref = ok[ok.method == "shc"].set_index(["sensor", "site_id"])[lb.METRIC]
 for s in ("sentinel1", "sentinel2"):
-    t = summ_shc[summ_shc.sensor == s].sort_values("mean_joint_nmse_p10var").copy()
+    t = summ_shc[summ_shc.sensor == s].sort_values("mean_joint_nmse").copy()
     wins = []
     for m in t.method:
         d = ok[(ok.method == m) & (ok.sensor == s)].set_index("site_id")
-        wins.append(f"{int((d.joint_nmse_p10var < ref.loc[s].loc[d.index]).sum())} / {len(d)}")
+        wins.append(f"{int((d[lb.METRIC] < ref.loc[s].loc[d.index]).sum())} / {len(d)}")
     t["beats_shc"] = wins
-    print(s); print(t[["method", "n", "mean_joint_nmse_p10var", "median_joint_nmse_p10var", "beats_shc"]].to_string(index=False, float_format=lambda v: f"{v:.4f}")); print()"""))
-C.append(nbf.v4.new_code_cell("""piv = ok.pivot_table(index=["sensor","site_id"], columns="method", values="joint_nmse_p10var")
+    print(s); print(t[["method", "n", "mean_joint_nmse", "median_joint_nmse", "beats_shc"]].to_string(index=False, float_format=lambda v: f"{v:.4f}")); print()"""))
+C.append(nbf.v4.new_code_cell("""piv = ok.pivot_table(index=["sensor","site_id"], columns="method", values="joint_nmse")
 cols = [c for c in ["Kimi-K3-thinking-low","gpt-oss-120b","gpt-oss-120b (default effort)","ensemble","last3_mean","holt_damped","linear9","linear4","persistence","shc","own_mean"] if c in piv]
 print(piv[cols].round(3).to_string())"""))
 C.append(nbf.v4.new_code_cell("""diag = pd.read_csv("lb_diag_summary.csv")

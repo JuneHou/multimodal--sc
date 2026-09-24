@@ -1,15 +1,23 @@
 method,sensor,band,mean_nmse
-Kimi-K3-thinking-low,sentinel1,VV,0.694930151292645
-Kimi-K3-thinking-low,sentinel1,VH,0.2516003675697965
-Kimi-K3-thinking-low,sentinel1,VV-VH,0.11195224122541513
-Kimi-K3-thinking-low,sentinel2,B2,1.5107499871788852
-Kimi-K3-thinking-low,sentinel2,B3,1.0186582616384563
-Kimi-K3-thinking-low,sentinel2,B4,2.830426626520982
-Kimi-K3-thinking-low,sentinel2,B8,0.054764408023935125
-Kimi-K3-thinking-low,sentinel2,B11,2.173215935590045
-Kimi-K3-thinking-low,sentinel2,B12,1.7204288698432595
-Kimi-K3-thinking-low,sentinel2,NDVI,0.390064780265981
-Kimi-K3-thinking-low,sentinel2,NDWI,1.062606460574001
+GLM-5.3,sentinel2,B2,4.479060478783366
+GLM-5.3,sentinel2,B3,3.1853984372277533
+GLM-5.3,sentinel2,B4,7.423604980634518
+GLM-5.3,sentinel2,B8,0.09997322796605145
+GLM-5.3,sentinel2,B11,5.022496553194908
+GLM-5.3,sentinel2,B12,4.390710935781153
+GLM-5.3,sentinel2,NDVI,1.0103754222466808
+GLM-5.3,sentinel2,NDWI,1.3352202585936295
+Kimi-K3-thinking-low,sentinel1,VV,0.800618631958037
+Kimi-K3-thinking-low,sentinel1,VH,0.29637900484610646
+Kimi-K3-thinking-low,sentinel1,VV-VH,0.10263527515589775
+Kimi-K3-thinking-low,sentinel2,B2,1.3416808382847636
+Kimi-K3-thinking-low,sentinel2,B3,0.8621300523546986
+Kimi-K3-thinking-low,sentinel2,B4,2.9391668007281426
+Kimi-K3-thinking-low,sentinel2,B8,0.0805705979269705
+Kimi-K3-thinking-low,sentinel2,B11,2.060111075490563
+Kimi-K3-thinking-low,sentinel2,B12,1.6150061325572669
+Kimi-K3-thinking-low,sentinel2,NDVI,0.4530293308458121
+Kimi-K3-thinking-low,sentinel2,NDWI,0.7016431989226588
 Kimi-K3-thinking-low [anon],sentinel1,VV,0.6896065212893605
 Kimi-K3-thinking-low [anon],sentinel1,VH,0.26673562544101376
 Kimi-K3-thinking-low [anon],sentinel1,VV-VH,0.1277955938450805
@@ -54,28 +62,39 @@ Kimi-K3-thinking-low [rule],sentinel2,B11,2.315741487447914
 Kimi-K3-thinking-low [rule],sentinel2,B12,1.5454050847540455
 Kimi-K3-thinking-low [rule],sentinel2,NDVI,0.41031539599994127
 Kimi-K3-thinking-low [rule],sentinel2,NDWI,0.7899549662409797
-ensemble,sentinel1,VV,0.733730432612976
-ensemble,sentinel1,VH,0.2399875316507738
-ensemble,sentinel1,VV-VH,0.1479694245427286
-ensemble,sentinel2,B2,1.4025551455389895
-ensemble,sentinel2,B3,0.9350063739223932
-ensemble,sentinel2,B4,2.1479871988175856
-ensemble,sentinel2,B8,0.056996201793298895
-ensemble,sentinel2,B11,1.6169299430835937
-ensemble,sentinel2,B12,1.2121254143850961
-ensemble,sentinel2,NDVI,0.25877402624319273
-ensemble,sentinel2,NDWI,0.5975400460288456
-gpt-oss-120b,sentinel1,VV,0.8210400291896657
-gpt-oss-120b,sentinel1,VH,0.25052591955740716
-gpt-oss-120b,sentinel1,VV-VH,0.20491908259256833
-gpt-oss-120b,sentinel2,B2,1.316471713235952
-gpt-oss-120b,sentinel2,B3,0.8866912109868095
-gpt-oss-120b,sentinel2,B4,1.5830505668962362
-gpt-oss-120b,sentinel2,B8,0.12367062526645953
-gpt-oss-120b,sentinel2,B11,1.1690386141539901
-gpt-oss-120b,sentinel2,B12,0.8255158543475516
-gpt-oss-120b,sentinel2,NDVI,0.17207257838728485
-gpt-oss-120b,sentinel2,NDWI,0.294966295247933
+Kimi-K3-thinking-low [steps],sentinel1,VV,0.9604912071427024
+Kimi-K3-thinking-low [steps],sentinel1,VH,0.3011750334139609
+Kimi-K3-thinking-low [steps],sentinel1,VV-VH,0.08185648764698385
+Kimi-K3-thinking-low [steps],sentinel2,B2,1.7151715212830492
+Kimi-K3-thinking-low [steps],sentinel2,B3,1.0341049829753344
+Kimi-K3-thinking-low [steps],sentinel2,B4,1.8045696143149368
+Kimi-K3-thinking-low [steps],sentinel2,B8,0.13675470825135833
+Kimi-K3-thinking-low [steps],sentinel2,B11,1.378787358440213
+Kimi-K3-thinking-low [steps],sentinel2,B12,0.8303658510372557
+Kimi-K3-thinking-low [steps],sentinel2,NDVI,0.11585168532931006
+Kimi-K3-thinking-low [steps],sentinel2,NDWI,0.329906124168087
+ensemble,sentinel1,VV,0.9886047781920791
+ensemble,sentinel1,VH,0.348723911423261
+ensemble,sentinel1,VV-VH,0.10737802652498694
+ensemble,sentinel2,B2,1.1884891801277229
+ensemble,sentinel2,B3,0.7115701125428495
+ensemble,sentinel2,B4,1.8773779077961226
+ensemble,sentinel2,B8,0.05824046519116634
+ensemble,sentinel2,B11,1.3119070594066888
+ensemble,sentinel2,B12,0.9542237392372973
+ensemble,sentinel2,NDVI,0.3022082198799381
+ensemble,sentinel2,NDWI,0.39958056081580196
+gpt-oss-120b,sentinel1,VV,1.1826050728612436
+gpt-oss-120b,sentinel1,VH,0.4055687895200179
+gpt-oss-120b,sentinel1,VV-VH,0.11008105723326685
+gpt-oss-120b,sentinel2,B2,1.061510967090251
+gpt-oss-120b,sentinel2,B3,0.6015558220812796
+gpt-oss-120b,sentinel2,B4,1.148611282350203
+gpt-oss-120b,sentinel2,B8,0.11014186210369876
+gpt-oss-120b,sentinel2,B11,0.8040903287408079
+gpt-oss-120b,sentinel2,B12,0.5302812598900567
+gpt-oss-120b,sentinel2,NDVI,0.20350490816091857
+gpt-oss-120b,sentinel2,NDWI,0.21815001507545165
 gpt-oss-120b (default effort),sentinel1,VV,0.8201746783008496
 gpt-oss-120b (default effort),sentinel1,VH,0.2538754133429458
 gpt-oss-120b (default effort),sentinel1,VV-VH,0.14555590917907382
@@ -131,6 +150,17 @@ gpt-oss-120b [rule],sentinel2,B11,1.250896144842264
 gpt-oss-120b [rule],sentinel2,B12,0.6089989627927399
 gpt-oss-120b [rule],sentinel2,NDVI,0.18659647455417686
 gpt-oss-120b [rule],sentinel2,NDWI,0.3154308866826154
+gpt-oss-120b [steps],sentinel1,VV,0.8305340478188109
+gpt-oss-120b [steps],sentinel1,VH,0.4428700221643524
+gpt-oss-120b [steps],sentinel1,VV-VH,0.2124955036282821
+gpt-oss-120b [steps],sentinel2,B2,1.2013614142475328
+gpt-oss-120b [steps],sentinel2,B3,0.7444244467649953
+gpt-oss-120b [steps],sentinel2,B4,1.578633330116572
+gpt-oss-120b [steps],sentinel2,B8,0.12448485446411019
+gpt-oss-120b [steps],sentinel2,B11,1.3172764589436199
+gpt-oss-120b [steps],sentinel2,B12,0.825141992680945
+gpt-oss-120b [steps],sentinel2,NDVI,0.10654331083986265
+gpt-oss-120b [steps],sentinel2,NDWI,0.2510756665740331
 holt_damped,sentinel1,VV,0.6007856952101825
 holt_damped,sentinel1,VH,0.17254007098707594
 holt_damped,sentinel1,VV-VH,0.0647419272452624
@@ -153,28 +183,28 @@ last3_mean,sentinel2,B11,0.8690451345507534
 last3_mean,sentinel2,B12,0.4473022688361245
 last3_mean,sentinel2,NDVI,0.057416124593867024
 last3_mean,sentinel2,NDWI,0.15975141566866288
-linear4,sentinel1,VV,0.8293073975825286
-linear4,sentinel1,VH,0.2046009413737185
-linear4,sentinel1,VV-VH,0.6450274999307463
-linear4,sentinel2,B2,1.9481335049006983
-linear4,sentinel2,B3,0.9678558608192921
-linear4,sentinel2,B4,1.93465452567934
-linear4,sentinel2,B8,0.9291523353575939
-linear4,sentinel2,B11,0.7209358530517347
-linear4,sentinel2,B12,0.8151254783347539
+linear4,sentinel1,VV,0.8293073975825291
+linear4,sentinel1,VH,0.20460094137371956
+linear4,sentinel1,VV-VH,0.645027499930745
+linear4,sentinel2,B2,1.9481335049006974
+linear4,sentinel2,B3,0.9678558608192915
+linear4,sentinel2,B4,1.9346545256793393
+linear4,sentinel2,B8,0.9291523353575937
+linear4,sentinel2,B11,0.7209358530517341
+linear4,sentinel2,B12,0.8151254783347537
 linear4,sentinel2,NDVI,0.6918637471489906
-linear4,sentinel2,NDWI,1.5485494090592902
-linear9,sentinel1,VV,0.8143369304859297
-linear9,sentinel1,VH,0.1895713552191758
-linear9,sentinel1,VV-VH,0.08300211255172149
-linear9,sentinel2,B2,1.468891392894655
-linear9,sentinel2,B3,1.7363172090062071
+linear4,sentinel2,NDWI,1.5485494090592893
+linear9,sentinel1,VV,0.814336930485925
+linear9,sentinel1,VH,0.18957135521917623
+linear9,sentinel1,VV-VH,0.08300211255172153
+linear9,sentinel2,B2,1.4688913928946543
+linear9,sentinel2,B3,1.7363172090062062
 linear9,sentinel2,B4,1.4899032306793465
-linear9,sentinel2,B8,0.8509004285014236
-linear9,sentinel2,B11,2.3403997054071777
-linear9,sentinel2,B12,0.970032609275771
-linear9,sentinel2,NDVI,0.11066107173238407
-linear9,sentinel2,NDWI,0.1635680450489896
+linear9,sentinel2,B8,0.8509004285014224
+linear9,sentinel2,B11,2.340399705407173
+linear9,sentinel2,B12,0.9700326092757711
+linear9,sentinel2,NDVI,0.1106610717323837
+linear9,sentinel2,NDWI,0.16356804504898967
 own_mean,sentinel1,VV,0.21846550970227865
 own_mean,sentinel1,VH,0.8048158994228243
 own_mean,sentinel1,VV-VH,1.0054306115564595
@@ -200,11 +230,11 @@ persistence,sentinel2,NDWI,0.24235261081499862
 shc,sentinel1,VV,1.0016150563855926
 shc,sentinel1,VH,0.36115607255254534
 shc,sentinel1,VV-VH,0.11461209186783909
-shc,sentinel2,B2,1.2187931980186844
-shc,sentinel2,B3,0.7620253496832329
-shc,sentinel2,B4,1.6141137656015128
-shc,sentinel2,B8,0.12544887870967283
-shc,sentinel2,B11,1.3791331148023482
-shc,sentinel2,B12,0.8585842454732424
-shc,sentinel2,NDVI,0.09976033897341366
-shc,sentinel2,NDWI,0.23583499782727976
+shc,sentinel2,B2,1.2187931982467066
+shc,sentinel2,B3,0.7620253496056063
+shc,sentinel2,B4,1.6141137655078948
+shc,sentinel2,B8,0.12544887877329589
+shc,sentinel2,B11,1.3791331145883907
+shc,sentinel2,B12,0.858584245197299
+shc,sentinel2,NDVI,0.09976033899009505
+shc,sentinel2,NDWI,0.23583499794897028

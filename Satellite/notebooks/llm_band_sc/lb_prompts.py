@@ -1,6 +1,6 @@
 """lb_prompts — build lb_prompts_shc.jsonl (27) and lb_prompts_scm.jsonl (27) from lb_features_monthly.csv.
 Each line: prompt_id, experiment, sensor, target_site, donors, prompt, truth (the withheld P10 values,
-display names), train (the target's P01-P09 values per band, for her notebook-26 variance).
+display names), train (the target's P01-P09 values per band, for her notebook 10 variance).
     python lb_prompts.py
 """
 import json

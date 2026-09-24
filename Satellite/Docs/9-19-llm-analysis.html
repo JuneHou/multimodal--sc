@@ -1,0 +1,1783 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Language models as the weight solver: why the predictions are wrong</title>
+<style>
+:root { --fg:#1a1a1a; --muted:#555; --rule:#d0d0d0; --accent:#0b5394; --code-bg:#f6f8fa; }
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body { font-family: "Charter","Georgia","Times New Roman",serif; color: var(--fg);
+       font-size: 10.5pt; line-height: 1.45; max-width: 52em; margin: 2.5em auto;
+       padding: 0 1.5em; }
+h1 { font-size: 19pt; line-height: 1.2; border-bottom: 2px solid var(--fg);
+     padding-bottom: .25em; margin-bottom: .8em; }
+h2 { font-size: 14pt; margin-top: 1.8em; border-bottom: 1px solid var(--rule);
+     padding-bottom: .15em; }
+h3 { font-size: 11.5pt; margin-top: 1.4em; color: var(--accent); }
+h4 { font-size: 10.5pt; margin-top: 1.2em; }
+p, li { orphans: 3; widows: 3; }
+a { color: var(--accent); }
+code { font-family: "DejaVu Sans Mono",Menlo,Consolas,monospace; font-size: .88em;
+       background: var(--code-bg); padding: .1em .3em; border-radius: 3px; }
+pre { background: var(--code-bg); border: 1px solid var(--rule); border-radius: 4px;
+      padding: .7em .9em; overflow-x: auto; page-break-inside: avoid; }
+pre code { background: none; padding: 0; font-size: .84em; line-height: 1.4; }
+blockquote { border-left: 3px solid var(--rule); margin-left: 0; padding-left: 1em;
+             color: var(--muted); }
+hr { border: none; border-top: 1px solid var(--rule); margin: 2em 0; }
+img { max-width: 100%; }
+.math { margin: 1.1em 0; text-align: center; page-break-inside: avoid; overflow-x: auto; }
+mjx-container[display="true"] { margin: .6em 0 !important; }
+
+table { border-collapse: collapse; width: 100%; margin: 1em 0; font-size: 8.2pt;
+        font-family: "Helvetica Neue",Arial,sans-serif; page-break-inside: avoid; }
+th, td { border: 1px solid var(--rule); padding: 3px 6px; text-align: left;
+         vertical-align: top; }
+th { background: #eef2f6; font-weight: 600; }
+tr:nth-child(even) td { background: #fafafa; }
+td:empty { background: #fff; }
+
+@media print {
+  body { margin: 0; max-width: none; padding: 0; font-size: 9.5pt; }
+  h1, h2, h3, h4 { page-break-after: avoid; }
+  table { font-size: 7.2pt; }
+  a { text-decoration: none; color: var(--fg); }
+}
+@page { size: A4; margin: 14mm 12mm; }
+</style>
+
+</head><body>
+<h1>Language models as the weight solver: why the predictions are wrong</h1>
+<p><strong>Analysis for the meeting of 19 September 2026.</strong> Continues the language-model section of the
+10 September report (<code>9-10-update.md</code> §6). That report established <em>how much</em>
+error each arm carries. This one asks <em>what kind of error it is</em>: of every prediction that missed,
+what made it miss. Nothing in the earlier report is revised. Scripts and tables: §7.</p>
+<hr>
+<h2>1. What is being compared</h2>
+<p><strong>Method.</strong> Five hosted language models used as the weight solver on the band-space synthetic
+historical control design: given one site's own band means for nine consecutive months, predict the
+tenth. The withheld month is P10 (August 2024); all ten months are pre-hurricane and nothing in this
+validation is treated. Twenty-seven target cells, twelve on Sentinel-1 and fifteen on Sentinel-2.</p>
+<p><strong>Two prompts,</strong> carrying the same evidence and the same one-line answer format, neither containing
+any word for hurricane, landslide or damage.</p>
+<ul>
+<li>The <strong>direct prompt</strong>: a band guide, the site's nine monthly rows, the instruction to predict the
+  next month.</li>
+<li>The <strong>step-by-step prompt</strong>: the same, plus the band-space pipeline's procedure in prose — smooth
+  each month against its neighbours, treat equal-length earlier stretches as candidate controls,
+  score each against the most recent stretch, add candidates while each improves the match, weight
+  them non-negatively to sum to one, apply those weights to the values following each stretch. The
+  wording was validated clause by clause against the pipeline's notebook before any call was made.</li>
+</ul>
+<p><strong>Metric.</strong> The band-space pipeline's own held-out measure, which its notebook calls the joint
+validation NMSE: per band the squared error at the withheld month divided by the variance of that
+band across P01–P09, averaged over bands. Lower is better. That variance is the pipeline's own
+<code>train_var</code>, taken over the periods its fit is allowed to see. Scored this way the re-run reproduces
+its twenty-seven published per-site values to 4.2 × 10⁻⁷ and its sensor means of 0.4925 and 0.7867,
+so every figure below is directly comparable with its published numbers. An earlier draft of this
+report used the variance over P01–P10, which is not that pipeline's denominator; every number here
+has been recomputed.</p>
+<p><strong>Provenance.</strong> Neither gateway is reproducible — the research gateway accepts a temperature of zero
+and ignores it, and the gateway serving the GPT-5 family rejects the parameter outright. The direct
+prompt has two runs per open-weight model and two for GPT-5.5; the step-by-step prompt has one of
+each. GPT-5.5 was reached two ways and the name resolves to two different snapshots, dated 24 and
+23 April 2026; both are reported, and every effect below appears on both.</p>
+<hr>
+<h2>2. How wrong, before why</h2>
+<p><strong>Method.</strong> All five models, both prompts, scored as in §1. Matched sites only — those a model
+answered under both prompts — since the counts differ.</p>
+<table>
+<thead>
+<tr>
+<th>sensor</th>
+<th>model</th>
+<th>matched</th>
+<th>direct</th>
+<th>step-by-step</th>
+<th>change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sentinel-1</td>
+<td>gpt-oss-120b</td>
+<td>12 / 12</td>
+<td>0.496</td>
+<td>0.495</td>
+<td>−0.1 %</td>
+</tr>
+<tr>
+<td>Sentinel-1</td>
+<td>Kimi-K3</td>
+<td>11 / 12</td>
+<td>0.348</td>
+<td>0.448</td>
+<td>+28.7 %</td>
+</tr>
+<tr>
+<td>Sentinel-1</td>
+<td>GPT-5.5, 24 April</td>
+<td>12 / 12</td>
+<td>0.434</td>
+<td>0.517</td>
+<td>+19.0 %</td>
+</tr>
+<tr>
+<td>Sentinel-1</td>
+<td>GPT-5.5, 23 April</td>
+<td>12 / 12</td>
+<td>0.446</td>
+<td>0.509</td>
+<td>+14.1 %</td>
+</tr>
+<tr>
+<td>Sentinel-2</td>
+<td>gpt-oss-120b</td>
+<td>15 / 15</td>
+<td>0.691</td>
+<td>0.769</td>
+<td>+11.3 %</td>
+</tr>
+<tr>
+<td>Sentinel-2</td>
+<td>Kimi-K3</td>
+<td>8 / 15</td>
+<td>1.589</td>
+<td>0.918</td>
+<td>−42.2 %</td>
+</tr>
+<tr>
+<td>Sentinel-2</td>
+<td>GPT-5.5, 24 April</td>
+<td>15 / 15</td>
+<td>1.605</td>
+<td>0.777</td>
+<td>−51.6 %</td>
+</tr>
+<tr>
+<td>Sentinel-2</td>
+<td>GPT-5.5, 23 April</td>
+<td>15 / 15</td>
+<td>1.376</td>
+<td>0.787</td>
+<td>−42.8 %</td>
+</tr>
+</tbody>
+</table>
+<p>Reference rows on the same cells: the band-space SHC scores 0.492 and 0.787; carrying P09 forward
+scores 0.492 and 0.789 — <strong>the same predictor to three decimals on Sentinel-1 and to two on
+Sentinel-2</strong>, as expected, since the stepwise donor selection keeps the most recent block at
+essentially every site. The mean of the last three
+months scores 0.265 and 0.541, beating every model and both prompts on both sensors. The site's own
+nine-month mean scores 0.676 and 1.116.</p>
+<p>The rest of this document is about the gap between those numbers and zero.</p>
+<hr>
+<h2>3. Why the predictions are wrong</h2>
+<p>Seven causes, separated so that each can be judged on its own evidence. They are not equally large:
+§3.2 and §3.3 account for most of the error on Sentinel-1, §3.5 for much of the Sentinel-2 mean, and
+§3.7 is small and included because it is a real defect that the headline metric hides.</p>
+<h3>3.1 No answer was produced at all</h3>
+<p><strong>Method.</strong> Calls that never returned a parsable line, counted by the reason the gateway reported.</p>
+<table>
+<thead>
+<tr>
+<th>model</th>
+<th>prompt</th>
+<th>Sentinel-1</th>
+<th>Sentinel-2</th>
+<th>reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GLM-5.3</td>
+<td>direct</td>
+<td>12</td>
+<td>12</td>
+<td>output budget spent on reasoning</td>
+</tr>
+<tr>
+<td>GLM-5.3</td>
+<td>step-by-step</td>
+<td>12</td>
+<td>15</td>
+<td>output budget spent on reasoning</td>
+</tr>
+<tr>
+<td>Kimi-K3</td>
+<td>step-by-step</td>
+<td>1</td>
+<td>6 + 1</td>
+<td>budget spent; one degenerate loop</td>
+</tr>
+<tr>
+<td>DeepSeek-V4-Flash</td>
+<td>either</td>
+<td>all</td>
+<td>all</td>
+<td>the model name is not served</td>
+</tr>
+</tbody>
+</table>
+<p>GLM-5.3 does not terminate: its stored traces run past 21,000 characters without reaching an answer
+line, on a task where gpt-oss-120b finishes in 156 tokens. This is the model, not the budget.
+Kimi-K3's losses concentrate on Sentinel-2, where eight bands make the arithmetic longest. These
+failures are not accuracy problems and do not appear in any mean; they are a separate, prior failure
+to produce output at all.</p>
+<h3>3.2 The series reverses direction almost every month — the dominant cause</h3>
+<p><strong>Method.</strong> For each band and site, whether the withheld month continued the direction of the
+previous month's move or reversed it, with the error computed separately for each group.</p>
+<table>
+<thead>
+<tr>
+<th>sensor</th>
+<th>model</th>
+<th>prompt</th>
+<th>error when continued</th>
+<th>error when reversed</th>
+<th>ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sentinel-1</td>
+<td>GPT-5.5, 23 April</td>
+<td>step-by-step</td>
+<td>0.065</td>
+<td>0.549</td>
+<td><strong>8.5×</strong></td>
+</tr>
+<tr>
+<td>Sentinel-1</td>
+<td>gpt-oss-120b</td>
+<td>direct</td>
+<td>0.069</td>
+<td>0.535</td>
+<td>7.8×</td>
+</tr>
+<tr>
+<td>Sentinel-1</td>
+<td>Kimi-K3</td>
+<td>step-by-step</td>
+<td>0.065</td>
+<td>0.486</td>
+<td>7.5×</td>
+</tr>
+<tr>
+<td>Sentinel-1</td>
+<td>GPT-5.5, 23 April</td>
+<td>direct</td>
+<td>0.077</td>
+<td>0.479</td>
+<td>6.2×</td>
+</tr>
+<tr>
+<td>Sentinel-1</td>
+<td>GPT-5.5, 24 April</td>
+<td>direct</td>
+<td>0.119</td>
+<td>0.463</td>
+<td>3.9×</td>
+</tr>
+<tr>
+<td>Sentinel-1</td>
+<td>Kimi-K3</td>
+<td>direct</td>
+<td>0.117</td>
+<td>0.400</td>
+<td>3.4×</td>
+</tr>
+<tr>
+<td>Sentinel-2</td>
+<td>GPT-5.5, 24 April</td>
+<td>direct</td>
+<td>0.655</td>
+<td>2.382</td>
+<td>3.6×</td>
+</tr>
+<tr>
+<td>Sentinel-2</td>
+<td>Kimi-K3</td>
+<td>direct</td>
+<td>0.576</td>
+<td>1.894</td>
+<td>3.3×</td>
+</tr>
+<tr>
+<td>Sentinel-2</td>
+<td>gpt-oss-120b</td>
+<td>direct</td>
+<td>0.460</td>
+<td>0.879</td>
+<td>1.9×</td>
+</tr>
+</tbody>
+</table>
+<p><strong>On Sentinel-1, 33 of 36 band-months reversed; only 3 continued.</strong> On Sentinel-2, 66 of 120
+reversed. The monthly series is close to mean-reverting at this horizon, and every model — and the
+band-space pipeline, and the three-month mean — is some form of forward projection of recent
+behaviour. Such a predictor is wrong almost every time by construction, and the error is
+concentrated there by a factor of three to nine.</p>
+<p>This is not a defect of any model. It is the property of the data that sets the floor under all of
+these numbers, and it is the single largest reason the predictions are wrong.</p>
+<h3>3.3 A systematic upward bias, not just noise</h3>
+<p><strong>Method.</strong> Signed error, prediction minus truth, in units of each band's own pre-period standard
+deviation.</p>
+<table>
+<thead>
+<tr>
+<th>sensor</th>
+<th>model</th>
+<th>prompt</th>
+<th>bias</th>
+<th>spread</th>
+<th>bias / spread</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sentinel-1</td>
+<td>gpt-oss-120b</td>
+<td>direct</td>
+<td><strong>+0.478</strong></td>
+<td>0.589</td>
+<td><strong>0.81</strong></td>
+</tr>
+<tr>
+<td>Sentinel-1</td>
+<td>Kimi-K3</td>
+<td>direct</td>
+<td>+0.382</td>
+<td>0.497</td>
+<td><strong>0.77</strong></td>
+</tr>
+<tr>
+<td>Sentinel-1</td>
+<td>GPT-5.5, 24 April</td>
+<td>direct</td>
+<td>+0.380</td>
+<td>0.539</td>
+<td>0.71</td>
+</tr>
+<tr>
+<td>Sentinel-1</td>
+<td>GPT-5.5, 23 April</td>
+<td>direct</td>
+<td>+0.357</td>
+<td>0.572</td>
+<td>0.62</td>
+</tr>
+<tr>
+<td>Sentinel-1</td>
+<td>GPT-5.5, 24 April</td>
+<td>step-by-step</td>
+<td>+0.385</td>
+<td>0.616</td>
+<td>0.63</td>
+</tr>
+<tr>
+<td>Sentinel-2</td>
+<td>GPT-5.5, 23 April</td>
+<td>direct</td>
+<td>+0.507</td>
+<td>1.062</td>
+<td>0.48</td>
+</tr>
+<tr>
+<td>Sentinel-2</td>
+<td>gpt-oss-120b</td>
+<td>direct</td>
+<td>+0.242</td>
+<td>0.729</td>
+<td>0.33</td>
+</tr>
+<tr>
+<td>Sentinel-2</td>
+<td>GLM-5.3</td>
+<td>direct</td>
+<td>+1.089</td>
+<td>1.509</td>
+<td>0.72</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Every model, every prompt, both sensors predicts too high.</strong> The bias is 62–81 % of the spread on
+Sentinel-1, so a large share of that error is a constant offset rather than random miss. On
+Sentinel-1 the bands are backscatter in decibels, so "too high" means the predicted return is too
+strong; the withheld August month sits lower than every model expects.</p>
+<p><strong>It is not a model fault.</strong> The same signed error was computed for the no-model rules, which have no
+reasoning to blame:</p>
+<table>
+<thead>
+<tr>
+<th>sensor</th>
+<th>repeat P09</th>
+<th>mean last 3</th>
+<th>slope from last 3</th>
+<th>own 9-month mean</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sentinel-1</td>
+<td>+0.436</td>
+<td>+0.279</td>
+<td>+0.485</td>
+<td><strong>−0.046</strong></td>
+</tr>
+<tr>
+<td>Sentinel-2</td>
+<td>+0.367</td>
+<td>+0.347</td>
+<td>+0.342</td>
+<td>+0.282</td>
+</tr>
+</tbody>
+</table>
+<p>Every rule that looks at recent months is too high by about as much as the models are. Only the
+site's own nine-month mean escapes it on Sentinel-1, and only because it ignores where the series
+recently was.</p>
+<p>In plain units, what happened is that <strong>August was a low month</strong>. Averaged over the twelve
+Sentinel-1 sites:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>July (P09)</th>
+<th>mean of P07–P09</th>
+<th>August, actual</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VV</td>
+<td>−8.92 dB</td>
+<td>−9.07 dB</td>
+<td><strong>−9.31 dB</strong></td>
+</tr>
+<tr>
+<td>VH</td>
+<td>−15.20 dB</td>
+<td>−15.36 dB</td>
+<td><strong>−15.66 dB</strong></td>
+</tr>
+</tbody>
+</table>
+<p>August came in 0.38 dB below July on VV, and <strong>below July at all twelve sites</strong>. A model that
+predicted "about July's level" was therefore too high, and so was repeating July exactly (too high
+by 0.38 dB) and so was averaging the last three months (too high by 0.24 dB).</p>
+<p>So this is not the models leaning high. It is August sitting below everything that came before it,
+and every method that reads the recent months inherits the miss. No prompt removes it. Subtracting
+a constant would remove it, but the constant could only be chosen by looking at the answer.</p>
+<h3>3.4 The step-by-step procedure is degenerate: executed correctly, it returns the last month</h3>
+<p><strong>Method.</strong> The same replies read as predictions rather than errors: the gap between each prediction
+and the last observed month, in units of that band's pre-period standard deviation. Zero means the
+previous month was returned unchanged.</p>
+<table>
+<thead>
+<tr>
+<th>sensor</th>
+<th>model</th>
+<th>direct</th>
+<th>step-by-step</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sentinel-2</td>
+<td>GPT-5.5, 23 April</td>
+<td>0.406</td>
+<td><strong>0.008</strong></td>
+</tr>
+<tr>
+<td>Sentinel-2</td>
+<td>GPT-5.5, 24 April</td>
+<td>0.389</td>
+<td><strong>0.014</strong></td>
+</tr>
+<tr>
+<td>Sentinel-2</td>
+<td>Kimi-K3</td>
+<td>0.285</td>
+<td><strong>0.009</strong></td>
+</tr>
+<tr>
+<td>Sentinel-2</td>
+<td>gpt-oss-120b</td>
+<td>0.204</td>
+<td><strong>0.020</strong></td>
+</tr>
+<tr>
+<td>Sentinel-1</td>
+<td>Kimi-K3</td>
+<td>0.150</td>
+<td><strong>0.026</strong></td>
+</tr>
+<tr>
+<td>Sentinel-1</td>
+<td>GPT-5.5, 23 April</td>
+<td>0.152</td>
+<td>0.070</td>
+</tr>
+<tr>
+<td>Sentinel-1</td>
+<td>gpt-oss-120b</td>
+<td>0.127</td>
+<td>0.171</td>
+</tr>
+</tbody>
+</table>
+<p>Checked a second, independent way — against the carry-forward reference scored separately — the
+step-by-step arm sits 0.005–0.028 from it on Sentinel-2 with twelve or thirteen of fifteen sites
+within 0.01, where the direct arm sits 0.25–0.83 away. The two checks agree, including on where the
+collapse is only partial: Sentinel-1 gpt-oss-120b resists on both.</p>
+<p>The clearest single piece of evidence is Sentinel-2 site 0003, where <strong>three models from three
+organisations, on two gateways, return the same eight numbers to three decimals — and those numbers
+are row P09.</strong> They are not producing different answers that happen to score alike; they are all
+returning the same row.</p>
+<p><strong>Two different routes reach that one answer, and they must not be conflated.</strong> The traces were read
+for whether the five windows are actually worked with:</p>
+<table>
+<thead>
+<tr>
+<th>model</th>
+<th>traces naming all five windows</th>
+<th>stating the most recent window alone was selected</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Kimi-K3</td>
+<td>16 / 27 (26 of 27 name at least one)</td>
+<td><strong>24 / 27</strong></td>
+</tr>
+<tr>
+<td>GLM-5.3</td>
+<td>23 / 27</td>
+<td><strong>20 / 27</strong></td>
+</tr>
+<tr>
+<td>gpt-oss-120b</td>
+<td>4 / 27 (6 name any)</td>
+<td>1 / 27</td>
+</tr>
+<tr>
+<td>GPT-5.5</td>
+<td>0 / 25 (7 name any)</td>
+<td>3 / 25</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Route one — the procedure executed correctly.</strong> Kimi-K3 and GLM-5.3 do the block arithmetic and
+reach the most recent window on their own. Kimi-K3, closing a trace:</p>
+<blockquote>
+<p>"…try each window alone against smoothed P06–P09 and keep best; then adding windows refitting
+weights; add if improves fit… <strong>W5-only is plausible.</strong>… Use given VV-VH 6.00 not recompute 5.98.
+<strong>Raw P09</strong> VV-VH given 6.00."</p>
+</blockquote>
+<p>That is the procedure followed faithfully, including the stopping rule. And the most recent window
+is P05–P08, whose forward month <strong>is P09</strong> — so a correct execution returns the previous month.</p>
+<p><strong>The estimator is degenerate on this data, and that is not an artifact of a vague threshold.</strong> The
+reference implementation uses an improvement threshold of 1 × 10⁻⁴ — it accepts almost any gain at
+all — and still keeps <strong>one window at 26 of 27 sites</strong> (the most recent; the twenty-seventh keeps two).
+Loosening the rule cannot produce a blend, because there is nothing to add that improves the pre-period
+fit. The procedure, correctly executed with the loosest admissible stopping rule, is P09 carried
+forward.</p>
+<p><strong>Route two — the procedure abandoned.</strong> gpt-oss-120b barely engages with the windows at all (six
+traces mention one, none carry per-window numbers) and says why:</p>
+<blockquote>
+<p>"Probably smoothing via 3-month moving average?… <strong>I'll just take raw as smoothed (due time).</strong>
+Then windows 4-month averages? <strong>Probably too complex.</strong> I'll guess slight increase trend…"</p>
+</blockquote>
+<p>For GPT-5.5 the route cannot be determined: only summaries are available, and a summarizer may drop
+the arithmetic whether or not it happened.</p>
+<p>The distinction matters for what can be fixed. If the models were failing to execute, a more precise
+instruction would help. Two of the four are executing correctly, and the procedure's own answer is
+the last observed month — so a clearer instruction would move gpt-oss-120b and GPT-5.5 <em>towards</em> P09,
+not away from it. This is why the step-by-step arm's sign differs by sensor: carrying P09 forward
+scores 0.492 on Sentinel-1 and 0.789 on Sentinel-2, while the direct prompt scores better than that
+on Sentinel-1 and worse on Sentinel-2.</p>
+<h3>3.5 The input month is contaminated</h3>
+<p><strong>Method.</strong> The Sentinel-2 site that dominates the mean for every model, examined row by row.</p>
+<p>At site 0004 the last observed month carries residual cloud: blue reflectance nearly doubles against
+both neighbours (0.045 → 0.086) and the greenness index falls sharply (0.761 → 0.621). The withheld
+month returns to the seasonal track (0.054, 0.725).</p>
+<table>
+<thead>
+<tr>
+<th>predictor</th>
+<th>error</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Kimi-K3, direct</td>
+<td>6.270</td>
+</tr>
+<tr>
+<td>GPT-5.5, 23 April, direct</td>
+<td>5.267</td>
+</tr>
+<tr>
+<td>band-space SHC</td>
+<td>3.232</td>
+</tr>
+<tr>
+<td>gpt-oss-120b, direct</td>
+<td>1.154</td>
+</tr>
+<tr>
+<td>mean of the last three months</td>
+<td><strong>0.257</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Every method anchored on the last month is misled, the band-space pipeline included, and the models
+compound it by projecting the contaminated direction further. Averaging over three months dilutes
+the bad month and scores an order of magnitude better than any of them. <strong>This is a data-quality
+failure before it is a prediction failure</strong>, and it is not addressable by prompting: the information
+needed is not in the nine rows the model is given.</p>
+<p>Masked-pixel share at the Sentinel-2 treated sites peaks at exactly these months, P07–P09.</p>
+<h3>3.6 The metric concentrates the score in the flattest bands</h3>
+<p><strong>Method.</strong> Share of the Sentinel-2 squared error carried by each band, against each band's
+denominator.</p>
+<table>
+<thead>
+<tr>
+<th>band</th>
+<th>B2</th>
+<th>B3</th>
+<th>B4</th>
+<th>B8</th>
+<th>B11</th>
+<th>B12</th>
+<th>NDVI</th>
+<th>NDWI</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>share of total error, GPT-5.5 direct</td>
+<td>13.1 %</td>
+<td>8.8 %</td>
+<td>22.0 %</td>
+<td><strong>1.3 %</strong></td>
+<td>22.1 %</td>
+<td>17.2 %</td>
+<td>5.3 %</td>
+<td>10.3 %</td>
+</tr>
+<tr>
+<td>share of total error, gpt-oss direct</td>
+<td>24.2 %</td>
+<td>13.8 %</td>
+<td>21.2 %</td>
+<td><strong>2.7 %</strong></td>
+<td>18.3 %</td>
+<td>10.4 %</td>
+<td>4.5 %</td>
+<td>4.9 %</td>
+</tr>
+<tr>
+<td>the band's own SD (mean over sites)</td>
+<td>0.018</td>
+<td>0.021</td>
+<td>0.020</td>
+<td><strong>0.138</strong></td>
+<td>0.031</td>
+<td>0.029</td>
+<td>0.183</td>
+<td>0.097</td>
+</tr>
+</tbody>
+</table>
+<p>The near-infrared band carries 1–3 % of the error despite being the largest band and the one that
+moves most across the season. The reason is the denominator: its standard deviation is roughly seven
+times that of blue, so its variance is around forty-eight times larger, and the same proportional
+miss scores far lower there than on a flat band. Red, blue and the shortwave-infrared pair — the
+quiet bands — own three quarters of the score.</p>
+<p>This is a property of the metric rather than of the models, and it is stated here because it governs
+how every other number in this document should be read: <strong>a method is rewarded for getting the flat
+bands right, not the informative one.</strong> It is the pipeline's own metric and has not been changed.</p>
+<h3>3.7 Imposing algebra the data does not obey</h3>
+<p><strong>Method.</strong> Each prediction checked against the definitions of the quantities it reports, compared
+with how far the observed data itself departs from them.</p>
+<p>The Sentinel-1 difference band is an exact identity. The observed rows satisfy it to 0.0007
+decibels, which is rounding. Predictions:</p>
+<table>
+<thead>
+<tr>
+<th>model</th>
+<th>direct</th>
+<th>step-by-step</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GPT-5.5 (both snapshots)</td>
+<td>0.0000</td>
+<td>0.0142</td>
+</tr>
+<tr>
+<td>Kimi-K3</td>
+<td>0.0017</td>
+<td>0.0145</td>
+</tr>
+<tr>
+<td>gpt-oss-120b</td>
+<td><strong>0.0600</strong></td>
+<td>0.0083</td>
+</tr>
+</tbody>
+</table>
+<p>gpt-oss-120b's direct answers contradict themselves by 0.06 dB — it reports a difference that is not
+the difference of the two values it just gave.</p>
+<p>The Sentinel-2 indices are the opposite case. They are formed per day and each band is composited
+independently, so <strong>the observed data does not satisfy the textbook formulas</strong>: the real rows depart
+from them by 0.009–0.012, and the withheld month by 0.004.</p>
+<table>
+<thead>
+<tr>
+<th>model</th>
+<th>prompt</th>
+<th>departure of the prediction</th>
+<th>departure of the truth</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GPT-5.5, 23 April</td>
+<td>direct</td>
+<td><strong>0.0004</strong></td>
+<td>0.0039</td>
+</tr>
+<tr>
+<td>GPT-5.5, 24 April</td>
+<td>direct</td>
+<td><strong>0.0003</strong></td>
+<td>0.0039</td>
+</tr>
+<tr>
+<td>gpt-oss-120b</td>
+<td>direct</td>
+<td>0.0186</td>
+<td>0.0039</td>
+</tr>
+<tr>
+<td>Kimi-K3</td>
+<td>direct</td>
+<td>0.0048</td>
+<td>0.0039</td>
+</tr>
+</tbody>
+</table>
+<p>GPT-5.5 computes its indices from its own predicted bands exactly, making its answer roughly ten
+times more internally consistent than the data it is predicting. That consistency is an error: it
+is imposing a relationship the compositing does not preserve. The magnitude is small — a few
+thousandths of an index unit, against a standard deviation of 0.18 for greenness — so this is a
+minor contributor, listed because it is a genuine defect that the joint metric cannot show.</p>
+<hr>
+<h2>4. What the reasoning says, and whether the answer matches it</h2>
+<p><strong>Method.</strong> Every stored trace read, not sampled: 324 calls. Two things are extracted. <em>Said</em> — which
+method the trace names, detected by phrase. <em>Did</em> — which of six simple rules built from the same
+nine rows the answer is actually closest to, in units of each band's pre-period standard deviation:
+repeat P09, mean of the last two, mean of the last three, the site's own nine-month mean, a slope
+extrapolation from the last three, and a least-squares line through all nine.</p>
+<h3>4.1 What is available</h3>
+<table>
+<thead>
+<tr>
+<th>model</th>
+<th>prompt</th>
+<th>calls with text</th>
+<th>median length</th>
+<th>kind</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GLM-5.3</td>
+<td>direct / steps</td>
+<td>25 / 27, 27 / 27</td>
+<td>25,255 / 21,604</td>
+<td>own chain</td>
+</tr>
+<tr>
+<td>Kimi-K3</td>
+<td>direct / steps</td>
+<td>26 / 27, 27 / 27</td>
+<td>3,942 / 19,058</td>
+<td>own chain</td>
+</tr>
+<tr>
+<td>gpt-oss-120b</td>
+<td>direct / steps</td>
+<td>27 / 27, 27 / 27</td>
+<td>280 / 168</td>
+<td>own chain</td>
+</tr>
+<tr>
+<td>GPT-5.5, 23 April</td>
+<td>direct / steps</td>
+<td>21 / 27, 25 / 27</td>
+<td>488 / 960</td>
+<td>summary</td>
+</tr>
+<tr>
+<td>GPT-5.5, 24 April</td>
+<td>direct / steps</td>
+<td><strong>0 / 27</strong></td>
+<td>—</td>
+<td>none returned</td>
+</tr>
+<tr>
+<td>DeepSeek-V4-Flash</td>
+<td>either</td>
+<td>0 / 27</td>
+<td>—</td>
+<td>no reply at all</td>
+</tr>
+</tbody>
+</table>
+<p>The research gateway returns each model's own chain, including for calls that never reached an
+answer — which is how GLM-5.3's non-termination is visible. The GPT-5 family returns no chain on any
+endpoint; the summary column is written by a separate summarizer and is not evidence of what the
+model computed. Six of the direct-prompt summaries came back empty.</p>
+<h3>4.2 Said: the method the trace names</h3>
+<p>Percentage of traces naming each method.</p>
+<table>
+<thead>
+<tr>
+<th>model</th>
+<th>prompt</th>
+<th>average</th>
+<th>trend / slope</th>
+<th>seasonal</th>
+<th>smoothing</th>
+<th>weights</th>
+<th>persistence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>gpt-oss-120b</td>
+<td>direct</td>
+<td>19</td>
+<td><strong>96</strong></td>
+<td>78</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Kimi-K3</td>
+<td>direct</td>
+<td>35</td>
+<td><strong>92</strong></td>
+<td><strong>96</strong></td>
+<td>31</td>
+<td>8</td>
+<td>8</td>
+</tr>
+<tr>
+<td>GLM-5.3</td>
+<td>direct</td>
+<td>60</td>
+<td><strong>84</strong></td>
+<td><strong>100</strong></td>
+<td>72</td>
+<td>12</td>
+<td>20</td>
+</tr>
+<tr>
+<td>GPT-5.5</td>
+<td>direct</td>
+<td>0</td>
+<td>43</td>
+<td><strong>95</strong></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>gpt-oss-120b</td>
+<td>steps</td>
+<td>33</td>
+<td>33</td>
+<td>4</td>
+<td>33</td>
+<td>11</td>
+<td>52</td>
+</tr>
+<tr>
+<td>Kimi-K3</td>
+<td>steps</td>
+<td><strong>100</strong></td>
+<td>89</td>
+<td>59</td>
+<td><strong>100</strong></td>
+<td><strong>100</strong></td>
+<td>89</td>
+</tr>
+<tr>
+<td>GLM-5.3</td>
+<td>steps</td>
+<td><strong>100</strong></td>
+<td>93</td>
+<td>30</td>
+<td><strong>100</strong></td>
+<td><strong>100</strong></td>
+<td>96</td>
+</tr>
+<tr>
+<td>GPT-5.5</td>
+<td>steps</td>
+<td>76</td>
+<td>8</td>
+<td>8</td>
+<td><strong>88</strong></td>
+<td><strong>76</strong></td>
+<td>12</td>
+</tr>
+</tbody>
+</table>
+<p>Under the direct prompt the models talk about trend and season. Under the step-by-step prompt they
+talk about smoothing and weights — that is, they describe the procedure they were given, in 76–100 %
+of traces.</p>
+<h3>4.3 Did: the rule the answer actually matches</h3>
+<p>Counts of sites by nearest rule.</p>
+<table>
+<thead>
+<tr>
+<th>sensor</th>
+<th>model</th>
+<th>prompt</th>
+<th>repeat P09</th>
+<th>slope from last 3</th>
+<th>mean last 3</th>
+<th>other</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sentinel-2</td>
+<td>GPT-5.5, 23 April</td>
+<td>direct</td>
+<td>4</td>
+<td><strong>9</strong></td>
+<td>0</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Sentinel-2</td>
+<td>Kimi-K3</td>
+<td>direct</td>
+<td>3</td>
+<td><strong>10</strong></td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Sentinel-2</td>
+<td>gpt-oss-120b</td>
+<td>direct</td>
+<td><strong>10</strong></td>
+<td>2</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Sentinel-2</td>
+<td>GPT-5.5, 23 April</td>
+<td>steps</td>
+<td><strong>15</strong></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Sentinel-2</td>
+<td>gpt-oss-120b</td>
+<td>steps</td>
+<td><strong>15</strong></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Sentinel-2</td>
+<td>Kimi-K3</td>
+<td>steps</td>
+<td><strong>8</strong></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Sentinel-1</td>
+<td>GPT-5.5, 23 April</td>
+<td>direct</td>
+<td>3</td>
+<td>2</td>
+<td><strong>5</strong></td>
+<td>2</td>
+</tr>
+<tr>
+<td>Sentinel-1</td>
+<td>Kimi-K3</td>
+<td>direct</td>
+<td>3</td>
+<td>1</td>
+<td><strong>4</strong></td>
+<td>4</td>
+</tr>
+<tr>
+<td>Sentinel-1</td>
+<td>GPT-5.5, 23 April</td>
+<td>steps</td>
+<td><strong>11</strong></td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Sentinel-1</td>
+<td>Kimi-K3</td>
+<td>steps</td>
+<td><strong>11</strong></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Not one answer under the step-by-step prompt matches a weighted combination of anything.</strong> Every
+Sentinel-2 answer, for every model, matches repeating the previous month.</p>
+<h3>4.4 Said against did</h3>
+<p>Of the calls whose step-by-step trace names averaging, what the answer actually was:</p>
+<table>
+<thead>
+<tr>
+<th>trace names averaging</th>
+<th>repeat P09</th>
+<th>mean last 3</th>
+<th>own 9-month mean</th>
+<th>line through all 9</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>yes</td>
+<td><strong>42</strong></td>
+<td>2</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr>
+<td>no</td>
+<td>23</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>Forty-two of forty-seven traces that describe averaging produced the previous month unchanged.</p>
+<p>The distance to the nearest rule separates the two prompts more sharply than any accuracy number in
+this document:</p>
+<table>
+<thead>
+<tr>
+<th>sensor</th>
+<th>model</th>
+<th>direct</th>
+<th>step-by-step</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sentinel-2</td>
+<td>GPT-5.5, 23 April</td>
+<td>0.221</td>
+<td><strong>0.008</strong></td>
+</tr>
+<tr>
+<td>Sentinel-2</td>
+<td>GPT-5.5, 24 April</td>
+<td>0.187</td>
+<td><strong>0.008</strong></td>
+</tr>
+<tr>
+<td>Sentinel-2</td>
+<td>Kimi-K3</td>
+<td>0.149</td>
+<td><strong>0.009</strong></td>
+</tr>
+<tr>
+<td>Sentinel-2</td>
+<td>gpt-oss-120b</td>
+<td>0.126</td>
+<td><strong>0.009</strong></td>
+</tr>
+<tr>
+<td>Sentinel-1</td>
+<td>Kimi-K3</td>
+<td>0.040</td>
+<td><strong>0.005</strong></td>
+</tr>
+<tr>
+<td>Sentinel-1</td>
+<td>GPT-5.5, 23 April</td>
+<td>0.059</td>
+<td><strong>0.007</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Under the direct prompt the answers sit between the simple rules — a tenth to a third of a standard
+deviation from the nearest one — which is what a genuine computation looks like. Under the
+step-by-step prompt they sit <em>on</em> a rule, to eight thousandths of a standard deviation. The answer
+has stopped being computed.</p>
+<p><strong>The consequence is about evidence, not accuracy.</strong> Under the direct prompt the traces are broadly
+faithful: trend and season are named in 84–96 % of them, and a slope extrapolation is the rule the
+Sentinel-2 answers match. Under the step-by-step prompt the trace describes smoothing, block
+selection and convex weights while the answer is a copied row. <strong>A reasoning trace from this arm
+cannot be taken as an account of what was computed</strong> — it reports the instructions back, not the
+work. Every claim in §3 rests on the predictions rather than on the traces for this reason.</p>
+<hr>
+<h2>5. Eight cases</h2>
+<p><strong>Method.</strong> One correct and one incorrect case for each sensor and each prompt, three models side by
+side. Sentinel-1 site 0022 appears twice on purpose: the same series under both prompts.</p>
+<p>Reasoning is quoted with its kind marked. The research gateway returns the model's own chain. The
+GPT-5 family returns no chain on any endpoint — the vendor states that raw reasoning tokens are not
+exposed — so what is quoted for GPT-5.5 is a summary written by a separate summarizer.</p>
+<h3>5.1 Sentinel-1, direct prompt — correct: site 0020</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>VV</th>
+<th>VH</th>
+<th>VV−VH</th>
+<th>error</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P07</td>
+<td>−8.38</td>
+<td>−14.82</td>
+<td>6.45</td>
+<td></td>
+</tr>
+<tr>
+<td>P08</td>
+<td>−8.80</td>
+<td>−15.22</td>
+<td>6.42</td>
+<td></td>
+</tr>
+<tr>
+<td>P09</td>
+<td>−8.45</td>
+<td>−14.91</td>
+<td>6.46</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>P10 truth</strong></td>
+<td><strong>−8.71</strong></td>
+<td><strong>−15.16</strong></td>
+<td><strong>6.45</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>GPT-5.5</td>
+<td>−8.55</td>
+<td>−15.00</td>
+<td>6.45</td>
+<td><strong>0.070</strong></td>
+</tr>
+<tr>
+<td>Kimi-K3</td>
+<td>−8.54</td>
+<td>−14.98</td>
+<td>6.44</td>
+<td>0.081</td>
+</tr>
+<tr>
+<td>gpt-oss-120b</td>
+<td>−8.54</td>
+<td>−15.00</td>
+<td>6.44</td>
+<td>0.077</td>
+</tr>
+<tr>
+<td>band-space SHC</td>
+<td></td>
+<td></td>
+<td></td>
+<td>0.184</td>
+</tr>
+<tr>
+<td>mean of last three months</td>
+<td></td>
+<td></td>
+<td></td>
+<td>0.079</td>
+</tr>
+</tbody>
+</table>
+<p>All three land within 0.18 decibels of the withheld month, and at this site their answers coincide
+with the mean of the last three months, which scores 0.079 on the same cells. gpt-oss-120b's chain
+shows that arithmetic: <em>"Use simple average of last few months (May-Jul). VV avg =
+(−8.38−8.80−8.45)/3 = −8.543."</em> This is one of the rare sites where the withheld month did not
+reverse sharply.</p>
+<h3>5.2 Sentinel-1, direct prompt — wrong: site 0022 (cause §3.2)</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>VV</th>
+<th>VH</th>
+<th>VV−VH</th>
+<th>error</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P07</td>
+<td>−10.19</td>
+<td>−15.99</td>
+<td>5.81</td>
+<td></td>
+</tr>
+<tr>
+<td>P08</td>
+<td>−10.12</td>
+<td>−15.82</td>
+<td>5.71</td>
+<td></td>
+</tr>
+<tr>
+<td>P09</td>
+<td>−9.81</td>
+<td>−15.41</td>
+<td>5.58</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>P10 truth</strong></td>
+<td><strong>−10.17</strong></td>
+<td><strong>−15.96</strong></td>
+<td><strong>5.79</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>GPT-5.5, 23 April</td>
+<td>−9.70</td>
+<td>−15.16</td>
+<td>5.46</td>
+<td>0.903</td>
+</tr>
+<tr>
+<td>Kimi-K3</td>
+<td>−9.60</td>
+<td>−15.30</td>
+<td>5.70</td>
+<td>0.700</td>
+</tr>
+<tr>
+<td>gpt-oss-120b</td>
+<td>−9.50</td>
+<td>−15.20</td>
+<td>5.70</td>
+<td>0.948</td>
+</tr>
+<tr>
+<td>band-space SHC</td>
+<td></td>
+<td></td>
+<td></td>
+<td>0.440</td>
+</tr>
+<tr>
+<td>mean of last three months</td>
+<td></td>
+<td></td>
+<td></td>
+<td><strong>0.067</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Three months of rise, then the withheld month gives it all back. Every model extrapolates —
+gpt-oss-120b: <em>"Slight increase in VV (less negative) over time: from −11.56 Jan to −9.81 July.
+Linear trend maybe +0.3 per month… So predict August −9.5 approx."</em> All three land above the truth,
+which is §3.3's bias in one site. The three-month mean scores 0.074 because averaging does not
+commit to the direction.</p>
+<h3>5.3 Sentinel-1, step-by-step prompt — correct: site 0022 (cause §3.4)</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>VV</th>
+<th>VH</th>
+<th>VV−VH</th>
+<th>error</th>
+<th>distance from P09</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>P10 truth</strong></td>
+<td><strong>−10.17</strong></td>
+<td><strong>−15.96</strong></td>
+<td><strong>5.79</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>GPT-5.5</td>
+<td>−9.81</td>
+<td>−15.41</td>
+<td>5.58</td>
+<td>0.442</td>
+<td><strong>0.008</strong></td>
+</tr>
+<tr>
+<td>Kimi-K3</td>
+<td>−9.81</td>
+<td>−15.41</td>
+<td>5.58</td>
+<td>0.442</td>
+<td><strong>0.008</strong></td>
+</tr>
+<tr>
+<td>gpt-oss-120b</td>
+<td>−9.70</td>
+<td>−15.30</td>
+<td>5.60</td>
+<td>0.622</td>
+<td>0.147</td>
+</tr>
+<tr>
+<td>band-space SHC</td>
+<td></td>
+<td></td>
+<td></td>
+<td>0.440</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>The same series. Two of three return row P09 to the digit and score what the band-space pipeline
+scores. The error halves because the model stopped predicting, not because it predicted better.</p>
+<h3>5.4 Sentinel-1, step-by-step prompt — wrong: site 0027 (cause §3.4)</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>VV</th>
+<th>VH</th>
+<th>VV−VH</th>
+<th>error</th>
+<th>distance from P09</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P09</td>
+<td>−9.27</td>
+<td>−15.60</td>
+<td>6.35</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>P10 truth</strong></td>
+<td><strong>−9.64</strong></td>
+<td><strong>−16.00</strong></td>
+<td><strong>6.36</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>GPT-5.5, 23 April</td>
+<td>−9.27</td>
+<td>−15.31</td>
+<td>6.05</td>
+<td>0.725</td>
+<td>0.325</td>
+</tr>
+<tr>
+<td>GPT-5.5, 24 April</td>
+<td>−9.27</td>
+<td>−15.60</td>
+<td>6.35</td>
+<td>0.420</td>
+<td>0.005</td>
+</tr>
+<tr>
+<td>Kimi-K3</td>
+<td>−9.27</td>
+<td>−15.60</td>
+<td>6.35</td>
+<td>0.420</td>
+<td>0.005</td>
+</tr>
+<tr>
+<td>gpt-oss-120b</td>
+<td>−9.27</td>
+<td>−15.60</td>
+<td>6.35</td>
+<td>0.420</td>
+<td>0.005</td>
+</tr>
+<tr>
+<td>band-space SHC</td>
+<td></td>
+<td></td>
+<td></td>
+<td>0.415</td>
+<td></td>
+</tr>
+<tr>
+<td>mean of last three months</td>
+<td></td>
+<td></td>
+<td></td>
+<td>0.239</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>The truth moves away from P09, so the same collapse is punished. Under the direct prompt the
+23 April snapshot scored 0.331 here and the 24 April snapshot 0.362; the instructions roughly
+doubled the first and worsened the second.</p>
+<h3>5.5 Sentinel-2, direct prompt — correct: site 0014</h3>
+<p>A series with no cloud disturbance: GPT-5.5 0.114, gpt-oss-120b 0.062, the band-space pipeline 0.036.
+All small. Sites like this are why the Sentinel-2 <em>medians</em> sit at 0.201–0.240 across methods while
+the <em>means</em> diverge — the means are set by a handful of contaminated sites, of which the next is the
+clearest.</p>
+<h3>5.6 Sentinel-2, direct prompt — wrong: site 0004 (cause §3.5)</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>B2</th>
+<th>B8</th>
+<th>NDVI</th>
+<th>NDWI</th>
+<th>error</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P07</td>
+<td>0.052</td>
+<td>0.467</td>
+<td>0.792</td>
+<td>−0.690</td>
+<td></td>
+</tr>
+<tr>
+<td>P08</td>
+<td>0.045</td>
+<td>0.384</td>
+<td>0.761</td>
+<td>−0.676</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>P09</strong></td>
+<td><strong>0.086</strong></td>
+<td>0.396</td>
+<td><strong>0.621</strong></td>
+<td><strong>−0.582</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>P10 truth</strong></td>
+<td><strong>0.054</strong></td>
+<td><strong>0.360</strong></td>
+<td><strong>0.725</strong></td>
+<td><strong>−0.651</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>GPT-5.5, 23 April</td>
+<td>0.078</td>
+<td>0.294</td>
+<td>0.481</td>
+<td>−0.500</td>
+<td>5.267</td>
+</tr>
+<tr>
+<td>Kimi-K3</td>
+<td>0.080</td>
+<td>0.320</td>
+<td>0.471</td>
+<td>−0.524</td>
+<td>6.270</td>
+</tr>
+<tr>
+<td>gpt-oss-120b</td>
+<td>0.072</td>
+<td>0.382</td>
+<td>0.560</td>
+<td>−0.600</td>
+<td>1.154</td>
+</tr>
+<tr>
+<td>band-space SHC</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>3.232</td>
+</tr>
+<tr>
+<td>mean of last three months</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td><strong>0.257</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Worked through in §3.5. Note the models are wrong in the same direction as the contamination, and
+wrong by more than simply repeating it would have been.</p>
+<h3>5.7 Sentinel-2, step-by-step prompt — correct: site 0012 (cause §3.4)</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>B2</th>
+<th>B8</th>
+<th>NDVI</th>
+<th>error</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P09</td>
+<td>0.059</td>
+<td>0.440</td>
+<td>0.814</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>P10 truth</strong></td>
+<td><strong>0.033</strong></td>
+<td><strong>0.359</strong></td>
+<td><strong>0.858</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>GPT-5.5</td>
+<td>0.059</td>
+<td>0.440</td>
+<td>0.814</td>
+<td>0.909</td>
+</tr>
+<tr>
+<td>gpt-oss-120b</td>
+<td>0.059</td>
+<td>0.440</td>
+<td>0.814</td>
+<td>0.909</td>
+</tr>
+<tr>
+<td>Kimi-K3</td>
+<td><em>no answer — degenerate loop</em></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>band-space SHC</td>
+<td></td>
+<td></td>
+<td></td>
+<td>0.917</td>
+</tr>
+<tr>
+<td>mean of last three months</td>
+<td></td>
+<td></td>
+<td></td>
+<td><strong>0.393</strong></td>
+</tr>
+</tbody>
+</table>
+<p>A fall of two thirds — the 24 April snapshot goes 2.721 → 0.909 — consisting entirely of returning row P09
+unchanged. The three-month mean would still have been more than twice as good. The largest single
+fall in the comparison is at site 0004, on the metric's own terms: 9.178 → 3.235.</p>
+<h3>5.8 Sentinel-2, step-by-step prompt — wrong: site 0003 (cause §3.4)</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>B2</th>
+<th>B3</th>
+<th>B4</th>
+<th>B8</th>
+<th>B11</th>
+<th>B12</th>
+<th>NDVI</th>
+<th>NDWI</th>
+<th>error</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P09</td>
+<td>0.041</td>
+<td>0.061</td>
+<td>0.035</td>
+<td>0.431</td>
+<td>0.190</td>
+<td>0.079</td>
+<td>0.856</td>
+<td>−0.755</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>P10 truth</strong></td>
+<td><strong>0.074</strong></td>
+<td><strong>0.089</strong></td>
+<td><strong>0.060</strong></td>
+<td><strong>0.453</strong></td>
+<td><strong>0.202</strong></td>
+<td><strong>0.097</strong></td>
+<td><strong>0.774</strong></td>
+<td><strong>−0.677</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>GPT-5.5</td>
+<td>0.041</td>
+<td>0.061</td>
+<td>0.035</td>
+<td>0.431</td>
+<td>0.190</td>
+<td>0.079</td>
+<td>0.856</td>
+<td>−0.755</td>
+<td>1.179</td>
+</tr>
+<tr>
+<td>Kimi-K3</td>
+<td>0.041</td>
+<td>0.061</td>
+<td>0.035</td>
+<td>0.431</td>
+<td>0.190</td>
+<td>0.079</td>
+<td>0.856</td>
+<td>−0.755</td>
+<td>1.179</td>
+</tr>
+<tr>
+<td>gpt-oss-120b</td>
+<td>0.041</td>
+<td>0.061</td>
+<td>0.035</td>
+<td>0.431</td>
+<td>0.190</td>
+<td>0.079</td>
+<td>0.856</td>
+<td>−0.755</td>
+<td>1.179</td>
+</tr>
+<tr>
+<td>band-space SHC</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>1.164</td>
+</tr>
+</tbody>
+</table>
+<p>Three models, three organisations, two gateways, one identical answer across all eight bands — row
+P09. The withheld month rises sharply on six of eight bands and all three are wrong together.</p>
+<hr>
+<h2>6. What the causes imply</h2>
+<p>Ordered by how much error each would remove, not by how easy it is.</p>
+<ol>
+<li><strong>Reversal (§3.2) sets the floor and no prompt reaches it.</strong> Any predictor that projects recent
+   behaviour is wrong on the 33 of 36 Sentinel-1 band-months that reverse. What helps is not
+   committing to a direction — which is exactly why the three-month mean leads on both sensors
+   (0.265 and 0.541) while every model and the band-space pipeline sit above it.</li>
+<li><strong>The upward bias (§3.3) is not a model fault and not a prompt target.</strong> The no-model rules carry
+   the same offset (+0.28 to +0.49), so it belongs to the withheld month. The one unbiased predictor
+   is the site's own nine-month mean on Sentinel-1 (−0.046), which ignores the recent level
+   entirely — the same lesson as §3.2.</li>
+<li><strong>Contamination (§3.5) is a data problem.</strong> The information needed to discount a clouded month
+   is not in the nine rows given to the model. Passing a quality flag, or a cloud-fraction column,
+   would be a change to the evidence rather than to the prompt.</li>
+<li><strong>The step-by-step prompt (§3.4) cannot be fixed by clearer wording.</strong> Two of the four models
+   execute it correctly and reach the most recent window on their own; the procedure's own answer is
+   the previous month. A more precise instruction would move the other two towards that answer, not
+   away from it. Its apparent Sentinel-2 gain is the degenerate answer scoring well on that sensor,
+   not better reasoning. Changing the estimator — the window set, the stopping rule — would change
+   the result; changing the prose will not.</li>
+<li><strong>Read every number here through §3.6.</strong> The metric rewards the flat bands; the near-infrared
+   band, which carries the seasonal signal, contributes 1–3 % of the score.</li>
+</ol>
+<hr>
+<h2>7. Sources</h2>
+<p>All figures are computed from replies already stored; no model was called for this document.</p>
+<table>
+<thead>
+<tr>
+<th>what</th>
+<th>where</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>aggregate tables of §2</td>
+<td><code>notebooks/llm_band_sc/lb_arms.py</code> → <code>lb_arms_cells.csv</code>, <code>lb_arms_per_site.csv</code></td>
+</tr>
+<tr>
+<td>failure diagnostics of §3.1–3.3, §3.6, §3.7</td>
+<td><code>notebooks/llm_band_sc/lb_why.py</code></td>
+</tr>
+<tr>
+<td>trace availability, said-against-did of §4</td>
+<td><code>notebooks/llm_band_sc/lb_traces.py</code> → <code>lb_traces.csv</code></td>
+</tr>
+<tr>
+<td>collapse checks of §3.4 and the cases of §5</td>
+<td><code>notebooks/llm_band_sc/lb_cases.py</code></td>
+</tr>
+<tr>
+<td>reference rows (carry-forward, three-month mean, own mean, band-space SHC)</td>
+<td><code>notebooks/llm_band_sc/lb_scores_shc.csv</code></td>
+</tr>
+<tr>
+<td>run-averaged per-site values</td>
+<td><code>notebooks/llm_band_sc/lb_runs.py</code> → <code>lb_summary_shc_runs.csv</code></td>
+</tr>
+<tr>
+<td>prompts as sent</td>
+<td><code>lb_prompts_shc.jsonl</code>, <code>lb_prompts_shc_steps.jsonl</code></td>
+</tr>
+<tr>
+<td>raw replies, one folder per run</td>
+<td><code>notebooks/llm_band_sc/runs/</code></td>
+</tr>
+<tr>
+<td>the band-space SHC re-run and its gates</td>
+<td><code>notebooks/llm_band_sc/lb_shc.py</code>, <code>lb_tests.py</code></td>
+</tr>
+</tbody>
+</table>
+<p>Reproduce with <code>python lb_arms.py</code>, <code>python lb_why.py</code>, <code>python lb_traces.py</code> and <code>python lb_cases.py</code> in
+<code>notebooks/llm_band_sc/</code>.</p>
+</body></html>

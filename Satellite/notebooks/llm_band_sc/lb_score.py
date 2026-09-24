@@ -1,6 +1,6 @@
 """lb_score — score every reply with the collaborator's metrics, next to the references.
 
-SHC (her notebook 26): per band, squared error / variance (ddof=1) of the target's own P01-P09 values;
+SHC (her notebook 10): per band, squared error / variance (ddof=1) of the target's own P01-P09 values;
 joint = mean over bands. Rows: each model; own_mean (the target's P01-P09 mean, nothing estimated); her
 stored SHC values (joint per site; her sensor and sensor x band tables).
 SCM (her notebook 14 method on the monthly data): her scaler per sensor x feature (mean / SD ddof=1 over
@@ -19,7 +19,8 @@ import lb_lib as lb
 import lb_shc
 import lb_baselines
 
-ARMS = ["abl_noguide", "abl_anon", "abl_nocal", "abl_rule"]
+ARMS = ["abl_noguide", "abl_anon", "abl_nocal", "abl_rule", "shc_steps",
+        "shc_configure", "shc_design", "shc_implement"]   # skill arms (lb_skill_run.py, 2026-09-24)
 
 
 def load_replies(exp):
@@ -38,7 +39,7 @@ def score_shc():
     P = [json.loads(l) for l in open(lb.LB / "lb_prompts_shc.jsonl")]
     R = load_replies("shc")
     RA = {arm: load_replies(arm) for arm in ARMS}                          # ablation arms (plan 2026-09-10, C)
-    her = pd.read_csv(lb.HER26_SITES).set_index(["sensor", "site_id"]).her_joint_validation_nmse      # notebook held-out P10
+    her = pd.read_csv(lb.HER10_SITES).set_index(["sensor", "site_id"]).her_joint_validation_nmse      # notebook held-out P10
     models = sorted({m for m, _ in R})
     SHC = lb_shc.run_all().set_index(["sensor", "site_id"])                 # our run of her held-out SHC
     rows = []
@@ -75,8 +76,8 @@ def score_shc():
     ok = S[S.ok == True]
     summ = ok.groupby(["method", "sensor"]).agg(n=("joint_nmse", "size"), mean_joint_nmse=("joint_nmse", "mean"),
                                                  median_joint_nmse=("joint_nmse", "median"),
-                                                 mean_joint_nmse_p10var=("joint_nmse_p10var", "mean"),
-                                                 median_joint_nmse_p10var=("joint_nmse_p10var", "median")).reset_index()
+                                                 mean_p10var_not_reported=("joint_nmse_p10var", "mean"),
+                                                 median_p10var_not_reported=("joint_nmse_p10var", "median")).reset_index()
     summ.to_csv(lb.LB / "lb_summary_shc.csv", index=False)
     band_cols = [c for c in S.columns if c.startswith("nmse_")]      # step-11 per band (P01-P09 variance)
     band = ok.groupby(["method", "sensor"])[band_cols].mean().stack().reset_index()
@@ -148,16 +149,17 @@ def main():
     S1, summ1, band1 = score_shc()
     print("=== SHC design: P10 predicted from P01-P09; her outcome metric (slide 16 step 10 / notebook 10): squared error / outcome variance over P01-P10 (ddof 1), mean over bands ===")
     print("    rows: models; shc = our run of her held-out SHC (reproduces her 27 stored values); own_mean = P01-P09 mean")
-    cols = ["method", "sensor", "n", "mean_joint_nmse_p10var", "median_joint_nmse_p10var", "beats_shc"]
+    cols = ["method", "sensor", "n", "mean_joint_nmse", "median_joint_nmse", "beats_shc"]
     ok1 = S1[S1.ok == True]
-    ref = ok1[ok1.method == "shc"].set_index(["sensor", "site_id"]).joint_nmse_p10var
+    ref = ok1[ok1.method == "shc"].set_index(["sensor", "site_id"])[lb.METRIC]
     wins = {}
     for (m, s), d in ok1.groupby(["method", "sensor"]):
-        d = d.set_index("site_id"); wins[(m, s)] = f"{int((d.joint_nmse_p10var < ref.loc[s].loc[d.index]).sum())} / {len(d)}"
+        d = d.set_index("site_id"); wins[(m, s)] = f"{int((d[lb.METRIC] < ref.loc[s].loc[d.index]).sum())} / {len(d)}"
     summ1["beats_shc"] = [wins[(m, s)] for m, s in zip(summ1.method, summ1.sensor)]
     print("    rules (plan 2026-09-10 A): persistence = P09, last3_mean, linear9 / linear4 = OLS line on P01-P09 / P06-P09, holt_damped (in-sample grid), ensemble = mean of Kimi-low and gpt-oss-low")
-    print("    '[noguide]/[anon]/[nocal]/[rule]' = prompt ablations (plan C); beats_shc = sites below our run of her SHC")
-    print(summ1.sort_values(["sensor", "mean_joint_nmse_p10var"])[cols].to_string(index=False, float_format=lambda v: f"{v:.4f}"))
+    print("    '[noguide]/[anon]/[nocal]/[rule]' = prompt ablations (plan C); '[steps]' = her block/weight-fitting "
+          "procedure added in prose (plan 2026-09-15); beats_shc = sites below our run of her SHC")
+    print(summ1.sort_values(["sensor", "mean_joint_nmse"])[cols].to_string(index=False, float_format=lambda v: f"{v:.4f}"))
     print("\n(her held-out variant, variance over P01-P09, kept in lb_summary_shc.csv as mean_joint_nmse / median_joint_nmse)")
     S2, summ2, feat2 = score_scm()
     print("\n=== SCM design (her notebook-14 metric): standardized validation RMSE at P10 ===")

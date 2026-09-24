@@ -1,5 +1,5 @@
 """lb_features — (1) band means of the monthly composites for the 27 target cells and their 5 donors
-(P01-P10), her extraction (float64, non-finite -> NaN, nanmean per band over the whole chip); (2) her notebook-26 stored results parsed from the notebook's outputs.
+(P01-P10), her extraction (float64, non-finite -> NaN, nanmean per band over the whole chip); (2) her notebook 10 stored results parsed from the notebook's outputs.
     python lb_features.py
 """
 import json
@@ -16,7 +16,7 @@ import panel_monthly as pm
 
 
 def band_means(tif, sensor):
-    """Her notebook-26 extraction: read as float64, non-finite -> NaN, nanmean per band over the whole chip
+    """Her notebook 10 extraction: read as float64, non-finite -> NaN, nanmean per band over the whole chip
     (channel-first (C, 101, 101) composites; band order as in panel_lib.BANDS)."""
     a = tifffile.imread(tif).astype("float64")
     a[~np.isfinite(a)] = np.nan
@@ -55,7 +55,7 @@ def extract():
     return df
 
 
-def her_nb26():
+def her_nb10():
     nb = json.load(open(lb.NB26))
     t = []
     for c in nb["cells"]:
@@ -77,7 +77,7 @@ def her_nb26():
         if line.startswith("=== Held-out P10 validation by sensor"):
             break
     S = pd.DataFrame(sites).drop_duplicates(["sensor", "site_id"])
-    S.to_csv(lb.HER26_SITES, index=False)
+    S.to_csv(lb.HER10_SITES, index=False)
     # sensor table and sensor x band table
     tables = []
     i = t.index("=== Held-out P10 validation by sensor ===")
@@ -90,17 +90,17 @@ def her_nb26():
             tables.append({"kind": "sensor_band", "sensor": m.group(1), "band": m.group(2), "sq_error": float(m.group(3)), "standardized_sq_error": float(m.group(4))})
         if line.startswith("Saved 01_feature_panel"):
             break
-    T = pd.DataFrame(tables); T.to_csv(lb.HER26_TABLES, index=False)
+    T = pd.DataFrame(tables); T.to_csv(lb.HER10_TABLES, index=False)
     # printed feature-panel rows (head/tail of her 01_feature_panel): for the extraction gate
     feats = []
     for m in re.finditer(r"^\s*\d+\s+(treatment_\d{4})\s+(P\d{2})\s+(\d{4}-\d{2})\s+(sentinel[12])\s+(\S+)\s+(-?\d+\.\d+)", t, re.M):
         feats.append({"site_id": m.group(1), "period_id": m.group(2), "month": m.group(3), "sensor": m.group(4),
                       "band": m.group(5), "her_mean_value": float(m.group(6))})
-    F = pd.DataFrame(feats).drop_duplicates(); F.to_csv(lb.HER26_FEATURE_ROWS, index=False)
-    print(f"her nb26: {len(S)} per-site values, {len(T)} table rows, {len(F)} printed feature rows")
+    F = pd.DataFrame(feats).drop_duplicates(); F.to_csv(lb.HER10_FEATURE_ROWS, index=False)
+    print(f"her notebook 10: {len(S)} per-site values, {len(T)} table rows, {len(F)} printed feature rows")
     return S, T, F
 
 
 if __name__ == "__main__":
     extract()
-    her_nb26()
+    her_nb10()
