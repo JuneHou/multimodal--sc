@@ -1,0 +1,32 @@
+{
+  "data": "examples/data.csv",
+  "spec": "examples/spec.json",
+  "m": 3,
+  "n": 1,
+  "matching_window": "P07-P09",
+  "blocks_available": 6,
+  "blocks_kept": [
+    {
+      "block": 2,
+      "matching_months": "P02-P04",
+      "forward_month": "P05",
+      "weight": 0.7
+    },
+    {
+      "block": 4,
+      "matching_months": "P04-P06",
+      "forward_month": "P07",
+      "weight": 0.3
+    }
+  ],
+  "matching_mse": 0.0,
+  "prediction": {
+    "period_id": "P10",
+    "month": "2021-10",
+    "values": {
+      "VV": -10.022,
+      "VH": -15.903,
+      "VV-VH": 5.881
+    }
+  }
+}

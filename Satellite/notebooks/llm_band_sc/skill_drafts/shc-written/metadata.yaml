@@ -1,0 +1,28 @@
+{
+  "name": "Synthetic Historical Control with Written Code",
+  "slug": "shc-written",
+  "domain": "statistical-and-machine-learning-foundations-for-science",
+  "topic_path": ["statistical-and-machine-learning-foundations-for-science", "causal-inference", "synthetic-historical-control"],
+  "status": "draft",
+  "authorship": "Claude Code, from the collaborator's notebook 10 and the SHC paper",
+  "created_at": "2026-10-13",
+  "updated_at": "2026-10-13",
+  "source_resources": ["shc-paper-ssrn-4995085", "collaborator-notebook-10-shc-monthly-multiple-outcomes"],
+  "package_versions": {
+    "python": "3.11.15",
+    "numpy": "2.4.6",
+    "scipy": "1.17.1",
+    "pandas": "3.0.5"
+  },
+  "compute_requirements": "cpu+local-env",
+  "language": ["Python"],
+  "tags": ["synthetic-historical-control", "causal-inference", "satellite", "sentinel-1", "sentinel-2", "forecasting"],
+  "aliases": ["implement shc", "synthetic historical control from scratch", "own-history synthetic control"],
+  "test_commands": [
+    "python scripts/show_data.py --data examples/data.csv",
+    "python -m unittest discover -s tests -p 'test_*.py'"
+  ],
+  "last_verified_at": "2026-10-13",
+  "freshness_risk": "low",
+  "related_skills": ["shc-provided"]
+}

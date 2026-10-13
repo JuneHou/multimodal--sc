@@ -1,0 +1,12 @@
+{
+  "blocks_available": 6,
+  "blocks_kept": [2, 4],
+  "weights": [0.7, 0.3],
+  "weights_over_all_blocks": [0.0, 0.7, 0.0, 0.3, 0.0, 0.0],
+  "prediction": {
+    "period_id": "P10",
+    "month": "2021-10",
+    "values": {"VV": -10.022, "VH": -15.903, "VV-VH": 5.881}
+  },
+  "tolerance": 1e-06
+}
