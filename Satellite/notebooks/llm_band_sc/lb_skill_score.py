@@ -29,7 +29,7 @@ def load():
     recs = {}
     files = []
     for exp in EXPERIMENTS:
-        files += glob.glob(str(lb.LB / f"lb_replies_{exp}_*.jsonl")) + glob.glob(str(lb.LB / "runs" / "*" / f"lb_replies_{exp}_*.jsonl"))
+        files += glob.glob(str(lb.LB / f"lb_replies_{exp}_*.jsonl")) + [f for f in glob.glob(str(lb.LB / "runs" / "*" / f"lb_replies_{exp}_*.jsonl")) if "/superseded_" not in f]
     for f in sorted(files):
         for l in open(f):
             r = json.loads(l)

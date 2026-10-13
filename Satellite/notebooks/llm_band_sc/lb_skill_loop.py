@@ -61,12 +61,30 @@ def task_text(skill_dir):
             "Finish by writing answer.json as the skill describes.")
 
 
+# Native tool-call syntaxes some models emit instead of a fence (2026-09-24 runs): DeepSeek's DSML invoke form and
+# GLM's <tool_call> form. Both carry one bash command and are accepted as the block they are; the turn records which
+# syntax was used. A fence left unclosed and followed by such tags is read up to the first tag.
+DSML_CMD = re.compile(r'<｜DSML｜ parameter name="command"[^>]*>(.*?)</｜DSML｜ parameter>', re.S)
+GLM_CMD = re.compile(r"<arg_value>(.*?)</arg_value>", re.S)
+OPEN_FENCE = re.compile(r"```(?:bash|sh|shell)?[ \t]*\n(.*)$", re.S)
+NATIVE_TAGS = re.compile(r"</?(?:｜DSML｜[^>]*|tool_call|arg_key|arg_value)>")
+
+
 def parse_command(text):
-    blocks = FENCE.findall(text)
+    blocks, syntax = FENCE.findall(text), "fence"
     if not blocks:
-        return {"kind": "error", "n_blocks": 0,
+        blocks, syntax = DSML_CMD.findall(text), "dsml"
+    if not blocks:
+        blocks, syntax = GLM_CMD.findall(text), "glm_tool_call"
+    if not blocks:
+        m = OPEN_FENCE.search(text)
+        if m:
+            blocks, syntax = [NATIVE_TAGS.split(m.group(1))[0]], "unclosed_fence"
+    if not blocks or not blocks[0].strip():
+        return {"kind": "error", "n_blocks": 0, "syntax": "none",
                 "message": "No ```bash block found. Reply with one ```bash block; it is run by bash in the working directory."}
-    return {"kind": "bash", "n_blocks": len(blocks), "text": blocks[0].strip("\n")}
+    body = NATIVE_TAGS.sub("", blocks[0]).strip("\n")
+    return {"kind": "bash", "n_blocks": len(blocks), "text": body, "syntax": syntax}
 
 
 def _limits():
@@ -204,7 +222,10 @@ def run_cell(skill_dir, cell_panel, sensor, site, call_fn, step_cap=STEP_CAP):
             steps.append({"step": k, "reply": text, "usage": usage, "command": cmd, "output": output, **meta})
             if answer is not None:
                 ended = "answer"; break
-            messages += [{"role": "assistant", "content": text},
+            # An empty reply (thinking exhausted the cap) is recorded as empty above, but the gateway refuses a
+            # conversation containing an empty assistant message ("message content cannot be empty", the cause of
+            # every DeepSeek 400 on 2026-09-24), so the turn is carried forward as a marked placeholder.
+            messages += [{"role": "assistant", "content": text if text.strip() else "(empty reply)"},
                          {"role": "user", "content": output[:OUT_LIMIT] + ("\n[output truncated]" if len(output) > OUT_LIMIT else "")}]
         return {"skill": Path(skill_dir).name, "sensor": sensor, "site_id": site, "steps": steps, "n_steps": len(steps),
                 "ended": ended, "answer": answer, "values": answer["prediction"] if answer else None,

@@ -129,16 +129,19 @@ def main():
             cap_ns = post(prov, key, base_body(prov, model, "Reply with the single word OK.", 16000))
             body = base_body(prov, model, "Reply with the single word OK.", 16000); body["stream"] = True
             cap_st = post(prov, key, body, stream=True)
+            body = base_body(prov, model, "Reply with the single word OK.", 32000); body["stream"] = True   # 2026-09-24: DeepSeek's
+            cap_st32 = post(prov, key, body, stream=True)                                                  # thinking exceeds 16k
             records.append({"probe": "cap_nonstream_16000", "gateway": prov, "model": model, "raw": cap_ns})
             records.append({"probe": "cap_stream_16000", "gateway": prov, "model": model, "raw": cap_st})
+            records.append({"probe": "cap_stream_32000", "gateway": prov, "model": model, "raw": cap_st32})
             rows.append((spec, tool_calls,
                          " ".join(f"{k}:{v['status']}" for k, v in effort_ok.items()),
-                         cap_ns.get("status"), cap_st.get("status"),
+                         cap_ns.get("status"), f"{cap_st.get('status')}/{cap_st32.get('status')}",
                          sorted({kk for v in effort_ok.values() for kk in v["reasoning_keys"]})))
     with open(OUT, "w") as f:
         for r in records:
             f.write(json.dumps(r) + "\n")
-    print(f"\n{'model':38s} tool_calls  effort status (low/medium/high/none)    cap16k  stream16k  reasoning keys seen")
+    print(f"\n{'model':38s} tool_calls  effort status (low/medium/high/none)    cap16k  stream16k/32k  reasoning keys seen")
     for spec, tc, eff, cns, cst, keys in rows:
         print(f"{spec:38s} {str(tc):10s}  {eff:36s} {str(cns):6s}  {str(cst):9s}  {keys}")
     print(f"\n{len(records)} raw responses -> {OUT}")

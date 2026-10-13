@@ -95,8 +95,17 @@ def gate_sk3_isolation_and_refusals():
     finally:
         c.close()
     two = L.parse_command("```bash\necho first\n```\ntext\n```bash\necho second\n```")
-    assert two["kind"] == "bash" and two["n_blocks"] == 2 and two["text"] == "echo first"
+    assert two["kind"] == "bash" and two["n_blocks"] == 2 and two["text"] == "echo first" and two["syntax"] == "fence"
     assert L.parse_command("no block")["kind"] == "error"
+    # native tool-call syntaxes seen in the 2026-09-24 runs, accepted since (each carries one bash command)
+    d = L.parse_command('\n\n<｜DSML｜ calls>\n<｜DSML｜ invoke name="bash">\n<｜DSML｜ parameter name="command" string="true">python scripts/show_data.py</｜DSML｜ parameter>\n</｜DSML｜ invoke>\n</｜DSML｜ calls>')
+    assert d["kind"] == "bash" and d["text"] == "python scripts/show_data.py" and d["syntax"] == "dsml", d
+    g = L.parse_command("</think><tool_call>bash command</arg_key><arg_value>cat references/settings.md</arg_value></tool_call>")
+    assert g["kind"] == "bash" and g["text"] == "cat references/settings.md" and g["syntax"] == "glm_tool_call", g
+    u = L.parse_command("```bash\ncat SKILL.md; ls scripts</arg_value></tool_call>")
+    assert u["kind"] == "bash" and u["text"] == "cat SKILL.md; ls scripts" and u["syntax"] == "unclosed_fence", u
+    u2 = L.parse_command("\n\n```bash\ncat > s.json <<'EOF'\n{\"m\": 3}\nEOF\npython scripts/fit.py s.json</｜DSML｜ parameter>\n</｜DSML｜ invoke>")
+    assert u2["kind"] == "bash" and u2["text"].endswith("python scripts/fit.py s.json") and "DSML" not in u2["text"], u2
     print("SK3 ok: inside the sandbox the project, the home directory and the network do not exist; skill files are "
           "read-only; ordinary shell (ls -R, head, pipes) works; A refuses a choice field; B refuses an incomplete spec; "
           "only the first of several blocks is executed")
@@ -186,6 +195,23 @@ def gate_sk6_step_cap():
     print("SK6 ok: a cell that never writes answer.json ends at the step cap with ok=False")
 
 
+def gate_sk7_empty_reply():
+    """An empty model reply never puts an empty assistant message into the conversation (the cause of the 2026-09-24
+    DeepSeek 400s); the cell continues and can still answer."""
+    panel9 = lb_guard.training_panel()
+    cellp = lb_guard.cell_panel(panel9, "sentinel1", "treatment_0015")
+    seen = []
+    script = iter(["", "   \n", _fence("ls"), _write("answer.json", json.dumps({"prediction": {"VV": 1, "VH": 1, "VV-VH": 1}, "rationale": "x"}))])
+    def call(messages):
+        seen.append([m["content"] for m in messages])
+        assert all(m["content"].strip() for m in messages), "empty message content sent to the model"
+        return next(script), {"finish_reason": "length", "reasoning": "…", "gateway": "test", "raw_response": {}}
+    rec = L.run_cell(SK / "shc-configure", cellp, "sentinel1", "treatment_0015", call, step_cap=6)
+    assert rec["ok"] and rec["n_steps"] == 4 and rec["steps"][0]["reply"] == "" and rec["steps"][0]["command"]["kind"] == "error"
+    assert "(empty reply)" in seen[1][2]
+    print("SK7 ok: empty replies are recorded as empty, carried forward as a placeholder, and the cell still answers")
+
+
 def main():
     gate_sk1()
     gate_sk2_parity()
@@ -193,6 +219,7 @@ def main():
     gate_sk4_nine_periods_and_canary()
     gate_sk5_dry_runs()
     gate_sk6_step_cap()
+    gate_sk7_empty_reply()
     print("lb_skill_tests: all skill gates passed")
 
 
