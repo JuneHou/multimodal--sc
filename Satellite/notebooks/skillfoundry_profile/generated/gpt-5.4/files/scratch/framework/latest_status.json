@@ -1,0 +1,50 @@
+{
+  "focus_leaves": [
+    {
+      "coverage_status": "covered",
+      "domain_name": "Statistical and Machine Learning Foundations for Science",
+      "domain_slug": "statistical-and-machine-learning-foundations-for-science",
+      "leaf_name": "Causal inference",
+      "resource_count": 1,
+      "resource_ids": [
+        "dowhy-docs"
+      ],
+      "skill_count": 1,
+      "skill_slugs": [
+        "dowhy-average-treatment-effect-starter"
+      ],
+      "taxonomy_key": "statistical_and_machine_learning_foundations_for_science",
+      "topic_slug": "causal-inference",
+      "verified_skill_count": 1
+    }
+  ],
+  "summary": {
+    "covered_domain_count": 27,
+    "covered_leaf_count": 254,
+    "empty_domain_count": 0,
+    "focus_leaves": [
+      {
+        "coverage_status": "covered",
+        "domain_name": "Statistical and Machine Learning Foundations for Science",
+        "domain_slug": "statistical-and-machine-learning-foundations-for-science",
+        "leaf_name": "Causal inference",
+        "resource_count": 1,
+        "resource_ids": [
+          "dowhy-docs"
+        ],
+        "skill_count": 1,
+        "skill_slugs": [
+          "dowhy-average-treatment-effect-starter"
+        ],
+        "taxonomy_key": "statistical_and_machine_learning_foundations_for_science",
+        "topic_slug": "causal-inference",
+        "verified_skill_count": 1
+      }
+    ],
+    "frontier_leaf_count": 0,
+    "resource_count": 376,
+    "skill_count": 268,
+    "taxonomy_domain_count": 27,
+    "todo_leaf_count": 0
+  }
+}

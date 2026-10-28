@@ -1,0 +1,75 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "blockers": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "next_steps": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "repo_changes": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "resources_touched": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "selected_topics": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "skills_touched": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "slurm_jobs": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "stage": {
+      "enum": [
+        "design_skill"
+      ],
+      "type": "string"
+    },
+    "summary": {
+      "type": "string"
+    },
+    "tests_run": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "stage",
+    "summary",
+    "selected_topics",
+    "skills_touched",
+    "resources_touched",
+    "tests_run",
+    "slurm_jobs",
+    "repo_changes",
+    "blockers",
+    "next_steps"
+  ],
+  "type": "object"
+}

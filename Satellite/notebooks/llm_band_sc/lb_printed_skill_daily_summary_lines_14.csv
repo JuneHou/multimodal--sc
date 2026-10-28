@@ -1,0 +1,13 @@
+row,line
+her,Totals: CWZ rejects 112 of 286 site-band tests; SHC bootstrap rejects 204; 14.3 expected by chance; the procedures disagree on 96.
+daily_shc_configure|DeepSeek-V4.1-Flash-thinking-low,Totals: CWZ rejects 29 of 40 site-band tests; SHC bootstrap rejects 33; 2.0 expected by chance; the procedures disagree on 6.
+her|daily_shc_configure|DeepSeek-V4.1-Flash-thinking-low,Totals: CWZ rejects 29 of 40 site-band tests; SHC bootstrap rejects 32; 2.0 expected by chance; the procedures disagree on 5.
+daily_shc_configure|GLM-5.3,Totals: CWZ rejects 125 of 286 site-band tests; SHC bootstrap rejects 193; 14.3 expected by chance; the procedures disagree on 84.
+daily_shc_configure|gpt-oss-120b,Totals: CWZ rejects 146 of 286 site-band tests; SHC bootstrap rejects 229; 14.3 expected by chance; the procedures disagree on 83.
+daily_shc_configure|openai:gpt-5.5,Totals: CWZ rejects 103 of 286 site-band tests; SHC bootstrap rejects 174; 14.3 expected by chance; the procedures disagree on 85.
+daily_shc_design|GLM-5.3,Totals: CWZ rejects 87 of 259 site-band tests; SHC bootstrap rejects 159; 13.0 expected by chance; the procedures disagree on 74.
+her|daily_shc_design|GLM-5.3,Totals: CWZ rejects 102 of 259 site-band tests; SHC bootstrap rejects 187; 13.0 expected by chance; the procedures disagree on 87.
+daily_shc_design|gpt-oss-120b,Totals: CWZ rejects 152 of 278 site-band tests; SHC bootstrap rejects 211; 13.9 expected by chance; the procedures disagree on 67.
+her|daily_shc_design|gpt-oss-120b,Totals: CWZ rejects 111 of 278 site-band tests; SHC bootstrap rejects 196; 13.9 expected by chance; the procedures disagree on 89.
+daily_shc_design|openai:gpt-5.5,Totals: CWZ rejects 94 of 286 site-band tests; SHC bootstrap rejects 156; 14.3 expected by chance; the procedures disagree on 82.
+her|daily_shc_design|openai:gpt-5.5,Totals: CWZ rejects 112 of 286 site-band tests; SHC bootstrap rejects 204; 14.3 expected by chance; the procedures disagree on 96.

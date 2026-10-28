@@ -1,0 +1,22 @@
+{
+  "skill_slug": "pathology-histology-workflows-starter",
+  "skill_name": "Pathology / histology workflows Starter",
+  "status": "implemented",
+  "leaf_slug": "pathology-histology-workflows",
+  "leaf_name": "Pathology / histology workflows",
+  "domain_slug": "imaging-and-phenotype-analysis",
+  "source_resource_ids": [
+    "histomicstk-docs"
+  ],
+  "starter_steps": [
+    "Review the primary materials for Pathology / histology workflows.",
+    "Define the smallest reproducible input/output contract.",
+    "Capture a smoke command or toy example.",
+    "Promote the starter to sandbox verification once runtime details are stable."
+  ],
+  "promotion_checklist": [
+    "Add a runnable example or toy dataset.",
+    "Add a repository-level smoke or integration test.",
+    "Promote status to sandbox_verified after checks pass."
+  ]
+}

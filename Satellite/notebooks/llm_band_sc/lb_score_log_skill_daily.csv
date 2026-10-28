@@ -1,0 +1,105 @@
+row,cell,line,error
+rule:persistence,11,2,NameError: name 'final_fit_store' is not defined
+rule:persistence,11,31,NameError: name 'model_parameters' is not defined
+rule:persistence,11,43,NameError: name 'pre_fit_quality' is not defined
+rule:persistence,11,52,KeyError: 'weights_sum_ok'
+rule:persistence,11,57,KeyError: 'weights_nonnegative_ok'
+rule:persistence,11,66,KeyError: 'sensor'
+rule:persistence,11,73,KeyError: 'mse_within_nu'
+rule:persistence,11,78,KeyError: 'selection_mode'
+rule:persistence,11,84,NameError: name 'pre_fit_quality' is not defined
+rule:persistence,11,92,"KeyError: ""None of [Index(['site_id', 'sensor', 'm_star', 'J_star', 'n_post', 'weights_sum', 'n_active_donors', 'stacked_latent_mse', 'nu', 'mse_within_nu'], dtype='str')] are in the [columns]"""
+rule:persistence,13,164,NameError: name 'series_store' is not defined
+rule:persistence,13,309,RuntimeError: No inference results were computed.
+rule:persistence,13,311,"KeyError: ""None of [Index(['site_id', 'sensor', 'band', 'n_post', 'T', 'S_actual', 'shc_p', 'shc_crit_95', 'shc_reject_05', 'cwz_p', 'cwz_crit_95', 'cwz_reject_05', 'methods_agree', 'pre_resid_acf1', 'resid_sd_ratio'], dtype='str')] are in the [columns]"""
+rule:persistence,13,325,KeyError: 'cwz_permutations'
+rule:persistence,13,339,KeyError: 'sensor'
+rule:persistence,13,352,NameError: name 'counts' is not defined
+rule:persistence,13,353,NameError: name 'counts' is not defined
+rule:persistence,13,354,NameError: name 'counts' is not defined
+rule:persistence,13,364,KeyError: 'shc_reject_05'
+rule:persistence,13,368,NameError: name 'rejected' is not defined
+rule:persistence,13,388,KeyError: 'sensor'
+rule:persistence,13,406,KeyError: 'sensor'
+rule:persistence,13,413,KeyError: 'n_over_T0'
+rule:persistence,13,422,KeyError: 'sensor'
+rule:persistence,13,442,KeyError: 'sensor'
+rule:persistence,14,36,NameError: name 'final_fit_store' is not defined
+rule:persistence,14,62,KeyError: 'sensor'
+rule:persistence,14,67,NameError: name 'table1_model_selection' is not defined
+rule:persistence,14,107,"KeyError: ""None of [Index(['sensor', 'site_id', 'band', 'n_post', 'T', 'S_actual', 'shc_crit_95', 'shc_p', 'shc_reject_05', 'cwz_crit_95', 'cwz_p', 'cwz_reject_05', 'methods_agree', 'pre_resid_acf1', 'resid_sd_ratio'], dtype='str')] are in the [columns]"""
+rule:persistence,14,118,NameError: name 'table3_inference' is not defined
+rule:persistence,14,123,KeyError: 'sensor'
+rule:persistence,14,138,NameError: name 'table3_by_band' is not defined
+rule:persistence,14,141,NameError: name 'table3_by_band' is not defined
+rule:persistence,14,159,NameError: name 'table1_model_selection' is not defined
+rule:persistence,14,167,NameError: name 'table1_model_selection' is not defined
+rule:persistence,14,200,NameError: name 'table3_inference' is not defined
+rule:persistence,14,208,NameError: name 'table3_by_band' is not defined
+rule:persistence,14,209,NameError: name 'table3_by_band' is not defined
+rule:persistence,15,333,NameError: name 'final_fit_store' is not defined
+rule:last3_mean,11,2,NameError: name 'final_fit_store' is not defined
+rule:last3_mean,11,31,NameError: name 'model_parameters' is not defined
+rule:last3_mean,11,43,NameError: name 'pre_fit_quality' is not defined
+rule:last3_mean,11,52,KeyError: 'weights_sum_ok'
+rule:last3_mean,11,57,KeyError: 'weights_nonnegative_ok'
+rule:last3_mean,11,66,KeyError: 'sensor'
+rule:last3_mean,11,73,KeyError: 'mse_within_nu'
+rule:last3_mean,11,78,KeyError: 'selection_mode'
+rule:last3_mean,11,84,NameError: name 'pre_fit_quality' is not defined
+rule:last3_mean,11,92,"KeyError: ""None of [Index(['site_id', 'sensor', 'm_star', 'J_star', 'n_post', 'weights_sum', 'n_active_donors', 'stacked_latent_mse', 'nu', 'mse_within_nu'], dtype='str')] are in the [columns]"""
+rule:last3_mean,13,164,NameError: name 'series_store' is not defined
+rule:last3_mean,13,309,RuntimeError: No inference results were computed.
+rule:last3_mean,13,311,"KeyError: ""None of [Index(['site_id', 'sensor', 'band', 'n_post', 'T', 'S_actual', 'shc_p', 'shc_crit_95', 'shc_reject_05', 'cwz_p', 'cwz_crit_95', 'cwz_reject_05', 'methods_agree', 'pre_resid_acf1', 'resid_sd_ratio'], dtype='str')] are in the [columns]"""
+rule:last3_mean,13,325,KeyError: 'cwz_permutations'
+rule:last3_mean,13,339,KeyError: 'sensor'
+rule:last3_mean,13,352,NameError: name 'counts' is not defined
+rule:last3_mean,13,353,NameError: name 'counts' is not defined
+rule:last3_mean,13,354,NameError: name 'counts' is not defined
+rule:last3_mean,13,364,KeyError: 'shc_reject_05'
+rule:last3_mean,13,368,NameError: name 'rejected' is not defined
+rule:last3_mean,13,388,KeyError: 'sensor'
+rule:last3_mean,13,406,KeyError: 'sensor'
+rule:last3_mean,13,413,KeyError: 'n_over_T0'
+rule:last3_mean,13,422,KeyError: 'sensor'
+rule:last3_mean,13,442,KeyError: 'sensor'
+rule:last3_mean,14,36,NameError: name 'final_fit_store' is not defined
+rule:last3_mean,14,62,KeyError: 'sensor'
+rule:last3_mean,14,67,NameError: name 'table1_model_selection' is not defined
+rule:last3_mean,14,107,"KeyError: ""None of [Index(['sensor', 'site_id', 'band', 'n_post', 'T', 'S_actual', 'shc_crit_95', 'shc_p', 'shc_reject_05', 'cwz_crit_95', 'cwz_p', 'cwz_reject_05', 'methods_agree', 'pre_resid_acf1', 'resid_sd_ratio'], dtype='str')] are in the [columns]"""
+rule:last3_mean,14,118,NameError: name 'table3_inference' is not defined
+rule:last3_mean,14,123,KeyError: 'sensor'
+rule:last3_mean,14,138,NameError: name 'table3_by_band' is not defined
+rule:last3_mean,14,141,NameError: name 'table3_by_band' is not defined
+rule:last3_mean,14,159,NameError: name 'table1_model_selection' is not defined
+rule:last3_mean,14,167,NameError: name 'table1_model_selection' is not defined
+rule:last3_mean,14,200,NameError: name 'table3_inference' is not defined
+rule:last3_mean,14,208,NameError: name 'table3_by_band' is not defined
+rule:last3_mean,14,209,NameError: name 'table3_by_band' is not defined
+rule:last3_mean,15,333,NameError: name 'final_fit_store' is not defined
+daily_shc_design|gpt-oss-120b,11,2,NameError: name 'final_fit_store' is not defined
+daily_shc_design|gpt-oss-120b,11,52,KeyError: 'weights_sum_ok'
+daily_shc_design|gpt-oss-120b,11,57,KeyError: 'weights_nonnegative_ok'
+daily_shc_design|gpt-oss-120b,11,66,KeyError: 'sensor'
+daily_shc_design|gpt-oss-120b,11,73,KeyError: 'mse_within_nu'
+daily_shc_design|gpt-oss-120b,11,78,KeyError: 'selection_mode'
+daily_shc_design|gpt-oss-120b,11,92,"KeyError: ""None of [Index(['site_id', 'sensor', 'm_star', 'J_star', 'n_post', 'weights_sum', 'n_active_donors', 'stacked_latent_mse', 'nu', 'mse_within_nu'], dtype='str')] are in the [columns]"""
+daily_shc_design|gpt-oss-120b,14,36,NameError: name 'final_fit_store' is not defined
+daily_shc_design|gpt-oss-120b,14,62,KeyError: 'sensor'
+daily_shc_design|gpt-oss-120b,14,67,NameError: name 'table1_model_selection' is not defined
+daily_shc_design|gpt-oss-120b,14,159,NameError: name 'table1_model_selection' is not defined
+daily_shc_design|gpt-oss-120b,14,167,NameError: name 'table1_model_selection' is not defined
+daily_shc_design|gpt-oss-120b,15,333,NameError: name 'final_fit_store' is not defined
+her|daily_shc_design|gpt-oss-120b,11,2,NameError: name 'final_fit_store' is not defined
+her|daily_shc_design|gpt-oss-120b,11,52,KeyError: 'weights_sum_ok'
+her|daily_shc_design|gpt-oss-120b,11,57,KeyError: 'weights_nonnegative_ok'
+her|daily_shc_design|gpt-oss-120b,11,66,KeyError: 'sensor'
+her|daily_shc_design|gpt-oss-120b,11,73,KeyError: 'mse_within_nu'
+her|daily_shc_design|gpt-oss-120b,11,78,KeyError: 'selection_mode'
+her|daily_shc_design|gpt-oss-120b,11,92,"KeyError: ""None of [Index(['site_id', 'sensor', 'm_star', 'J_star', 'n_post', 'weights_sum', 'n_active_donors', 'stacked_latent_mse', 'nu', 'mse_within_nu'], dtype='str')] are in the [columns]"""
+her|daily_shc_design|gpt-oss-120b,14,36,NameError: name 'final_fit_store' is not defined
+her|daily_shc_design|gpt-oss-120b,14,62,KeyError: 'sensor'
+her|daily_shc_design|gpt-oss-120b,14,67,NameError: name 'table1_model_selection' is not defined
+her|daily_shc_design|gpt-oss-120b,14,159,NameError: name 'table1_model_selection' is not defined
+her|daily_shc_design|gpt-oss-120b,14,167,NameError: name 'table1_model_selection' is not defined
+her|daily_shc_design|gpt-oss-120b,15,333,NameError: name 'final_fit_store' is not defined

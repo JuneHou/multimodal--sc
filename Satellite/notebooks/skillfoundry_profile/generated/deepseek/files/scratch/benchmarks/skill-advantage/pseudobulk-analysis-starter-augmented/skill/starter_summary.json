@@ -1,0 +1,23 @@
+{
+  "skill_slug": "pseudobulk-analysis-starter",
+  "skill_name": "Pseudobulk analysis Starter",
+  "status": "implemented",
+  "leaf_slug": "pseudobulk-analysis",
+  "leaf_name": "Pseudobulk analysis",
+  "domain_slug": "transcriptomics",
+  "source_resource_ids": [
+    "muscat-vignette"
+  ],
+  "starter_steps": [
+    "Review the primary materials for Pseudobulk analysis.",
+    "Define the smallest reproducible input/output contract.",
+    "Capture a smoke command or toy example.",
+    "Promote the starter to sandbox verification once runtime details are stable.",
+    "Capture one pseudobulk contrast sanity check for the downstream runtime implementation."
+  ],
+  "promotion_checklist": [
+    "Add a runnable example or toy dataset.",
+    "Add a repository-level smoke or integration test.",
+    "Promote status to sandbox_verified after checks pass."
+  ]
+}

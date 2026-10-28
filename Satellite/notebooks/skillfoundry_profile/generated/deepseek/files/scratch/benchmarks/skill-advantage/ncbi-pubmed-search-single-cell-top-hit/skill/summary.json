@@ -1,0 +1,224 @@
+{
+  "search": {
+    "esearchresult": {
+      "count": "37852",
+      "idlist": [
+        "41811354"
+      ],
+      "querytranslation": "\"single cell gene expression analysis\"[MeSH Terms] OR (\"single cell\"[All Fields] AND \"gene\"[All Fields] AND \"expression\"[All Fields] AND \"analysis\"[All Fields]) OR \"single cell gene expression analysis\"[All Fields] OR (\"single\"[All Fields] AND \"cell\"[All Fields] AND \"rna\"[All Fields] AND \"seq\"[All Fields]) OR \"single cell rna seq\"[All Fields]",
+      "retmax": "1",
+      "retstart": "0",
+      "translationset": [
+        {
+          "from": "single-cell RNA-seq",
+          "to": "\"single-cell gene expression analysis\"[MeSH Terms] OR (\"single-cell\"[All Fields] AND \"gene\"[All Fields] AND \"expression\"[All Fields] AND \"analysis\"[All Fields]) OR \"single-cell gene expression analysis\"[All Fields] OR (\"single\"[All Fields] AND \"cell\"[All Fields] AND \"rna\"[All Fields] AND \"seq\"[All Fields]) OR \"single cell rna seq\"[All Fields]"
+        }
+      ]
+    },
+    "header": {
+      "type": "esearch",
+      "version": "0.3"
+    }
+  },
+  "summary": {
+    "header": {
+      "type": "esummary",
+      "version": "0.3"
+    },
+    "result": {
+      "41811354": {
+        "articleids": [
+          {
+            "idtype": "pubmed",
+            "idtypen": 1,
+            "value": "41811354"
+          },
+          {
+            "idtype": "doi",
+            "idtypen": 3,
+            "value": "10.1097/HC9.0000000000000842"
+          },
+          {
+            "idtype": "pii",
+            "idtypen": 4,
+            "value": "02009842-202512010-00012"
+          }
+        ],
+        "attributes": [
+          "Has Abstract"
+        ],
+        "authors": [
+          {
+            "authtype": "Author",
+            "clusterid": "",
+            "name": "Zhang H"
+          },
+          {
+            "authtype": "Author",
+            "clusterid": "",
+            "name": "Wang W"
+          },
+          {
+            "authtype": "Author",
+            "clusterid": "",
+            "name": "Gao Y"
+          },
+          {
+            "authtype": "Author",
+            "clusterid": "",
+            "name": "Qian Y"
+          },
+          {
+            "authtype": "Author",
+            "clusterid": "",
+            "name": "Xu W"
+          },
+          {
+            "authtype": "Author",
+            "clusterid": "",
+            "name": "Yin H"
+          },
+          {
+            "authtype": "Author",
+            "clusterid": "",
+            "name": "Qiu Q"
+          },
+          {
+            "authtype": "Author",
+            "clusterid": "",
+            "name": "Zhang L"
+          },
+          {
+            "authtype": "Author",
+            "clusterid": "",
+            "name": "Zhu S"
+          },
+          {
+            "authtype": "Author",
+            "clusterid": "",
+            "name": "Li X"
+          },
+          {
+            "authtype": "Author",
+            "clusterid": "",
+            "name": "Wu Z"
+          },
+          {
+            "authtype": "Author",
+            "clusterid": "",
+            "name": "Zuo L"
+          },
+          {
+            "authtype": "Author",
+            "clusterid": "",
+            "name": "Wang J"
+          },
+          {
+            "authtype": "Author",
+            "clusterid": "",
+            "name": "Tang H"
+          },
+          {
+            "authtype": "Author",
+            "clusterid": "",
+            "name": "Hu H"
+          },
+          {
+            "authtype": "Author",
+            "clusterid": "",
+            "name": "Wei Y"
+          },
+          {
+            "authtype": "Author",
+            "clusterid": "",
+            "name": "Xu F"
+          },
+          {
+            "authtype": "Author",
+            "clusterid": "",
+            "name": "Chen J"
+          },
+          {
+            "authtype": "Author",
+            "clusterid": "",
+            "name": "Cao F"
+          },
+          {
+            "authtype": "Author",
+            "clusterid": "",
+            "name": "Xu H"
+          }
+        ],
+        "availablefromurl": "",
+        "bookname": "",
+        "booktitle": "",
+        "chapter": "",
+        "doccontriblist": [],
+        "docdate": "",
+        "doctype": "citation",
+        "edition": "",
+        "elocationid": "pii: e0842. doi: 10.1097/HC9.0000000000000842",
+        "epubdate": "2025 Nov 24",
+        "essn": "2471-254X",
+        "fulljournalname": "Hepatology communications",
+        "history": [
+          {
+            "date": "2026/03/11 13:20",
+            "pubstatus": "medline"
+          },
+          {
+            "date": "2026/03/11 13:20",
+            "pubstatus": "pubmed"
+          },
+          {
+            "date": "2025/06/25 00:00",
+            "pubstatus": "received"
+          },
+          {
+            "date": "2025/08/31 00:00",
+            "pubstatus": "accepted"
+          },
+          {
+            "date": "2026/03/11 11:53",
+            "pubstatus": "entrez"
+          }
+        ],
+        "issn": "",
+        "issue": "12",
+        "lang": [
+          "eng"
+        ],
+        "lastauthor": "Xu H",
+        "locationlabel": "",
+        "medium": "",
+        "nlmuniqueid": "101695860",
+        "pages": "",
+        "pmcrefcount": "",
+        "pubdate": "2025 Dec 1",
+        "publisherlocation": "",
+        "publishername": "",
+        "pubstatus": "258",
+        "pubtype": [
+          "Journal Article"
+        ],
+        "recordstatus": "PubMed - as supplied by publisher",
+        "references": [],
+        "reportnumber": "",
+        "sortfirstauthor": "Zhang H",
+        "sortpubdate": "2025/11/24 00:00",
+        "sorttitle": "lect2 promotes liver regeneration across developmental stages by activating the adam10 notch signaling pathway",
+        "source": "Hepatol Commun",
+        "srccontriblist": [],
+        "srcdate": "",
+        "title": "LECT2 promotes liver regeneration across developmental stages by activating the ADAM10-NOTCH signaling pathway.",
+        "uid": "41811354",
+        "vernaculartitle": "",
+        "volume": "9"
+      },
+      "uids": [
+        "41811354"
+      ]
+    }
+  },
+  "term": "single-cell RNA-seq"
+}

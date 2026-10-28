@@ -1,0 +1,121 @@
+{
+  "aggregate": {
+    "baseline": {
+      "average_deliverable_rate": 0.285,
+      "perfect_case_count": 0,
+      "success_rate": 0.5
+    },
+    "skill": {
+      "average_deliverable_rate": 1.0,
+      "perfect_case_count": 2,
+      "success_rate": 1.0
+    }
+  },
+  "cases": [
+    {
+      "baseline": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 0.571,
+          "deliverables": {
+            "lookup_recorded": true,
+            "query_recorded": true,
+            "source_mode_recorded": false,
+            "source_urls_recorded": false,
+            "summary_exists": true,
+            "xrefs_recorded": true,
+            "xrefs_source_recorded": false
+          },
+          "perfect": false
+        },
+        "execution": {
+          "duration_seconds": 0.022,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": []
+        }
+      },
+      "case": "ensembl-gene-lookup-canonical",
+      "description": "Ensembl gene lookup on a canonical BRCA asset with the maintained wrapper preserving richer machine-readable metadata.",
+      "skill": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 1.0,
+          "deliverables": {
+            "lookup_recorded": true,
+            "query_recorded": true,
+            "source_mode_recorded": true,
+            "source_urls_recorded": true,
+            "summary_exists": true,
+            "xrefs_recorded": true,
+            "xrefs_source_recorded": true
+          },
+          "perfect": true
+        },
+        "execution": {
+          "duration_seconds": 0.054,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": []
+        }
+      }
+    },
+    {
+      "baseline": {
+        "evaluation": {
+          "command_succeeded": false,
+          "deliverable_rate": 0.0,
+          "deliverables": {
+            "lookup_recorded": false,
+            "query_recorded": false,
+            "source_mode_recorded": false,
+            "source_urls_recorded": false,
+            "summary_exists": false,
+            "xrefs_recorded": false,
+            "xrefs_source_recorded": false
+          },
+          "perfect": false
+        },
+        "execution": {
+          "duration_seconds": 0.021,
+          "returncode": 1,
+          "stderr_tail": [
+            "Traceback (most recent call last):",
+            "  File \"<string>\", line 10, in <module>",
+            "  File \"<string>\", line 7, in main",
+            "RuntimeError: simulated offline Ensembl"
+          ],
+          "stdout_tail": []
+        }
+      },
+      "case": "ensembl-gene-lookup-fallback",
+      "description": "Ensembl gene lookup with cached fallback under simulated offline conditions.",
+      "skill": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 1.0,
+          "deliverables": {
+            "lookup_recorded": true,
+            "query_recorded": true,
+            "source_mode_recorded": true,
+            "source_urls_recorded": true,
+            "summary_exists": true,
+            "xrefs_recorded": true,
+            "xrefs_source_recorded": true
+          },
+          "perfect": true
+        },
+        "execution": {
+          "duration_seconds": 0.05,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": []
+        }
+      }
+    }
+  ],
+  "summary": {
+    "skill_better_on_deliverable_rate": true,
+    "skill_better_on_success_rate": true
+  }
+}

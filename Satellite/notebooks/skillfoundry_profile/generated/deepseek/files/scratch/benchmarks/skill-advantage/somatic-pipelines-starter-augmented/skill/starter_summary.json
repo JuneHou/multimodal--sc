@@ -1,0 +1,24 @@
+{
+  "skill_slug": "somatic-pipelines-starter",
+  "skill_name": "Somatic pipelines Starter",
+  "status": "implemented",
+  "leaf_slug": "somatic-pipelines",
+  "leaf_name": "Somatic pipelines",
+  "domain_slug": "genomics",
+  "source_resource_ids": [
+    "gatk-mutect2-docs",
+    "nf-core-sarek-usage"
+  ],
+  "starter_steps": [
+    "Review the primary materials for Somatic pipelines.",
+    "Define the smallest reproducible input/output contract.",
+    "Capture a smoke command or toy example.",
+    "Promote the starter to sandbox verification once runtime details are stable.",
+    "Capture one extra somatic validation pathway."
+  ],
+  "promotion_checklist": [
+    "Add a runnable example or toy dataset.",
+    "Add a repository-level smoke or integration test.",
+    "Promote status to sandbox_verified after checks pass."
+  ]
+}

@@ -74,6 +74,14 @@ DeepSeek-V4.1-Flash-thinking-low's direct and step-by-step replies (lb_run.py, 2
 
 ## Skill arms (approved 2026-09-24; replaces the withdrawn prompt arms)
 
+**What the two simple skill arms test, in Jun's words.** Jun, 2026-10-15: "design is model design, config is her code
+model give config." In `shc-configure` the fit is always the collaborator's code, and the model only gives its settings.
+In `shc-design` the model designs the method. It chooses the settings and the six choices, and a choice her code does
+not have runs our code, in the monthly and in the daily runs alike. This holds for the simple skills in this folder
+only. The SkillFoundry profile experiment in `notebooks/skillfoundry_profile/` defines its skills in its own way. Jun
+also asked that no gate fit outside her code ("you should not test with code deviate from her", 2026-10-15), so the
+daily gates fit only at her settings.
+
 Three skills, generated from the approved texts in `lb_skills_build.py` into `skills/` (hashes in `skills/MANIFEST.json`,
 gate SK1): `shc-configure` (A: the model decides the five settings, the six choices are fixed inside `scripts/fit.py`),
 `shc-design` (B: settings and choices), `shc-implement` (C: no fitter; the model writes `predict.py`). Each holds
@@ -82,7 +90,61 @@ and for A and B `scripts/fit.py` with verbatim copies of the package modules it 
 A model operates one skill per cell through `lb_skill_loop.py`: the working directory holds `data.csv` (nine periods)
 with the skill mounted read-only over it inside bubblewrap; one command per turn (`cat`, `ls`, `python <script>`,
 heredoc write); the data enters only when the model runs `scripts/show_data.py` or reads `data.csv`; the cell ends at a
-valid `answer.json` or the step cap (12). The submitted answer is scored (`lb_skill_score.py`, `lb.her_nmse`); every
-fitter run, every turn's raw response, and the program are stored. Runner: `lb_skill_run.py --skill <name>`;
-`--show <reply file>` prints a transcript. Gates SK1-SK6 in `lb_skill_tests.py` (parity through the sandbox, refusals,
-nine periods + canary, dry runs, step cap), run by `lb_tests.py`.
+valid `answer.json` or the step cap (12). The submitted answer is scored as notebook 10 scores its held-out P10
+(`lb_skill_score.py`, section below); every fitter run, every turn's raw response, and the program are stored. Runner: `lb_skill_run.py --skill <name>`;
+`--show <reply file>` prints a transcript. Gates SK1-SK8 in `lb_skill_tests.py` (parity through the sandbox, refusals,
+nine periods + canary, dry runs, step cap, empty reply, empty output and resume), run by `lb_tests.py`.
+
+**The skill arms are scored exactly as the collaborator's notebook 10 scores its held-out P10 (revised 2026-10-14).**
+Jun asked on 14 October to "revise your evaluation result of the simple skill, should be exactly same as collaborator's
+evaluation, no 0.006 0.0006.0.000006". `lb_skill_score.py` now builds her `heldout_validation_for_sensor` rows for each
+cell and band (`data/scripts/scripts/validation/shc/10_shc_monthly_multiple_outcomes.ipynb`, cell 25). It divides
+the squared error at P10 by the band's P01 to P09 variance with one degree of freedom, and the variance is missing
+below her tolerance `SD_TOL`. The cell's joint_validation_nmse is the mean over bands, and a cell with no valid answer
+is a skipped site (cell 26). It prints her summaries per arm and model. These are the processed and skipped sites per
+sensor (cell 34) and the mean standardized P10 squared error per sensor (cell 30). They add the number, mean and median
+of joint_validation_nmse over the processed sites of both sensors (cell 28) and the mean squared and standardized
+squared error per sensor and band (cell 30, in `lb_scores_skill_bands.csv`). Her SHC through the same code gives every
+number her notebook printed for the held-out P10. The per cell scores equal the earlier ones in all 324 cells.
+
+The table gives her summaries for each skill and model beside the reference rows, as `lb_summary_skill.csv` holds
+them. A skipped site is a cell that ended without a valid answer.
+
+| model | skill | Sentinel-1 processed | Sentinel-1 skipped | Sentinel-1 mean_standardized_P10_sq_error | Sentinel-2 processed | Sentinel-2 skipped | Sentinel-2 mean_standardized_P10_sq_error | n_site_sensor | mean_validation_nmse | median_validation_nmse |
+|---|---|---|---|---|---|---|---|---|---|---|
+| gpt-oss-120b | shc-configure | 12 | 0 | 0.544781 | 15 | 0 | 1.215388 | 27 | 0.917341 | 0.490171 |
+| gpt-oss-120b | shc-design | 12 | 0 | 0.526065 | 15 | 0 | 0.570499 | 27 | 0.550750 | 0.219606 |
+| gpt-oss-120b | shc-implement | 12 | 0 | 18.945997 | 15 | 0 | 1.012482 | 27 | 8.982933 | 0.483599 |
+| GLM-5.3 | shc-configure | 12 | 0 | 0.493313 | 15 | 0 | 0.801125 | 27 | 0.664320 | 0.434112 |
+| GLM-5.3 | shc-design | 12 | 0 | 0.470850 | 15 | 0 | 0.679945 | 27 | 0.587014 | 0.479100 |
+| GLM-5.3 | shc-implement | 12 | 0 | 88.556817 | 15 | 0 | 17.685170 | 27 | 49.183680 | 0.898727 |
+| DeepSeek-V4.1-Flash-thinking-low | shc-configure | 11 | 1 | 0.516178 | 9 | 6 | 0.301869 | 20 | 0.419739 | 0.367238 |
+| DeepSeek-V4.1-Flash-thinking-low | shc-design | 0 | 12 | – | 0 | 15 | – | 0 | – | – |
+| DeepSeek-V4.1-Flash-thinking-low | shc-implement | 12 | 0 | 0.682914 | 14 | 1 | 0.895197 | 26 | 0.797220 | 0.474475 |
+| openai:gpt-5.5 | shc-configure | 12 | 0 | 0.493313 | 15 | 0 | 0.887325 | 27 | 0.712209 | 0.442431 |
+| openai:gpt-5.5 | shc-design | 12 | 0 | 0.450555 | 15 | 0 | 0.743698 | 27 | 0.613412 | 0.487610 |
+| openai:gpt-5.5 | shc-implement | 12 | 0 | 0.605260 | 15 | 0 | 0.847623 | 27 | 0.739906 | 0.582017 |
+| reference | her SHC | 12 | 0 | 0.492461 | 15 | 0 | 0.786712 | 27 | 0.655934 | 0.415021 |
+| reference | P09 carried forward | 12 | 0 | 0.492461 | 15 | 0 | 0.788849 | 27 | 0.657121 | 0.415021 |
+| reference | P07 to P09 mean | 12 | 0 | 0.265082 | 15 | 0 | 0.541497 | 27 | 0.418646 | 0.238751 |
+
+Comparisons with a tolerance were in the code without being reported to Jun, and all of them are removed.
+`lb_skill_score.py` counted an answer as equal to the last fitter run within 0.6 times ten to the minus the sensor's
+printed decimals (`answer_equals_last_fit`). `lb_skill_traces.py` counted an answer as equal to P09 within 0.006 on
+Sentinel-1 and 0.0006 on Sentinel-2, which fed its question A2. It also compared values rounded to six decimals and
+matching errors with a margin of 10 to the minus 12. The column `answer_equals_last_fit`, the question A2 and its
+columns `answer_is_p09`, `alternative_in_own_runs` and `alternative_had_lower_mse` are removed. The remaining
+comparisons are exact, and on the same records they give the same counts as before. The trace workbooks in
+`trace_workbooks/` were not rebuilt, since `openpyxl` is missing from the satellite environment. The only number they
+hold is each cell's metric, and that is unchanged.
+
+**Records deleted 2026-10-13 (DeepSeek-V4.1-Flash-thinking-low, shc-design).** Two harness bugs. (1) A command that
+printed nothing was sent to the model as an empty message, and the ARC gateway refused the conversation ("message
+content cannot be empty"); 8 cells ended in that error. The loop now sends "(no output)" (gate SK8). (2) The runner
+skipped only answered cells, so the 32,000-token rerun re-ran every step-cap cell; 14 repeats of cells that already
+held a valid step-cap record came from that. The runner now skips answered and step-cap cells and re-runs only
+call-error cells (gate SK8). All 22 records were deleted; each cell keeps its first valid record (23 step-cap
+records). The four cells without a record (s1 treatment_0018, 0027; s2 treatment_0002, 0006) were rerun on 2026-10-13
+at 32,000 tokens and all four ended at the step cap. The file holds 27 records, one per cell. All 27 ended at the step
+cap without an answer, and 16 of them ran the fitter at least once. In the four rerun cells every step read a file and
+none wrote `spec.json`.

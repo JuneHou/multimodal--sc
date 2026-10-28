@@ -1,0 +1,16 @@
+{
+  "number_of_hits": 352,
+  "query": "apoptosis",
+  "result_origin": "local_fixture",
+  "source_url": "https://www.ebi.ac.uk/QuickGO/services/ontology/go/search",
+  "term_count": 1,
+  "terms": [
+    {
+      "aspect": "biological_process",
+      "definition": "The execution phase of programmed cell death with apoptotic bodies and membrane blebbing.",
+      "id": "GO:0097194",
+      "is_obsolete": false,
+      "name": "execution phase of apoptosis"
+    }
+  ]
+}

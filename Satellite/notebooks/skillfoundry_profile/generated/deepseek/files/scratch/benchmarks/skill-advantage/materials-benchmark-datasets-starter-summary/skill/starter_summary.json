@@ -1,0 +1,22 @@
+{
+  "skill_slug": "materials-benchmark-datasets-starter",
+  "skill_name": "Materials benchmark datasets Starter",
+  "status": "implemented",
+  "leaf_slug": "materials-benchmark-datasets",
+  "leaf_name": "Materials benchmark datasets",
+  "domain_slug": "materials-science-and-engineering",
+  "source_resource_ids": [
+    "matbench-docs"
+  ],
+  "starter_steps": [
+    "Review the primary materials for Materials benchmark datasets.",
+    "Define the smallest reproducible input/output contract.",
+    "Capture a smoke command or toy example.",
+    "Promote the starter to sandbox verification once runtime details are stable."
+  ],
+  "promotion_checklist": [
+    "Add a runnable example or toy dataset.",
+    "Add a repository-level smoke or integration test.",
+    "Promote status to sandbox_verified after checks pass."
+  ]
+}

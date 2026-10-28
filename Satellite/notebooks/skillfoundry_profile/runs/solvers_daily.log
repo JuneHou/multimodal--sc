@@ -1,0 +1,850 @@
+solvers daily | sf_daily.py | Python 3.11.15 | 2026-10-22T21:55:27-04:00
+gpt-oss-120b / daily_gpt-5.4_code_provided (effort low, max tokens 16000, step cap 12, no output limit) -> replies_daily_gpt-5.4_code_provided_gpt-oss-120b_low.jsonl; 0 done
+  s1_treatment_0001_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=3 refs=3 data=True
+  s1_treatment_0002_daily_gpt-5.4_code_provided        ok=True  steps= 7 ended=answer    python_runs=3 refs=2 data=True
+  s1_treatment_0003_daily_gpt-5.4_code_provided        ok=True  steps= 7 ended=answer    python_runs=3 refs=2 data=True
+  s1_treatment_0004_daily_gpt-5.4_code_provided        ok=True  steps= 7 ended=answer    python_runs=2 refs=2 data=True
+  s1_treatment_0005_daily_gpt-5.4_code_provided        ok=True  steps=10 ended=answer    python_runs=6 refs=2 data=True
+  s1_treatment_0006_daily_gpt-5.4_code_provided        ok=True  steps= 9 ended=answer    python_runs=3 refs=2 data=True
+  s1_treatment_0007_daily_gpt-5.4_code_provided        ok=True  steps= 7 ended=answer    python_runs=3 refs=2 data=True
+  s1_treatment_0008_daily_gpt-5.4_code_provided        ok=True  steps= 7 ended=answer    python_runs=3 refs=2 data=True
+  s1_treatment_0009_daily_gpt-5.4_code_provided        ok=True  steps= 7 ended=answer    python_runs=3 refs=2 data=True
+  s1_treatment_0010_daily_gpt-5.4_code_provided        ok=True  steps= 6 ended=answer    python_runs=3 refs=2 data=True
+  s1_treatment_0011_daily_gpt-5.4_code_provided        ok=True  steps= 7 ended=answer    python_runs=3 refs=2 data=True
+  s1_treatment_0012_daily_gpt-5.4_code_provided        ok=True  steps= 7 ended=answer    python_runs=3 refs=2 data=True
+  s1_treatment_0013_daily_gpt-5.4_code_provided        ok=True  steps= 7 ended=answer    python_runs=3 refs=2 data=True
+  s1_treatment_0014_daily_gpt-5.4_code_provided        ok=True  steps=10 ended=answer    python_runs=4 refs=3 data=True
+  s1_treatment_0015_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=4 refs=3 data=True
+  s1_treatment_0016_daily_gpt-5.4_code_provided        ok=True  steps=11 ended=answer    python_runs=5 refs=2 data=True
+  s1_treatment_0017_daily_gpt-5.4_code_provided        ok=True  steps= 7 ended=answer    python_runs=3 refs=2 data=True
+  s1_treatment_0018_daily_gpt-5.4_code_provided        ok=True  steps= 7 ended=answer    python_runs=3 refs=2 data=True
+  s1_treatment_0019_daily_gpt-5.4_code_provided        ok=True  steps= 8 ended=answer    python_runs=3 refs=2 data=True
+  s1_treatment_0020_daily_gpt-5.4_code_provided        ok=True  steps= 7 ended=answer    python_runs=3 refs=2 data=True
+  s1_treatment_0021_daily_gpt-5.4_code_provided        ok=True  steps=11 ended=answer    python_runs=5 refs=3 data=True
+  s1_treatment_0022_daily_gpt-5.4_code_provided        ok=True  steps= 9 ended=answer    python_runs=4 refs=3 data=True
+  s1_treatment_0023_daily_gpt-5.4_code_provided        ok=True  steps=11 ended=answer    python_runs=2 refs=2 data=True
+  s1_treatment_0024_daily_gpt-5.4_code_provided        ok=True  steps= 7 ended=answer    python_runs=3 refs=2 data=True
+  s1_treatment_0025_daily_gpt-5.4_code_provided        ok=True  steps= 7 ended=answer    python_runs=3 refs=2 data=True
+  s1_treatment_0027_daily_gpt-5.4_code_provided        ok=True  steps= 8 ended=answer    python_runs=4 refs=3 data=True
+  s2_treatment_0001_daily_gpt-5.4_code_provided        ok=True  steps= 8 ended=answer    python_runs=3 refs=2 data=True
+  s2_treatment_0002_daily_gpt-5.4_code_provided        ok=True  steps= 7 ended=answer    python_runs=3 refs=2 data=True
+  s2_treatment_0003_daily_gpt-5.4_code_provided        ok=True  steps= 7 ended=answer    python_runs=3 refs=2 data=True
+  s2_treatment_0004_daily_gpt-5.4_code_provided        ok=True  steps= 7 ended=answer    python_runs=3 refs=2 data=True
+  s2_treatment_0005_daily_gpt-5.4_code_provided        ok=True  steps=10 ended=answer    python_runs=4 refs=2 data=True
+  s2_treatment_0006_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=4 refs=3 data=True
+  s2_treatment_0007_daily_gpt-5.4_code_provided        ok=True  steps=11 ended=answer    python_runs=5 refs=3 data=True
+  s2_treatment_0008_daily_gpt-5.4_code_provided        ok=True  steps= 7 ended=answer    python_runs=3 refs=2 data=True
+  s2_treatment_0009_daily_gpt-5.4_code_provided        ok=True  steps= 7 ended=answer    python_runs=3 refs=2 data=True
+  s2_treatment_0010_daily_gpt-5.4_code_provided        ok=True  steps= 7 ended=answer    python_runs=3 refs=2 data=True
+  s2_treatment_0011_daily_gpt-5.4_code_provided        ok=True  steps= 9 ended=answer    python_runs=4 refs=2 data=True
+  s2_treatment_0012_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=7 refs=3 data=True
+  s2_treatment_0013_daily_gpt-5.4_code_provided        ok=True  steps= 7 ended=answer    python_runs=3 refs=2 data=True
+  s2_treatment_0014_daily_gpt-5.4_code_provided        ok=True  steps= 6 ended=answer    python_runs=3 refs=2 data=True
+  s2_treatment_0015_daily_gpt-5.4_code_provided        ok=True  steps=10 ended=answer    python_runs=4 refs=2 data=True
+  s2_treatment_0016_daily_gpt-5.4_code_provided        ok=True  steps= 7 ended=answer    python_runs=3 refs=2 data=True
+  s2_treatment_0017_daily_gpt-5.4_code_provided        ok=True  steps= 7 ended=answer    python_runs=3 refs=2 data=True
+  s2_treatment_0018_daily_gpt-5.4_code_provided        ok=True  steps= 7 ended=answer    python_runs=3 refs=2 data=True
+  s2_treatment_0019_daily_gpt-5.4_code_provided        ok=True  steps= 7 ended=answer    python_runs=3 refs=2 data=True
+  s2_treatment_0020_daily_gpt-5.4_code_provided        ok=True  steps= 8 ended=answer    python_runs=4 refs=2 data=True
+  s2_treatment_0021_daily_gpt-5.4_code_provided        ok=True  steps= 7 ended=answer    python_runs=3 refs=2 data=True
+  s2_treatment_0022_daily_gpt-5.4_code_provided        ok=True  steps= 7 ended=answer    python_runs=3 refs=2 data=True
+  s2_treatment_0023_daily_gpt-5.4_code_provided        ok=True  steps= 8 ended=answer    python_runs=4 refs=2 data=True
+  s2_treatment_0024_daily_gpt-5.4_code_provided        ok=True  steps= 7 ended=answer    python_runs=3 refs=2 data=True
+  s2_treatment_0025_daily_gpt-5.4_code_provided        ok=True  steps= 8 ended=answer    python_runs=3 refs=2 data=True
+  s2_treatment_0027_daily_gpt-5.4_code_provided        ok=True  steps= 8 ended=answer    python_runs=3 refs=2 data=True
+GLM-5.3 / daily_gpt-5.4_code_provided (effort low, max tokens 16000, step cap 12, no output limit) -> replies_daily_gpt-5.4_code_provided_GLM-5.3_low.jsonl; 0 done
+  s1_treatment_0001_daily_gpt-5.4_code_provided        ok=True  steps=12 ended=answer    python_runs=4 refs=3 data=True
+  s1_treatment_0002_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=6 refs=3 data=True
+  s1_treatment_0003_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=3 refs=2 data=True
+  s1_treatment_0004_daily_gpt-5.4_code_provided        ok=True  steps= 6 ended=answer    python_runs=3 refs=3 data=True
+  s1_treatment_0005_daily_gpt-5.4_code_provided        ok=True  steps=10 ended=answer    python_runs=7 refs=5 data=True
+  s1_treatment_0006_daily_gpt-5.4_code_provided        ok=True  steps= 8 ended=answer    python_runs=5 refs=2 data=True
+  s1_treatment_0007_daily_gpt-5.4_code_provided        ok=True  steps= 7 ended=answer    python_runs=4 refs=1 data=True
+  s1_treatment_0008_daily_gpt-5.4_code_provided        ok=True  steps=11 ended=answer    python_runs=9 refs=2 data=True
+  s1_treatment_0009_daily_gpt-5.4_code_provided        ok=True  steps=10 ended=answer    python_runs=6 refs=3 data=True
+  s1_treatment_0010_daily_gpt-5.4_code_provided        ok=True  steps=11 ended=answer    python_runs=6 refs=3 data=True
+  s1_treatment_0011_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=8 refs=2 data=True
+  s1_treatment_0012_daily_gpt-5.4_code_provided        ok=True  steps=12 ended=answer    python_runs=8 refs=2 data=True
+  s1_treatment_0013_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=7 refs=2 data=True
+  s1_treatment_0014_daily_gpt-5.4_code_provided        ok=True  steps= 7 ended=answer    python_runs=5 refs=1 data=True
+  s1_treatment_0015_daily_gpt-5.4_code_provided        ok=True  steps=10 ended=answer    python_runs=8 refs=3 data=True
+  s1_treatment_0016_daily_gpt-5.4_code_provided        ok=True  steps=11 ended=answer    python_runs=8 refs=2 data=True
+  s1_treatment_0017_daily_gpt-5.4_code_provided        ok=True  steps=10 ended=answer    python_runs=8 refs=2 data=True
+  s1_treatment_0018_daily_gpt-5.4_code_provided        ok=True  steps= 9 ended=answer    python_runs=7 refs=2 data=True
+  s1_treatment_0019_daily_gpt-5.4_code_provided        ok=True  steps= 9 ended=answer    python_runs=7 refs=2 data=True
+  s1_treatment_0020_daily_gpt-5.4_code_provided        ok=True  steps= 8 ended=answer    python_runs=6 refs=2 data=True
+  s1_treatment_0021_daily_gpt-5.4_code_provided        ok=True  steps= 9 ended=answer    python_runs=5 refs=2 data=True
+  s1_treatment_0022_daily_gpt-5.4_code_provided        ok=True  steps=12 ended=answer    python_runs=8 refs=5 data=True
+  s1_treatment_0023_daily_gpt-5.4_code_provided        ok=True  steps=10 ended=answer    python_runs=5 refs=8 data=True
+  s1_treatment_0024_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=1 refs=5 data=True
+  s1_treatment_0025_daily_gpt-5.4_code_provided        ok=True  steps= 8 ended=answer    python_runs=1 refs=6 data=True
+  s1_treatment_0027_daily_gpt-5.4_code_provided        ok=True  steps= 8 ended=answer    python_runs=6 refs=2 data=True
+  s2_treatment_0001_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=5 refs=2 data=True
+  s2_treatment_0002_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=3 refs=3 data=True
+  s2_treatment_0003_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=6 refs=2 data=True
+  s2_treatment_0004_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=3 refs=5 data=True
+  s2_treatment_0005_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=5 refs=2 data=True
+  s2_treatment_0006_daily_gpt-5.4_code_provided        ok=True  steps= 8 ended=answer    python_runs=6 refs=2 data=True
+  s2_treatment_0007_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=10 refs=2 data=True
+  s2_treatment_0008_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=8 refs=3 data=True
+  s2_treatment_0009_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=5 refs=5 data=True
+  s2_treatment_0010_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=6 refs=7 data=True
+  s2_treatment_0011_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=7 refs=3 data=True
+  s2_treatment_0012_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=7 refs=2 data=True
+  s2_treatment_0013_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=7 refs=2 data=True
+  s2_treatment_0014_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=6 refs=2 data=True
+  s2_treatment_0015_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=2 refs=5 data=True
+  s2_treatment_0016_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=4 refs=3 data=True
+  s2_treatment_0017_daily_gpt-5.4_code_provided        ok=True  steps=11 ended=answer    python_runs=7 refs=2 data=True
+  s2_treatment_0018_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=6 refs=4 data=True
+  s2_treatment_0019_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=5 refs=5 data=True
+  s2_treatment_0020_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=8 refs=3 data=True
+  s2_treatment_0021_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=7 refs=2 data=True
+  s2_treatment_0022_daily_gpt-5.4_code_provided        ok=True  steps=11 ended=answer    python_runs=9 refs=1 data=True
+  s2_treatment_0023_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=5 refs=2 data=True
+  s2_treatment_0024_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=7 refs=3 data=True
+  s2_treatment_0025_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=10 refs=2 data=True
+  s2_treatment_0027_daily_gpt-5.4_code_provided        ok=True  steps= 9 ended=answer    python_runs=7 refs=2 data=True
+DeepSeek-V4.1-Flash-thinking-low / daily_gpt-5.4_code_provided (effort low, max tokens 32000, step cap 12, no output limit) -> replies_daily_gpt-5.4_code_provided_DeepSeek-V4.1-Flash-thinking-low_low.jsonl; 0 done
+  s1_treatment_0001_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=10 refs=7 data=True
+  s1_treatment_0002_daily_gpt-5.4_code_provided        ok=True  steps=10 ended=answer    python_runs=6 refs=10 data=True
+  s1_treatment_0003_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=6 refs=8 data=True
+  s1_treatment_0004_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=7 refs=9 data=True
+  s1_treatment_0005_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=7 refs=8 data=True
+  s1_treatment_0006_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=7 refs=9 data=True
+  s1_treatment_0007_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=7 refs=8 data=True
+  s1_treatment_0008_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=6 refs=6 data=True
+  s1_treatment_0009_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=7 refs=7 data=True
+  s1_treatment_0010_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=8 refs=7 data=True
+  s1_treatment_0011_daily_gpt-5.4_code_provided        ok=True  steps=11 ended=answer    python_runs=8 refs=8 data=True
+  s1_treatment_0012_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=8 refs=7 data=True
+  s1_treatment_0013_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=7 refs=6 data=True
+  s1_treatment_0014_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=7 refs=6 data=True
+  s1_treatment_0015_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=8 refs=6 data=True
+  s1_treatment_0016_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=7 refs=8 data=True
+  s1_treatment_0017_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=7 refs=6 data=True
+  s1_treatment_0018_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=8 refs=8 data=True
+  s1_treatment_0019_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=9 refs=8 data=True
+  s1_treatment_0020_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=10 refs=8 data=True
+  s1_treatment_0021_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=9 refs=9 data=True
+  s1_treatment_0022_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=7 refs=8 data=True
+  s1_treatment_0023_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=7 refs=8 data=True
+  s1_treatment_0024_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=7 refs=7 data=True
+  s1_treatment_0025_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=7 refs=6 data=True
+  s1_treatment_0027_daily_gpt-5.4_code_provided        ok=True  steps= 4 ended=answer    python_runs=2 refs=2 data=True
+  s2_treatment_0001_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=9 refs=5 data=True
+  s2_treatment_0002_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=9 refs=5 data=True
+  s2_treatment_0003_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=7 refs=8 data=True
+  s2_treatment_0004_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=9 refs=8 data=True
+  s2_treatment_0005_daily_gpt-5.4_code_provided        ok=True  steps=12 ended=answer    python_runs=9 refs=9 data=True
+  s2_treatment_0006_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=7 refs=8 data=True
+  s2_treatment_0007_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=9 refs=10 data=True
+  s2_treatment_0008_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=7 refs=8 data=True
+  s2_treatment_0009_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=9 refs=5 data=True
+  s2_treatment_0010_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=7 refs=7 data=True
+  s2_treatment_0011_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=7 refs=8 data=True
+  s2_treatment_0012_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=9 refs=7 data=True
+  s2_treatment_0013_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=9 refs=2 data=True
+  s2_treatment_0014_daily_gpt-5.4_code_provided        ok=True  steps=12 ended=answer    python_runs=10 refs=1 data=True
+  s2_treatment_0015_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=8 refs=9 data=True
+  s2_treatment_0016_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=10 refs=5 data=True
+  s2_treatment_0017_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=7 refs=8 data=True
+  s2_treatment_0018_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=7 refs=8 data=True
+  s2_treatment_0019_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=7 refs=7 data=True
+  s2_treatment_0020_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=7 refs=6 data=True
+  s2_treatment_0021_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=7 refs=6 data=True
+  s2_treatment_0022_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=7 refs=5 data=True
+  s2_treatment_0023_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=7 refs=8 data=True
+  s2_treatment_0024_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=9 refs=6 data=True
+  s2_treatment_0025_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=8 refs=8 data=True
+  s2_treatment_0027_daily_gpt-5.4_code_provided        ok=False steps=12 ended=step_cap  python_runs=9 refs=5 data=True
+openai:gpt-5.5 / daily_gpt-5.4_code_provided (effort low, max tokens 16000, step cap 12, no output limit) -> replies_daily_gpt-5.4_code_provided_openai_gpt-5.5_low.jsonl; 0 done
+  s1_treatment_0001_daily_gpt-5.4_code_provided        ok=True  steps= 3 ended=answer    python_runs=2 refs=2 data=True
+  s1_treatment_0002_daily_gpt-5.4_code_provided        ok=True  steps= 4 ended=answer    python_runs=2 refs=3 data=True
+  s1_treatment_0003_daily_gpt-5.4_code_provided        ok=True  steps= 5 ended=answer    python_runs=3 refs=3 data=True
+  s1_treatment_0004_daily_gpt-5.4_code_provided        ok=True  steps= 5 ended=answer    python_runs=3 refs=3 data=True
+  s1_treatment_0005_daily_gpt-5.4_code_provided        ok=True  steps= 4 ended=answer    python_runs=2 refs=2 data=True
+  s1_treatment_0006_daily_gpt-5.4_code_provided        ok=True  steps= 6 ended=answer    python_runs=3 refs=3 data=True
+  s1_treatment_0007_daily_gpt-5.4_code_provided        ok=True  steps= 4 ended=answer    python_runs=3 refs=3 data=True
+  s1_treatment_0008_daily_gpt-5.4_code_provided        ok=True  steps= 7 ended=answer    python_runs=3 refs=3 data=True
+  s1_treatment_0009_daily_gpt-5.4_code_provided        ok=True  steps=11 ended=answer    python_runs=7 refs=2 data=True
+  s1_treatment_0010_daily_gpt-5.4_code_provided        ok=True  steps= 6 ended=answer    python_runs=4 refs=3 data=True
+  s1_treatment_0011_daily_gpt-5.4_code_provided        ok=True  steps= 5 ended=answer    python_runs=3 refs=3 data=True
+  s1_treatment_0012_daily_gpt-5.4_code_provided        ok=True  steps= 5 ended=answer    python_runs=3 refs=3 data=True
+  s1_treatment_0013_daily_gpt-5.4_code_provided        ok=True  steps= 6 ended=answer    python_runs=4 refs=3 data=True
+  s1_treatment_0014_daily_gpt-5.4_code_provided        ok=True  steps= 5 ended=answer    python_runs=3 refs=3 data=True
+  s1_treatment_0015_daily_gpt-5.4_code_provided        ok=True  steps= 4 ended=answer    python_runs=2 refs=3 data=True
+  s1_treatment_0016_daily_gpt-5.4_code_provided        ok=True  steps= 4 ended=answer    python_runs=3 refs=3 data=True
+  s1_treatment_0017_daily_gpt-5.4_code_provided        ok=True  steps= 3 ended=answer    python_runs=1 refs=3 data=True
+  s1_treatment_0018_daily_gpt-5.4_code_provided        ok=True  steps= 3 ended=answer    python_runs=1 refs=3 data=True
+  s1_treatment_0019_daily_gpt-5.4_code_provided        ok=True  steps= 4 ended=answer    python_runs=2 refs=3 data=True
+  s1_treatment_0020_daily_gpt-5.4_code_provided        ok=True  steps= 5 ended=answer    python_runs=2 refs=3 data=True
+  s1_treatment_0021_daily_gpt-5.4_code_provided        ok=True  steps= 7 ended=answer    python_runs=3 refs=4 data=True
+  s1_treatment_0022_daily_gpt-5.4_code_provided        ok=True  steps= 6 ended=answer    python_runs=1 refs=3 data=True
+  s1_treatment_0023_daily_gpt-5.4_code_provided        ok=True  steps= 8 ended=answer    python_runs=3 refs=3 data=True
+  s1_treatment_0024_daily_gpt-5.4_code_provided        ok=True  steps= 4 ended=answer    python_runs=2 refs=3 data=True
+  s1_treatment_0025_daily_gpt-5.4_code_provided        ok=True  steps= 4 ended=answer    python_runs=2 refs=3 data=True
+  s1_treatment_0027_daily_gpt-5.4_code_provided        ok=True  steps= 4 ended=answer    python_runs=3 refs=3 data=True
+  s2_treatment_0001_daily_gpt-5.4_code_provided        ok=True  steps= 9 ended=answer    python_runs=4 refs=3 data=True
+  s2_treatment_0002_daily_gpt-5.4_code_provided        ok=True  steps= 5 ended=answer    python_runs=4 refs=2 data=True
+  s2_treatment_0003_daily_gpt-5.4_code_provided        ok=True  steps= 7 ended=answer    python_runs=3 refs=3 data=True
+  s2_treatment_0004_daily_gpt-5.4_code_provided        ok=True  steps= 5 ended=answer    python_runs=3 refs=3 data=True
+  s2_treatment_0005_daily_gpt-5.4_code_provided        ok=True  steps=10 ended=answer    python_runs=5 refs=2 data=True
+  s2_treatment_0006_daily_gpt-5.4_code_provided        ok=True  steps= 5 ended=answer    python_runs=3 refs=3 data=True
+  s2_treatment_0007_daily_gpt-5.4_code_provided        ok=True  steps= 5 ended=answer    python_runs=3 refs=3 data=True
+  s2_treatment_0008_daily_gpt-5.4_code_provided        ok=True  steps= 8 ended=answer    python_runs=3 refs=3 data=True
+  s2_treatment_0009_daily_gpt-5.4_code_provided        ok=True  steps= 6 ended=answer    python_runs=4 refs=2 data=True
+  s2_treatment_0010_daily_gpt-5.4_code_provided        ok=True  steps= 7 ended=answer    python_runs=5 refs=3 data=True
+  s2_treatment_0011_daily_gpt-5.4_code_provided        ok=True  steps= 4 ended=answer    python_runs=2 refs=2 data=True
+  s2_treatment_0012_daily_gpt-5.4_code_provided        ok=True  steps= 6 ended=answer    python_runs=4 refs=3 data=True
+  s2_treatment_0013_daily_gpt-5.4_code_provided        ok=True  steps= 7 ended=answer    python_runs=5 refs=3 data=True
+  s2_treatment_0014_daily_gpt-5.4_code_provided        ok=True  steps= 6 ended=answer    python_runs=5 refs=3 data=True
+  s2_treatment_0015_daily_gpt-5.4_code_provided        ok=True  steps= 8 ended=answer    python_runs=4 refs=3 data=True
+  s2_treatment_0016_daily_gpt-5.4_code_provided        ok=True  steps= 8 ended=answer    python_runs=4 refs=3 data=True
+  s2_treatment_0017_daily_gpt-5.4_code_provided        ok=True  steps= 7 ended=answer    python_runs=5 refs=3 data=True
+  s2_treatment_0018_daily_gpt-5.4_code_provided        ok=True  steps= 4 ended=answer    python_runs=3 refs=5 data=True
+  s2_treatment_0019_daily_gpt-5.4_code_provided        ok=True  steps= 7 ended=answer    python_runs=5 refs=2 data=True
+  s2_treatment_0020_daily_gpt-5.4_code_provided        ok=True  steps= 5 ended=answer    python_runs=3 refs=3 data=True
+  s2_treatment_0021_daily_gpt-5.4_code_provided        ok=True  steps= 5 ended=answer    python_runs=3 refs=3 data=True
+  s2_treatment_0022_daily_gpt-5.4_code_provided        ok=True  steps= 6 ended=answer    python_runs=3 refs=2 data=True
+  s2_treatment_0023_daily_gpt-5.4_code_provided        ok=True  steps= 5 ended=answer    python_runs=3 refs=3 data=True
+  s2_treatment_0024_daily_gpt-5.4_code_provided        ok=True  steps= 5 ended=answer    python_runs=3 refs=3 data=True
+  s2_treatment_0025_daily_gpt-5.4_code_provided        ok=True  steps= 5 ended=answer    python_runs=3 refs=3 data=True
+  s2_treatment_0027_daily_gpt-5.4_code_provided        ok=True  steps=12 ended=answer    python_runs=10 refs=3 data=True
+gpt-oss-120b / daily_gpt-5.4_code_written (effort low, max tokens 16000, step cap 12, no output limit) -> replies_daily_gpt-5.4_code_written_gpt-oss-120b_low.jsonl; 0 done
+  s1_treatment_0001_daily_gpt-5.4_code_written         ok=True  steps=12 ended=answer    python_runs=3 refs=2 data=True
+  s1_treatment_0002_daily_gpt-5.4_code_written         ok=True  steps= 9 ended=answer    python_runs=4 refs=2 data=True
+  s1_treatment_0003_daily_gpt-5.4_code_written         ok=True  steps=11 ended=answer    python_runs=3 refs=3 data=True
+  s1_treatment_0004_daily_gpt-5.4_code_written         ok=True  steps=12 ended=answer    python_runs=3 refs=2 data=True
+  s1_treatment_0005_daily_gpt-5.4_code_written         ok=True  steps=12 ended=answer    python_runs=3 refs=2 data=True
+  s1_treatment_0006_daily_gpt-5.4_code_written         ok=False steps=12 ended=step_cap  python_runs=2 refs=2 data=True
+  s1_treatment_0007_daily_gpt-5.4_code_written         ok=False steps=12 ended=step_cap  python_runs=2 refs=1 data=True
+  s1_treatment_0008_daily_gpt-5.4_code_written         ok=True  steps=10 ended=answer    python_runs=3 refs=2 data=True
+  s1_treatment_0009_daily_gpt-5.4_code_written         ok=True  steps=10 ended=answer    python_runs=3 refs=1 data=True
+  s1_treatment_0010_daily_gpt-5.4_code_written         ok=True  steps=12 ended=answer    python_runs=4 refs=2 data=True
+  s1_treatment_0011_daily_gpt-5.4_code_written         ok=False steps=12 ended=step_cap  python_runs=3 refs=2 data=True
+  s1_treatment_0012_daily_gpt-5.4_code_written         ok=True  steps= 9 ended=answer    python_runs=3 refs=2 data=True
+  s1_treatment_0013_daily_gpt-5.4_code_written         ok=True  steps=11 ended=answer    python_runs=3 refs=4 data=True
+  s1_treatment_0014_daily_gpt-5.4_code_written         ok=True  steps=11 ended=answer    python_runs=5 refs=2 data=True
+  s1_treatment_0015_daily_gpt-5.4_code_written         ok=False steps=12 ended=step_cap  python_runs=1 refs=3 data=True
+  s1_treatment_0016_daily_gpt-5.4_code_written         ok=True  steps= 8 ended=answer    python_runs=3 refs=2 data=True
+  s1_treatment_0017_daily_gpt-5.4_code_written         ok=False steps=12 ended=step_cap  python_runs=2 refs=3 data=True
+  s1_treatment_0018_daily_gpt-5.4_code_written         ok=True  steps=10 ended=answer    python_runs=4 refs=2 data=True
+  s1_treatment_0019_daily_gpt-5.4_code_written         ok=True  steps= 9 ended=answer    python_runs=4 refs=2 data=True
+  s1_treatment_0020_daily_gpt-5.4_code_written         ok=True  steps=12 ended=answer    python_runs=3 refs=1 data=True
+  s1_treatment_0021_daily_gpt-5.4_code_written         ok=True  steps= 9 ended=answer    python_runs=3 refs=2 data=True
+  s1_treatment_0022_daily_gpt-5.4_code_written         ok=True  steps=12 ended=answer    python_runs=4 refs=4 data=True
+  s1_treatment_0023_daily_gpt-5.4_code_written         ok=False steps=12 ended=step_cap  python_runs=3 refs=3 data=True
+  s1_treatment_0024_daily_gpt-5.4_code_written         ok=False steps=12 ended=step_cap  python_runs=3 refs=2 data=True
+  s1_treatment_0025_daily_gpt-5.4_code_written         ok=False steps=12 ended=step_cap  python_runs=2 refs=3 data=True
+  s1_treatment_0027_daily_gpt-5.4_code_written         ok=True  steps=11 ended=answer    python_runs=3 refs=2 data=True
+  s2_treatment_0001_daily_gpt-5.4_code_written         ok=True  steps=12 ended=answer    python_runs=3 refs=2 data=True
+  s2_treatment_0002_daily_gpt-5.4_code_written         ok=False steps=12 ended=step_cap  python_runs=3 refs=2 data=True
+  s2_treatment_0003_daily_gpt-5.4_code_written         ok=True  steps= 9 ended=answer    python_runs=3 refs=2 data=True
+  s2_treatment_0004_daily_gpt-5.4_code_written         ok=True  steps= 9 ended=answer    python_runs=3 refs=1 data=True
+  s2_treatment_0005_daily_gpt-5.4_code_written         ok=True  steps=10 ended=answer    python_runs=4 refs=2 data=True
+  s2_treatment_0006_daily_gpt-5.4_code_written         ok=True  steps=12 ended=answer    python_runs=3 refs=2 data=True
+  s2_treatment_0007_daily_gpt-5.4_code_written         ok=False steps=12 ended=step_cap  python_runs=3 refs=2 data=True
+  s2_treatment_0008_daily_gpt-5.4_code_written         ok=True  steps=11 ended=answer    python_runs=3 refs=2 data=True
+  s2_treatment_0009_daily_gpt-5.4_code_written         ok=True  steps=12 ended=answer    python_runs=4 refs=1 data=True
+  s2_treatment_0010_daily_gpt-5.4_code_written         ok=False steps=12 ended=step_cap  python_runs=2 refs=2 data=True
+  s2_treatment_0011_daily_gpt-5.4_code_written         ok=True  steps=12 ended=answer    python_runs=3 refs=1 data=True
+  s2_treatment_0012_daily_gpt-5.4_code_written         ok=False steps=12 ended=step_cap  python_runs=2 refs=3 data=True
+  s2_treatment_0013_daily_gpt-5.4_code_written         ok=False steps=12 ended=step_cap  python_runs=2 refs=2 data=True
+  s2_treatment_0014_daily_gpt-5.4_code_written         ok=False steps=12 ended=step_cap  python_runs=2 refs=2 data=True
+  s2_treatment_0015_daily_gpt-5.4_code_written         ok=False steps=12 ended=step_cap  python_runs=2 refs=2 data=True
+  s2_treatment_0016_daily_gpt-5.4_code_written         ok=False steps=12 ended=step_cap  python_runs=3 refs=2 data=True
+  s2_treatment_0017_daily_gpt-5.4_code_written         ok=True  steps=12 ended=answer    python_runs=3 refs=2 data=True
+  s2_treatment_0018_daily_gpt-5.4_code_written         ok=True  steps= 8 ended=answer    python_runs=3 refs=2 data=True
+  s2_treatment_0019_daily_gpt-5.4_code_written         ok=True  steps= 8 ended=answer    python_runs=3 refs=2 data=True
+  s2_treatment_0020_daily_gpt-5.4_code_written         ok=False steps=12 ended=step_cap  python_runs=2 refs=2 data=True
+  s2_treatment_0021_daily_gpt-5.4_code_written         ok=True  steps= 8 ended=answer    python_runs=3 refs=2 data=True
+  s2_treatment_0022_daily_gpt-5.4_code_written         ok=True  steps= 8 ended=answer    python_runs=3 refs=2 data=True
+  s2_treatment_0023_daily_gpt-5.4_code_written         ok=True  steps=11 ended=answer    python_runs=3 refs=1 data=True
+  s2_treatment_0024_daily_gpt-5.4_code_written         ok=True  steps=12 ended=answer    python_runs=3 refs=1 data=True
+  s2_treatment_0025_daily_gpt-5.4_code_written         ok=True  steps= 8 ended=answer    python_runs=3 refs=2 data=True
+  s2_treatment_0027_daily_gpt-5.4_code_written         ok=True  steps= 9 ended=answer    python_runs=3 refs=1 data=True
+GLM-5.3 / daily_gpt-5.4_code_written (effort low, max tokens 16000, step cap 12, no output limit) -> replies_daily_gpt-5.4_code_written_GLM-5.3_low.jsonl; 0 done
+  s1_treatment_0001_daily_gpt-5.4_code_written         ok=True  steps= 7 ended=answer    python_runs=4 refs=4 data=True
+  s1_treatment_0002_daily_gpt-5.4_code_written         ok=True  steps= 6 ended=answer    python_runs=2 refs=6 data=True
+  s1_treatment_0003_daily_gpt-5.4_code_written         ok=True  steps=11 ended=answer    python_runs=7 refs=4 data=True
+  s1_treatment_0004_daily_gpt-5.4_code_written         ok=True  steps=11 ended=answer    python_runs=6 refs=5 data=True
+  s1_treatment_0005_daily_gpt-5.4_code_written         ok=True  steps= 5 ended=answer    python_runs=1 refs=7 data=True
+  s1_treatment_0006_daily_gpt-5.4_code_written         ok=True  steps= 6 ended=answer    python_runs=2 refs=4 data=True
+  s1_treatment_0007_daily_gpt-5.4_code_written         ok=True  steps= 5 ended=answer    python_runs=1 refs=5 data=True
+  s1_treatment_0008_daily_gpt-5.4_code_written         ok=True  steps= 9 ended=answer    python_runs=5 refs=6 data=True
+  s1_treatment_0009_daily_gpt-5.4_code_written         ok=True  steps= 9 ended=answer    python_runs=6 refs=4 data=True
+  s1_treatment_0010_daily_gpt-5.4_code_written         ok=True  steps= 5 ended=answer    python_runs=1 refs=7 data=True
+  s1_treatment_0011_daily_gpt-5.4_code_written         ok=True  steps=10 ended=answer    python_runs=4 refs=7 data=True
+  s1_treatment_0012_daily_gpt-5.4_code_written         ok=True  steps= 6 ended=answer    python_runs=2 refs=5 data=True
+  s1_treatment_0013_daily_gpt-5.4_code_written         ok=True  steps=10 ended=answer    python_runs=7 refs=6 data=True
+  s1_treatment_0014_daily_gpt-5.4_code_written         ok=True  steps=12 ended=answer    python_runs=8 refs=6 data=True
+  s1_treatment_0015_daily_gpt-5.4_code_written         ok=True  steps= 7 ended=answer    python_runs=5 refs=1 data=True
+  s1_treatment_0016_daily_gpt-5.4_code_written         ok=True  steps= 7 ended=answer    python_runs=3 refs=4 data=True
+  s1_treatment_0017_daily_gpt-5.4_code_written         ok=True  steps= 7 ended=answer    python_runs=3 refs=7 data=True
+  s1_treatment_0018_daily_gpt-5.4_code_written         ok=False steps=12 ended=step_cap  python_runs=9 refs=6 data=True
+  s1_treatment_0019_daily_gpt-5.4_code_written         ok=True  steps=12 ended=answer    python_runs=7 refs=5 data=True
+  s1_treatment_0020_daily_gpt-5.4_code_written         ok=True  steps= 9 ended=answer    python_runs=6 refs=6 data=True
+  s1_treatment_0021_daily_gpt-5.4_code_written         ok=True  steps=12 ended=answer    python_runs=9 refs=2 data=True
+  s1_treatment_0022_daily_gpt-5.4_code_written         ok=True  steps= 5 ended=answer    python_runs=3 refs=1 data=True
+  s1_treatment_0023_daily_gpt-5.4_code_written         ok=False steps=12 ended=step_cap  python_runs=7 refs=1 data=True
+  s1_treatment_0024_daily_gpt-5.4_code_written         ok=True  steps= 8 ended=answer    python_runs=5 refs=4 data=True
+  s1_treatment_0025_daily_gpt-5.4_code_written         ok=True  steps=12 ended=answer    python_runs=7 refs=7 data=True
+  s1_treatment_0027_daily_gpt-5.4_code_written         ok=True  steps= 7 ended=answer    python_runs=3 refs=6 data=True
+  s2_treatment_0001_daily_gpt-5.4_code_written         ok=False steps=12 ended=step_cap  python_runs=7 refs=7 data=True
+  s2_treatment_0002_daily_gpt-5.4_code_written         ok=False steps=12 ended=step_cap  python_runs=3 refs=4 data=True
+  s2_treatment_0003_daily_gpt-5.4_code_written         ok=True  steps=10 ended=answer    python_runs=7 refs=4 data=True
+  s2_treatment_0004_daily_gpt-5.4_code_written         ok=False steps=12 ended=step_cap  python_runs=8 refs=7 data=True
+  s2_treatment_0005_daily_gpt-5.4_code_written         ok=True  steps=11 ended=answer    python_runs=8 refs=4 data=True
+  s2_treatment_0006_daily_gpt-5.4_code_written         ok=False steps=12 ended=step_cap  python_runs=9 refs=6 data=True
+  s2_treatment_0007_daily_gpt-5.4_code_written         ok=True  steps=10 ended=answer    python_runs=6 refs=7 data=True
+  s2_treatment_0008_daily_gpt-5.4_code_written         ok=False steps=12 ended=step_cap  python_runs=9 refs=4 data=True
+  s2_treatment_0009_daily_gpt-5.4_code_written         ok=True  steps= 7 ended=answer    python_runs=3 refs=1 data=True
+  s2_treatment_0010_daily_gpt-5.4_code_written         ok=True  steps= 7 ended=answer    python_runs=4 refs=4 data=True
+  s2_treatment_0011_daily_gpt-5.4_code_written         ok=True  steps= 9 ended=answer    python_runs=6 refs=6 data=True
+  s2_treatment_0012_daily_gpt-5.4_code_written         ok=True  steps= 7 ended=answer    python_runs=4 refs=4 data=True
+  s2_treatment_0013_daily_gpt-5.4_code_written         ok=True  steps= 7 ended=answer    python_runs=3 refs=4 data=True
+  s2_treatment_0014_daily_gpt-5.4_code_written         ok=False steps=12 ended=step_cap  python_runs=2 refs=2 data=True
+  s2_treatment_0015_daily_gpt-5.4_code_written         ok=True  steps= 9 ended=answer    python_runs=6 refs=4 data=True
+  s2_treatment_0016_daily_gpt-5.4_code_written         ok=True  steps=10 ended=answer    python_runs=4 refs=1 data=True
+  s2_treatment_0017_daily_gpt-5.4_code_written         ok=True  steps= 7 ended=answer    python_runs=3 refs=4 data=True
+  s2_treatment_0018_daily_gpt-5.4_code_written         ok=True  steps=12 ended=answer    python_runs=2 refs=1 data=True
+  s2_treatment_0019_daily_gpt-5.4_code_written         ok=False steps=12 ended=step_cap  python_runs=4 refs=2 data=True
+  s2_treatment_0020_daily_gpt-5.4_code_written         ok=False steps=12 ended=step_cap  python_runs=4 refs=1 data=True
+  s2_treatment_0021_daily_gpt-5.4_code_written         ok=True  steps= 7 ended=answer    python_runs=4 refs=4 data=True
+  s2_treatment_0022_daily_gpt-5.4_code_written         ok=True  steps= 7 ended=answer    python_runs=4 refs=4 data=True
+  s2_treatment_0023_daily_gpt-5.4_code_written         ok=True  steps= 7 ended=answer    python_runs=4 refs=4 data=True
+  s2_treatment_0024_daily_gpt-5.4_code_written         ok=True  steps= 7 ended=answer    python_runs=4 refs=4 data=True
+  s2_treatment_0025_daily_gpt-5.4_code_written         ok=True  steps= 7 ended=answer    python_runs=4 refs=4 data=True
+  s2_treatment_0027_daily_gpt-5.4_code_written         ok=True  steps= 9 ended=answer    python_runs=5 refs=6 data=True
+DeepSeek-V4.1-Flash-thinking-low / daily_gpt-5.4_code_written (effort low, max tokens 32000, step cap 12, no output limit) -> replies_daily_gpt-5.4_code_written_DeepSeek-V4.1-Flash-thinking-low_low.jsonl; 0 done
+  s1_treatment_0001_daily_gpt-5.4_code_written         ok=False steps=12 ended=step_cap  python_runs=10 refs=9 data=True
+  s1_treatment_0002_daily_gpt-5.4_code_written         ok=False steps=12 ended=step_cap  python_runs=9 refs=10 data=True
+  s1_treatment_0003_daily_gpt-5.4_code_written         ok=False steps=12 ended=step_cap  python_runs=8 refs=8 data=True
+  s1_treatment_0004_daily_gpt-5.4_code_written         ok=True  steps= 7 ended=answer    python_runs=4 refs=1 data=True
+  s1_treatment_0005_daily_gpt-5.4_code_written         ok=False steps=12 ended=step_cap  python_runs=8 refs=8 data=True
+  s1_treatment_0006_daily_gpt-5.4_code_written         ok=True  steps=12 ended=answer    python_runs=10 refs=9 data=True
+  s1_treatment_0007_daily_gpt-5.4_code_written         ok=False steps=12 ended=step_cap  python_runs=8 refs=9 data=True
+  s1_treatment_0008_daily_gpt-5.4_code_written         ok=False steps=12 ended=step_cap  python_runs=7 refs=9 data=True
+  s1_treatment_0009_daily_gpt-5.4_code_written         ok=True  steps=11 ended=answer    python_runs=9 refs=9 data=True
+  s1_treatment_0010_daily_gpt-5.4_code_written         ok=False steps=12 ended=step_cap  python_runs=8 refs=8 data=True
+  s1_treatment_0011_daily_gpt-5.4_code_written         ok=False steps=12 ended=step_cap  python_runs=7 refs=9 data=True
+  s1_treatment_0012_daily_gpt-5.4_code_written         ok=False steps=12 ended=step_cap  python_runs=7 refs=9 data=True
+  s1_treatment_0013_daily_gpt-5.4_code_written         ok=False steps=12 ended=step_cap  python_runs=10 refs=8 data=True
+  s1_treatment_0014_daily_gpt-5.4_code_written         ok=False steps=12 ended=step_cap  python_runs=9 refs=9 data=True
+  s1_treatment_0015_daily_gpt-5.4_code_written         ok=False steps=12 ended=step_cap  python_runs=3 refs=1 data=False
+  s1_treatment_0016_daily_gpt-5.4_code_written         ok=False steps=12 ended=step_cap  python_runs=7 refs=9 data=True
+  s1_treatment_0017_daily_gpt-5.4_code_written         ok=False steps=12 ended=step_cap  python_runs=10 refs=7 data=True
+  s1_treatment_0018_daily_gpt-5.4_code_written         ok=False steps=12 ended=step_cap  python_runs=10 refs=8 data=True
+  s1_treatment_0019_daily_gpt-5.4_code_written         ok=True  steps= 5 ended=answer    python_runs=2 refs=5 data=True
+  s1_treatment_0020_daily_gpt-5.4_code_written         ok=False steps=12 ended=step_cap  python_runs=8 refs=9 data=True
+  s1_treatment_0021_daily_gpt-5.4_code_written         ok=True  steps=11 ended=answer    python_runs=8 refs=8 data=True
+  s1_treatment_0022_daily_gpt-5.4_code_written         ok=False steps=12 ended=step_cap  python_runs=9 refs=5 data=True
+  s1_treatment_0023_daily_gpt-5.4_code_written         ok=False steps=12 ended=step_cap  python_runs=7 refs=9 data=True
+  s1_treatment_0024_daily_gpt-5.4_code_written         ok=True  steps=11 ended=answer    python_runs=8 refs=6 data=True
+  s1_treatment_0025_daily_gpt-5.4_code_written         ok=False steps=12 ended=step_cap  python_runs=9 refs=9 data=True
+  s1_treatment_0027_daily_gpt-5.4_code_written         ok=False steps=12 ended=step_cap  python_runs=8 refs=8 data=True
+  s2_treatment_0001_daily_gpt-5.4_code_written         ok=False steps=12 ended=step_cap  python_runs=8 refs=9 data=True
+  s2_treatment_0002_daily_gpt-5.4_code_written         ok=True  steps= 7 ended=answer    python_runs=4 refs=7 data=True
+  s2_treatment_0003_daily_gpt-5.4_code_written         ok=False steps=12 ended=step_cap  python_runs=7 refs=9 data=True
+  s2_treatment_0004_daily_gpt-5.4_code_written         ok=False steps=12 ended=step_cap  python_runs=10 refs=6 data=True
+  s2_treatment_0005_daily_gpt-5.4_code_written         ok=False steps=12 ended=step_cap  python_runs=8 refs=9 data=True
+  s2_treatment_0006_daily_gpt-5.4_code_written         ok=False steps= 2 ended=call_error python_runs=0 refs=1 data=False
+  s2_treatment_0007_daily_gpt-5.4_code_written         ok=False steps= 1 ended=call_error python_runs=0 refs=0 data=False
+  s2_treatment_0008_daily_gpt-5.4_code_written         ok=False steps= 1 ended=call_error python_runs=0 refs=0 data=False
+  s2_treatment_0009_daily_gpt-5.4_code_written         ok=False steps= 1 ended=call_error python_runs=0 refs=0 data=False
+  s2_treatment_0010_daily_gpt-5.4_code_written         ok=False steps= 1 ended=call_error python_runs=0 refs=0 data=False
+  s2_treatment_0011_daily_gpt-5.4_code_written         ok=False steps= 1 ended=call_error python_runs=0 refs=0 data=False
+  s2_treatment_0012_daily_gpt-5.4_code_written         ok=False steps= 1 ended=call_error python_runs=0 refs=0 data=False
+  s2_treatment_0013_daily_gpt-5.4_code_written         ok=False steps= 1 ended=call_error python_runs=0 refs=0 data=False
+  s2_treatment_0014_daily_gpt-5.4_code_written         ok=False steps= 1 ended=call_error python_runs=0 refs=0 data=False
+  s2_treatment_0015_daily_gpt-5.4_code_written         ok=False steps= 1 ended=call_error python_runs=0 refs=0 data=False
+  s2_treatment_0016_daily_gpt-5.4_code_written         ok=False steps= 1 ended=call_error python_runs=0 refs=0 data=False
+  s2_treatment_0017_daily_gpt-5.4_code_written         ok=False steps= 1 ended=call_error python_runs=0 refs=0 data=False
+  s2_treatment_0018_daily_gpt-5.4_code_written         ok=False steps= 1 ended=call_error python_runs=0 refs=0 data=False
+  s2_treatment_0019_daily_gpt-5.4_code_written         ok=False steps= 1 ended=call_error python_runs=0 refs=0 data=False
+  s2_treatment_0020_daily_gpt-5.4_code_written         ok=False steps= 1 ended=call_error python_runs=0 refs=0 data=False
+  s2_treatment_0021_daily_gpt-5.4_code_written         ok=False steps= 1 ended=call_error python_runs=0 refs=0 data=False
+  s2_treatment_0022_daily_gpt-5.4_code_written         ok=False steps= 1 ended=call_error python_runs=0 refs=0 data=False
+  s2_treatment_0023_daily_gpt-5.4_code_written         ok=False steps= 1 ended=call_error python_runs=0 refs=0 data=False
+  s2_treatment_0024_daily_gpt-5.4_code_written         ok=False steps= 1 ended=call_error python_runs=0 refs=0 data=False
+  s2_treatment_0025_daily_gpt-5.4_code_written         ok=False steps= 1 ended=call_error python_runs=0 refs=0 data=False
+  s2_treatment_0027_daily_gpt-5.4_code_written         ok=False steps= 1 ended=call_error python_runs=0 refs=0 data=False
+openai:gpt-5.5 / daily_gpt-5.4_code_written (effort low, max tokens 16000, step cap 12, no output limit) -> replies_daily_gpt-5.4_code_written_openai_gpt-5.5_low.jsonl; 0 done
+  s1_treatment_0001_daily_gpt-5.4_code_written         ok=True  steps= 7 ended=answer    python_runs=4 refs=1 data=True
+  s1_treatment_0002_daily_gpt-5.4_code_written         ok=True  steps= 5 ended=answer    python_runs=2 refs=1 data=True
+  s1_treatment_0003_daily_gpt-5.4_code_written         ok=True  steps= 5 ended=answer    python_runs=2 refs=1 data=True
+  s1_treatment_0004_daily_gpt-5.4_code_written         ok=True  steps= 5 ended=answer    python_runs=4 refs=1 data=True
+  s1_treatment_0005_daily_gpt-5.4_code_written         ok=True  steps= 4 ended=answer    python_runs=2 refs=1 data=True
+  s1_treatment_0006_daily_gpt-5.4_code_written         ok=True  steps= 4 ended=answer    python_runs=2 refs=1 data=True
+  s1_treatment_0007_daily_gpt-5.4_code_written         ok=True  steps= 7 ended=answer    python_runs=4 refs=1 data=True
+  s1_treatment_0008_daily_gpt-5.4_code_written         ok=True  steps= 5 ended=answer    python_runs=3 refs=1 data=True
+  s1_treatment_0009_daily_gpt-5.4_code_written         ok=True  steps= 5 ended=answer    python_runs=2 refs=1 data=True
+  s1_treatment_0010_daily_gpt-5.4_code_written         ok=True  steps= 4 ended=answer    python_runs=2 refs=1 data=True
+  s1_treatment_0011_daily_gpt-5.4_code_written         ok=True  steps= 5 ended=answer    python_runs=3 refs=1 data=True
+  s1_treatment_0012_daily_gpt-5.4_code_written         ok=True  steps= 7 ended=answer    python_runs=5 refs=1 data=True
+  s1_treatment_0013_daily_gpt-5.4_code_written         ok=True  steps= 4 ended=answer    python_runs=2 refs=1 data=True
+  s1_treatment_0014_daily_gpt-5.4_code_written         ok=True  steps= 4 ended=answer    python_runs=2 refs=1 data=True
+  s1_treatment_0015_daily_gpt-5.4_code_written         ok=True  steps= 6 ended=answer    python_runs=3 refs=1 data=True
+  s1_treatment_0016_daily_gpt-5.4_code_written         ok=True  steps= 6 ended=answer    python_runs=3 refs=1 data=True
+  s1_treatment_0017_daily_gpt-5.4_code_written         ok=True  steps= 6 ended=answer    python_runs=3 refs=1 data=True
+  s1_treatment_0018_daily_gpt-5.4_code_written         ok=True  steps= 5 ended=answer    python_runs=3 refs=1 data=True
+  s1_treatment_0019_daily_gpt-5.4_code_written         ok=True  steps= 6 ended=answer    python_runs=4 refs=2 data=True
+  s1_treatment_0020_daily_gpt-5.4_code_written         ok=True  steps= 5 ended=answer    python_runs=4 refs=1 data=True
+  s1_treatment_0021_daily_gpt-5.4_code_written         ok=True  steps= 5 ended=answer    python_runs=3 refs=1 data=True
+  s1_treatment_0022_daily_gpt-5.4_code_written         ok=True  steps= 6 ended=answer    python_runs=4 refs=1 data=True
+  s1_treatment_0023_daily_gpt-5.4_code_written         ok=True  steps= 4 ended=answer    python_runs=2 refs=1 data=True
+  s1_treatment_0024_daily_gpt-5.4_code_written         ok=True  steps= 5 ended=answer    python_runs=3 refs=2 data=True
+  s1_treatment_0025_daily_gpt-5.4_code_written         ok=True  steps= 4 ended=answer    python_runs=2 refs=1 data=True
+  s1_treatment_0027_daily_gpt-5.4_code_written         ok=True  steps= 7 ended=answer    python_runs=5 refs=1 data=True
+  s2_treatment_0001_daily_gpt-5.4_code_written         ok=True  steps= 6 ended=answer    python_runs=4 refs=1 data=True
+  s2_treatment_0002_daily_gpt-5.4_code_written         ok=True  steps= 3 ended=answer    python_runs=1 refs=1 data=True
+  s2_treatment_0003_daily_gpt-5.4_code_written         ok=True  steps= 6 ended=answer    python_runs=4 refs=1 data=True
+  s2_treatment_0004_daily_gpt-5.4_code_written         ok=True  steps= 4 ended=answer    python_runs=2 refs=1 data=True
+  s2_treatment_0005_daily_gpt-5.4_code_written         ok=True  steps= 5 ended=answer    python_runs=3 refs=1 data=True
+  s2_treatment_0006_daily_gpt-5.4_code_written         ok=True  steps= 7 ended=answer    python_runs=5 refs=1 data=True
+  s2_treatment_0007_daily_gpt-5.4_code_written         ok=True  steps= 4 ended=answer    python_runs=2 refs=1 data=True
+  s2_treatment_0008_daily_gpt-5.4_code_written         ok=True  steps= 5 ended=answer    python_runs=3 refs=1 data=True
+  s2_treatment_0009_daily_gpt-5.4_code_written         ok=True  steps= 4 ended=answer    python_runs=2 refs=1 data=True
+  s2_treatment_0010_daily_gpt-5.4_code_written         ok=True  steps= 5 ended=answer    python_runs=3 refs=1 data=True
+  s2_treatment_0011_daily_gpt-5.4_code_written         ok=True  steps= 4 ended=answer    python_runs=2 refs=1 data=True
+  s2_treatment_0012_daily_gpt-5.4_code_written         ok=True  steps= 4 ended=answer    python_runs=2 refs=1 data=True
+  s2_treatment_0013_daily_gpt-5.4_code_written         ok=True  steps= 5 ended=answer    python_runs=2 refs=1 data=True
+  s2_treatment_0014_daily_gpt-5.4_code_written         ok=True  steps= 4 ended=answer    python_runs=2 refs=1 data=True
+  s2_treatment_0015_daily_gpt-5.4_code_written         ok=True  steps= 4 ended=answer    python_runs=2 refs=1 data=True
+  s2_treatment_0016_daily_gpt-5.4_code_written         ok=True  steps= 4 ended=answer    python_runs=2 refs=1 data=True
+  s2_treatment_0017_daily_gpt-5.4_code_written         ok=True  steps= 4 ended=answer    python_runs=2 refs=1 data=True
+  s2_treatment_0018_daily_gpt-5.4_code_written         ok=True  steps= 6 ended=answer    python_runs=4 refs=1 data=True
+  s2_treatment_0019_daily_gpt-5.4_code_written         ok=True  steps= 5 ended=answer    python_runs=3 refs=1 data=True
+  s2_treatment_0020_daily_gpt-5.4_code_written         ok=True  steps= 5 ended=answer    python_runs=3 refs=1 data=True
+  s2_treatment_0021_daily_gpt-5.4_code_written         ok=True  steps= 5 ended=answer    python_runs=2 refs=1 data=True
+  s2_treatment_0022_daily_gpt-5.4_code_written         ok=True  steps= 5 ended=answer    python_runs=3 refs=1 data=True
+  s2_treatment_0023_daily_gpt-5.4_code_written         ok=True  steps= 4 ended=answer    python_runs=2 refs=1 data=True
+  s2_treatment_0024_daily_gpt-5.4_code_written         ok=True  steps= 6 ended=answer    python_runs=4 refs=1 data=True
+  s2_treatment_0025_daily_gpt-5.4_code_written         ok=True  steps= 5 ended=answer    python_runs=3 refs=1 data=True
+  s2_treatment_0027_daily_gpt-5.4_code_written         ok=True  steps= 5 ended=answer    python_runs=3 refs=1 data=True
+gpt-oss-120b / daily_deepseek_code_provided (effort low, max tokens 16000, step cap 12, no output limit) -> replies_daily_deepseek_code_provided_gpt-oss-120b_low.jsonl; 0 done
+  s1_treatment_0001_daily_deepseek_code_provided       ok=True  steps= 7 ended=answer    python_runs=3 refs=2 data=True
+  s1_treatment_0002_daily_deepseek_code_provided       ok=True  steps=10 ended=answer    python_runs=4 refs=3 data=True
+  s1_treatment_0003_daily_deepseek_code_provided       ok=True  steps= 6 ended=answer    python_runs=3 refs=2 data=True
+  s1_treatment_0004_daily_deepseek_code_provided       ok=True  steps= 7 ended=answer    python_runs=3 refs=2 data=True
+  s1_treatment_0005_daily_deepseek_code_provided       ok=True  steps= 6 ended=answer    python_runs=3 refs=2 data=True
+  s1_treatment_0006_daily_deepseek_code_provided       ok=True  steps= 6 ended=answer    python_runs=3 refs=2 data=True
+  s1_treatment_0007_daily_deepseek_code_provided       ok=True  steps= 6 ended=answer    python_runs=3 refs=2 data=True
+  s1_treatment_0008_daily_deepseek_code_provided       ok=True  steps= 8 ended=answer    python_runs=4 refs=2 data=True
+  s1_treatment_0009_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=4 refs=4 data=True
+  s1_treatment_0010_daily_deepseek_code_provided       ok=True  steps= 7 ended=answer    python_runs=3 refs=2 data=True
+  s1_treatment_0011_daily_deepseek_code_provided       ok=True  steps= 6 ended=answer    python_runs=3 refs=2 data=True
+  s1_treatment_0012_daily_deepseek_code_provided       ok=True  steps= 7 ended=answer    python_runs=3 refs=2 data=True
+  s1_treatment_0013_daily_deepseek_code_provided       ok=True  steps=10 ended=answer    python_runs=3 refs=3 data=True
+  s1_treatment_0014_daily_deepseek_code_provided       ok=True  steps=12 ended=answer    python_runs=7 refs=4 data=True
+  s1_treatment_0015_daily_deepseek_code_provided       ok=True  steps= 7 ended=answer    python_runs=5 refs=3 data=True
+  s1_treatment_0016_daily_deepseek_code_provided       ok=True  steps= 7 ended=answer    python_runs=3 refs=2 data=True
+  s1_treatment_0017_daily_deepseek_code_provided       ok=True  steps= 7 ended=answer    python_runs=3 refs=2 data=True
+  s1_treatment_0018_daily_deepseek_code_provided       ok=True  steps=10 ended=answer    python_runs=6 refs=2 data=True
+  s1_treatment_0019_daily_deepseek_code_provided       ok=True  steps=11 ended=answer    python_runs=3 refs=3 data=True
+  s1_treatment_0020_daily_deepseek_code_provided       ok=True  steps= 6 ended=answer    python_runs=3 refs=2 data=True
+  s1_treatment_0021_daily_deepseek_code_provided       ok=True  steps= 7 ended=answer    python_runs=3 refs=2 data=True
+  s1_treatment_0022_daily_deepseek_code_provided       ok=True  steps= 7 ended=answer    python_runs=3 refs=2 data=True
+  s1_treatment_0023_daily_deepseek_code_provided       ok=True  steps= 7 ended=answer    python_runs=3 refs=2 data=True
+  s1_treatment_0024_daily_deepseek_code_provided       ok=True  steps= 7 ended=answer    python_runs=3 refs=2 data=True
+  s1_treatment_0025_daily_deepseek_code_provided       ok=True  steps= 7 ended=answer    python_runs=3 refs=2 data=True
+  s1_treatment_0027_daily_deepseek_code_provided       ok=True  steps= 6 ended=answer    python_runs=3 refs=2 data=True
+  s2_treatment_0001_daily_deepseek_code_provided       ok=True  steps= 5 ended=answer    python_runs=2 refs=2 data=True
+  s2_treatment_0002_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=4 refs=3 data=True
+  s2_treatment_0003_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=2 refs=3 data=True
+  s2_treatment_0004_daily_deepseek_code_provided       ok=True  steps= 5 ended=answer    python_runs=2 refs=2 data=True
+  s2_treatment_0005_daily_deepseek_code_provided       ok=True  steps= 5 ended=answer    python_runs=2 refs=2 data=True
+  s2_treatment_0006_daily_deepseek_code_provided       ok=True  steps= 7 ended=answer    python_runs=3 refs=2 data=True
+  s2_treatment_0007_daily_deepseek_code_provided       ok=True  steps= 7 ended=answer    python_runs=3 refs=2 data=True
+  s2_treatment_0008_daily_deepseek_code_provided       ok=True  steps= 5 ended=answer    python_runs=2 refs=2 data=True
+  s2_treatment_0009_daily_deepseek_code_provided       ok=True  steps= 5 ended=answer    python_runs=2 refs=2 data=True
+  s2_treatment_0010_daily_deepseek_code_provided       ok=True  steps= 5 ended=answer    python_runs=2 refs=2 data=True
+  s2_treatment_0011_daily_deepseek_code_provided       ok=True  steps= 5 ended=answer    python_runs=2 refs=2 data=True
+  s2_treatment_0012_daily_deepseek_code_provided       ok=True  steps= 7 ended=answer    python_runs=3 refs=2 data=True
+  s2_treatment_0013_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=3 refs=3 data=True
+  s2_treatment_0014_daily_deepseek_code_provided       ok=True  steps= 5 ended=answer    python_runs=2 refs=2 data=True
+  s2_treatment_0015_daily_deepseek_code_provided       ok=True  steps= 5 ended=answer    python_runs=2 refs=2 data=True
+  s2_treatment_0016_daily_deepseek_code_provided       ok=True  steps= 5 ended=answer    python_runs=2 refs=2 data=True
+  s2_treatment_0017_daily_deepseek_code_provided       ok=True  steps= 5 ended=answer    python_runs=2 refs=2 data=True
+  s2_treatment_0018_daily_deepseek_code_provided       ok=True  steps= 6 ended=answer    python_runs=3 refs=2 data=True
+  s2_treatment_0019_daily_deepseek_code_provided       ok=True  steps= 5 ended=answer    python_runs=2 refs=2 data=True
+  s2_treatment_0020_daily_deepseek_code_provided       ok=True  steps= 7 ended=answer    python_runs=3 refs=2 data=True
+  s2_treatment_0021_daily_deepseek_code_provided       ok=True  steps= 5 ended=answer    python_runs=2 refs=2 data=True
+  s2_treatment_0022_daily_deepseek_code_provided       ok=True  steps= 6 ended=answer    python_runs=3 refs=2 data=True
+  s2_treatment_0023_daily_deepseek_code_provided       ok=True  steps= 5 ended=answer    python_runs=2 refs=2 data=True
+  s2_treatment_0024_daily_deepseek_code_provided       ok=True  steps= 6 ended=answer    python_runs=3 refs=2 data=True
+  s2_treatment_0025_daily_deepseek_code_provided       ok=True  steps= 5 ended=answer    python_runs=2 refs=2 data=True
+  s2_treatment_0027_daily_deepseek_code_provided       ok=True  steps= 5 ended=answer    python_runs=2 refs=2 data=True
+GLM-5.3 / daily_deepseek_code_provided (effort low, max tokens 16000, step cap 12, no output limit) -> replies_daily_deepseek_code_provided_GLM-5.3_low.jsonl; 0 done
+  s1_treatment_0001_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=5 refs=4 data=True
+  s1_treatment_0002_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=5 refs=3 data=True
+  s1_treatment_0003_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=6 refs=2 data=True
+  s1_treatment_0004_daily_deepseek_code_provided       ok=True  steps= 7 ended=answer    python_runs=5 refs=4 data=True
+  s1_treatment_0005_daily_deepseek_code_provided       ok=True  steps= 6 ended=answer    python_runs=4 refs=1 data=True
+  s1_treatment_0006_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=9 refs=4 data=True
+  s1_treatment_0007_daily_deepseek_code_provided       ok=True  steps= 6 ended=answer    python_runs=4 refs=2 data=True
+  s1_treatment_0008_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=7 refs=2 data=True
+  s1_treatment_0009_daily_deepseek_code_provided       ok=True  steps= 8 ended=answer    python_runs=7 refs=1 data=True
+  s1_treatment_0010_daily_deepseek_code_provided       ok=True  steps= 7 ended=answer    python_runs=5 refs=2 data=True
+  s1_treatment_0011_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=7 refs=3 data=True
+  s1_treatment_0012_daily_deepseek_code_provided       ok=True  steps=10 ended=answer    python_runs=9 refs=3 data=True
+  s1_treatment_0013_daily_deepseek_code_provided       ok=True  steps= 9 ended=answer    python_runs=6 refs=5 data=True
+  s1_treatment_0014_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=6 refs=2 data=True
+  s1_treatment_0015_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=9 refs=3 data=True
+  s1_treatment_0016_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=8 refs=2 data=True
+  s1_treatment_0017_daily_deepseek_code_provided       ok=True  steps=12 ended=answer    python_runs=4 refs=4 data=True
+  s1_treatment_0018_daily_deepseek_code_provided       ok=True  steps=10 ended=answer    python_runs=5 refs=1 data=True
+  s1_treatment_0019_daily_deepseek_code_provided       ok=True  steps= 7 ended=answer    python_runs=4 refs=1 data=True
+  s1_treatment_0020_daily_deepseek_code_provided       ok=True  steps=11 ended=answer    python_runs=4 refs=1 data=True
+  s1_treatment_0021_daily_deepseek_code_provided       ok=True  steps= 8 ended=answer    python_runs=6 refs=3 data=True
+  s1_treatment_0022_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=4 refs=3 data=True
+  s1_treatment_0023_daily_deepseek_code_provided       ok=True  steps= 7 ended=answer    python_runs=5 refs=1 data=True
+  s1_treatment_0024_daily_deepseek_code_provided       ok=True  steps=12 ended=answer    python_runs=10 refs=3 data=True
+  s1_treatment_0025_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=5 refs=2 data=True
+  s1_treatment_0027_daily_deepseek_code_provided       ok=True  steps= 7 ended=answer    python_runs=5 refs=3 data=True
+  s2_treatment_0001_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=8 refs=3 data=True
+  s2_treatment_0002_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=4 refs=1 data=True
+  s2_treatment_0003_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=10 refs=2 data=True
+  s2_treatment_0004_daily_deepseek_code_provided       ok=True  steps=10 ended=answer    python_runs=5 refs=5 data=True
+  s2_treatment_0005_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=10 refs=4 data=True
+  s2_treatment_0006_daily_deepseek_code_provided       ok=True  steps= 7 ended=answer    python_runs=5 refs=1 data=True
+  s2_treatment_0007_daily_deepseek_code_provided       ok=True  steps=12 ended=answer    python_runs=10 refs=1 data=True
+  s2_treatment_0008_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=11 refs=2 data=True
+  s2_treatment_0009_daily_deepseek_code_provided       ok=True  steps=11 ended=answer    python_runs=8 refs=1 data=True
+  s2_treatment_0010_daily_deepseek_code_provided       ok=True  steps=10 ended=answer    python_runs=8 refs=2 data=True
+  s2_treatment_0011_daily_deepseek_code_provided       ok=True  steps= 7 ended=answer    python_runs=6 refs=2 data=True
+  s2_treatment_0012_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=6 refs=4 data=True
+  s2_treatment_0013_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=5 refs=3 data=True
+  s2_treatment_0014_daily_deepseek_code_provided       ok=True  steps= 8 ended=answer    python_runs=7 refs=2 data=True
+  s2_treatment_0015_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=5 refs=4 data=True
+  s2_treatment_0016_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=3 refs=2 data=True
+  s2_treatment_0017_daily_deepseek_code_provided       ok=True  steps=11 ended=answer    python_runs=9 refs=2 data=True
+  s2_treatment_0018_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=4 refs=4 data=True
+  s2_treatment_0019_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=6 refs=4 data=True
+  s2_treatment_0020_daily_deepseek_code_provided       ok=True  steps= 5 ended=answer    python_runs=3 refs=3 data=True
+  s2_treatment_0021_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=4 refs=2 data=True
+  s2_treatment_0022_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=10 refs=1 data=True
+  s2_treatment_0023_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=7 refs=3 data=True
+  s2_treatment_0024_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=7 refs=2 data=True
+  s2_treatment_0025_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=8 refs=1 data=True
+  s2_treatment_0027_daily_deepseek_code_provided       ok=True  steps=11 ended=answer    python_runs=9 refs=5 data=True
+DeepSeek-V4.1-Flash-thinking-low / daily_deepseek_code_provided (effort low, max tokens 32000, step cap 12, no output limit) -> replies_daily_deepseek_code_provided_DeepSeek-V4.1-Flash-thinking-low_low.jsonl; 0 done
+  s1_treatment_0001_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=7 refs=5 data=True
+  s1_treatment_0002_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=8 refs=4 data=True
+  s1_treatment_0003_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=10 refs=1 data=True
+  s1_treatment_0004_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=10 refs=3 data=True
+  s1_treatment_0005_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=6 refs=8 data=True
+  s1_treatment_0006_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=10 refs=5 data=True
+  s1_treatment_0007_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=7 refs=4 data=True
+  s1_treatment_0008_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=7 refs=6 data=True
+  s1_treatment_0009_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=7 refs=5 data=True
+  s1_treatment_0010_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=7 refs=8 data=True
+  s1_treatment_0011_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=10 refs=4 data=True
+  s1_treatment_0012_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=6 refs=5 data=True
+  s1_treatment_0013_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=7 refs=5 data=True
+  s1_treatment_0014_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=6 refs=14 data=True
+  s1_treatment_0015_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=9 refs=6 data=True
+  s1_treatment_0016_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=9 refs=4 data=True
+  s1_treatment_0017_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=1 refs=7 data=True
+  s1_treatment_0018_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=8 refs=3 data=True
+  s1_treatment_0019_daily_deepseek_code_provided       ok=True  steps=10 ended=answer    python_runs=7 refs=4 data=True
+  s1_treatment_0020_daily_deepseek_code_provided       ok=True  steps=10 ended=answer    python_runs=4 refs=4 data=True
+  s1_treatment_0021_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=10 refs=5 data=True
+  s1_treatment_0022_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=7 refs=8 data=True
+  s1_treatment_0023_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=10 refs=4 data=True
+  s1_treatment_0024_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=8 refs=5 data=True
+  s1_treatment_0025_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=8 refs=4 data=True
+  s1_treatment_0027_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=7 refs=8 data=True
+  s2_treatment_0001_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=6 refs=8 data=True
+  s2_treatment_0002_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=6 refs=8 data=True
+  s2_treatment_0003_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=9 refs=8 data=True
+  s2_treatment_0004_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=9 refs=8 data=True
+  s2_treatment_0005_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=7 refs=8 data=True
+  s2_treatment_0006_daily_deepseek_code_provided       ok=True  steps=10 ended=answer    python_runs=7 refs=3 data=True
+  s2_treatment_0007_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=8 refs=8 data=True
+  s2_treatment_0008_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=5 refs=5 data=True
+  s2_treatment_0009_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=10 refs=7 data=True
+  s2_treatment_0010_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=9 refs=5 data=True
+  s2_treatment_0011_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=10 refs=4 data=True
+  s2_treatment_0012_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=7 refs=5 data=True
+  s2_treatment_0013_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=9 refs=4 data=True
+  s2_treatment_0014_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=8 refs=7 data=True
+  s2_treatment_0015_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=8 refs=4 data=True
+  s2_treatment_0016_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=7 refs=5 data=True
+  s2_treatment_0017_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=9 refs=4 data=True
+  s2_treatment_0018_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=8 refs=5 data=True
+  s2_treatment_0019_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=7 refs=5 data=True
+  s2_treatment_0020_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=6 refs=4 data=True
+  s2_treatment_0021_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=10 refs=4 data=True
+  s2_treatment_0022_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=8 refs=4 data=True
+  s2_treatment_0023_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=9 refs=5 data=True
+  s2_treatment_0024_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=10 refs=5 data=True
+  s2_treatment_0025_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=6 refs=7 data=True
+  s2_treatment_0027_daily_deepseek_code_provided       ok=False steps=12 ended=step_cap  python_runs=10 refs=8 data=True
+openai:gpt-5.5 / daily_deepseek_code_provided (effort low, max tokens 16000, step cap 12, no output limit) -> replies_daily_deepseek_code_provided_openai_gpt-5.5_low.jsonl; 0 done
+  s1_treatment_0001_daily_deepseek_code_provided       ok=True  steps= 5 ended=answer    python_runs=3 refs=3 data=True
+  s1_treatment_0002_daily_deepseek_code_provided       ok=True  steps= 5 ended=answer    python_runs=3 refs=3 data=True
+  s1_treatment_0003_daily_deepseek_code_provided       ok=True  steps= 6 ended=answer    python_runs=4 refs=2 data=True
+  s1_treatment_0004_daily_deepseek_code_provided       ok=True  steps= 8 ended=answer    python_runs=5 refs=2 data=True
+  s1_treatment_0005_daily_deepseek_code_provided       ok=True  steps= 6 ended=answer    python_runs=4 refs=3 data=True
+  s1_treatment_0006_daily_deepseek_code_provided       ok=True  steps= 5 ended=answer    python_runs=3 refs=2 data=True
+  s1_treatment_0007_daily_deepseek_code_provided       ok=True  steps= 5 ended=answer    python_runs=4 refs=2 data=True
+  s1_treatment_0008_daily_deepseek_code_provided       ok=True  steps= 6 ended=answer    python_runs=5 refs=2 data=True
+  s1_treatment_0009_daily_deepseek_code_provided       ok=True  steps= 5 ended=answer    python_runs=3 refs=2 data=True
+  s1_treatment_0010_daily_deepseek_code_provided       ok=True  steps= 5 ended=answer    python_runs=3 refs=2 data=True
+  s1_treatment_0011_daily_deepseek_code_provided       ok=True  steps= 6 ended=answer    python_runs=5 refs=2 data=True
+  s1_treatment_0012_daily_deepseek_code_provided       ok=True  steps= 4 ended=answer    python_runs=3 refs=2 data=True
+  s1_treatment_0013_daily_deepseek_code_provided       ok=True  steps= 6 ended=answer    python_runs=5 refs=3 data=True
+  s1_treatment_0014_daily_deepseek_code_provided       ok=True  steps= 6 ended=answer    python_runs=5 refs=3 data=True
+  s1_treatment_0015_daily_deepseek_code_provided       ok=True  steps= 6 ended=answer    python_runs=4 refs=2 data=True
+  s1_treatment_0016_daily_deepseek_code_provided       ok=True  steps= 6 ended=answer    python_runs=5 refs=2 data=True
+  s1_treatment_0017_daily_deepseek_code_provided       ok=True  steps= 7 ended=answer    python_runs=5 refs=3 data=True
+  s1_treatment_0018_daily_deepseek_code_provided       ok=True  steps= 6 ended=answer    python_runs=4 refs=3 data=True
+  s1_treatment_0019_daily_deepseek_code_provided       ok=True  steps= 5 ended=answer    python_runs=3 refs=3 data=True
+  s1_treatment_0020_daily_deepseek_code_provided       ok=True  steps= 6 ended=answer    python_runs=5 refs=3 data=True
+  s1_treatment_0021_daily_deepseek_code_provided       ok=True  steps= 4 ended=answer    python_runs=3 refs=2 data=True
+  s1_treatment_0022_daily_deepseek_code_provided       ok=True  steps= 5 ended=answer    python_runs=4 refs=2 data=True
+  s1_treatment_0023_daily_deepseek_code_provided       ok=True  steps= 5 ended=answer    python_runs=4 refs=2 data=True
+  s1_treatment_0024_daily_deepseek_code_provided       ok=True  steps= 6 ended=answer    python_runs=4 refs=2 data=True
+  s1_treatment_0025_daily_deepseek_code_provided       ok=True  steps= 4 ended=answer    python_runs=3 refs=2 data=True
+  s1_treatment_0027_daily_deepseek_code_provided       ok=True  steps= 6 ended=answer    python_runs=5 refs=3 data=True
+  s2_treatment_0001_daily_deepseek_code_provided       ok=True  steps= 6 ended=answer    python_runs=5 refs=3 data=True
+  s2_treatment_0002_daily_deepseek_code_provided       ok=True  steps= 5 ended=answer    python_runs=4 refs=2 data=True
+  s2_treatment_0003_daily_deepseek_code_provided       ok=True  steps= 5 ended=answer    python_runs=4 refs=3 data=True
+  s2_treatment_0004_daily_deepseek_code_provided       ok=True  steps= 6 ended=answer    python_runs=5 refs=4 data=True
+  s2_treatment_0005_daily_deepseek_code_provided       ok=True  steps= 7 ended=answer    python_runs=6 refs=2 data=True
+  s2_treatment_0006_daily_deepseek_code_provided       ok=True  steps= 5 ended=answer    python_runs=3 refs=3 data=True
+  s2_treatment_0007_daily_deepseek_code_provided       ok=True  steps= 5 ended=answer    python_runs=4 refs=2 data=True
+  s2_treatment_0008_daily_deepseek_code_provided       ok=True  steps= 5 ended=answer    python_runs=4 refs=2 data=True
+  s2_treatment_0009_daily_deepseek_code_provided       ok=True  steps= 6 ended=answer    python_runs=4 refs=3 data=True
+  s2_treatment_0010_daily_deepseek_code_provided       ok=True  steps= 7 ended=answer    python_runs=6 refs=2 data=True
+  s2_treatment_0011_daily_deepseek_code_provided       ok=True  steps= 5 ended=answer    python_runs=3 refs=2 data=True
+  s2_treatment_0012_daily_deepseek_code_provided       ok=True  steps= 5 ended=answer    python_runs=4 refs=4 data=True
+  s2_treatment_0013_daily_deepseek_code_provided       ok=True  steps= 6 ended=answer    python_runs=5 refs=2 data=True
+  s2_treatment_0014_daily_deepseek_code_provided       ok=True  steps= 6 ended=answer    python_runs=4 refs=3 data=True
+  s2_treatment_0015_daily_deepseek_code_provided       ok=True  steps= 5 ended=answer    python_runs=3 refs=4 data=True
+  s2_treatment_0016_daily_deepseek_code_provided       ok=True  steps= 5 ended=answer    python_runs=4 refs=2 data=True
+  s2_treatment_0017_daily_deepseek_code_provided       ok=True  steps= 6 ended=answer    python_runs=5 refs=3 data=True
+  s2_treatment_0018_daily_deepseek_code_provided       ok=True  steps= 5 ended=answer    python_runs=4 refs=2 data=True
+  s2_treatment_0019_daily_deepseek_code_provided       ok=True  steps= 5 ended=answer    python_runs=3 refs=3 data=True
+  s2_treatment_0020_daily_deepseek_code_provided       ok=True  steps= 4 ended=answer    python_runs=3 refs=2 data=True
+  s2_treatment_0021_daily_deepseek_code_provided       ok=True  steps= 5 ended=answer    python_runs=4 refs=3 data=True
+  s2_treatment_0022_daily_deepseek_code_provided       ok=True  steps= 6 ended=answer    python_runs=5 refs=3 data=True
+  s2_treatment_0023_daily_deepseek_code_provided       ok=True  steps= 5 ended=answer    python_runs=4 refs=2 data=True
+  s2_treatment_0024_daily_deepseek_code_provided       ok=True  steps= 5 ended=answer    python_runs=4 refs=3 data=True
+  s2_treatment_0025_daily_deepseek_code_provided       ok=True  steps= 6 ended=answer    python_runs=5 refs=3 data=True
+  s2_treatment_0027_daily_deepseek_code_provided       ok=True  steps= 5 ended=answer    python_runs=4 refs=3 data=True
+gpt-oss-120b / daily_deepseek_code_written (effort low, max tokens 16000, step cap 12, no output limit) -> replies_daily_deepseek_code_written_gpt-oss-120b_low.jsonl; 0 done
+  s1_treatment_0001_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=1 refs=2 data=True
+  s1_treatment_0002_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=1 refs=2 data=True
+  s1_treatment_0003_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=1 refs=2 data=True
+  s1_treatment_0004_daily_deepseek_code_written        ok=True  steps=12 ended=answer    python_runs=2 refs=2 data=True
+  s1_treatment_0005_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=1 refs=3 data=True
+  s1_treatment_0006_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=2 refs=3 data=True
+  s1_treatment_0007_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=1 refs=3 data=True
+  s1_treatment_0008_daily_deepseek_code_written        ok=True  steps=11 ended=answer    python_runs=3 refs=2 data=True
+  s1_treatment_0009_daily_deepseek_code_written        ok=True  steps=11 ended=answer    python_runs=2 refs=2 data=True
+  s1_treatment_0010_daily_deepseek_code_written        ok=True  steps=10 ended=answer    python_runs=2 refs=2 data=True
+  s1_treatment_0011_daily_deepseek_code_written        ok=True  steps=12 ended=answer    python_runs=2 refs=2 data=True
+  s1_treatment_0012_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=1 refs=2 data=True
+  s1_treatment_0013_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=2 refs=2 data=True
+  s1_treatment_0014_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=1 refs=2 data=True
+  s1_treatment_0015_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=1 refs=3 data=True
+  s1_treatment_0016_daily_deepseek_code_written        ok=True  steps=10 ended=answer    python_runs=2 refs=2 data=True
+  s1_treatment_0017_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=1 refs=3 data=True
+  s1_treatment_0018_daily_deepseek_code_written        ok=True  steps=11 ended=answer    python_runs=2 refs=2 data=True
+  s1_treatment_0019_daily_deepseek_code_written        ok=True  steps=12 ended=answer    python_runs=4 refs=1 data=True
+  s1_treatment_0020_daily_deepseek_code_written        ok=True  steps=11 ended=answer    python_runs=2 refs=2 data=True
+  s1_treatment_0021_daily_deepseek_code_written        ok=True  steps=10 ended=answer    python_runs=2 refs=2 data=True
+  s1_treatment_0022_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=2 refs=2 data=True
+  s1_treatment_0023_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=1 refs=2 data=True
+  s1_treatment_0024_daily_deepseek_code_written        ok=True  steps=10 ended=answer    python_runs=3 refs=2 data=True
+  s1_treatment_0025_daily_deepseek_code_written        ok=True  steps=11 ended=answer    python_runs=3 refs=1 data=True
+  s1_treatment_0027_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=2 refs=2 data=True
+  s2_treatment_0001_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=1 refs=3 data=True
+  s2_treatment_0002_daily_deepseek_code_written        ok=True  steps= 9 ended=answer    python_runs=2 refs=2 data=True
+  s2_treatment_0003_daily_deepseek_code_written        ok=True  steps=12 ended=answer    python_runs=2 refs=2 data=True
+  s2_treatment_0004_daily_deepseek_code_written        ok=True  steps=11 ended=answer    python_runs=2 refs=2 data=True
+  s2_treatment_0005_daily_deepseek_code_written        ok=True  steps=12 ended=answer    python_runs=3 refs=2 data=True
+  s2_treatment_0006_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=3 refs=2 data=True
+  s2_treatment_0007_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=1 refs=2 data=True
+  s2_treatment_0008_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=1 refs=2 data=True
+  s2_treatment_0009_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=1 refs=3 data=True
+  s2_treatment_0010_daily_deepseek_code_written        ok=True  steps=11 ended=answer    python_runs=3 refs=2 data=True
+  s2_treatment_0011_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=3 refs=2 data=True
+  s2_treatment_0012_daily_deepseek_code_written        ok=True  steps=12 ended=answer    python_runs=2 refs=3 data=True
+  s2_treatment_0013_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=2 refs=2 data=True
+  s2_treatment_0014_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=1 refs=2 data=True
+  s2_treatment_0015_daily_deepseek_code_written        ok=True  steps=11 ended=answer    python_runs=2 refs=2 data=True
+  s2_treatment_0016_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=3 refs=2 data=True
+  s2_treatment_0017_daily_deepseek_code_written        ok=True  steps=10 ended=answer    python_runs=2 refs=2 data=True
+  s2_treatment_0018_daily_deepseek_code_written        ok=True  steps=11 ended=answer    python_runs=2 refs=2 data=True
+  s2_treatment_0019_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=1 refs=2 data=True
+  s2_treatment_0020_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=2 refs=4 data=True
+  s2_treatment_0021_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=1 refs=2 data=True
+  s2_treatment_0022_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=1 refs=3 data=True
+  s2_treatment_0023_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=1 refs=2 data=True
+  s2_treatment_0024_daily_deepseek_code_written        ok=True  steps=10 ended=answer    python_runs=2 refs=2 data=True
+  s2_treatment_0025_daily_deepseek_code_written        ok=True  steps=12 ended=answer    python_runs=2 refs=3 data=True
+  s2_treatment_0027_daily_deepseek_code_written        ok=True  steps=12 ended=answer    python_runs=2 refs=2 data=True
+GLM-5.3 / daily_deepseek_code_written (effort low, max tokens 16000, step cap 12, no output limit) -> replies_daily_deepseek_code_written_GLM-5.3_low.jsonl; 0 done
+  s1_treatment_0001_daily_deepseek_code_written        ok=True  steps= 9 ended=answer    python_runs=5 refs=4 data=True
+  s1_treatment_0002_daily_deepseek_code_written        ok=True  steps=10 ended=answer    python_runs=7 refs=4 data=True
+  s1_treatment_0003_daily_deepseek_code_written        ok=True  steps=10 ended=answer    python_runs=8 refs=1 data=True
+  s1_treatment_0004_daily_deepseek_code_written        ok=True  steps= 9 ended=answer    python_runs=6 refs=4 data=True
+  s1_treatment_0005_daily_deepseek_code_written        ok=True  steps= 8 ended=answer    python_runs=6 refs=1 data=True
+  s1_treatment_0006_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=6 refs=4 data=True
+  s1_treatment_0007_daily_deepseek_code_written        ok=True  steps= 9 ended=answer    python_runs=5 refs=4 data=True
+  s1_treatment_0008_daily_deepseek_code_written        ok=True  steps= 9 ended=answer    python_runs=7 refs=4 data=True
+  s1_treatment_0009_daily_deepseek_code_written        ok=True  steps=10 ended=answer    python_runs=7 refs=4 data=True
+  s1_treatment_0010_daily_deepseek_code_written        ok=True  steps= 6 ended=answer    python_runs=4 refs=1 data=True
+  s1_treatment_0011_daily_deepseek_code_written        ok=True  steps= 6 ended=answer    python_runs=4 refs=1 data=True
+  s1_treatment_0012_daily_deepseek_code_written        ok=True  steps= 9 ended=answer    python_runs=6 refs=4 data=True
+  s1_treatment_0013_daily_deepseek_code_written        ok=True  steps=10 ended=answer    python_runs=6 refs=4 data=True
+  s1_treatment_0014_daily_deepseek_code_written        ok=True  steps= 8 ended=answer    python_runs=2 refs=1 data=True
+  s1_treatment_0015_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=4 refs=1 data=True
+  s1_treatment_0016_daily_deepseek_code_written        ok=True  steps= 8 ended=answer    python_runs=5 refs=4 data=True
+  s1_treatment_0017_daily_deepseek_code_written        ok=True  steps= 6 ended=answer    python_runs=3 refs=1 data=True
+  s1_treatment_0018_daily_deepseek_code_written        ok=True  steps=11 ended=answer    python_runs=6 refs=8 data=True
+  s1_treatment_0019_daily_deepseek_code_written        ok=True  steps= 8 ended=answer    python_runs=4 refs=4 data=True
+  s1_treatment_0020_daily_deepseek_code_written        ok=True  steps= 8 ended=answer    python_runs=5 refs=4 data=True
+  s1_treatment_0021_daily_deepseek_code_written        ok=True  steps= 7 ended=answer    python_runs=5 refs=4 data=True
+  s1_treatment_0022_daily_deepseek_code_written        ok=True  steps= 7 ended=answer    python_runs=4 refs=4 data=True
+  s1_treatment_0023_daily_deepseek_code_written        ok=True  steps=10 ended=answer    python_runs=7 refs=4 data=True
+  s1_treatment_0024_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=9 refs=4 data=True
+  s1_treatment_0025_daily_deepseek_code_written        ok=True  steps= 5 ended=answer    python_runs=3 refs=1 data=True
+  s1_treatment_0027_daily_deepseek_code_written        ok=True  steps=11 ended=answer    python_runs=8 refs=4 data=True
+  s2_treatment_0001_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=9 refs=4 data=True
+  s2_treatment_0002_daily_deepseek_code_written        ok=True  steps=10 ended=answer    python_runs=7 refs=4 data=True
+  s2_treatment_0003_daily_deepseek_code_written        ok=True  steps= 9 ended=answer    python_runs=6 refs=2 data=True
+  s2_treatment_0004_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=8 refs=4 data=True
+  s2_treatment_0005_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=9 refs=4 data=True
+  s2_treatment_0006_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=9 refs=4 data=True
+  s2_treatment_0007_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=10 refs=1 data=True
+  s2_treatment_0008_daily_deepseek_code_written        ok=True  steps=12 ended=answer    python_runs=10 refs=1 data=True
+  s2_treatment_0009_daily_deepseek_code_written        ok=True  steps=10 ended=answer    python_runs=6 refs=4 data=True
+  s2_treatment_0010_daily_deepseek_code_written        ok=True  steps= 6 ended=answer    python_runs=4 refs=2 data=True
+  s2_treatment_0011_daily_deepseek_code_written        ok=True  steps=10 ended=answer    python_runs=8 refs=2 data=True
+  s2_treatment_0012_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=4 refs=1 data=True
+  s2_treatment_0013_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=7 refs=1 data=True
+  s2_treatment_0014_daily_deepseek_code_written        ok=True  steps=11 ended=answer    python_runs=8 refs=4 data=True
+  s2_treatment_0015_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=10 refs=1 data=True
+  s2_treatment_0016_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=9 refs=4 data=True
+  s2_treatment_0017_daily_deepseek_code_written        ok=True  steps= 9 ended=answer    python_runs=4 refs=4 data=True
+  s2_treatment_0018_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=9 refs=4 data=True
+  s2_treatment_0019_daily_deepseek_code_written        ok=True  steps= 9 ended=answer    python_runs=6 refs=4 data=True
+  s2_treatment_0020_daily_deepseek_code_written        ok=True  steps=11 ended=answer    python_runs=5 refs=3 data=True
+  s2_treatment_0021_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=9 refs=4 data=True
+  s2_treatment_0022_daily_deepseek_code_written        ok=True  steps=10 ended=answer    python_runs=8 refs=2 data=True
+  s2_treatment_0023_daily_deepseek_code_written        ok=True  steps= 9 ended=answer    python_runs=6 refs=4 data=True
+  s2_treatment_0024_daily_deepseek_code_written        ok=True  steps=10 ended=answer    python_runs=7 refs=4 data=True
+  s2_treatment_0025_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=9 refs=5 data=True
+  s2_treatment_0027_daily_deepseek_code_written        ok=True  steps=11 ended=answer    python_runs=9 refs=1 data=True
+DeepSeek-V4.1-Flash-thinking-low / daily_deepseek_code_written (effort low, max tokens 32000, step cap 12, no output limit) -> replies_daily_deepseek_code_written_DeepSeek-V4.1-Flash-thinking-low_low.jsonl; 0 done
+  s1_treatment_0001_daily_deepseek_code_written        ok=True  steps=12 ended=answer    python_runs=9 refs=7 data=True
+  s1_treatment_0002_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=9 refs=5 data=True
+  s1_treatment_0003_daily_deepseek_code_written        ok=True  steps=12 ended=answer    python_runs=6 refs=6 data=True
+  s1_treatment_0004_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=8 refs=11 data=True
+  s1_treatment_0005_daily_deepseek_code_written        ok=True  steps=12 ended=answer    python_runs=8 refs=12 data=True
+  s1_treatment_0006_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=10 refs=6 data=True
+  s1_treatment_0007_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=9 refs=8 data=True
+  s1_treatment_0008_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=9 refs=8 data=True
+  s1_treatment_0009_daily_deepseek_code_written        ok=True  steps= 5 ended=answer    python_runs=2 refs=9 data=True
+  s1_treatment_0010_daily_deepseek_code_written        ok=True  steps= 8 ended=answer    python_runs=5 refs=4 data=True
+  s1_treatment_0011_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=8 refs=12 data=True
+  s1_treatment_0012_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=9 refs=8 data=True
+  s1_treatment_0013_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=10 refs=6 data=True
+  s1_treatment_0014_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=9 refs=6 data=True
+  s1_treatment_0015_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=9 refs=12 data=True
+  s1_treatment_0016_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=9 refs=8 data=True
+  s1_treatment_0017_daily_deepseek_code_written        ok=True  steps=12 ended=answer    python_runs=8 refs=9 data=True
+  s1_treatment_0018_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=9 refs=8 data=True
+  s1_treatment_0019_daily_deepseek_code_written        ok=True  steps=11 ended=answer    python_runs=9 refs=6 data=True
+  s1_treatment_0020_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=9 refs=11 data=True
+  s1_treatment_0021_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=6 refs=11 data=True
+  s1_treatment_0022_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=8 refs=10 data=True
+  s1_treatment_0023_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=9 refs=9 data=True
+  s1_treatment_0024_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=8 refs=10 data=True
+  s1_treatment_0025_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=9 refs=7 data=True
+  s1_treatment_0027_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=8 refs=12 data=True
+  s2_treatment_0001_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=8 refs=10 data=True
+  s2_treatment_0002_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=7 refs=4 data=True
+  s2_treatment_0003_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=8 refs=11 data=True
+  s2_treatment_0004_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=9 refs=9 data=True
+  s2_treatment_0005_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=10 refs=8 data=True
+  s2_treatment_0006_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=9 refs=10 data=True
+  s2_treatment_0007_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=8 refs=12 data=True
+  s2_treatment_0008_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=9 refs=9 data=True
+  s2_treatment_0009_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=10 refs=10 data=True
+  s2_treatment_0010_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=9 refs=8 data=True
+  s2_treatment_0011_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=8 refs=11 data=True
+  s2_treatment_0012_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=10 refs=3 data=True
+  s2_treatment_0013_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=9 refs=11 data=True
+  s2_treatment_0014_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=9 refs=9 data=True
+  s2_treatment_0015_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=8 refs=10 data=True
+  s2_treatment_0016_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=7 refs=11 data=True
+  s2_treatment_0017_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=9 refs=11 data=True
+  s2_treatment_0018_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=10 refs=6 data=True
+  s2_treatment_0019_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=8 refs=11 data=True
+  s2_treatment_0020_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=8 refs=11 data=True
+  s2_treatment_0021_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=8 refs=8 data=True
+  s2_treatment_0022_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=9 refs=9 data=True
+  s2_treatment_0023_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=8 refs=8 data=True
+  s2_treatment_0024_daily_deepseek_code_written        ok=True  steps=12 ended=answer    python_runs=9 refs=9 data=True
+  s2_treatment_0025_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=8 refs=11 data=True
+  s2_treatment_0027_daily_deepseek_code_written        ok=False steps=12 ended=step_cap  python_runs=10 refs=1 data=True
+openai:gpt-5.5 / daily_deepseek_code_written (effort low, max tokens 16000, step cap 12, no output limit) -> replies_daily_deepseek_code_written_openai_gpt-5.5_low.jsonl; 0 done
+  s1_treatment_0001_daily_deepseek_code_written        ok=True  steps= 6 ended=answer    python_runs=4 refs=4 data=True
+  s1_treatment_0002_daily_deepseek_code_written        ok=True  steps= 6 ended=answer    python_runs=4 refs=1 data=True
+  s1_treatment_0003_daily_deepseek_code_written        ok=True  steps= 5 ended=answer    python_runs=3 refs=1 data=True
+  s1_treatment_0004_daily_deepseek_code_written        ok=True  steps= 5 ended=answer    python_runs=3 refs=1 data=True
+  s1_treatment_0005_daily_deepseek_code_written        ok=True  steps= 7 ended=answer    python_runs=5 refs=1 data=True
+  s1_treatment_0006_daily_deepseek_code_written        ok=True  steps= 7 ended=answer    python_runs=5 refs=3 data=True
+  s1_treatment_0007_daily_deepseek_code_written        ok=True  steps= 5 ended=answer    python_runs=3 refs=2 data=True
+  s1_treatment_0008_daily_deepseek_code_written        ok=True  steps= 5 ended=answer    python_runs=4 refs=1 data=True
+  s1_treatment_0009_daily_deepseek_code_written        ok=True  steps= 6 ended=answer    python_runs=4 refs=1 data=True
+  s1_treatment_0010_daily_deepseek_code_written        ok=True  steps= 4 ended=answer    python_runs=2 refs=1 data=True
+  s1_treatment_0011_daily_deepseek_code_written        ok=True  steps= 5 ended=answer    python_runs=3 refs=1 data=True
+  s1_treatment_0012_daily_deepseek_code_written        ok=True  steps= 4 ended=answer    python_runs=2 refs=1 data=True
+  s1_treatment_0013_daily_deepseek_code_written        ok=True  steps= 6 ended=answer    python_runs=4 refs=1 data=True
+  s1_treatment_0014_daily_deepseek_code_written        ok=True  steps= 8 ended=answer    python_runs=6 refs=1 data=True
+  s1_treatment_0015_daily_deepseek_code_written        ok=True  steps= 7 ended=answer    python_runs=5 refs=1 data=True
+  s1_treatment_0016_daily_deepseek_code_written        ok=True  steps= 7 ended=answer    python_runs=5 refs=1 data=True
+  s1_treatment_0017_daily_deepseek_code_written        ok=True  steps= 5 ended=answer    python_runs=2 refs=1 data=True
+  s1_treatment_0018_daily_deepseek_code_written        ok=True  steps= 6 ended=answer    python_runs=4 refs=1 data=True
+  s1_treatment_0019_daily_deepseek_code_written        ok=True  steps= 7 ended=answer    python_runs=5 refs=1 data=True
+  s1_treatment_0020_daily_deepseek_code_written        ok=True  steps= 5 ended=answer    python_runs=3 refs=1 data=True
+  s1_treatment_0021_daily_deepseek_code_written        ok=True  steps= 8 ended=answer    python_runs=7 refs=1 data=True
+  s1_treatment_0022_daily_deepseek_code_written        ok=True  steps= 8 ended=answer    python_runs=5 refs=1 data=True
+  s1_treatment_0023_daily_deepseek_code_written        ok=True  steps= 5 ended=answer    python_runs=3 refs=1 data=True
+  s1_treatment_0024_daily_deepseek_code_written        ok=True  steps= 7 ended=answer    python_runs=5 refs=1 data=True
+  s1_treatment_0025_daily_deepseek_code_written        ok=True  steps= 7 ended=answer    python_runs=4 refs=1 data=True
+  s1_treatment_0027_daily_deepseek_code_written        ok=True  steps= 6 ended=answer    python_runs=4 refs=1 data=True
+  s2_treatment_0001_daily_deepseek_code_written        ok=True  steps= 8 ended=answer    python_runs=6 refs=1 data=True
+  s2_treatment_0002_daily_deepseek_code_written        ok=True  steps= 7 ended=answer    python_runs=5 refs=1 data=True
+  s2_treatment_0003_daily_deepseek_code_written        ok=True  steps= 8 ended=answer    python_runs=5 refs=1 data=True
+  s2_treatment_0004_daily_deepseek_code_written        ok=True  steps= 5 ended=answer    python_runs=3 refs=1 data=True
+  s2_treatment_0005_daily_deepseek_code_written        ok=True  steps= 6 ended=answer    python_runs=3 refs=1 data=True
+  s2_treatment_0006_daily_deepseek_code_written        ok=True  steps= 6 ended=answer    python_runs=4 refs=1 data=True
+  s2_treatment_0007_daily_deepseek_code_written        ok=True  steps= 5 ended=answer    python_runs=3 refs=2 data=True
+  s2_treatment_0008_daily_deepseek_code_written        ok=True  steps= 7 ended=answer    python_runs=5 refs=1 data=True
+  s2_treatment_0009_daily_deepseek_code_written        ok=True  steps= 6 ended=answer    python_runs=3 refs=1 data=True
+  s2_treatment_0010_daily_deepseek_code_written        ok=True  steps= 5 ended=answer    python_runs=3 refs=1 data=True
+  s2_treatment_0011_daily_deepseek_code_written        ok=True  steps= 5 ended=answer    python_runs=3 refs=1 data=True
+  s2_treatment_0012_daily_deepseek_code_written        ok=True  steps= 8 ended=answer    python_runs=6 refs=1 data=True
+  s2_treatment_0013_daily_deepseek_code_written        ok=True  steps= 8 ended=answer    python_runs=5 refs=1 data=True
+  s2_treatment_0014_daily_deepseek_code_written        ok=True  steps= 8 ended=answer    python_runs=6 refs=1 data=True
+  s2_treatment_0015_daily_deepseek_code_written        ok=True  steps= 6 ended=answer    python_runs=4 refs=1 data=True
+  s2_treatment_0016_daily_deepseek_code_written        ok=True  steps= 6 ended=answer    python_runs=5 refs=2 data=True
+  s2_treatment_0017_daily_deepseek_code_written        ok=True  steps= 5 ended=answer    python_runs=3 refs=1 data=True
+  s2_treatment_0018_daily_deepseek_code_written        ok=True  steps= 6 ended=answer    python_runs=3 refs=1 data=True
+  s2_treatment_0019_daily_deepseek_code_written        ok=True  steps= 5 ended=answer    python_runs=3 refs=1 data=True
+  s2_treatment_0020_daily_deepseek_code_written        ok=True  steps= 5 ended=answer    python_runs=3 refs=1 data=True
+  s2_treatment_0021_daily_deepseek_code_written        ok=True  steps= 5 ended=answer    python_runs=3 refs=1 data=True
+  s2_treatment_0022_daily_deepseek_code_written        ok=True  steps= 5 ended=answer    python_runs=3 refs=1 data=True
+  s2_treatment_0023_daily_deepseek_code_written        ok=True  steps= 5 ended=answer    python_runs=3 refs=1 data=True
+  s2_treatment_0024_daily_deepseek_code_written        ok=True  steps= 5 ended=answer    python_runs=3 refs=1 data=True
+  s2_treatment_0025_daily_deepseek_code_written        ok=True  steps= 5 ended=answer    python_runs=3 refs=1 data=True
+  s2_treatment_0027_daily_deepseek_code_written        ok=True  steps= 6 ended=answer    python_runs=4 refs=1 data=True
+finished daily 2026-10-24T04:03:37-04:00

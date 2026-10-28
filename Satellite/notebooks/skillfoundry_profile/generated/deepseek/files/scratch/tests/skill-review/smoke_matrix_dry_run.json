@@ -1,0 +1,1889 @@
+{
+  "skills": [
+    {
+      "result": null,
+      "skill_id": "openalex-literature-search",
+      "slug": "openalex-literature-search",
+      "status": "sandbox_verified",
+      "target": "smoke-openalex"
+    },
+    {
+      "result": null,
+      "skill_id": "europepmc-method-triage",
+      "slug": "europepmc-method-triage",
+      "status": "sandbox_verified",
+      "target": "smoke-europepmc"
+    },
+    {
+      "result": null,
+      "skill_id": "snakemake-toy-workflow-starter",
+      "slug": "snakemake-toy-workflow-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-snakemake"
+    },
+    {
+      "result": null,
+      "skill_id": "slurm-job-debug-template",
+      "slug": "slurm-job-debug-template",
+      "status": "slurm_verified",
+      "target": "smoke-slurm"
+    },
+    {
+      "result": null,
+      "skill_id": "scanpy-qc-starter",
+      "slug": "scanpy-qc-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-scanpy"
+    },
+    {
+      "result": null,
+      "skill_id": "crossref-metadata-search",
+      "slug": "crossref-metadata-search",
+      "status": "sandbox_verified",
+      "target": "smoke-crossref"
+    },
+    {
+      "result": null,
+      "skill_id": "rcsb-pdb-search",
+      "slug": "rcsb-pdb-search",
+      "status": "sandbox_verified",
+      "target": "smoke-rcsb"
+    },
+    {
+      "result": null,
+      "skill_id": "ensembl-gene-lookup",
+      "slug": "ensembl-gene-lookup",
+      "status": "sandbox_verified",
+      "target": "smoke-ensembl"
+    },
+    {
+      "result": null,
+      "skill_id": "ncbi-pubmed-search",
+      "slug": "ncbi-pubmed-search",
+      "status": "sandbox_verified",
+      "target": "smoke-pubmed"
+    },
+    {
+      "result": null,
+      "skill_id": "clinicaltrials-study-search",
+      "slug": "clinicaltrials-study-search",
+      "status": "sandbox_verified",
+      "target": "smoke-clinicaltrials"
+    },
+    {
+      "result": null,
+      "skill_id": "rcsb-pdb-entry-summary",
+      "slug": "rcsb-pdb-entry-summary",
+      "status": "sandbox_verified",
+      "target": "smoke-rcsb-entry"
+    },
+    {
+      "result": null,
+      "skill_id": "nextflow-hello-workflow",
+      "slug": "nextflow-hello-workflow",
+      "status": "slurm_verified",
+      "target": "smoke-nextflow"
+    },
+    {
+      "result": null,
+      "skill_id": "nf-core-pipeline-list",
+      "slug": "nf-core-pipeline-list",
+      "status": "sandbox_verified",
+      "target": "smoke-nf-core"
+    },
+    {
+      "result": null,
+      "skill_id": "reactome-event-summary",
+      "slug": "reactome-event-summary",
+      "status": "sandbox_verified",
+      "target": "smoke-reactome"
+    },
+    {
+      "result": null,
+      "skill_id": "ncbi-gene-search",
+      "slug": "ncbi-gene-search",
+      "status": "sandbox_verified",
+      "target": "smoke-ncbi-gene"
+    },
+    {
+      "result": null,
+      "skill_id": "multi-source-literature-brief",
+      "slug": "multi-source-literature-brief",
+      "status": "sandbox_verified",
+      "target": "smoke-literature-brief"
+    },
+    {
+      "result": null,
+      "skill_id": "reactome-identifiers-enrichment",
+      "slug": "reactome-identifiers-enrichment",
+      "status": "sandbox_verified",
+      "target": "smoke-reactome-enrichment"
+    },
+    {
+      "result": null,
+      "skill_id": "ebi-proteins-entry-summary",
+      "slug": "ebi-proteins-entry-summary",
+      "status": "sandbox_verified",
+      "target": "smoke-ebi-proteins"
+    },
+    {
+      "result": null,
+      "skill_id": "pride-project-search",
+      "slug": "pride-project-search",
+      "status": "sandbox_verified",
+      "target": "smoke-pride"
+    },
+    {
+      "result": null,
+      "skill_id": "chembl-molecule-search",
+      "slug": "chembl-molecule-search",
+      "status": "sandbox_verified",
+      "target": "smoke-chembl"
+    },
+    {
+      "result": null,
+      "skill_id": "cwl-commandlinetool-starter",
+      "slug": "cwl-commandlinetool-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-cwl"
+    },
+    {
+      "result": null,
+      "skill_id": "wdl-task-starter",
+      "slug": "wdl-task-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-wdl"
+    },
+    {
+      "result": null,
+      "skill_id": "rdkit-molecular-descriptors",
+      "slug": "rdkit-molecular-descriptors",
+      "status": "sandbox_verified",
+      "target": "smoke-rdkit"
+    },
+    {
+      "result": null,
+      "skill_id": "openmm-system-minimization",
+      "slug": "openmm-system-minimization",
+      "status": "sandbox_verified",
+      "target": "smoke-openmm"
+    },
+    {
+      "result": null,
+      "skill_id": "fgsea-preranked-enrichment",
+      "slug": "fgsea-preranked-enrichment",
+      "status": "sandbox_verified",
+      "target": "smoke-fgsea"
+    },
+    {
+      "result": null,
+      "skill_id": "clusterprofiler-custom-enrichment",
+      "slug": "clusterprofiler-custom-enrichment",
+      "status": "sandbox_verified",
+      "target": "smoke-clusterprofiler"
+    },
+    {
+      "result": null,
+      "skill_id": "encode-experiment-search",
+      "slug": "encode-experiment-search",
+      "status": "sandbox_verified",
+      "target": "smoke-encode"
+    },
+    {
+      "result": null,
+      "skill_id": "biosamples-sample-search",
+      "slug": "biosamples-sample-search",
+      "status": "sandbox_verified",
+      "target": "smoke-biosamples"
+    },
+    {
+      "result": null,
+      "skill_id": "metabolights-study-search",
+      "slug": "metabolights-study-search",
+      "status": "sandbox_verified",
+      "target": "smoke-metabolights"
+    },
+    {
+      "result": null,
+      "skill_id": "quickgo-term-search",
+      "slug": "quickgo-term-search",
+      "status": "sandbox_verified",
+      "target": "smoke-quickgo"
+    },
+    {
+      "result": null,
+      "skill_id": "psi4-single-point-energy",
+      "slug": "psi4-single-point-energy",
+      "status": "sandbox_verified",
+      "target": "smoke-psi4"
+    },
+    {
+      "result": null,
+      "skill_id": "deepchem-circular-featurization",
+      "slug": "deepchem-circular-featurization",
+      "status": "sandbox_verified",
+      "target": "smoke-deepchem"
+    },
+    {
+      "result": null,
+      "skill_id": "scanpy-ranked-genes-starter",
+      "slug": "scanpy-ranked-genes-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-scanpy-ranked-genes"
+    },
+    {
+      "result": null,
+      "skill_id": "skimage-otsu-segmentation-starter",
+      "slug": "skimage-otsu-segmentation-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-skimage"
+    },
+    {
+      "result": null,
+      "skill_id": "xarray-climate-cube-starter",
+      "slug": "xarray-climate-cube-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-xarray"
+    },
+    {
+      "result": null,
+      "skill_id": "matminer-composition-featurization",
+      "slug": "matminer-composition-featurization",
+      "status": "sandbox_verified",
+      "target": "smoke-matminer"
+    },
+    {
+      "result": null,
+      "skill_id": "geopandas-spatial-join-starter",
+      "slug": "geopandas-spatial-join-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-geopandas"
+    },
+    {
+      "result": null,
+      "skill_id": "pymc-bayesian-linear-regression-starter",
+      "slug": "pymc-bayesian-linear-regression-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-pymc"
+    },
+    {
+      "result": null,
+      "skill_id": "skill-registry-router-starter",
+      "slug": "skill-registry-router-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-skill-router"
+    },
+    {
+      "result": null,
+      "skill_id": "matplotlib-publication-plot-starter",
+      "slug": "matplotlib-publication-plot-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-matplotlib"
+    },
+    {
+      "result": null,
+      "skill_id": "registry-link-audit-starter",
+      "slug": "registry-link-audit-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-link-audit"
+    },
+    {
+      "result": null,
+      "skill_id": "skimage-regionprops-feature-extraction",
+      "slug": "skimage-regionprops-feature-extraction",
+      "status": "sandbox_verified",
+      "target": "smoke-skimage-regionprops"
+    },
+    {
+      "result": null,
+      "skill_id": "rdkit-molecule-standardization",
+      "slug": "rdkit-molecule-standardization",
+      "status": "sandbox_verified",
+      "target": "smoke-rdkit-standardize"
+    },
+    {
+      "result": null,
+      "skill_id": "arviz-posterior-diagnostics-starter",
+      "slug": "arviz-posterior-diagnostics-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-arviz"
+    },
+    {
+      "result": null,
+      "skill_id": "plotly-interactive-report-starter",
+      "slug": "plotly-interactive-report-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-plotly"
+    },
+    {
+      "result": null,
+      "skill_id": "precommit-regression-testing-starter",
+      "slug": "precommit-regression-testing-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-precommit"
+    },
+    {
+      "result": null,
+      "skill_id": "matminer-property-regression-starter",
+      "slug": "matminer-property-regression-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-matminer-regression"
+    },
+    {
+      "result": null,
+      "skill_id": "sourmash-signature-compare-starter",
+      "slug": "sourmash-signature-compare-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-sourmash"
+    },
+    {
+      "result": null,
+      "skill_id": "rasterio-windowed-raster-preprocessing-starter",
+      "slug": "rasterio-windowed-raster-preprocessing-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-rasterio"
+    },
+    {
+      "result": null,
+      "skill_id": "dowhy-average-treatment-effect-starter",
+      "slug": "dowhy-average-treatment-effect-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-dowhy"
+    },
+    {
+      "result": null,
+      "skill_id": "pydeseq2-differential-expression-starter",
+      "slug": "pydeseq2-differential-expression-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-pydeseq2"
+    },
+    {
+      "result": null,
+      "skill_id": "quarto-notebook-report-starter",
+      "slug": "quarto-notebook-report-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-quarto"
+    },
+    {
+      "result": null,
+      "skill_id": "langgraph-planning-execution-agent-starter",
+      "slug": "langgraph-planning-execution-agent-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-langgraph-agent"
+    },
+    {
+      "result": null,
+      "skill_id": "lifelines-kaplan-meier-starter",
+      "slug": "lifelines-kaplan-meier-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-lifelines"
+    },
+    {
+      "result": null,
+      "skill_id": "interpro-entry-summary",
+      "slug": "interpro-entry-summary",
+      "status": "sandbox_verified",
+      "target": "smoke-interpro"
+    },
+    {
+      "result": null,
+      "skill_id": "networkx-graph-construction-starter",
+      "slug": "networkx-graph-construction-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-networkx"
+    },
+    {
+      "result": null,
+      "skill_id": "scanpy-combat-batch-correction-starter",
+      "slug": "scanpy-combat-batch-correction-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-scanpy-combat"
+    },
+    {
+      "result": null,
+      "skill_id": "cellxgene-census-atlas-query-starter",
+      "slug": "cellxgene-census-atlas-query-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-cellxgene-atlas"
+    },
+    {
+      "result": null,
+      "skill_id": "slurm-monitoring-accounting-starter",
+      "slug": "slurm-monitoring-accounting-starter",
+      "status": "slurm_verified",
+      "target": "smoke-slurm-accounting"
+    },
+    {
+      "result": null,
+      "skill_id": "pysam-sam-bam-summary-starter",
+      "slug": "pysam-sam-bam-summary-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-pysam"
+    },
+    {
+      "result": null,
+      "skill_id": "scanpy-cell-type-annotation-starter",
+      "slug": "scanpy-cell-type-annotation-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-scanpy-cell-annotation"
+    },
+    {
+      "result": null,
+      "skill_id": "scanpy-dpt-trajectory-starter",
+      "slug": "scanpy-dpt-trajectory-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-scanpy-dpt"
+    },
+    {
+      "result": null,
+      "skill_id": "reactome-pathway-hierarchy-walk-starter",
+      "slug": "reactome-pathway-hierarchy-walk-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-reactome-hierarchy"
+    },
+    {
+      "result": null,
+      "skill_id": "slurm-job-array-starter",
+      "slug": "slurm-job-array-starter",
+      "status": "slurm_verified",
+      "target": "smoke-slurm-array"
+    },
+    {
+      "result": null,
+      "skill_id": "rdkit-scaffold-analysis-starter",
+      "slug": "rdkit-scaffold-analysis-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-rdkit-scaffolds"
+    },
+    {
+      "result": null,
+      "skill_id": "pymatgen-crystal-structure-parsing-starter",
+      "slug": "pymatgen-crystal-structure-parsing-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-pymatgen-structure"
+    },
+    {
+      "result": null,
+      "skill_id": "string-interaction-partners-starter",
+      "slug": "string-interaction-partners-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-string"
+    },
+    {
+      "result": null,
+      "skill_id": "scipy-ode-simulation-starter",
+      "slug": "scipy-ode-simulation-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-scipy-ode"
+    },
+    {
+      "result": null,
+      "skill_id": "gbif-species-occurrence-search-starter",
+      "slug": "gbif-species-occurrence-search-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-gbif"
+    },
+    {
+      "result": null,
+      "skill_id": "nibabel-nifti-summary-starter",
+      "slug": "nibabel-nifti-summary-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-nibabel"
+    },
+    {
+      "result": null,
+      "skill_id": "astropy-fits-image-summary-starter",
+      "slug": "astropy-fits-image-summary-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-astropy"
+    },
+    {
+      "result": null,
+      "skill_id": "plantcv-plant-phenotyping-starter",
+      "slug": "plantcv-plant-phenotyping-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-plantcv"
+    },
+    {
+      "result": null,
+      "skill_id": "opentrons-liquid-handling-protocol-starter",
+      "slug": "opentrons-liquid-handling-protocol-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-opentrons"
+    },
+    {
+      "result": null,
+      "skill_id": "gbif-dataset-search-starter",
+      "slug": "gbif-dataset-search-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-gbif-datasets"
+    },
+    {
+      "result": null,
+      "skill_id": "scikitbio-tree-comparison-starter",
+      "slug": "scikitbio-tree-comparison-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-scikitbio"
+    },
+    {
+      "result": null,
+      "skill_id": "mne-eeg-preprocessing-starter",
+      "slug": "mne-eeg-preprocessing-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-mne"
+    },
+    {
+      "result": null,
+      "skill_id": "nilearn-fmri-denoising-starter",
+      "slug": "nilearn-fmri-denoising-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-nilearn"
+    },
+    {
+      "result": null,
+      "skill_id": "fipy-diffusion-pde-starter",
+      "slug": "fipy-diffusion-pde-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-fipy"
+    },
+    {
+      "result": null,
+      "skill_id": "fastqc-multiqc-read-qc-starter",
+      "slug": "fastqc-multiqc-read-qc-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-fastqc"
+    },
+    {
+      "result": null,
+      "skill_id": "macs3-peak-calling-starter",
+      "slug": "macs3-peak-calling-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-macs3"
+    },
+    {
+      "result": null,
+      "skill_id": "fairlearn-bias-audit-starter",
+      "slug": "fairlearn-bias-audit-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-fairlearn"
+    },
+    {
+      "result": null,
+      "skill_id": "mne-connectivity-graph-starter",
+      "slug": "mne-connectivity-graph-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-mne-connectivity"
+    },
+    {
+      "result": null,
+      "skill_id": "uniprot-sequence-feature-annotation-starter",
+      "slug": "uniprot-sequence-feature-annotation-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-uniprot"
+    },
+    {
+      "result": null,
+      "skill_id": "zarr-chunked-array-store-starter",
+      "slug": "zarr-chunked-array-store-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-zarr"
+    },
+    {
+      "result": null,
+      "skill_id": "papermill-parameterized-notebook-starter",
+      "slug": "papermill-parameterized-notebook-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-papermill"
+    },
+    {
+      "result": null,
+      "skill_id": "github-actions-scientific-ci-starter",
+      "slug": "github-actions-scientific-ci-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-gh-actions"
+    },
+    {
+      "result": null,
+      "skill_id": "openmm-langevin-dynamics-starter",
+      "slug": "openmm-langevin-dynamics-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-openmm-md"
+    },
+    {
+      "result": null,
+      "skill_id": "optuna-bayesian-optimization-starter",
+      "slug": "optuna-bayesian-optimization-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-optuna"
+    },
+    {
+      "result": null,
+      "skill_id": "frictionless-tabular-validation-starter",
+      "slug": "frictionless-tabular-validation-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-frictionless"
+    },
+    {
+      "result": null,
+      "skill_id": "rocrate-metadata-bundle-starter",
+      "slug": "rocrate-metadata-bundle-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-rocrate"
+    },
+    {
+      "result": null,
+      "skill_id": "minimap2-read-mapping-starter",
+      "slug": "minimap2-read-mapping-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-minimap2"
+    },
+    {
+      "result": null,
+      "skill_id": "qcodes-parameter-sweep-starter",
+      "slug": "qcodes-parameter-sweep-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-qcodes"
+    },
+    {
+      "result": null,
+      "skill_id": "chaospy-uncertainty-propagation-starter",
+      "slug": "chaospy-uncertainty-propagation-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-chaospy"
+    },
+    {
+      "result": null,
+      "skill_id": "inspect-evaluation-harness-starter",
+      "slug": "inspect-evaluation-harness-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-inspect-eval"
+    },
+    {
+      "result": null,
+      "skill_id": "autoprotocol-experiment-plan-starter",
+      "slug": "autoprotocol-experiment-plan-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-autoprotocol"
+    },
+    {
+      "result": null,
+      "skill_id": "dash-scientific-dashboard-starter",
+      "slug": "dash-scientific-dashboard-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-dash-dashboard"
+    },
+    {
+      "result": null,
+      "skill_id": "openalex-citation-chain-starter",
+      "slug": "openalex-citation-chain-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-openalex-citation-chain"
+    },
+    {
+      "result": null,
+      "skill_id": "reactome-pathway-analysis-starter",
+      "slug": "reactome-pathway-analysis-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-reactome-pathway-analysis"
+    },
+    {
+      "result": null,
+      "skill_id": "networkx-network-propagation-starter",
+      "slug": "networkx-network-propagation-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-network-propagation"
+    },
+    {
+      "result": null,
+      "skill_id": "rdkit-conformer-generation-starter",
+      "slug": "rdkit-conformer-generation-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-rdkit-conformers"
+    },
+    {
+      "result": null,
+      "skill_id": "openmm-forcefield-assignment-starter",
+      "slug": "openmm-forcefield-assignment-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-openmm-forcefield"
+    },
+    {
+      "result": null,
+      "skill_id": "numcodecs-compression-decompression-starter",
+      "slug": "numcodecs-compression-decompression-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-numcodecs"
+    },
+    {
+      "result": null,
+      "skill_id": "pyarrow-format-conversion-starter",
+      "slug": "pyarrow-format-conversion-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-pyarrow"
+    },
+    {
+      "result": null,
+      "skill_id": "scipy-statistical-testing-starter",
+      "slug": "scipy-statistical-testing-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-scipy-stats"
+    },
+    {
+      "result": null,
+      "skill_id": "umap-dimensionality-reduction-starter",
+      "slug": "umap-dimensionality-reduction-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-umap"
+    },
+    {
+      "result": null,
+      "skill_id": "pydoe3-experimental-design-starter",
+      "slug": "pydoe3-experimental-design-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-pydoe3"
+    },
+    {
+      "result": null,
+      "skill_id": "ase-geometry-optimization-starter",
+      "slug": "ase-geometry-optimization-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-ase"
+    },
+    {
+      "result": null,
+      "skill_id": "rapidfuzz-skill-deduplication-starter",
+      "slug": "rapidfuzz-skill-deduplication-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-rapidfuzz-dedup"
+    },
+    {
+      "result": null,
+      "skill_id": "datasketch-resource-deduplication-starter",
+      "slug": "datasketch-resource-deduplication-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-datasketch-dedup"
+    },
+    {
+      "result": null,
+      "skill_id": "mkdocs-summary-catalog-starter",
+      "slug": "mkdocs-summary-catalog-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-mkdocs-catalog"
+    },
+    {
+      "result": null,
+      "skill_id": "deepchem-molgraph-featurization",
+      "slug": "deepchem-molgraph-featurization",
+      "status": "implemented",
+      "target": "smoke-deepchem-molgraph"
+    },
+    {
+      "result": null,
+      "skill_id": "metadata-harmonization-starter",
+      "slug": "metadata-harmonization-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-metadata-harmonization"
+    },
+    {
+      "result": null,
+      "skill_id": "synthetic-toy-dataset-generator-starter",
+      "slug": "synthetic-toy-dataset-generator-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-synthetic-toy-dataset"
+    },
+    {
+      "result": null,
+      "skill_id": "cooler-hic-matrix-summary-starter",
+      "slug": "cooler-hic-matrix-summary-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-cooler-hic"
+    },
+    {
+      "result": null,
+      "skill_id": "bcftools-variant-filtering-starter",
+      "slug": "bcftools-variant-filtering-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-bcftools-filtering"
+    },
+    {
+      "result": null,
+      "skill_id": "matminer-toy-property-prediction-starter",
+      "slug": "matminer-toy-property-prediction-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-matminer-toy"
+    },
+    {
+      "result": null,
+      "skill_id": "benchmark-table-mining-starter",
+      "slug": "benchmark-table-mining-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-benchmark-table"
+    },
+    {
+      "result": null,
+      "skill_id": "dataset-code-link-extraction-starter",
+      "slug": "dataset-code-link-extraction-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-dataset-code-links"
+    },
+    {
+      "result": null,
+      "skill_id": "figure-table-caption-extraction-starter",
+      "slug": "figure-table-caption-extraction-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-figure-table-extraction"
+    },
+    {
+      "result": null,
+      "skill_id": "semantic-scholar-paper-triage-starter",
+      "slug": "semantic-scholar-paper-triage-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-semantic-scholar-triage"
+    },
+    {
+      "result": null,
+      "skill_id": "semantic-scholar-review-paper-mining-starter",
+      "slug": "semantic-scholar-review-paper-mining-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-semantic-scholar-review"
+    },
+    {
+      "result": null,
+      "skill_id": "reproducibility-cue-extraction-starter",
+      "slug": "reproducibility-cue-extraction-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "protocol-and-workflow-extraction-starter",
+      "slug": "protocol-and-workflow-extraction-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "scientific-summarization-starter",
+      "slug": "scientific-summarization-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "claim-assumption-limitation-extraction-starter",
+      "slug": "claim-assumption-limitation-extraction-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "quantification-starter",
+      "slug": "quantification-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "variant-calling-starter",
+      "slug": "variant-calling-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "somatic-pipelines-starter",
+      "slug": "somatic-pipelines-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "germline-pipelines-starter",
+      "slug": "germline-pipelines-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "gwas-starter",
+      "slug": "gwas-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-gwas"
+    },
+    {
+      "result": null,
+      "skill_id": "fine-mapping-starter",
+      "slug": "fine-mapping-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "polygenic-risk-scoring-starter",
+      "slug": "polygenic-risk-scoring-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "comparative-genomics-starter",
+      "slug": "comparative-genomics-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "phylogenomics-starter",
+      "slug": "phylogenomics-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "long-read-genomics-starter",
+      "slug": "long-read-genomics-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "bulk-rna-seq-qc-and-normalization-starter",
+      "slug": "bulk-rna-seq-qc-and-normalization-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "isoform-transcript-level-analysis-starter",
+      "slug": "isoform-transcript-level-analysis-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "rna-velocity-starter",
+      "slug": "rna-velocity-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "pseudobulk-analysis-starter",
+      "slug": "pseudobulk-analysis-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "perturb-seq-starter",
+      "slug": "perturb-seq-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "spatial-transcriptomics-starter",
+      "slug": "spatial-transcriptomics-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "atac-seq-starter",
+      "slug": "atac-seq-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "chip-seq-starter",
+      "slug": "chip-seq-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "cut-run-cut-tag-starter",
+      "slug": "cut-run-cut-tag-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "methylation-analysis-starter",
+      "slug": "methylation-analysis-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "motif-analysis-starter",
+      "slug": "motif-analysis-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "footprinting-starter",
+      "slug": "footprinting-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "multiome-integration-starter",
+      "slug": "multiome-integration-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "ms-proteomics-preprocessing-starter",
+      "slug": "ms-proteomics-preprocessing-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "protein-identification-quantification-starter",
+      "slug": "protein-identification-quantification-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "differential-proteomics-starter",
+      "slug": "differential-proteomics-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "ptm-analysis-starter",
+      "slug": "ptm-analysis-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "protein-embeddings-starter",
+      "slug": "protein-embeddings-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "protein-structure-cross-links-starter",
+      "slug": "protein-structure-cross-links-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "interface-analysis-starter",
+      "slug": "interface-analysis-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "sequence-to-function-modeling-starter",
+      "slug": "sequence-to-function-modeling-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "metabolomics-preprocessing-starter",
+      "slug": "metabolomics-preprocessing-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "feature-annotation-starter",
+      "slug": "feature-annotation-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "differential-metabolomics-starter",
+      "slug": "differential-metabolomics-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "lipidomics-starter",
+      "slug": "lipidomics-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "microbiome-analysis-starter",
+      "slug": "microbiome-analysis-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "multi-omics-integration-starter",
+      "slug": "multi-omics-integration-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "structure-parsing-and-cleanup-starter",
+      "slug": "structure-parsing-and-cleanup-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "visualization-starter",
+      "slug": "visualization-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "fold-comparison-starter",
+      "slug": "fold-comparison-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "binding-site-analysis-starter",
+      "slug": "binding-site-analysis-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "sequence-structure-alignment-starter",
+      "slug": "sequence-structure-alignment-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "structure-to-sequence-cross-linking-starter",
+      "slug": "structure-to-sequence-cross-linking-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "protein-complex-metadata-starter",
+      "slug": "protein-complex-metadata-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "regulatory-network-inference-starter",
+      "slug": "regulatory-network-inference-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "causal-network-analysis-starter",
+      "slug": "causal-network-analysis-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "microscopy-pipelines-starter",
+      "slug": "microscopy-pipelines-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "cell-tracking-starter",
+      "slug": "cell-tracking-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "pathology-histology-workflows-starter",
+      "slug": "pathology-histology-workflows-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "representation-learning-for-scientific-images-starter",
+      "slug": "representation-learning-for-scientific-images-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "multi-modal-image-omics-integration-starter",
+      "slug": "multi-modal-image-omics-integration-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "qsar-property-prediction-starter",
+      "slug": "qsar-property-prediction-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "virtual-screening-starter",
+      "slug": "virtual-screening-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "admet-modeling-starter",
+      "slug": "admet-modeling-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "molecular-generation-starter",
+      "slug": "molecular-generation-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "benchmarks-and-evaluation-starter",
+      "slug": "benchmarks-and-evaluation-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "trajectory-analysis-starter",
+      "slug": "trajectory-analysis-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "free-energy-workflows-starter",
+      "slug": "free-energy-workflows-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "quantum-chemistry-setup-starter",
+      "slug": "quantum-chemistry-setup-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "qm-mm-workflows-starter",
+      "slug": "qm-mm-workflows-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "surrogate-models-for-simulation-starter",
+      "slug": "surrogate-models-for-simulation-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "materials-benchmark-datasets-starter",
+      "slug": "materials-benchmark-datasets-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "generative-design-for-materials-starter",
+      "slug": "generative-design-for-materials-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "phase-stability-analysis-starter",
+      "slug": "phase-stability-analysis-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "laboratory-to-simulation-data-linkage-starter",
+      "slug": "laboratory-to-simulation-data-linkage-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "raster-vector-ingestion-starter",
+      "slug": "raster-vector-ingestion-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "climate-reanalysis-access-starter",
+      "slug": "climate-reanalysis-access-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "physics-informed-forecasting-starter",
+      "slug": "physics-informed-forecasting-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "spatial-interpolation-and-uncertainty-starter",
+      "slug": "spatial-interpolation-and-uncertainty-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "scientific-map-and-dashboard-generation-starter",
+      "slug": "scientific-map-and-dashboard-generation-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "ehr-preprocessing-starter",
+      "slug": "ehr-preprocessing-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "time-series-clinical-modeling-starter",
+      "slug": "time-series-clinical-modeling-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "phenotyping-starter",
+      "slug": "phenotyping-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "missing-data-handling-starter",
+      "slug": "missing-data-handling-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "privacy-preserving-analysis-starter",
+      "slug": "privacy-preserving-analysis-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "clustering-starter",
+      "slug": "clustering-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "representation-learning-starter",
+      "slug": "representation-learning-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "foundation-models-for-biology-chemistry-science-starter",
+      "slug": "foundation-models-for-biology-chemistry-science-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "multimodal-fusion-starter",
+      "slug": "multimodal-fusion-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "active-learning-starter",
+      "slug": "active-learning-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "simulation-based-inference-starter",
+      "slug": "simulation-based-inference-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "literature-to-hypothesis-agents-starter",
+      "slug": "literature-to-hypothesis-agents-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "tool-using-analysis-agents-starter",
+      "slug": "tool-using-analysis-agents-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "workflow-generation-agents-starter",
+      "slug": "workflow-generation-agents-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "code-generation-agents-for-scientific-tasks-starter",
+      "slug": "code-generation-agents-for-scientific-tasks-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "long-horizon-agent-memory-and-provenance-starter",
+      "slug": "long-horizon-agent-memory-and-provenance-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "cwl-workflows-starter",
+      "slug": "cwl-workflows-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "wdl-workflows-starter",
+      "slug": "wdl-workflows-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "workflow-interoperability-and-translation-starter",
+      "slug": "workflow-interoperability-and-translation-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "docker-apptainer-singularity-starter",
+      "slug": "docker-apptainer-singularity-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "conda-mamba-pixi-uv-starter",
+      "slug": "conda-mamba-pixi-uv-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "environment-locking-starter",
+      "slug": "environment-locking-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "interactive-debug-workflows-starter",
+      "slug": "interactive-debug-workflows-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "gpu-jobs-starter",
+      "slug": "gpu-jobs-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "multi-node-jobs-starter",
+      "slug": "multi-node-jobs-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "cpu-memory-tuning-starter",
+      "slug": "cpu-memory-tuning-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "i-o-aware-workflows-starter",
+      "slug": "i-o-aware-workflows-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "scratch-space-usage-starter",
+      "slug": "scratch-space-usage-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "cluster-safe-installs-starter",
+      "slug": "cluster-safe-installs-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "figure-recreation-from-papers-starter",
+      "slug": "figure-recreation-from-papers-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "skill-browser-mindmap-generation-starter",
+      "slug": "skill-browser-mindmap-generation-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "taxonomy-refinement-starter",
+      "slug": "taxonomy-refinement-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "freshness-audits-starter",
+      "slug": "freshness-audits-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "deprecation-migration-starter",
+      "slug": "deprecation-migration-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "documentation-quality-improvement-starter",
+      "slug": "documentation-quality-improvement-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "spike-sorting-and-electrophysiology-starter",
+      "slug": "spike-sorting-and-electrophysiology-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "neural-decoding-and-encoding-models-starter",
+      "slug": "neural-decoding-and-encoding-models-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "brain-atlas-integration-starter",
+      "slug": "brain-atlas-integration-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "multimodal-neuroimaging-fusion-starter",
+      "slug": "multimodal-neuroimaging-fusion-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "computational-psychiatry-and-clinical-neuroinformatics-starter",
+      "slug": "computational-psychiatry-and-clinical-neuroinformatics-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "pde-cfd-simulation-workflows-starter",
+      "slug": "pde-cfd-simulation-workflows-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "operator-learning-and-surrogate-physics-models-starter",
+      "slug": "operator-learning-and-surrogate-physics-models-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "inverse-problems-and-scientific-reconstruction-starter",
+      "slug": "inverse-problems-and-scientific-reconstruction-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "differentiable-simulation-starter",
+      "slug": "differentiable-simulation-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "high-energy-detector-data-analysis-starter",
+      "slug": "high-energy-detector-data-analysis-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "cosmology-and-sky-survey-analysis-starter",
+      "slug": "cosmology-and-sky-survey-analysis-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "spectroscopy-and-signal-extraction-starter",
+      "slug": "spectroscopy-and-signal-extraction-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "symbolic-discovery-of-physical-laws-starter",
+      "slug": "symbolic-discovery-of-physical-laws-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "scientific-time-series-anomaly-detection-starter",
+      "slug": "scientific-time-series-anomaly-detection-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "population-dynamics-and-ecological-forecasting-starter",
+      "slug": "population-dynamics-and-ecological-forecasting-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "conservation-genomics-and-edna-starter",
+      "slug": "conservation-genomics-and-edna-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "wildlife-sensing-and-bioacoustics-starter",
+      "slug": "wildlife-sensing-and-bioacoustics-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "ecosystem-remote-sensing-starter",
+      "slug": "ecosystem-remote-sensing-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "climate-ecology-integration-starter",
+      "slug": "climate-ecology-integration-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "crop-genomics-and-breeding-starter",
+      "slug": "crop-genomics-and-breeding-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "precision-agriculture-sensing-starter",
+      "slug": "precision-agriculture-sensing-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "soil-rhizosphere-microbiome-analysis-starter",
+      "slug": "soil-rhizosphere-microbiome-analysis-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "yield-forecasting-starter",
+      "slug": "yield-forecasting-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "disease-and-stress-detection-starter",
+      "slug": "disease-and-stress-detection-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "agronomic-experiment-design-starter",
+      "slug": "agronomic-experiment-design-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "food-chemistry-and-quality-modeling-starter",
+      "slug": "food-chemistry-and-quality-modeling-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "active-learning-experiment-loops-starter",
+      "slug": "active-learning-experiment-loops-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "automated-microscopy-acquisition-starter",
+      "slug": "automated-microscopy-acquisition-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "eln-lims-sample-tracking-integration-starter",
+      "slug": "eln-lims-sample-tracking-integration-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "laboratory-robotics-safety-and-monitoring-starter",
+      "slug": "laboratory-robotics-safety-and-monitoring-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "closed-loop-optimization-for-experiments-starter",
+      "slug": "closed-loop-optimization-for-experiments-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "sparse-iterative-linear-algebra-starter",
+      "slug": "sparse-iterative-linear-algebra-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "automatic-differentiation-for-scientific-models-starter",
+      "slug": "automatic-differentiation-for-scientific-models-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "differentiable-programming-for-simulators-starter",
+      "slug": "differentiable-programming-for-simulators-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "inverse-problems-and-data-assimilation-starter",
+      "slug": "inverse-problems-and-data-assimilation-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "numerical-benchmarking-and-verification-starter",
+      "slug": "numerical-benchmarking-and-verification-starter",
+      "status": "implemented",
+      "target": "smoke-frontier-generated"
+    },
+    {
+      "result": null,
+      "skill_id": "protein-language-model-function-analysis-starter",
+      "slug": "protein-language-model-function-analysis-starter",
+      "status": "sandbox_verified",
+      "target": "smoke-protein-language-models"
+    },
+    {
+      "result": null,
+      "skill_id": "synthetic-historical-control-band-forecast",
+      "slug": "synthetic-historical-control-band-forecast",
+      "status": "sandbox_verified",
+      "target": "smoke-shc-band-forecast"
+    }
+  ],
+  "summary": {
+    "dry_run": true,
+    "failed": 0,
+    "failed_skills": [],
+    "missing_targets": [],
+    "passed": 268,
+    "skill_count": 268,
+    "targets_resolved": 268
+  }
+}

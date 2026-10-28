@@ -1,0 +1,29 @@
+{
+  "page": 1,
+  "query": "diabetes",
+  "query_url": "https://www.ebi.ac.uk/metabolights/ws/studies?query=diabetes&page=1&rows=1",
+  "rows": 1,
+  "source_url": "https://www.ebi.ac.uk/metabolights/ws/studies",
+  "studies": [
+    {
+      "accession": "MTBLS1",
+      "assay_count": 1,
+      "description": "Type 2 diabetes mellitus metabolomics study with urinary samples.",
+      "factor_names": [
+        "Gender",
+        "Metabolic syndrome"
+      ],
+      "ftp_url": "ftp://ftp.ebi.ac.uk/pub/databases/metabolights/studies/public/MTBLS1",
+      "person_count": 2,
+      "public_release_date": "2012-02-14",
+      "publication_count": 1,
+      "study_category": "other",
+      "study_status": "Public",
+      "study_url": "http://ftp.ebi.ac.uk/pub/databases/metabolights/studies/public/MTBLS1",
+      "submission_date": "2012-02-14",
+      "title": "A metabolomic study of urinary changes in type 2 diabetes in human compared to the control group"
+    }
+  ],
+  "study_count": 1,
+  "total_studies": 2726
+}

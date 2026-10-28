@@ -1,0 +1,136 @@
+{
+  "aggregate": {
+    "baseline": {
+      "average_deliverable_rate": 0.417,
+      "perfect_case_count": 0,
+      "success_rate": 1.0
+    },
+    "skill": {
+      "average_deliverable_rate": 1.0,
+      "perfect_case_count": 2,
+      "success_rate": 1.0
+    }
+  },
+  "cases": [
+    {
+      "baseline": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 0.417,
+          "deliverables": {
+            "all_terms_compact": false,
+            "compact_aspects_correct": false,
+            "compact_definition_present": false,
+            "compact_ids_correct": false,
+            "compact_names_correct": false,
+            "number_of_hits_correct": true,
+            "query_recorded": true,
+            "result_origin_recorded": false,
+            "source_url_present": false,
+            "summary_exists": true,
+            "term_count_correct": true,
+            "terms_length_correct": true
+          },
+          "perfect": false
+        },
+        "execution": {
+          "duration_seconds": 0.026,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": []
+        }
+      },
+      "case": "quickgo-term-search-apoptosis-local-fixture",
+      "description": "QuickGO ontology search benchmark on a local raw payload fixture that checks compact term normalization and result truncation.",
+      "skill": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 1.0,
+          "deliverables": {
+            "all_terms_compact": true,
+            "compact_aspects_correct": true,
+            "compact_definition_present": true,
+            "compact_ids_correct": true,
+            "compact_names_correct": true,
+            "number_of_hits_correct": true,
+            "query_recorded": true,
+            "result_origin_recorded": true,
+            "source_url_present": true,
+            "summary_exists": true,
+            "term_count_correct": true,
+            "terms_length_correct": true
+          },
+          "perfect": true
+        },
+        "execution": {
+          "duration_seconds": 0.055,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": []
+        }
+      }
+    },
+    {
+      "baseline": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 0.417,
+          "deliverables": {
+            "all_terms_compact": false,
+            "compact_aspects_correct": false,
+            "compact_definition_present": false,
+            "compact_ids_correct": false,
+            "compact_names_correct": false,
+            "number_of_hits_correct": true,
+            "query_recorded": true,
+            "result_origin_recorded": false,
+            "source_url_present": false,
+            "summary_exists": true,
+            "term_count_correct": true,
+            "terms_length_correct": true
+          },
+          "perfect": false
+        },
+        "execution": {
+          "duration_seconds": 0.027,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": []
+        }
+      },
+      "case": "quickgo-term-search-cell-cycle-local-fixture",
+      "description": "QuickGO ontology search benchmark on a local raw payload fixture that checks compact term normalization and result truncation.",
+      "skill": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 1.0,
+          "deliverables": {
+            "all_terms_compact": true,
+            "compact_aspects_correct": true,
+            "compact_definition_present": true,
+            "compact_ids_correct": true,
+            "compact_names_correct": true,
+            "number_of_hits_correct": true,
+            "query_recorded": true,
+            "result_origin_recorded": true,
+            "source_url_present": true,
+            "summary_exists": true,
+            "term_count_correct": true,
+            "terms_length_correct": true
+          },
+          "perfect": true
+        },
+        "execution": {
+          "duration_seconds": 0.055,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": []
+        }
+      }
+    }
+  ],
+  "summary": {
+    "skill_better_on_deliverable_rate": true,
+    "skill_better_on_success_rate": false
+  }
+}

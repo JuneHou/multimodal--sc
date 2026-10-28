@@ -1,0 +1,22 @@
+{
+  "skill_slug": "qsar-property-prediction-starter",
+  "skill_name": "QSAR / property prediction Starter",
+  "status": "implemented",
+  "leaf_slug": "qsar-property-prediction",
+  "leaf_name": "QSAR / property prediction",
+  "domain_slug": "drug-discovery-and-cheminformatics",
+  "source_resource_ids": [
+    "tdc-qsar-docs"
+  ],
+  "starter_steps": [
+    "Review the primary materials for QSAR / property prediction.",
+    "Define the smallest reproducible input/output contract.",
+    "Capture a smoke command or toy example.",
+    "Promote the starter to sandbox verification once runtime details are stable."
+  ],
+  "promotion_checklist": [
+    "Add a runnable example or toy dataset.",
+    "Add a repository-level smoke or integration test.",
+    "Promote status to sandbox_verified after checks pass."
+  ]
+}

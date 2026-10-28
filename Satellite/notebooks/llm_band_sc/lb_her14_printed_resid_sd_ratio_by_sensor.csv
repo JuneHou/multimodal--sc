@@ -1,0 +1,3 @@
+sensor,mean,min,50%,max
+sentinel1,1.490,1.104,1.459,2.269
+sentinel2,1.468,0.345,1.470,3.087

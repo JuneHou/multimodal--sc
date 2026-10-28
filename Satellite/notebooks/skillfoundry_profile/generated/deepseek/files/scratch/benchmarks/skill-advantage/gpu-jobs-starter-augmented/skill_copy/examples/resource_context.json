@@ -1,0 +1,20 @@
+{
+  "domain_name": "HPC, Slurm, and Scaling",
+  "domain_slug": "hpc",
+  "leaf_name": "GPU jobs",
+  "leaf_slug": "gpu-jobs",
+  "skill_name": "GPU jobs Starter",
+  "skill_slug": "gpu-jobs-starter",
+  "source_resource_ids": [
+    "slurm-gres-docs",
+    "slurm-job-arrays"
+  ],
+  "starter_objectives": [
+    "Review the primary materials for GPU jobs.",
+    "Define the smallest reproducible input/output contract.",
+    "Capture a smoke command or toy example.",
+    "Promote the starter to sandbox verification once runtime details are stable.",
+    "Include one job-array variant in the starter plan."
+  ],
+  "taxonomy_key": "hpc_slurm_and_scaling"
+}

@@ -1,0 +1,3 @@
+work/
+codex_home/*
+!codex_home/config.toml

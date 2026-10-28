@@ -1,0 +1,116 @@
+{
+  "accession": "P04637",
+  "annotation_score": null,
+  "entry_id": "P53_HUMAN",
+  "feature_count": 8,
+  "feature_type_counts": {
+    "Binding site": 1,
+    "Chain": 1,
+    "DNA binding": 1,
+    "Modified residue": 1,
+    "Motif": 1,
+    "Natural variant": 1,
+    "Region": 1,
+    "Site": 1
+  },
+  "gene_names": [
+    "TP53",
+    "P53"
+  ],
+  "organism_common_name": "Human",
+  "organism_scientific_name": "Homo sapiens",
+  "recommended_name": "Cellular tumor antigen p53",
+  "representative_features": [
+    {
+      "description": "Cellular tumor antigen p53",
+      "end": 393,
+      "evidence_count": 0,
+      "feature_id": "PRO_0000185703",
+      "span": "1-393",
+      "start": 1,
+      "type": "Chain"
+    },
+    {
+      "description": null,
+      "end": 292,
+      "evidence_count": 0,
+      "feature_id": null,
+      "span": "102-292",
+      "start": 102,
+      "type": "DNA binding"
+    },
+    {
+      "description": "Transcription activation (acidic)",
+      "end": 44,
+      "evidence_count": 0,
+      "feature_id": null,
+      "span": "1-44",
+      "start": 1,
+      "type": "Region"
+    },
+    {
+      "description": "TADI",
+      "end": 25,
+      "evidence_count": 0,
+      "feature_id": null,
+      "span": "17-25",
+      "start": 17,
+      "type": "Motif"
+    },
+    {
+      "description": null,
+      "end": 176,
+      "evidence_count": 0,
+      "feature_id": null,
+      "span": "176",
+      "start": 176,
+      "type": "Binding site"
+    },
+    {
+      "description": "Interaction with DNA",
+      "end": 120,
+      "evidence_count": 0,
+      "feature_id": null,
+      "span": "120",
+      "start": 120,
+      "type": "Site"
+    }
+  ],
+  "sequence_length": 393,
+  "source_url": "https://rest.uniprot.org/uniprotkb/P04637.json",
+  "taxonomy_id": 9606,
+  "top_feature_types": [
+    {
+      "count": 1,
+      "type": "Binding site"
+    },
+    {
+      "count": 1,
+      "type": "Chain"
+    },
+    {
+      "count": 1,
+      "type": "DNA binding"
+    },
+    {
+      "count": 1,
+      "type": "Modified residue"
+    },
+    {
+      "count": 1,
+      "type": "Motif"
+    },
+    {
+      "count": 1,
+      "type": "Natural variant"
+    },
+    {
+      "count": 1,
+      "type": "Region"
+    },
+    {
+      "count": 1,
+      "type": "Site"
+    }
+  ]
+}

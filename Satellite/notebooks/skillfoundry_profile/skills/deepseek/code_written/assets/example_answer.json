@@ -1,0 +1,9 @@
+{
+  "prediction": {
+    "ndvi": 0.664606,
+    "nir": 0.402777,
+    "red": 0.168775,
+    "swir": 0.274985
+  },
+  "rationale": "Forecast produced with the Synthetic Historical Control (SHC) method of Chen, Yang & Yang: each band's own distant history is used as the donor pool, because no cross-sectional controls are available for a single parcel. Applied the estimator to 4 band(s) with pre-duration m in [24], LOOCV bandwidth ~3.0 (in standardized units) and 36.0 historical controls on average. Detrending mode 'auto' was used because SHC matching requires recurring, non-growing latent patterns. Weights are simplex-constrained (non-negative, sum to one) and chosen to minimize the pre-segment matching MSE; the same weights are applied to the historical pseudo-post segments to form each counterfactual."
+}

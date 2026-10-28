@@ -1,0 +1,23 @@
+{
+  "skill_slug": "microscopy-pipelines-starter",
+  "skill_name": "Microscopy pipelines Starter",
+  "status": "implemented",
+  "leaf_slug": "microscopy-pipelines",
+  "leaf_name": "Microscopy pipelines",
+  "domain_slug": "imaging-and-phenotype-analysis",
+  "source_resource_ids": [
+    "cellprofiler-manuals"
+  ],
+  "starter_steps": [
+    "Review the primary materials for Microscopy pipelines.",
+    "Define the smallest reproducible input/output contract.",
+    "Capture a smoke command or toy example.",
+    "Promote the starter to sandbox verification once runtime details are stable.",
+    "Capture one compact segmentation or quality-control check in the starter plan."
+  ],
+  "promotion_checklist": [
+    "Add a runnable example or toy dataset.",
+    "Add a repository-level smoke or integration test.",
+    "Promote status to sandbox_verified after checks pass."
+  ]
+}

@@ -1,0 +1,170 @@
+{
+  "input": "skills/statistical-and-machine-learning-foundations-for-science/synthetic-historical-control-band-forecast/examples/toy_parcel_data.csv",
+  "output": "scratch/shc/answer.json",
+  "n_bands": 4,
+  "bands": [
+    "ndvi",
+    "nir",
+    "red",
+    "swir"
+  ],
+  "predictions": {
+    "ndvi": 0.664606,
+    "nir": 0.402777,
+    "red": 0.168775,
+    "swir": 0.274985
+  },
+  "donor_mode": "all-in",
+  "detrend": "auto",
+  "lags": 0,
+  "band_diagnostics": {
+    "ndvi": {
+      "n_obs": 60,
+      "status": "ok",
+      "notes": [],
+      "method": "shc_all-in",
+      "forecast": 1.1773982837915193,
+      "m": 24,
+      "bandwidth": 3.0,
+      "bandwidth_cv": 0.6253045606847353,
+      "matching_mse": 0.03076574510226147,
+      "n_donors": 36,
+      "lags": 0,
+      "top_donor_weights": [
+        {
+          "block_lag": 50,
+          "weight": 0.518982
+        },
+        {
+          "block_lag": 59,
+          "weight": 0.481018
+        },
+        {
+          "block_lag": 48,
+          "weight": 0.0
+        }
+      ],
+      "mse_curve": [],
+      "prediction": 0.6646064036228899,
+      "detrend": "auto",
+      "trend_next": 0.0,
+      "series_mean": 0.5607159333333332,
+      "series_std": 0.0882373209811409
+    },
+    "nir": {
+      "n_obs": 60,
+      "status": "ok",
+      "notes": [],
+      "method": "shc_all-in",
+      "forecast": 1.3337524699473424,
+      "m": 24,
+      "bandwidth": 3.0,
+      "bandwidth_cv": 0.6234304239468961,
+      "matching_mse": 0.030182073708296897,
+      "n_donors": 36,
+      "lags": 0,
+      "top_donor_weights": [
+        {
+          "block_lag": 59,
+          "weight": 0.854961
+        },
+        {
+          "block_lag": 24,
+          "weight": 0.079223
+        },
+        {
+          "block_lag": 38,
+          "weight": 0.060211
+        },
+        {
+          "block_lag": 26,
+          "weight": 0.005604
+        },
+        {
+          "block_lag": 36,
+          "weight": 0.0
+        }
+      ],
+      "mse_curve": [],
+      "prediction": 0.4027771820249636,
+      "detrend": "auto",
+      "trend_next": 0.34499465762711873,
+      "series_mean": -8.650487733537678e-17,
+      "series_std": 0.043323274520441
+    },
+    "red": {
+      "n_obs": 60,
+      "status": "ok",
+      "notes": [],
+      "method": "shc_all-in",
+      "forecast": 1.186805967917449,
+      "m": 24,
+      "bandwidth": 3.0,
+      "bandwidth_cv": 0.6319119429103758,
+      "matching_mse": 0.01671559376330296,
+      "n_donors": 36,
+      "lags": 0,
+      "top_donor_weights": [
+        {
+          "block_lag": 59,
+          "weight": 0.596127
+        },
+        {
+          "block_lag": 49,
+          "weight": 0.242719
+        },
+        {
+          "block_lag": 25,
+          "weight": 0.12438
+        },
+        {
+          "block_lag": 37,
+          "weight": 0.02884
+        },
+        {
+          "block_lag": 26,
+          "weight": 0.007933
+        }
+      ],
+      "mse_curve": [],
+      "prediction": 0.16877526309800864,
+      "detrend": "auto",
+      "trend_next": 0.14375045988700566,
+      "series_mean": -1.1102230246251566e-17,
+      "series_std": 0.021085842073170002
+    },
+    "swir": {
+      "n_obs": 60,
+      "status": "ok",
+      "notes": [],
+      "method": "shc_all-in",
+      "forecast": 1.5433568111841895,
+      "m": 24,
+      "bandwidth": 3.0,
+      "bandwidth_cv": 0.6311858235758598,
+      "matching_mse": 0.03909720748355633,
+      "n_donors": 36,
+      "lags": 0,
+      "top_donor_weights": [
+        {
+          "block_lag": 59,
+          "weight": 0.94116
+        },
+        {
+          "block_lag": 26,
+          "weight": 0.05884
+        },
+        {
+          "block_lag": 48,
+          "weight": 0.0
+        }
+      ],
+      "mse_curve": [],
+      "prediction": 0.27498482452874173,
+      "detrend": "auto",
+      "trend_next": 0.23004324293785308,
+      "series_mean": 1.4340380734741607e-17,
+      "series_std": 0.02911937230924958
+    }
+  }
+}

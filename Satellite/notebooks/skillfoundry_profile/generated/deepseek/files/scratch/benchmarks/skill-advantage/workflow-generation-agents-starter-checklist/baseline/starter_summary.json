@@ -1,0 +1,15 @@
+{
+  "domain_slug": "scientific-agents-and-automation",
+  "leaf_slug": "workflow-generation-agents",
+  "promotion_checklist": [
+    "Check the starter plan."
+  ],
+  "skill_slug": "workflow-generation-agents-starter",
+  "source_resource_ids": [
+    "llamaindex-workflows-docs"
+  ],
+  "starter_steps": [
+    "Review the primary materials for Workflow generation agents.",
+    "Define the smallest reproducible input/output contract."
+  ]
+}

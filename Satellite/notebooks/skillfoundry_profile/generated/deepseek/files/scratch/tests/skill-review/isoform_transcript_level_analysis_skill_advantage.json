@@ -1,0 +1,126 @@
+{
+  "aggregate": {
+    "baseline": {
+      "average_deliverable_rate": 0.214,
+      "perfect_case_count": 0,
+      "success_rate": 0.5
+    },
+    "skill": {
+      "average_deliverable_rate": 1.0,
+      "perfect_case_count": 2,
+      "success_rate": 1.0
+    }
+  },
+  "cases": [
+    {
+      "baseline": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 0.429,
+          "deliverables": {
+            "leaf_slug_correct": true,
+            "promotion_checklist_bounded": false,
+            "promotion_checklist_complete": false,
+            "resource_anchor_correct": false,
+            "skill_slug_correct": true,
+            "starter_objectives_complete": false,
+            "summary_exists": true
+          },
+          "perfect": false
+        },
+        "execution": {
+          "duration_seconds": 0.023,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": []
+        }
+      },
+      "case": "isoform-transcript-level-analysis-starter-summary",
+      "description": "Isoform/transcript-level starter summary generation with explicit plan completeness checks.",
+      "skill": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 1.0,
+          "deliverables": {
+            "leaf_slug_correct": true,
+            "promotion_checklist_bounded": true,
+            "promotion_checklist_complete": true,
+            "resource_anchor_correct": true,
+            "skill_slug_correct": true,
+            "starter_objectives_complete": true,
+            "summary_exists": true
+          },
+          "perfect": true
+        },
+        "execution": {
+          "duration_seconds": 0.037,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": []
+        }
+      }
+    },
+    {
+      "baseline": {
+        "evaluation": {
+          "command_succeeded": false,
+          "deliverable_rate": 0.0,
+          "deliverables": {
+            "leaf_slug_correct": false,
+            "promotion_checklist_bounded": false,
+            "promotion_checklist_complete": false,
+            "resource_anchor_correct": false,
+            "skill_slug_correct": false,
+            "starter_objectives_complete": false,
+            "summary_exists": false
+          },
+          "perfect": false
+        },
+        "execution": {
+          "duration_seconds": 0.028,
+          "returncode": 1,
+          "stderr_tail": [
+            "Traceback (most recent call last):",
+            "  File \"<string>\", line 13, in <module>",
+            "  File \"/data/wang/junh/envs/skillfoundry/lib/python3.11/pathlib.py\", line 1078, in write_text",
+            "    with self.open(mode='w', encoding=encoding, errors=errors, newline=newline) as f:",
+            "         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+            "  File \"/data/wang/junh/envs/skillfoundry/lib/python3.11/pathlib.py\", line 1044, in open",
+            "    return io.open(self, mode, buffering, encoding, errors, newline)",
+            "           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+            "FileNotFoundError: [Errno 2] No such file or directory: '/data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/skillfoundry_profile/work/deepseek/scratch/benchmarks/skill-advantage/isoform-transcript-level-analysis-starter-nested-output/baseline/nested/starter_summary.json'"
+          ],
+          "stdout_tail": []
+        }
+      },
+      "case": "isoform-transcript-level-analysis-starter-nested-output",
+      "description": "Isoform/transcript-level starter with a nested output path to exercise directory creation.",
+      "skill": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 1.0,
+          "deliverables": {
+            "leaf_slug_correct": true,
+            "promotion_checklist_bounded": true,
+            "promotion_checklist_complete": true,
+            "resource_anchor_correct": true,
+            "skill_slug_correct": true,
+            "starter_objectives_complete": true,
+            "summary_exists": true
+          },
+          "perfect": true
+        },
+        "execution": {
+          "duration_seconds": 0.031,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": []
+        }
+      }
+    }
+  ],
+  "summary": {
+    "skill_better_on_deliverable_rate": true,
+    "skill_better_on_success_rate": true
+  }
+}

@@ -1,0 +1,61 @@
+row,line
+her,Tests: 286 site-band combinations
+her,"  A, SHC replication: 1000 bootstrap draws, p floor 0.0010"
+her,"  B, CWZ moving block: 144 to 306 shifts, p floor 0.0069 to 0.0033"
+her,Totals: SHC bootstrap rejects 204 of 286; CWZ moving block rejects 112; 14.3 expected by chance; the two disagree on 96 tests.
+her,stated setting is n short relative to T0): 0.231 to 0.321
+daily_shc_configure|DeepSeek-V4.1-Flash-thinking-low,Tests: 40 site-band combinations
+daily_shc_configure|DeepSeek-V4.1-Flash-thinking-low,"  A, SHC replication: 1000 bootstrap draws, p floor 0.0010"
+daily_shc_configure|DeepSeek-V4.1-Flash-thinking-low,"  B, CWZ moving block: 144 to 271 shifts, p floor 0.0069 to 0.0037"
+daily_shc_configure|DeepSeek-V4.1-Flash-thinking-low,Totals: SHC bootstrap rejects 33 of 40; CWZ moving block rejects 29; 2.0 expected by chance; the two disagree on 6 tests.
+daily_shc_configure|DeepSeek-V4.1-Flash-thinking-low,stated setting is n short relative to T0): 0.231 to 0.298
+her|daily_shc_configure|DeepSeek-V4.1-Flash-thinking-low,Tests: 40 site-band combinations
+her|daily_shc_configure|DeepSeek-V4.1-Flash-thinking-low,"  A, SHC replication: 1000 bootstrap draws, p floor 0.0010"
+her|daily_shc_configure|DeepSeek-V4.1-Flash-thinking-low,"  B, CWZ moving block: 144 to 271 shifts, p floor 0.0069 to 0.0037"
+her|daily_shc_configure|DeepSeek-V4.1-Flash-thinking-low,Totals: SHC bootstrap rejects 32 of 40; CWZ moving block rejects 29; 2.0 expected by chance; the two disagree on 5 tests.
+her|daily_shc_configure|DeepSeek-V4.1-Flash-thinking-low,stated setting is n short relative to T0): 0.231 to 0.298
+daily_shc_configure|GLM-5.3,Tests: 286 site-band combinations
+daily_shc_configure|GLM-5.3,"  A, SHC replication: 1000 bootstrap draws, p floor 0.0010"
+daily_shc_configure|GLM-5.3,"  B, CWZ moving block: 144 to 306 shifts, p floor 0.0069 to 0.0033"
+daily_shc_configure|GLM-5.3,Totals: SHC bootstrap rejects 193 of 286; CWZ moving block rejects 125; 14.3 expected by chance; the two disagree on 84 tests.
+daily_shc_configure|GLM-5.3,stated setting is n short relative to T0): 0.231 to 0.321
+daily_shc_configure|gpt-oss-120b,Tests: 286 site-band combinations
+daily_shc_configure|gpt-oss-120b,"  A, SHC replication: 1000 bootstrap draws, p floor 0.0010"
+daily_shc_configure|gpt-oss-120b,"  B, CWZ moving block: 144 to 306 shifts, p floor 0.0069 to 0.0033"
+daily_shc_configure|gpt-oss-120b,Totals: SHC bootstrap rejects 229 of 286; CWZ moving block rejects 146; 14.3 expected by chance; the two disagree on 83 tests.
+daily_shc_configure|gpt-oss-120b,stated setting is n short relative to T0): 0.231 to 0.321
+daily_shc_configure|openai:gpt-5.5,Tests: 286 site-band combinations
+daily_shc_configure|openai:gpt-5.5,"  A, SHC replication: 1000 bootstrap draws, p floor 0.0010"
+daily_shc_configure|openai:gpt-5.5,"  B, CWZ moving block: 144 to 306 shifts, p floor 0.0069 to 0.0033"
+daily_shc_configure|openai:gpt-5.5,Totals: SHC bootstrap rejects 174 of 286; CWZ moving block rejects 103; 14.3 expected by chance; the two disagree on 85 tests.
+daily_shc_configure|openai:gpt-5.5,stated setting is n short relative to T0): 0.231 to 0.321
+daily_shc_design|GLM-5.3,Tests: 259 site-band combinations
+daily_shc_design|GLM-5.3,"  A, SHC replication: 1000 bootstrap draws, p floor 0.0010"
+daily_shc_design|GLM-5.3,"  B, CWZ moving block: 144 to 306 shifts, p floor 0.0069 to 0.0033"
+daily_shc_design|GLM-5.3,Totals: SHC bootstrap rejects 159 of 259; CWZ moving block rejects 87; 13.0 expected by chance; the two disagree on 74 tests.
+daily_shc_design|GLM-5.3,stated setting is n short relative to T0): 0.231 to 0.321
+her|daily_shc_design|GLM-5.3,Tests: 259 site-band combinations
+her|daily_shc_design|GLM-5.3,"  A, SHC replication: 1000 bootstrap draws, p floor 0.0010"
+her|daily_shc_design|GLM-5.3,"  B, CWZ moving block: 144 to 306 shifts, p floor 0.0069 to 0.0033"
+her|daily_shc_design|GLM-5.3,Totals: SHC bootstrap rejects 187 of 259; CWZ moving block rejects 102; 13.0 expected by chance; the two disagree on 87 tests.
+her|daily_shc_design|GLM-5.3,stated setting is n short relative to T0): 0.231 to 0.321
+daily_shc_design|gpt-oss-120b,Tests: 278 site-band combinations
+daily_shc_design|gpt-oss-120b,"  A, SHC replication: 1000 bootstrap draws, p floor 0.0010"
+daily_shc_design|gpt-oss-120b,"  B, CWZ moving block: 144 to 306 shifts, p floor 0.0069 to 0.0033"
+daily_shc_design|gpt-oss-120b,Totals: SHC bootstrap rejects 211 of 278; CWZ moving block rejects 152; 13.9 expected by chance; the two disagree on 67 tests.
+daily_shc_design|gpt-oss-120b,stated setting is n short relative to T0): 0.231 to 0.321
+her|daily_shc_design|gpt-oss-120b,Tests: 278 site-band combinations
+her|daily_shc_design|gpt-oss-120b,"  A, SHC replication: 1000 bootstrap draws, p floor 0.0010"
+her|daily_shc_design|gpt-oss-120b,"  B, CWZ moving block: 144 to 306 shifts, p floor 0.0069 to 0.0033"
+her|daily_shc_design|gpt-oss-120b,Totals: SHC bootstrap rejects 196 of 278; CWZ moving block rejects 111; 13.9 expected by chance; the two disagree on 89 tests.
+her|daily_shc_design|gpt-oss-120b,stated setting is n short relative to T0): 0.231 to 0.321
+daily_shc_design|openai:gpt-5.5,Tests: 286 site-band combinations
+daily_shc_design|openai:gpt-5.5,"  A, SHC replication: 1000 bootstrap draws, p floor 0.0010"
+daily_shc_design|openai:gpt-5.5,"  B, CWZ moving block: 144 to 306 shifts, p floor 0.0069 to 0.0033"
+daily_shc_design|openai:gpt-5.5,Totals: SHC bootstrap rejects 156 of 286; CWZ moving block rejects 94; 14.3 expected by chance; the two disagree on 82 tests.
+daily_shc_design|openai:gpt-5.5,stated setting is n short relative to T0): 0.231 to 0.321
+her|daily_shc_design|openai:gpt-5.5,Tests: 286 site-band combinations
+her|daily_shc_design|openai:gpt-5.5,"  A, SHC replication: 1000 bootstrap draws, p floor 0.0010"
+her|daily_shc_design|openai:gpt-5.5,"  B, CWZ moving block: 144 to 306 shifts, p floor 0.0069 to 0.0033"
+her|daily_shc_design|openai:gpt-5.5,Totals: SHC bootstrap rejects 204 of 286; CWZ moving block rejects 112; 14.3 expected by chance; the two disagree on 96 tests.
+her|daily_shc_design|openai:gpt-5.5,stated setting is n short relative to T0): 0.231 to 0.321

@@ -8,6 +8,8 @@
     SK5  canned-turn dry runs of all three skills end with a valid answer; A and B equal the parity predictions;
          C with her code as predict.py equals the parity predictions; fit records are captured even if the log is deleted
     SK6  the step cap ends a cell that never answers
+    SK7  an empty model reply is carried forward as "(empty reply)"
+    SK8  an empty command output is carried forward as "(no output)"; the runner re-runs only call-error cells
     python lb_skill_tests.py
 """
 import json
@@ -212,6 +214,36 @@ def gate_sk7_empty_reply():
     print("SK7 ok: empty replies are recorded as empty, carried forward as a placeholder, and the cell still answers")
 
 
+def gate_sk8_empty_output_and_resume():
+    """A command that prints nothing never puts an empty user message into the conversation (the cause of the 8
+    DeepSeek design 400s of 2026-10-13); the runner never re-runs a cell that already ended with an answer or at the
+    step cap."""
+    import tempfile
+    from pathlib import Path
+    import lb_skill_run
+    panel9 = lb_guard.training_panel()
+    cellp = lb_guard.cell_panel(panel9, "sentinel1", "treatment_0015")
+    seen = []
+    script = iter([_fence("true"), _fence("sed -n '400,520p' scripts/show_data.py"),
+                   _write("answer.json", json.dumps({"prediction": {"VV": 1, "VH": 1, "VV-VH": 1}, "rationale": "x"}))])
+    def call(messages):
+        seen.append([m["content"] for m in messages])
+        assert all(m["content"].strip() for m in messages), "empty message content sent to the model"
+        return next(script), {"finish_reason": "stop", "reasoning": "…", "gateway": "test", "raw_response": {}}
+    rec = L.run_cell(SK / "shc-configure", cellp, "sentinel1", "treatment_0015", call, step_cap=6)
+    assert rec["ok"] and rec["n_steps"] == 3
+    assert rec["steps"][0]["output"] == "" and rec["steps"][1]["output"] == ""       # stored as it was
+    assert seen[1][-1] == "(no output)" and seen[2][-1] == "(no output)"              # sent as the placeholder
+    with tempfile.TemporaryDirectory() as d:
+        f = Path(d) / "replies.jsonl"
+        f.write_text("".join(json.dumps({"prompt_id": p, "ended": e}) + "\n" for p, e in
+                             [("a", "answer"), ("b", "step_cap"), ("c", "call_error")]))
+        assert lb_skill_run.resume_set(f) == {"a", "b"}
+        assert lb_skill_run.resume_set(Path(d) / "absent.jsonl") == set()
+    print("SK8 ok: empty command output is stored empty and sent as \"(no output)\"; the runner skips answered and "
+          "step-cap cells and re-runs only call-error cells")
+
+
 def main():
     gate_sk1()
     gate_sk2_parity()
@@ -220,6 +252,7 @@ def main():
     gate_sk5_dry_runs()
     gate_sk6_step_cap()
     gate_sk7_empty_reply()
+    gate_sk8_empty_output_and_resume()
     print("lb_skill_tests: all skill gates passed")
 
 

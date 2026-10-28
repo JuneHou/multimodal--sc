@@ -1,0 +1,3 @@
+sensor,min,max
+sentinel1,3,3
+sentinel2,8,8

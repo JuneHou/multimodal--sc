@@ -1,8 +1,8 @@
 model,gateway,key,populated,n
-DeepSeek-V4.1-Flash-thinking-low,arc,assembled_message.reasoning,True,682
-DeepSeek-V4.1-Flash-thinking-low,arc,usage_chunk.completion_tokens_details.reasoning_tokens,True,682
-DeepSeek-V4.1-Flash-thinking-low,arc,finish_reason,True,716
-DeepSeek-V4.1-Flash-thinking-low,arc,usage_chunk.completion_tokens_details.reasoning_tokens,False,34
+DeepSeek-V4.1-Flash-thinking-low,arc,assembled_message.reasoning,True,703
+DeepSeek-V4.1-Flash-thinking-low,arc,usage_chunk.completion_tokens_details.reasoning_tokens,True,703
+DeepSeek-V4.1-Flash-thinking-low,arc,finish_reason,True,752
+DeepSeek-V4.1-Flash-thinking-low,arc,usage_chunk.completion_tokens_details.reasoning_tokens,False,49
 GLM-5.3,arc,usage_chunk.completion_tokens_details.reasoning_tokens,False,266
 GLM-5.3,arc,finish_reason,True,515
 GLM-5.3,arc,assembled_message.reasoning,True,249

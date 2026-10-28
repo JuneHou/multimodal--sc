@@ -1,0 +1,158 @@
+{
+  "aggregate": {
+    "baseline": {
+      "average_deliverable_rate": 0.445,
+      "perfect_case_count": 0,
+      "success_rate": 1.0
+    },
+    "skill": {
+      "average_deliverable_rate": 1.0,
+      "perfect_case_count": 3,
+      "success_rate": 1.0
+    }
+  },
+  "cases": [
+    {
+      "baseline": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 0.5,
+          "deliverables": {
+            "output_path_created": true,
+            "promotion_checklist_complete": false,
+            "source_resource_ids_match": true,
+            "starter_steps_complete": false,
+            "structured_summary_present": false,
+            "summary_exists": true
+          },
+          "perfect": false
+        },
+        "execution": {
+          "duration_seconds": 0.018,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": []
+        }
+      },
+      "case": "workflow-generation-agents-starter-summary",
+      "description": "Workflow generation agents starter on the bundled local context.",
+      "skill": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 1.0,
+          "deliverables": {
+            "output_path_created": true,
+            "promotion_checklist_complete": true,
+            "source_resource_ids_match": true,
+            "starter_steps_complete": true,
+            "structured_summary_present": true,
+            "summary_exists": true
+          },
+          "perfect": true
+        },
+        "execution": {
+          "duration_seconds": 0.026,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": []
+        }
+      }
+    },
+    {
+      "baseline": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 0.667,
+          "deliverables": {
+            "output_path_created": true,
+            "promotion_checklist_complete": false,
+            "source_resource_ids_match": true,
+            "starter_steps_complete": false,
+            "structured_summary_present": true,
+            "summary_exists": true
+          },
+          "perfect": false
+        },
+        "execution": {
+          "duration_seconds": 0.027,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": []
+        }
+      },
+      "case": "workflow-generation-agents-starter-checklist",
+      "description": "Workflow generation agents starter plan completeness audit with a partial JSON baseline.",
+      "skill": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 1.0,
+          "deliverables": {
+            "output_path_created": true,
+            "promotion_checklist_complete": true,
+            "source_resource_ids_match": true,
+            "starter_steps_complete": true,
+            "structured_summary_present": true,
+            "summary_exists": true
+          },
+          "perfect": true
+        },
+        "execution": {
+          "duration_seconds": 0.028,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": []
+        }
+      }
+    },
+    {
+      "baseline": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 0.167,
+          "deliverables": {
+            "output_path_created": true,
+            "promotion_checklist_complete": false,
+            "source_resource_ids_match": false,
+            "starter_steps_complete": false,
+            "structured_summary_present": false,
+            "summary_exists": false
+          },
+          "perfect": false
+        },
+        "execution": {
+          "duration_seconds": 0.02,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": []
+        }
+      },
+      "case": "workflow-generation-agents-starter-nested-output",
+      "description": "Workflow generation agents starter nested-output handling with an ad hoc baseline that writes to the wrong path.",
+      "skill": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 1.0,
+          "deliverables": {
+            "output_path_created": true,
+            "promotion_checklist_complete": true,
+            "source_resource_ids_match": true,
+            "starter_steps_complete": true,
+            "structured_summary_present": true,
+            "summary_exists": true
+          },
+          "perfect": true
+        },
+        "execution": {
+          "duration_seconds": 0.028,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": []
+        }
+      }
+    }
+  ],
+  "summary": {
+    "skill_better_on_deliverable_rate": true,
+    "skill_better_on_success_rate": false
+  }
+}

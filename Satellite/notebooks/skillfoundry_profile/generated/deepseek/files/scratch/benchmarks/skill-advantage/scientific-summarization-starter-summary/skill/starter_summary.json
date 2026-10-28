@@ -1,0 +1,22 @@
+{
+  "skill_slug": "scientific-summarization-starter",
+  "skill_name": "Scientific summarization Starter",
+  "status": "implemented",
+  "leaf_slug": "scientific-summarization",
+  "leaf_name": "Scientific summarization",
+  "domain_slug": "scientific-knowledge",
+  "source_resource_ids": [
+    "scitldr-github"
+  ],
+  "starter_steps": [
+    "Review the primary materials for Scientific summarization.",
+    "Define the smallest reproducible input/output contract.",
+    "Capture a smoke command or toy example.",
+    "Promote the starter to sandbox verification once runtime details are stable."
+  ],
+  "promotion_checklist": [
+    "Add a runnable example or toy dataset.",
+    "Add a repository-level smoke or integration test.",
+    "Promote status to sandbox_verified after checks pass."
+  ]
+}

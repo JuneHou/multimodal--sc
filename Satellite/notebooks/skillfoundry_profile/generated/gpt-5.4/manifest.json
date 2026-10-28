@@ -1,0 +1,92 @@
+{
+ "generator": "gpt-5.4",
+ "base": "4a8cc0c",
+ "head": "4a8cc0cd9f923cde47a7f542d4a84b92bbabc59f",
+ "run_folders": [
+  "reports/framework-runs/20261013-164003-shc-gpt-5.4"
+ ],
+ "changed": {
+  "registry/resources.jsonl": "e80aeb65465a3f9e9d31631ab9391967681225096bdb37ca0af9de43b859f29f",
+  "registry/resources_dedup.jsonl": "e80aeb65465a3f9e9d31631ab9391967681225096bdb37ca0af9de43b859f29f",
+  "registry/skills.jsonl": "6e3dac970a55cb2ece3ed9911cd2fa420da6f84ab1e68a7c1febd3dbde063d31",
+  "registry/update_log.md": "102c20d89de3c18f5e89bbf735acdd8bf0b5fcee61cd3b0fd67ba2829c3b7d19",
+  "reports/design-skill-20261013-synthetic-historical-control-satellite-forecast.md": "10ceb9488b47cde32e3db4816bddad7538c15c95191628f0f953ce227809af0f",
+  "reports/framework-runs/20261013-164003-shc-gpt-5.4/manifest.json": "985a881cf394dbd68dbf8aab7e94c4d3076a64541b9e8fd2234a62c27990ff5c",
+  "reports/framework-runs/20261013-164003-shc-gpt-5.4/stages/01-design-skill/attempts.json": "4da9dbe3871e9a97ec83f3a91340b17db793decbacb2ec33f97d9ec1c68fef2a",
+  "reports/framework-runs/20261013-164003-shc-gpt-5.4/stages/01-design-skill/last_message.json": "0c74dab8b3234637a135ea66ce8421a776ce49c12ebaf9bcaf13a8f06c164c1f",
+  "reports/framework-runs/20261013-164003-shc-gpt-5.4/stages/01-design-skill/prompt.md": "9897c8db08df7fc722e11dad7791876f9845e6ce37785b04384a0a200afb8f5d",
+  "reports/framework-runs/20261013-164003-shc-gpt-5.4/stages/01-design-skill/schema.json": "5f8d42dbdb3a1daf9b44627b886e8d9d95b94f659ef4c35cea42917477f7b4f7",
+  "reports/framework-runs/20261013-164003-shc-gpt-5.4/stages/01-design-skill/stderr.txt": "0db77eadb2198f254575885188990093d3e89d7e7ca714bdb5668e672cef32bd",
+  "reports/framework-runs/20261013-164003-shc-gpt-5.4/stages/01-design-skill/stdout.txt": "cdff927002228b52a745af4bbe1769a9d89f436f23a9b3517f2dc77b02c414d2",
+  "reports/framework-runs/20261013-164003-shc-gpt-5.4/verification/build-site.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "reports/framework-runs/20261013-164003-shc-gpt-5.4/verification/build-site.stdout.txt": "d71d290095fc90a604c1c15fd08c6bb5c5c4270ca0e420b35321bad56b9d4ae3",
+  "reports/framework-runs/20261013-164003-shc-gpt-5.4/verification/validate.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "reports/framework-runs/20261013-164003-shc-gpt-5.4/verification/validate.stdout.txt": "dd2de933c268f8a2bdb23ad44eb42b9f3cebbb33c369408416a6e0820d78e09e",
+  "scratch/framework/latest_active_run.json": "27e4b40413647f20123393b369821c5dd36c624db2febae81b22ac2e75771e60",
+  "scratch/framework/latest_design_skill.json": "985a881cf394dbd68dbf8aab7e94c4d3076a64541b9e8fd2234a62c27990ff5c",
+  "scratch/framework/latest_status.json": "f83553eea1163abaa400cc6a2b78b2a1f16b144235e87e5aa79638e0fa6b4957",
+  "site/framework_runs.json": "d52e1ea0e57375759028ebbe88e8a2a9c23a1da01358a5959e9ac1192b8a731b",
+  "site/graph.json": "3be5554aa230ff41591ec363ddecda33f70d8e6aec4c8a0c5e9999dfdf6407f6",
+  "site/skills.json": "d8b60a24bd87046a298da5833e6afe27f24767952ab828db92f93c76f8d6cd8c",
+  "site/tree.json": "39bb83684c7b74c5e06d4c28d2d9f2d9986d8bbe173331fe75f53462084534f7",
+  "skills/earth-climate-and-geospatial-science/synthetic-historical-control-satellite-forecast/SKILL.md": "0cba7a409d7ae861977bf38d930e5774bcea65988a378bbff6973c39a953a9f6",
+  "skills/earth-climate-and-geospatial-science/synthetic-historical-control-satellite-forecast/assets/README.md": "7b32b5b13a8a4656c922c36eb8b18254801139a92a1af542d89b080e3a42666f",
+  "skills/earth-climate-and-geospatial-science/synthetic-historical-control-satellite-forecast/examples/README.md": "fa178346d00f84068883c5747e45a6ec54d743c1cc6395073d528da1e1abd074",
+  "skills/earth-climate-and-geospatial-science/synthetic-historical-control-satellite-forecast/examples/toy_satellite_history.csv": "63013586400727dbf413e8942ab798bb472ac4f2b3f326a59a19c625cb22d102",
+  "skills/earth-climate-and-geospatial-science/synthetic-historical-control-satellite-forecast/metadata.yaml": "704fc3b278248999f3f2d516e6ad2a0fdafd0b7562d15edc92c078042d9fe5eb",
+  "skills/earth-climate-and-geospatial-science/synthetic-historical-control-satellite-forecast/refs.md": "d0c03e27b2296df7976c660457cbd594278719ef8dc05347f834b5de24626056",
+  "skills/earth-climate-and-geospatial-science/synthetic-historical-control-satellite-forecast/scripts/run_shc_satellite_forecast.py": "5ab53c5e0c7dfaa037ec288f8376744e53c13d839f760e8359d9f503a5638164",
+  "skills/earth-climate-and-geospatial-science/synthetic-historical-control-satellite-forecast/scripts/validate_answer.py": "10a240c266a3fbed89e20352c2ffc85e5dee63d3ce0fc242ee5328b146aaaf92",
+  "skills/earth-climate-and-geospatial-science/synthetic-historical-control-satellite-forecast/tests/README.md": "6cc2670f098242e0ff53af92e23e03272ebc818cb71d939a692904564c486b5c",
+  "skills/earth-climate-and-geospatial-science/synthetic-historical-control-satellite-forecast/tests/test_run_shc_satellite_forecast.py": "fc46b11313302f71758167ee6ff7c73c895dc27de329f1ab54f61600ea1ac663",
+  "tests/smoke/test_synthetic_historical_control_satellite_forecast_skill.py": "1806ad1fc0b19150b7b3e40043303592bf8e14c9094b10d3509ea5f22735f4cd"
+ },
+ "deleted": [],
+ "left_out": [
+  "paper/ssrn-4995085.pdf",
+  "scripts/__pycache__/build_site.cpython-311.pyc",
+  "scripts/__pycache__/skill_suite_utils.cpython-311.pyc",
+  "skillfoundry/__pycache__/__init__.cpython-311.pyc",
+  "skillfoundry/__pycache__/campaign.cpython-311.pyc",
+  "skillfoundry/__pycache__/cli.cpython-311.pyc",
+  "skillfoundry/__pycache__/codex_exec.cpython-311.pyc",
+  "skillfoundry/__pycache__/evaluation.cpython-311.pyc",
+  "skillfoundry/__pycache__/live_state.cpython-311.pyc",
+  "skillfoundry/__pycache__/models.cpython-311.pyc",
+  "skillfoundry/__pycache__/orchestrator.cpython-311.pyc",
+  "skillfoundry/__pycache__/prompts.cpython-311.pyc",
+  "skillfoundry/__pycache__/repository.cpython-311.pyc",
+  "skills/earth-climate-and-geospatial-science/synthetic-historical-control-satellite-forecast/scripts/__pycache__/run_shc_satellite_forecast.cpython-311.pyc",
+  "skills/earth-climate-and-geospatial-science/synthetic-historical-control-satellite-forecast/tests/__pycache__/test_run_shc_satellite_forecast.cpython-311.pyc",
+  "tests/__pycache__/__init__.cpython-311.pyc",
+  "tests/integration/__pycache__/__init__.cpython-311.pyc",
+  "tests/integration/__pycache__/test_build_site.cpython-311.pyc",
+  "tests/smoke/__pycache__/__init__.cpython-311.pyc",
+  "tests/smoke/__pycache__/test_synthetic_historical_control_satellite_forecast_skill.cpython-311.pyc"
+ ],
+ "env_prefixes": {},
+ "new_skill_dirs": [
+  "skills/earth-climate-and-geospatial-science/synthetic-historical-control-satellite-forecast"
+ ],
+ "skill_names_env": [],
+ "problems": [],
+ "codex_session": {
+  "source": "codex_home/gpt-5.4/sessions/2026/10/13/rollout-2026-10-13T16-40-03-01a136fe-62d5-7c63-a507-f7bb5a183af9.jsonl",
+  "sha256": "15618985db6837a411b29fe7101cc75633a431f1cab135511f44ba70f5d46edd",
+  "file": "codex_session.jsonl"
+ },
+ "skill_dir": "skills/earth-climate-and-geospatial-science/synthetic-historical-control-satellite-forecast",
+ "env_prefix": null,
+ "code_provided_sha": "29a4148b0cf40fdaaf1ad6648d1d0117cf537d432e8636ec3539e2e2e75b8826",
+ "code_written_sha": "8b2f599117c68bec7b4939e7427d4411bc4cf3951445fceaea45059c633b8589",
+ "script_names": [
+  "run_shc_satellite_forecast.py",
+  "validate_answer.py"
+ ],
+ "code_written_removed": [
+  "scripts/run_shc_satellite_forecast.py",
+  "scripts/validate_answer.py",
+  "tests/README.md",
+  "tests/test_run_shc_satellite_forecast.py"
+ ]
+}

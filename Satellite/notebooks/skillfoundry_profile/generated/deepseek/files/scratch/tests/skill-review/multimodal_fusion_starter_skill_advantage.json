@@ -1,0 +1,116 @@
+{
+  "aggregate": {
+    "baseline": {
+      "average_deliverable_rate": 0.75,
+      "perfect_case_count": 0,
+      "success_rate": 1.0
+    },
+    "skill": {
+      "average_deliverable_rate": 1.0,
+      "perfect_case_count": 2,
+      "success_rate": 1.0
+    }
+  },
+  "cases": [
+    {
+      "baseline": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 0.667,
+          "deliverables": {
+            "leaf_context_present": true,
+            "promotion_checklist_complete": true,
+            "source_resource_ids_match": true,
+            "starter_steps_complete": false,
+            "structured_summary_present": false,
+            "summary_exists": true
+          },
+          "perfect": false
+        },
+        "execution": {
+          "duration_seconds": 0.0,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": [
+            "wrote /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/skillfoundry_profile/work/deepseek/scratch/benchmarks/skill-advantage/multimodal-fusion-starter-summary/baseline/starter_notes.md"
+          ]
+        }
+      },
+      "case": "multimodal-fusion-starter-summary",
+      "description": "Multimodal fusion starter summary with structured leaf propagation and a compact note baseline.",
+      "skill": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 1.0,
+          "deliverables": {
+            "leaf_context_present": true,
+            "promotion_checklist_complete": true,
+            "source_resource_ids_match": true,
+            "starter_steps_complete": true,
+            "structured_summary_present": true,
+            "summary_exists": true
+          },
+          "perfect": true
+        },
+        "execution": {
+          "duration_seconds": 0.03,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": []
+        }
+      }
+    },
+    {
+      "baseline": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 0.833,
+          "deliverables": {
+            "leaf_context_present": true,
+            "promotion_checklist_complete": true,
+            "source_resource_ids_match": true,
+            "starter_steps_complete": true,
+            "structured_summary_present": false,
+            "summary_exists": true
+          },
+          "perfect": false
+        },
+        "execution": {
+          "duration_seconds": 0.0,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": [
+            "wrote /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/skillfoundry_profile/work/deepseek/scratch/benchmarks/skill-advantage/multimodal-fusion-starter-checklist/baseline/starter_notes.md"
+          ]
+        }
+      },
+      "case": "multimodal-fusion-starter-checklist",
+      "description": "Multimodal fusion starter plan with objective extraction and a promotion checklist.",
+      "skill": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 1.0,
+          "deliverables": {
+            "leaf_context_present": true,
+            "promotion_checklist_complete": true,
+            "source_resource_ids_match": true,
+            "starter_steps_complete": true,
+            "structured_summary_present": true,
+            "summary_exists": true
+          },
+          "perfect": true
+        },
+        "execution": {
+          "duration_seconds": 0.028,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": []
+        }
+      }
+    }
+  ],
+  "summary": {
+    "skill_better_on_deliverable_rate": true,
+    "skill_better_on_success_rate": false
+  }
+}

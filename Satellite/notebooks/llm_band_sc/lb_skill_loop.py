@@ -225,8 +225,11 @@ def run_cell(skill_dir, cell_panel, sensor, site, call_fn, step_cap=STEP_CAP):
             # An empty reply (thinking exhausted the cap) is recorded as empty above, but the gateway refuses a
             # conversation containing an empty assistant message ("message content cannot be empty", the cause of
             # every DeepSeek 400 on 2026-09-24), so the turn is carried forward as a marked placeholder.
+            # The same holds for an empty user message: a command that prints nothing (2026-10-13: DeepSeek's
+            # `sed -n '400,520p'` past the end of a file, 8 cells) is carried forward as "(no output)".
+            shown = output[:OUT_LIMIT] + ("\n[output truncated]" if len(output) > OUT_LIMIT else "")
             messages += [{"role": "assistant", "content": text if text.strip() else "(empty reply)"},
-                         {"role": "user", "content": output[:OUT_LIMIT] + ("\n[output truncated]" if len(output) > OUT_LIMIT else "")}]
+                         {"role": "user", "content": shown if shown.strip() else "(no output)"}]
         return {"skill": Path(skill_dir).name, "sensor": sensor, "site_id": site, "steps": steps, "n_steps": len(steps),
                 "ended": ended, "answer": answer, "values": answer["prediction"] if answer else None,
                 "rationale": answer["rationale"] if answer else None, "ok": answer is not None,

@@ -1,0 +1,99 @@
+cell  1: identical [reported, not gated] (1 lines ours, 1 hers)
+cell  2: identical [reported, not gated] (2 lines ours, 2 hers)
+cell  3: identical [reported, not gated] (5 lines ours, 5 hers)
+cell  4: identical [reported, not gated] (1 lines ours, 1 hers)
+cell  5: identical [gate, identical] (10 lines ours, 10 hers)
+cell  6: identical [reported, not gated] (1 lines ours, 1 hers)
+cell  7: identical [reported, not gated] (1 lines ours, 1 hers)
+cell  8: identical [gate, identical] (158 lines ours, 158 hers)
+cell 10: identical [reported, not gated] (1 lines ours, 1 hers)
+cell 12: differs, passes [gate, numbers within 0.0001] (309 lines ours, 309 hers)
+    13 differing lines in the common length, 13 of them only in numbers within 0.0001
+    line 106
+      ours: sentinel2 treatment_0001          B4             44    -193.5916      -153.5783   616.9953       617.3269             810.9184          -23.87
+      hers: sentinel2 treatment_0001          B4             44    -193.5916      -153.5783   616.9952       617.3269             810.9184          -23.87
+    line 126
+      ours: sentinel2 treatment_0004         B11             48      36.4280        63.4367   539.0856      2252.3917            2215.9637            1.64
+      hers: sentinel2 treatment_0004         B11             48      36.4280        63.4367   539.0857      2252.3917            2215.9637            1.64
+    line 129
+      ours: sentinel2 treatment_0004          B3             48     -31.3113       -75.0249   417.4201       866.9223             898.2336           -3.49
+      hers: sentinel2 treatment_0004          B3             48     -31.3113       -75.0250   417.4201       866.9223             898.2336           -3.49
+    line 131
+      ours: sentinel2 treatment_0004          B8             48     213.9417       226.9112   749.4094      3256.1959            3042.2542            7.03
+      hers: sentinel2 treatment_0004          B8             48     213.9417       226.9113   749.4094      3256.1959            3042.2542            7.03
+    line 134
+      ours: sentinel2 treatment_0005         B11             51      41.8530        42.9470   571.4390      1986.4589            1944.6059            2.15
+      hers: sentinel2 treatment_0005         B11             51      41.8530        42.9470   571.4391      1986.4589            1944.6059            2.15
+    line 137
+      ours: sentinel2 treatment_0005          B3             51     157.2848        -7.8095   726.4277       880.0695             722.7847           21.76
+      hers: sentinel2 treatment_0005          B3             51     157.2848        -7.8096   726.4277       880.0695             722.7847           21.76
+    line 154
+      ours: sentinel2 treatment_0007          B4             50     -36.4904       -23.2338   431.5426       596.4342             632.9247           -5.77
+      hers: sentinel2 treatment_0007          B4             50     -36.4904       -23.2337   431.5426       596.4342             632.9247           -5.77
+    line 247
+      ours: sentinel2 treatment_0019         B12             45      10.3364        32.8783   403.5442      1053.1181            1042.7817            0.99
+      hers: sentinel2 treatment_0019         B12             45      10.3364        32.8784   403.5442      1053.1181            1042.7817            0.99
+    line 249
+      ours: sentinel2 treatment_0019          B3             45     -28.2351        16.0882   760.2538       641.7033             669.9383           -4.21
+      hers: sentinel2 treatment_0019          B3             45     -28.2351        16.0883   760.2538       641.7033             669.9383           -4.21
+    line 250
+      ours: sentinel2 treatment_0019          B4             45     -29.2049        54.7128   763.8976       590.4649             619.6698           -4.71
+      hers: sentinel2 treatment_0019          B4             45     -29.2049        54.7129   763.8976       590.4649             619.6698           -4.71
+    line 264
+      ours: sentinel2 treatment_0021          B2             64    -168.4456      -112.6770   574.1193       474.1110             642.5566          -26.21
+      hers: sentinel2 treatment_0021          B2             64    -168.4456      -112.6770   574.1192       474.1110             642.5566          -26.21
+    line 265
+      ours: sentinel2 treatment_0021          B3             64    -166.3154      -102.4382   542.1220       670.4443             836.7597          -19.88
+      hers: sentinel2 treatment_0021          B3             64    -166.3154      -102.4382   542.1219       670.4443             836.7597          -19.88
+    line 288
+      ours: sentinel2 treatment_0024          B2             42     132.3777       -36.2979   702.3701       691.9580             559.5803           23.66
+      hers: sentinel2 treatment_0024          B2             42     132.3777       -36.2979   702.3702       691.9580             559.5803           23.66
+cell 13: differs [reported, not gated] (295 lines ours, 295 hers)
+    86 differing lines in the common length, 7 of them only in numbers within 0.0001
+    line 32
+      ours: treatment_0008 sentinel1 VV_minus_VH      51    3.3631       2.1471  0.000       3.1654 0.0037
+      hers: treatment_0012 sentinel1 VV_minus_VH      51    2.7984       1.9218  0.000       2.6387 0.0037
+    line 33
+      ours: treatment_0014 sentinel1          VH      51    5.7284       5.0859  0.006       5.5056 0.0037
+      hers: treatment_0013 sentinel1          VH      51    4.8553       4.0325  0.000       4.7243 0.0037
+    line 34
+      ours: treatment_0012 sentinel1 VV_minus_VH      51    2.7984       1.9218  0.000       2.6387 0.0037
+      hers: treatment_0014 sentinel1          VH      51    5.7284       5.0859  0.006       5.5056 0.0037
+    line 35
+      ours: treatment_0014 sentinel1 VV_minus_VH      51    2.7207       1.8518  0.000       2.6234 0.0037
+      hers: treatment_0010 sentinel1 VV_minus_VH      51    3.9442       2.6695  0.000       3.8982 0.0037
+    line 36
+      ours: treatment_0013 sentinel1          VH      51    4.8553       4.0325  0.000       4.7243 0.0037
+      hers: treatment_0014 sentinel1 VV_minus_VH      51    2.7207       1.8518  0.000       2.6234 0.0037
+    line 37
+      ours: treatment_0010 sentinel1 VV_minus_VH      51    3.9442       2.6695  0.000       3.8982 0.0037
+      hers: treatment_0008 sentinel1 VV_minus_VH      51    3.3631       2.1471  0.000       3.1654 0.0037
+    line 38
+      ours: treatment_0015 sentinel2         B12      47 1929.6762    1804.4552  0.013    1810.8263 0.0045
+      hers: treatment_0015 sentinel2          B8      47 3169.3613    2376.6501  0.000    2921.1870 0.0045
+    line 39
+      ours: treatment_0015 sentinel2          B8      47 3169.3613    2376.6501  0.000    2921.1870 0.0045
+      hers: treatment_0015 sentinel2          B4      47 1658.7764    1316.7940  0.000    1508.6536 0.0045
+    line 40
+      ours: treatment_0015 sentinel2          B4      47 1658.7764    1316.7940  0.000    1508.6536 0.0045
+      hers: treatment_0015 sentinel2         B12      47 1929.6762    1804.4552  0.013    1810.8263 0.0045
+    line 44
+      ours: treatment_0006 sentinel1 VV_minus_VH      27    2.1367       1.6057  0.000       2.0174 0.0069
+      hers: treatment_0015 sentinel1          VH      27    4.8716       3.2588  0.000       4.5898 0.0069
+    line 45
+      ours: treatment_0017 sentinel1          VV      27    2.2602       1.9587  0.005       2.0813 0.0069
+      hers: treatment_0025 sentinel1 VV_minus_VH      27    1.4815       1.0449  0.000       1.3652 0.0069
+    line 46
+      ours: treatment_0006 sentinel1          VH      27    4.0936       3.2878  0.002       3.9135 0.0069
+      hers: treatment_0018 sentinel1          VV      27    1.9361       1.8616  0.026       1.7822 0.0069
+    line 47
+      ours: treatment_0002 sentinel1 VV_minus_VH      27    1.6165       1.4037  0.010       1.5294 0.0069
+      hers: treatment_0025 sentinel1          VV      27    2.2866       1.7020  0.000       2.1175 0.0069
+    line 48
+      ours: treatment_0016 sentinel1          VV      27    4.2859       2.9166  0.000       3.9991 0.0069
+      hers: treatment_0006 sentinel1          VH      27    4.0936       3.2878  0.002       3.9135 0.0069
+    line 49
+      ours: treatment_0017 sentinel1 VV_minus_VH      27    1.7253       1.4876  0.004       1.6167 0.0069
+      hers: treatment_0006 sentinel1          VV      27    2.5060       2.2081  0.005       2.4277 0.0069
+DK2 ok: cells 5 and 8 identical, cell 12 identical except numbers within 0.0001
+seconds per cell: 1: 0.0, 2: 0.0, 3: 7.5, 4: 0.0, 5: 35.6, 6: 0.0, 7: 0.0, 8: 342.9, 10: 2.7, 12: 0.1, 13: 8.0

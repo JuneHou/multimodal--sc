@@ -1,0 +1,24 @@
+{
+  "name": "Synthetic Historical Control Band Forecast",
+  "slug": "synthetic-historical-control-band-forecast",
+  "domain": "statistical-and-machine-learning-foundations-for-science",
+  "topic_path": ["statistical-and-machine-learning-foundations-for-science", "causal-inference", "synthetic-historical-control"],
+  "status": "sandbox_verified",
+  "authorship": "Codex",
+  "created_at": "2026-10-13",
+  "updated_at": "2026-10-13",
+  "source_resources": ["synthetic-historical-control-ssrn", "mlsynth-github-repo"],
+  "package_versions": {},
+  "compute_requirements": "cpu",
+  "language": ["Python"],
+  "tags": ["synthetic-historical-control", "causal-inference", "time-series-forecasting", "remote-sensing", "synthetic-control"],
+  "aliases": ["SHC band forecast", "synthetic historical control", "single-unit counterfactual forecast"],
+  "test_commands": [
+    "python3 skills/statistical-and-machine-learning-foundations-for-science/synthetic-historical-control-band-forecast/scripts/run_shc_band_forecast.py --input skills/statistical-and-machine-learning-foundations-for-science/synthetic-historical-control-band-forecast/examples/toy_parcel_data.csv --out scratch/shc/answer.json --summary-out scratch/shc/summary.json",
+    "python3 skills/statistical-and-machine-learning-foundations-for-science/synthetic-historical-control-band-forecast/scripts/validate_answer.py --answer scratch/shc/answer.json --expected-bands ndvi,nir,red,swir --truth skills/statistical-and-machine-learning-foundations-for-science/synthetic-historical-control-band-forecast/examples/toy_parcel_truth.json",
+    "python3 -m unittest discover -s skills/statistical-and-machine-learning-foundations-for-science/synthetic-historical-control-band-forecast/tests -p 'test_*.py'"
+  ],
+  "last_verified_at": "2026-10-13",
+  "freshness_risk": "low",
+  "related_skills": ["dowhy-average-treatment-effect-starter", "pymc-bayesian-linear-regression-starter", "scipy-statistical-testing-starter"]
+}

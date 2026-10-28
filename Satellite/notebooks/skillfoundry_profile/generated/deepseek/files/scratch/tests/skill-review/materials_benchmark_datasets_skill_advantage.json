@@ -1,0 +1,116 @@
+{
+  "aggregate": {
+    "baseline": {
+      "average_deliverable_rate": 0.5,
+      "perfect_case_count": 0,
+      "success_rate": 1.0
+    },
+    "skill": {
+      "average_deliverable_rate": 1.0,
+      "perfect_case_count": 2,
+      "success_rate": 1.0
+    }
+  },
+  "cases": [
+    {
+      "baseline": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 0.5,
+          "deliverables": {
+            "leaf_context_present": true,
+            "promotion_checklist_complete": false,
+            "source_resource_ids_match": true,
+            "starter_steps_complete": false,
+            "structured_summary_present": false,
+            "summary_exists": true
+          },
+          "perfect": false
+        },
+        "execution": {
+          "duration_seconds": 0.0,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": [
+            "wrote /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/skillfoundry_profile/work/deepseek/scratch/benchmarks/skill-advantage/materials-benchmark-datasets-starter-summary/baseline/starter_notes.md"
+          ]
+        }
+      },
+      "case": "materials-benchmark-datasets-starter-summary",
+      "description": "Materials benchmark datasets starter summary with a structure-heavy benchmark.",
+      "skill": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 1.0,
+          "deliverables": {
+            "leaf_context_present": true,
+            "promotion_checklist_complete": true,
+            "source_resource_ids_match": true,
+            "starter_steps_complete": true,
+            "structured_summary_present": true,
+            "summary_exists": true
+          },
+          "perfect": true
+        },
+        "execution": {
+          "duration_seconds": 0.029,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": []
+        }
+      }
+    },
+    {
+      "baseline": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 0.5,
+          "deliverables": {
+            "leaf_context_present": true,
+            "promotion_checklist_complete": false,
+            "source_resource_ids_match": true,
+            "starter_steps_complete": false,
+            "structured_summary_present": false,
+            "summary_exists": true
+          },
+          "perfect": false
+        },
+        "execution": {
+          "duration_seconds": 0.0,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": [
+            "wrote /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/skillfoundry_profile/work/deepseek/scratch/benchmarks/skill-advantage/materials-benchmark-datasets-starter-augmented/baseline/starter_notes.md"
+          ]
+        }
+      },
+      "case": "materials-benchmark-datasets-starter-augmented",
+      "description": "Materials benchmark datasets starter with a mutated resource context to test structured propagation.",
+      "skill": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 1.0,
+          "deliverables": {
+            "leaf_context_present": true,
+            "promotion_checklist_complete": true,
+            "source_resource_ids_match": true,
+            "starter_steps_complete": true,
+            "structured_summary_present": true,
+            "summary_exists": true
+          },
+          "perfect": true
+        },
+        "execution": {
+          "duration_seconds": 0.032,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": []
+        }
+      }
+    }
+  ],
+  "summary": {
+    "skill_better_on_deliverable_rate": true,
+    "skill_better_on_success_rate": false
+  }
+}

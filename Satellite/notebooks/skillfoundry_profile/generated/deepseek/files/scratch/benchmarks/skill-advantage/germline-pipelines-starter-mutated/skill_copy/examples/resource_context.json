@@ -1,0 +1,19 @@
+{
+  "domain_name": "Genomics",
+  "domain_slug": "genomics",
+  "leaf_name": "Germline pipelines",
+  "leaf_slug": "germline-pipelines",
+  "skill_name": "Germline pipelines Starter",
+  "skill_slug": "germline-pipelines-starter",
+  "source_resource_ids": [
+    "gatk-docs"
+  ],
+  "starter_objectives": [
+    "Review the primary materials for Germline pipelines.",
+    "Define the smallest reproducible input/output contract.",
+    "Capture a smoke command or toy example.",
+    "Promote the starter to sandbox verification once runtime details are stable.",
+    "Capture one concrete interval-list example for the starter plan."
+  ],
+  "taxonomy_key": "genomics"
+}

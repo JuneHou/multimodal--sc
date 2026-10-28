@@ -1,0 +1,32 @@
+{
+  "name": "Synthetic Historical Control Satellite Forecast",
+  "slug": "synthetic-historical-control-satellite-forecast",
+  "domain": "earth-climate-and-geospatial-science",
+  "topic_path": ["earth-climate-and-geospatial-science", "time-series-environmental-data-handling", "synthetic-historical-control"],
+  "status": "sandbox_verified",
+  "authorship": "Codex",
+  "created_at": "2026-10-13",
+  "updated_at": "2026-10-13",
+  "source_resources": ["synthetic-historical-control-paper"],
+  "package_versions": {},
+  "compute_requirements": "cpu+local",
+  "language": ["Python"],
+  "tags": ["satellite", "remote-sensing", "forecasting", "synthetic-control", "time-series"],
+  "aliases": [
+    "synthetic historical control satellite forecast",
+    "parcel band forecast",
+    "satellite band shc forecast"
+  ],
+  "test_commands": [
+    "python3 skills/earth-climate-and-geospatial-science/synthetic-historical-control-satellite-forecast/scripts/run_shc_satellite_forecast.py --input skills/earth-climate-and-geospatial-science/synthetic-historical-control-satellite-forecast/examples/toy_satellite_history.csv --out scratch/shc_satellite_forecast/answer.json --details-out scratch/shc_satellite_forecast/details.json",
+    "python3 skills/earth-climate-and-geospatial-science/synthetic-historical-control-satellite-forecast/scripts/validate_answer.py --input skills/earth-climate-and-geospatial-science/synthetic-historical-control-satellite-forecast/examples/toy_satellite_history.csv --answer scratch/shc_satellite_forecast/answer.json --out scratch/shc_satellite_forecast/validation.json",
+    "python3 -m unittest discover -s skills/earth-climate-and-geospatial-science/synthetic-historical-control-satellite-forecast/tests -p 'test_*.py'"
+  ],
+  "last_verified_at": "2026-10-13",
+  "freshness_risk": "low",
+  "related_skills": [
+    "xarray-climate-cube-starter",
+    "rasterio-windowed-raster-preprocessing-starter",
+    "dowhy-average-treatment-effect-starter"
+  ]
+}

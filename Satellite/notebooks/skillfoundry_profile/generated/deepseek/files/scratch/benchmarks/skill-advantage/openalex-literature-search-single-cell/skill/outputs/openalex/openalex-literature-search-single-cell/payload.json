@@ -1,0 +1,4379 @@
+{
+  "group_by": [],
+  "meta": {
+    "cost_usd": 0.001,
+    "count": 338994,
+    "db_response_time_ms": 169,
+    "groups_count": null,
+    "page": 1,
+    "per_page": 1
+  },
+  "request_params": {
+    "mailto": null,
+    "per_page": 1,
+    "query": "single-cell RNA-seq"
+  },
+  "request_url": "https://api.openalex.org/works?search=single-cell+RNA-seq&per-page=1",
+  "results": [
+    {
+      "abstract_inverted_index": {
+        "(RNA-seq)": [
+          16
+        ],
+        "19": [
+          23
+        ],
+        "4645": [
+          18
+        ],
+        "AXL": [
+          88
+        ],
+        "Analysis": [
+          100
+        ],
+        "In": [
+          52
+        ],
+        "MITF": [
+          74,
+          82
+        ],
+        "Malignant": [
+          32
+        ],
+        "Overall,": [
+          122
+        ],
+        "RNA": [
+          14
+        ],
+        "Single-cell": [
+          90
+        ],
+        "T": [
+          103,
+          111
+        ],
+        "To": [
+          0
+        ],
+        "a": [
+          49
+        ],
+        "across": [
+          120
+        ],
+        "activation": [
+          113
+        ],
+        "all": [
+          54
+        ],
+        "also": [
+          77
+        ],
+        "analyses": [
+          91
+        ],
+        "and": [
+          5,
+          29,
+          48,
+          83,
+          114,
+          117,
+          132,
+          143
+        ],
+        "applied": [
+          12
+        ],
+        "associated": [
+          41
+        ],
+        "begin": [
+          124
+        ],
+        "both": [
+          141
+        ],
+        "by": [
+          69
+        ],
+        "cell": [
+          44,
+          63,
+          112
+        ],
+        "cell-to-cell": [
+          98
+        ],
+        "cells": [
+          20,
+          33,
+          58,
+          79,
+          104
+        ],
+        "cells.": [
+          31
+        ],
+        "cellular": [
+          128
+        ],
+        "characterized": [
+          68
+        ],
+        "clonal": [
+          115
+        ],
+        "connection": [
+          109
+        ],
+        "contained": [
+          78
+        ],
+        "context,": [
+          47
+        ],
+        "cycle,": [
+          45
+        ],
+        "displayed": [
+          38
+        ],
+        "distinct": [
+          3,
+          61,
+          93
+        ],
+        "drug-resistance": [
+          50
+        ],
+        "ecosystem": [
+          129
+        ],
+        "elevated": [
+          84
+        ],
+        "endothelial": [
+          30
+        ],
+        "exhaustion": [
+          106
+        ],
+        "expansion,": [
+          116
+        ],
+        "explore": [
+          1
+        ],
+        "factor": [
+          76
+        ],
+        "for": [
+          140
+        ],
+        "from": [
+          22,
+          59
+        ],
+        "genomics": [
+          135
+        ],
+        "genotypic": [
+          4
+        ],
+        "harbored": [
+          56
+        ],
+        "heterogeneity": [
+          40
+        ],
+        "high": [
+          70
+        ],
+        "how": [
+          133
+        ],
+        "immune": [
+          144
+        ],
+        "immune,": [
+          27
+        ],
+        "implications": [
+          139
+        ],
+        "including": [
+          97
+        ],
+        "insights": [
+          137
+        ],
+        "interactions.": [
+          99
+        ],
+        "isolated": [
+          21
+        ],
+        "kinase.": [
+          89
+        ],
+        "levels": [
+          71,
+          85
+        ],
+        "low": [
+          81
+        ],
+        "malignant": [
+          57
+        ],
+        "malignant,": [
+          26
+        ],
+        "melanoma": [
+          9
+        ],
+        "microenvironmental": [
+          95
+        ],
+        "of": [
+          8,
+          72,
+          86,
+          101,
+          130
+        ],
+        "offers": [
+          136
+        ],
+        "particular,": [
+          53
+        ],
+        "patients,": [
+          24
+        ],
+        "patients.": [
+          121
+        ],
+        "patterns,": [
+          96
+        ],
+        "phenotypic": [
+          6
+        ],
+        "profiling": [
+          25
+        ],
+        "program.": [
+          51
+        ],
+        "programs,": [
+          107
+        ],
+        "revealed": [
+          105
+        ],
+        "same": [
+          36
+        ],
+        "sequencing": [
+          15
+        ],
+        "single": [
+          19
+        ],
+        "single-cell": [
+          13,
+          134
+        ],
+        "spatial": [
+          46
+        ],
+        "states": [
+          7
+        ],
+        "states,": [
+          64
+        ],
+        "stromal,": [
+          28
+        ],
+        "such": [
+          65
+        ],
+        "suggested": [
+          92
+        ],
+        "targeted": [
+          142
+        ],
+        "that": [
+          66
+        ],
+        "the": [
+          2,
+          35,
+          43,
+          73,
+          87,
+          127
+        ],
+        "their": [
+          108,
+          118
+        ],
+        "therapies.": [
+          145
+        ],
+        "to": [
+          17,
+          110,
+          125
+        ],
+        "transcription": [
+          75
+        ],
+        "transcriptional": [
+          39,
+          62
+        ],
+        "tumor": [
+          37,
+          94
+        ],
+        "tumor-infiltrating": [
+          102
+        ],
+        "tumors": [
+          55,
+          67,
+          131
+        ],
+        "tumors,": [
+          10
+        ],
+        "two": [
+          60
+        ],
+        "unravel": [
+          126
+        ],
+        "variability": [
+          119
+        ],
+        "we": [
+          11,
+          123
+        ],
+        "with": [
+          42,
+          80,
+          138
+        ],
+        "within": [
+          34
+        ]
+      },
+      "apc_list": null,
+      "apc_paid": null,
+      "authorships": [
+        {
+          "affiliations": [
+            {
+              "institution_ids": [
+                "https://openalex.org/I107606265"
+              ],
+              "raw_affiliation_string": "Broad Institute of MIT and Harvard, Cambridge, MA 02142, USA"
+            }
+          ],
+          "author": {
+            "display_name": "Itay Tirosh",
+            "id": "https://openalex.org/A5005251958",
+            "orcid": "https://orcid.org/0000-0001-5477-2987"
+          },
+          "author_position": "first",
+          "countries": [
+            "US"
+          ],
+          "institutions": [
+            {
+              "country_code": "US",
+              "display_name": "Broad Institute",
+              "id": "https://openalex.org/I107606265",
+              "lineage": [
+                "https://openalex.org/I107606265"
+              ],
+              "ror": "https://ror.org/05a0ya142",
+              "type": "funder"
+            }
+          ],
+          "is_corresponding": true,
+          "raw_affiliation_strings": [
+            "Broad Institute of MIT and Harvard, Cambridge, MA 02142, USA"
+          ],
+          "raw_author_name": "Itay Tirosh"
+        },
+        {
+          "affiliations": [
+            {
+              "institution_ids": [
+                "https://openalex.org/I107606265"
+              ],
+              "raw_affiliation_string": "Broad Institute of MIT and Harvard, Cambridge, MA 02142, USA"
+            },
+            {
+              "institution_ids": [
+                "https://openalex.org/I4210117453"
+              ],
+              "raw_affiliation_string": "Center for Cancer Precision Medicine, Dana-Farber Cancer Institute, Boston, MA 02215, USA"
+            },
+            {
+              "institution_ids": [
+                "https://openalex.org/I4210117453",
+                "https://openalex.org/I136199984"
+              ],
+              "raw_affiliation_string": "Department of Medical Oncology, Dana-Farber Cancer Institute, Harvard Medical School, Boston, MA 02215, USA"
+            }
+          ],
+          "author": {
+            "display_name": "Benjamin Izar",
+            "id": "https://openalex.org/A5052100404",
+            "orcid": "https://orcid.org/0000-0003-2379-6702"
+          },
+          "author_position": "middle",
+          "countries": [
+            "US"
+          ],
+          "institutions": [
+            {
+              "country_code": "US",
+              "display_name": "Harvard University",
+              "id": "https://openalex.org/I136199984",
+              "lineage": [
+                "https://openalex.org/I136199984"
+              ],
+              "ror": "https://ror.org/03vek6s52",
+              "type": "education"
+            },
+            {
+              "country_code": "US",
+              "display_name": "Dana-Farber Cancer Institute",
+              "id": "https://openalex.org/I4210117453",
+              "lineage": [
+                "https://openalex.org/I4210117453"
+              ],
+              "ror": "https://ror.org/02jzgtq86",
+              "type": "facility"
+            },
+            {
+              "country_code": "US",
+              "display_name": "Broad Institute",
+              "id": "https://openalex.org/I107606265",
+              "lineage": [
+                "https://openalex.org/I107606265"
+              ],
+              "ror": "https://ror.org/05a0ya142",
+              "type": "funder"
+            }
+          ],
+          "is_corresponding": true,
+          "raw_affiliation_strings": [
+            "Broad Institute of MIT and Harvard, Cambridge, MA 02142, USA",
+            "Center for Cancer Precision Medicine, Dana-Farber Cancer Institute, Boston, MA 02215, USA",
+            "Department of Medical Oncology, Dana-Farber Cancer Institute, Harvard Medical School, Boston, MA 02215, USA"
+          ],
+          "raw_author_name": "Benjamin Izar"
+        },
+        {
+          "affiliations": [
+            {
+              "institution_ids": [
+                "https://openalex.org/I107606265"
+              ],
+              "raw_affiliation_string": "Broad Institute of MIT and Harvard, Cambridge, MA 02142, USA"
+            },
+            {
+              "institution_ids": [
+                "https://openalex.org/I4210110987"
+              ],
+              "raw_affiliation_string": "Department of Chemistry, MIT, Cambridge, MA 02142, USA"
+            },
+            {
+              "institution_ids": [
+                "https://openalex.org/I63966007"
+              ],
+              "raw_affiliation_string": "Institute for Medical Engineering and Science, Massachusetts Institute of Technology (MIT), Cambridge, MA 02139, USA"
+            },
+            {
+              "institution_ids": [
+                "https://openalex.org/I2802422659"
+              ],
+              "raw_affiliation_string": "Ragon Institute of Massachusetts General Hospital, MIT and Harvard University, Cambridge, MA 02139, USA"
+            }
+          ],
+          "author": {
+            "display_name": "Sanjay M. Prakadan",
+            "id": "https://openalex.org/A5081202724",
+            "orcid": null
+          },
+          "author_position": "middle",
+          "countries": [
+            "US"
+          ],
+          "institutions": [
+            {
+              "country_code": "US",
+              "display_name": "Ragon Institute of MGH, MIT and Harvard",
+              "id": "https://openalex.org/I2802422659",
+              "lineage": [
+                "https://openalex.org/I136199984",
+                "https://openalex.org/I2802422659",
+                "https://openalex.org/I4210087915",
+                "https://openalex.org/I48633490",
+                "https://openalex.org/I63966007"
+              ],
+              "ror": "https://ror.org/053r20n13",
+              "type": "healthcare"
+            },
+            {
+              "country_code": "US",
+              "display_name": "Massachusetts Institute of Technology",
+              "id": "https://openalex.org/I63966007",
+              "lineage": [
+                "https://openalex.org/I63966007"
+              ],
+              "ror": "https://ror.org/042nb2s44",
+              "type": "education"
+            },
+            {
+              "country_code": "US",
+              "display_name": "IIT@MIT",
+              "id": "https://openalex.org/I4210110987",
+              "lineage": [
+                "https://openalex.org/I30771326",
+                "https://openalex.org/I4210110987"
+              ],
+              "ror": "https://ror.org/01wp8zh54",
+              "type": "facility"
+            },
+            {
+              "country_code": "US",
+              "display_name": "Broad Institute",
+              "id": "https://openalex.org/I107606265",
+              "lineage": [
+                "https://openalex.org/I107606265"
+              ],
+              "ror": "https://ror.org/05a0ya142",
+              "type": "funder"
+            }
+          ],
+          "is_corresponding": false,
+          "raw_affiliation_strings": [
+            "Broad Institute of MIT and Harvard, Cambridge, MA 02142, USA",
+            "Department of Chemistry, MIT, Cambridge, MA 02142, USA",
+            "Institute for Medical Engineering and Science, Massachusetts Institute of Technology (MIT), Cambridge, MA 02139, USA",
+            "Ragon Institute of Massachusetts General Hospital, MIT and Harvard University, Cambridge, MA 02139, USA"
+          ],
+          "raw_author_name": "Sanjay M. Prakadan"
+        },
+        {
+          "affiliations": [
+            {
+              "institution_ids": [
+                "https://openalex.org/I107606265"
+              ],
+              "raw_affiliation_string": "Broad Institute of MIT and Harvard, Cambridge, MA 02142, USA"
+            },
+            {
+              "institution_ids": [
+                "https://openalex.org/I4210110987"
+              ],
+              "raw_affiliation_string": "Department of Chemistry, MIT, Cambridge, MA 02142, USA"
+            },
+            {
+              "institution_ids": [
+                "https://openalex.org/I63966007"
+              ],
+              "raw_affiliation_string": "Institute for Medical Engineering and Science, Massachusetts Institute of Technology (MIT), Cambridge, MA 02139, USA"
+            },
+            {
+              "institution_ids": [
+                "https://openalex.org/I2802422659"
+              ],
+              "raw_affiliation_string": "Ragon Institute of Massachusetts General Hospital, MIT and Harvard University, Cambridge, MA 02139, USA"
+            }
+          ],
+          "author": {
+            "display_name": "Marc H. Wadsworth",
+            "id": "https://openalex.org/A5008493016",
+            "orcid": "https://orcid.org/0000-0001-9479-8516"
+          },
+          "author_position": "middle",
+          "countries": [
+            "US"
+          ],
+          "institutions": [
+            {
+              "country_code": "US",
+              "display_name": "Massachusetts Institute of Technology",
+              "id": "https://openalex.org/I63966007",
+              "lineage": [
+                "https://openalex.org/I63966007"
+              ],
+              "ror": "https://ror.org/042nb2s44",
+              "type": "education"
+            },
+            {
+              "country_code": "US",
+              "display_name": "Ragon Institute of MGH, MIT and Harvard",
+              "id": "https://openalex.org/I2802422659",
+              "lineage": [
+                "https://openalex.org/I136199984",
+                "https://openalex.org/I2802422659",
+                "https://openalex.org/I4210087915",
+                "https://openalex.org/I48633490",
+                "https://openalex.org/I63966007"
+              ],
+              "ror": "https://ror.org/053r20n13",
+              "type": "healthcare"
+            },
+            {
+              "country_code": "US",
+              "display_name": "IIT@MIT",
+              "id": "https://openalex.org/I4210110987",
+              "lineage": [
+                "https://openalex.org/I30771326",
+                "https://openalex.org/I4210110987"
+              ],
+              "ror": "https://ror.org/01wp8zh54",
+              "type": "facility"
+            },
+            {
+              "country_code": "US",
+              "display_name": "Broad Institute",
+              "id": "https://openalex.org/I107606265",
+              "lineage": [
+                "https://openalex.org/I107606265"
+              ],
+              "ror": "https://ror.org/05a0ya142",
+              "type": "funder"
+            }
+          ],
+          "is_corresponding": false,
+          "raw_affiliation_strings": [
+            "Broad Institute of MIT and Harvard, Cambridge, MA 02142, USA",
+            "Department of Chemistry, MIT, Cambridge, MA 02142, USA",
+            "Institute for Medical Engineering and Science, Massachusetts Institute of Technology (MIT), Cambridge, MA 02139, USA",
+            "Ragon Institute of Massachusetts General Hospital, MIT and Harvard University, Cambridge, MA 02139, USA"
+          ],
+          "raw_author_name": "Marc H. Wadsworth"
+        },
+        {
+          "affiliations": [
+            {
+              "institution_ids": [
+                "https://openalex.org/I107606265"
+              ],
+              "raw_affiliation_string": "Broad Institute of MIT and Harvard, Cambridge, MA 02142, USA"
+            }
+          ],
+          "author": {
+            "display_name": "Daniel J. Treacy",
+            "id": "https://openalex.org/A5026724751",
+            "orcid": null
+          },
+          "author_position": "middle",
+          "countries": [
+            "US"
+          ],
+          "institutions": [
+            {
+              "country_code": "US",
+              "display_name": "Broad Institute",
+              "id": "https://openalex.org/I107606265",
+              "lineage": [
+                "https://openalex.org/I107606265"
+              ],
+              "ror": "https://ror.org/05a0ya142",
+              "type": "funder"
+            }
+          ],
+          "is_corresponding": false,
+          "raw_affiliation_strings": [
+            "Broad Institute of MIT and Harvard, Cambridge, MA 02142, USA"
+          ],
+          "raw_author_name": "Daniel Treacy"
+        },
+        {
+          "affiliations": [
+            {
+              "institution_ids": [
+                "https://openalex.org/I107606265"
+              ],
+              "raw_affiliation_string": "Broad Institute of MIT and Harvard, Cambridge, MA 02142, USA"
+            }
+          ],
+          "author": {
+            "display_name": "John J. Trombetta",
+            "id": "https://openalex.org/A5085500276",
+            "orcid": null
+          },
+          "author_position": "middle",
+          "countries": [
+            "US"
+          ],
+          "institutions": [
+            {
+              "country_code": "US",
+              "display_name": "Broad Institute",
+              "id": "https://openalex.org/I107606265",
+              "lineage": [
+                "https://openalex.org/I107606265"
+              ],
+              "ror": "https://ror.org/05a0ya142",
+              "type": "funder"
+            }
+          ],
+          "is_corresponding": false,
+          "raw_affiliation_strings": [
+            "Broad Institute of MIT and Harvard, Cambridge, MA 02142, USA"
+          ],
+          "raw_author_name": "John J. Trombetta"
+        },
+        {
+          "affiliations": [
+            {
+              "institution_ids": [
+                "https://openalex.org/I107606265"
+              ],
+              "raw_affiliation_string": "Broad Institute of MIT and Harvard, Cambridge, MA 02142, USA"
+            },
+            {
+              "institution_ids": [
+                "https://openalex.org/I4210117453"
+              ],
+              "raw_affiliation_string": "Center for Cancer Precision Medicine, Dana-Farber Cancer Institute, Boston, MA 02215, USA"
+            },
+            {
+              "institution_ids": [
+                "https://openalex.org/I4210117453",
+                "https://openalex.org/I136199984"
+              ],
+              "raw_affiliation_string": "Department of Medical Oncology, Dana-Farber Cancer Institute, Harvard Medical School, Boston, MA 02215, USA"
+            }
+          ],
+          "author": {
+            "display_name": "Asaf Rotem",
+            "id": "https://openalex.org/A5035538664",
+            "orcid": "https://orcid.org/0000-0002-6859-7435"
+          },
+          "author_position": "middle",
+          "countries": [
+            "US"
+          ],
+          "institutions": [
+            {
+              "country_code": "US",
+              "display_name": "Dana-Farber Cancer Institute",
+              "id": "https://openalex.org/I4210117453",
+              "lineage": [
+                "https://openalex.org/I4210117453"
+              ],
+              "ror": "https://ror.org/02jzgtq86",
+              "type": "facility"
+            },
+            {
+              "country_code": "US",
+              "display_name": "Harvard University",
+              "id": "https://openalex.org/I136199984",
+              "lineage": [
+                "https://openalex.org/I136199984"
+              ],
+              "ror": "https://ror.org/03vek6s52",
+              "type": "education"
+            },
+            {
+              "country_code": "US",
+              "display_name": "Broad Institute",
+              "id": "https://openalex.org/I107606265",
+              "lineage": [
+                "https://openalex.org/I107606265"
+              ],
+              "ror": "https://ror.org/05a0ya142",
+              "type": "funder"
+            }
+          ],
+          "is_corresponding": false,
+          "raw_affiliation_strings": [
+            "Broad Institute of MIT and Harvard, Cambridge, MA 02142, USA",
+            "Center for Cancer Precision Medicine, Dana-Farber Cancer Institute, Boston, MA 02215, USA",
+            "Department of Medical Oncology, Dana-Farber Cancer Institute, Harvard Medical School, Boston, MA 02215, USA"
+          ],
+          "raw_author_name": "Asaf Rotem"
+        },
+        {
+          "affiliations": [
+            {
+              "institution_ids": [
+                "https://openalex.org/I107606265"
+              ],
+              "raw_affiliation_string": "Broad Institute of MIT and Harvard, Cambridge, MA 02142, USA"
+            }
+          ],
+          "author": {
+            "display_name": "Christopher Rodman",
+            "id": "https://openalex.org/A5006812676",
+            "orcid": null
+          },
+          "author_position": "middle",
+          "countries": [
+            "US"
+          ],
+          "institutions": [
+            {
+              "country_code": "US",
+              "display_name": "Broad Institute",
+              "id": "https://openalex.org/I107606265",
+              "lineage": [
+                "https://openalex.org/I107606265"
+              ],
+              "ror": "https://ror.org/05a0ya142",
+              "type": "funder"
+            }
+          ],
+          "is_corresponding": false,
+          "raw_affiliation_strings": [
+            "Broad Institute of MIT and Harvard, Cambridge, MA 02142, USA"
+          ],
+          "raw_author_name": "Christopher Rodman"
+        },
+        {
+          "affiliations": [
+            {
+              "institution_ids": [
+                "https://openalex.org/I1283280774",
+                "https://openalex.org/I136199984"
+              ],
+              "raw_affiliation_string": "Department of Pathology, Brigham and Women\u2019s Hospital, Harvard Medical School, Boston, MA 02115, USA"
+            },
+            {
+              "institution_ids": [
+                "https://openalex.org/I1283280774",
+                "https://openalex.org/I136199984"
+              ],
+              "raw_affiliation_string": "Department of Pathology, Brigham and Women's Hospital, Harvard Medical School, Boston, MA 02115, USA"
+            }
+          ],
+          "author": {
+            "display_name": "Christine G. Lian",
+            "id": "https://openalex.org/A5085108299",
+            "orcid": "https://orcid.org/0000-0003-4626-1612"
+          },
+          "author_position": "middle",
+          "countries": [
+            "US"
+          ],
+          "institutions": [
+            {
+              "country_code": "US",
+              "display_name": "Harvard University",
+              "id": "https://openalex.org/I136199984",
+              "lineage": [
+                "https://openalex.org/I136199984"
+              ],
+              "ror": "https://ror.org/03vek6s52",
+              "type": "education"
+            },
+            {
+              "country_code": "US",
+              "display_name": "Brigham and Women's Hospital",
+              "id": "https://openalex.org/I1283280774",
+              "lineage": [
+                "https://openalex.org/I1283280774",
+                "https://openalex.org/I48633490"
+              ],
+              "ror": "https://ror.org/04b6nzv94",
+              "type": "healthcare"
+            }
+          ],
+          "is_corresponding": false,
+          "raw_affiliation_strings": [
+            "Department of Pathology, Brigham and Women\u2019s Hospital, Harvard Medical School, Boston, MA 02115, USA",
+            "Department of Pathology, Brigham and Women's Hospital, Harvard Medical School, Boston, MA 02115, USA"
+          ],
+          "raw_author_name": "Christine Lian"
+        },
+        {
+          "affiliations": [
+            {
+              "institution_ids": [
+                "https://openalex.org/I1283280774",
+                "https://openalex.org/I136199984"
+              ],
+              "raw_affiliation_string": "Department of Pathology, Brigham and Women\u2019s Hospital, Harvard Medical School, Boston, MA 02115, USA"
+            },
+            {
+              "institution_ids": [
+                "https://openalex.org/I1283280774",
+                "https://openalex.org/I136199984"
+              ],
+              "raw_affiliation_string": "Department of Pathology, Brigham and Women's Hospital, Harvard Medical School, Boston, MA 02115, USA"
+            }
+          ],
+          "author": {
+            "display_name": "G\u00eborge F. Murphy",
+            "id": "https://openalex.org/A5018856906",
+            "orcid": "https://orcid.org/0000-0001-9362-5146"
+          },
+          "author_position": "middle",
+          "countries": [
+            "US"
+          ],
+          "institutions": [
+            {
+              "country_code": "US",
+              "display_name": "Brigham and Women's Hospital",
+              "id": "https://openalex.org/I1283280774",
+              "lineage": [
+                "https://openalex.org/I1283280774",
+                "https://openalex.org/I48633490"
+              ],
+              "ror": "https://ror.org/04b6nzv94",
+              "type": "healthcare"
+            },
+            {
+              "country_code": "US",
+              "display_name": "Harvard University",
+              "id": "https://openalex.org/I136199984",
+              "lineage": [
+                "https://openalex.org/I136199984"
+              ],
+              "ror": "https://ror.org/03vek6s52",
+              "type": "education"
+            }
+          ],
+          "is_corresponding": false,
+          "raw_affiliation_strings": [
+            "Department of Pathology, Brigham and Women\u2019s Hospital, Harvard Medical School, Boston, MA 02115, USA",
+            "Department of Pathology, Brigham and Women's Hospital, Harvard Medical School, Boston, MA 02115, USA"
+          ],
+          "raw_author_name": "George Murphy"
+        },
+        {
+          "affiliations": [
+            {
+              "institution_ids": [],
+              "raw_affiliation_string": "Program in Therapeutic Sciences, Department of Systems Biology, Harvard Medical School, Boston, MA 02115, USA"
+            }
+          ],
+          "author": {
+            "display_name": "Mohammad Fallahi\u2010Sichani",
+            "id": "https://openalex.org/A5017895472",
+            "orcid": "https://orcid.org/0000-0003-0917-3525"
+          },
+          "author_position": "middle",
+          "countries": [],
+          "institutions": [],
+          "is_corresponding": false,
+          "raw_affiliation_strings": [
+            "Program in Therapeutic Sciences, Department of Systems Biology, Harvard Medical School, Boston, MA 02115, USA"
+          ],
+          "raw_author_name": "Mohammad Fallahi-Sichani"
+        },
+        {
+          "affiliations": [
+            {
+              "institution_ids": [
+                "https://openalex.org/I107606265"
+              ],
+              "raw_affiliation_string": "Broad Institute of MIT and Harvard, Cambridge, MA 02142, USA"
+            },
+            {
+              "institution_ids": [
+                "https://openalex.org/I217937681"
+              ],
+              "raw_affiliation_string": "Department of Genetics and Computational Biology, QIMR Berghofer Medical Research Institute, Brisbane, Queensland, Australia"
+            },
+            {
+              "institution_ids": [
+                "https://openalex.org/I4210117453",
+                "https://openalex.org/I136199984"
+              ],
+              "raw_affiliation_string": "Department of Medical Oncology, Dana-Farber Cancer Institute, Harvard Medical School, Boston, MA 02215, USA"
+            }
+          ],
+          "author": {
+            "display_name": "Ken Dutton\u2010Regester",
+            "id": "https://openalex.org/A5038866155",
+            "orcid": "https://orcid.org/0000-0002-8884-6355"
+          },
+          "author_position": "middle",
+          "countries": [
+            "AU",
+            "US"
+          ],
+          "institutions": [
+            {
+              "country_code": "US",
+              "display_name": "Dana-Farber Cancer Institute",
+              "id": "https://openalex.org/I4210117453",
+              "lineage": [
+                "https://openalex.org/I4210117453"
+              ],
+              "ror": "https://ror.org/02jzgtq86",
+              "type": "facility"
+            },
+            {
+              "country_code": "AU",
+              "display_name": "QIMR Berghofer Medical Research Institute",
+              "id": "https://openalex.org/I217937681",
+              "lineage": [
+                "https://openalex.org/I217937681"
+              ],
+              "ror": "https://ror.org/004y8wk30",
+              "type": "facility"
+            },
+            {
+              "country_code": "US",
+              "display_name": "Broad Institute",
+              "id": "https://openalex.org/I107606265",
+              "lineage": [
+                "https://openalex.org/I107606265"
+              ],
+              "ror": "https://ror.org/05a0ya142",
+              "type": "funder"
+            },
+            {
+              "country_code": "US",
+              "display_name": "Harvard University",
+              "id": "https://openalex.org/I136199984",
+              "lineage": [
+                "https://openalex.org/I136199984"
+              ],
+              "ror": "https://ror.org/03vek6s52",
+              "type": "education"
+            }
+          ],
+          "is_corresponding": false,
+          "raw_affiliation_strings": [
+            "Broad Institute of MIT and Harvard, Cambridge, MA 02142, USA",
+            "Department of Genetics and Computational Biology, QIMR Berghofer Medical Research Institute, Brisbane, Queensland, Australia",
+            "Department of Medical Oncology, Dana-Farber Cancer Institute, Harvard Medical School, Boston, MA 02215, USA"
+          ],
+          "raw_author_name": "Ken Dutton-Regester"
+        },
+        {
+          "affiliations": [
+            {
+              "institution_ids": [],
+              "raw_affiliation_string": "HMS LINCS Center and Laboratory of Systems Pharmacology, Harvard Medical School, Boston, MA 02115, USA"
+            }
+          ],
+          "author": {
+            "display_name": "Jia\u2010Ren Lin",
+            "id": "https://openalex.org/A5055038052",
+            "orcid": "https://orcid.org/0000-0003-4702-7705"
+          },
+          "author_position": "middle",
+          "countries": [],
+          "institutions": [],
+          "is_corresponding": false,
+          "raw_affiliation_strings": [
+            "HMS LINCS Center and Laboratory of Systems Pharmacology, Harvard Medical School, Boston, MA 02115, USA"
+          ],
+          "raw_author_name": "Jia-Ren Lin"
+        },
+        {
+          "affiliations": [
+            {
+              "institution_ids": [
+                "https://openalex.org/I107606265"
+              ],
+              "raw_affiliation_string": "Broad Institute of MIT and Harvard, Cambridge, MA 02142, USA"
+            }
+          ],
+          "author": {
+            "display_name": "Ofir Cohen",
+            "id": "https://openalex.org/A5083324690",
+            "orcid": "https://orcid.org/0000-0002-0043-6838"
+          },
+          "author_position": "middle",
+          "countries": [
+            "US"
+          ],
+          "institutions": [
+            {
+              "country_code": "US",
+              "display_name": "Broad Institute",
+              "id": "https://openalex.org/I107606265",
+              "lineage": [
+                "https://openalex.org/I107606265"
+              ],
+              "ror": "https://ror.org/05a0ya142",
+              "type": "funder"
+            }
+          ],
+          "is_corresponding": false,
+          "raw_affiliation_strings": [
+            "Broad Institute of MIT and Harvard, Cambridge, MA 02142, USA"
+          ],
+          "raw_author_name": "Ofir Cohen"
+        },
+        {
+          "affiliations": [
+            {
+              "institution_ids": [
+                "https://openalex.org/I4210117453",
+                "https://openalex.org/I136199984"
+              ],
+              "raw_affiliation_string": "Department of Medical Oncology, Dana-Farber Cancer Institute, Harvard Medical School, Boston, MA 02215, USA"
+            }
+          ],
+          "author": {
+            "display_name": "Parin Shah",
+            "id": "https://openalex.org/A5015478598",
+            "orcid": "https://orcid.org/0000-0003-4648-7830"
+          },
+          "author_position": "middle",
+          "countries": [
+            "US"
+          ],
+          "institutions": [
+            {
+              "country_code": "US",
+              "display_name": "Harvard University",
+              "id": "https://openalex.org/I136199984",
+              "lineage": [
+                "https://openalex.org/I136199984"
+              ],
+              "ror": "https://ror.org/03vek6s52",
+              "type": "education"
+            },
+            {
+              "country_code": "US",
+              "display_name": "Dana-Farber Cancer Institute",
+              "id": "https://openalex.org/I4210117453",
+              "lineage": [
+                "https://openalex.org/I4210117453"
+              ],
+              "ror": "https://ror.org/02jzgtq86",
+              "type": "facility"
+            }
+          ],
+          "is_corresponding": false,
+          "raw_affiliation_strings": [
+            "Department of Medical Oncology, Dana-Farber Cancer Institute, Harvard Medical School, Boston, MA 02215, USA"
+          ],
+          "raw_author_name": "Parin Shah"
+        },
+        {
+          "affiliations": [
+            {
+              "institution_ids": [
+                "https://openalex.org/I107606265"
+              ],
+              "raw_affiliation_string": "Broad Institute of MIT and Harvard, Cambridge, MA 02142, USA"
+            }
+          ],
+          "author": {
+            "display_name": "Diana Lu",
+            "id": "https://openalex.org/A5111885753",
+            "orcid": null
+          },
+          "author_position": "middle",
+          "countries": [
+            "US"
+          ],
+          "institutions": [
+            {
+              "country_code": "US",
+              "display_name": "Broad Institute",
+              "id": "https://openalex.org/I107606265",
+              "lineage": [
+                "https://openalex.org/I107606265"
+              ],
+              "ror": "https://ror.org/05a0ya142",
+              "type": "funder"
+            }
+          ],
+          "is_corresponding": false,
+          "raw_affiliation_strings": [
+            "Broad Institute of MIT and Harvard, Cambridge, MA 02142, USA"
+          ],
+          "raw_author_name": "Diana Lu"
+        },
+        {
+          "affiliations": [
+            {
+              "institution_ids": [
+                "https://openalex.org/I107606265"
+              ],
+              "raw_affiliation_string": "Broad Institute of MIT and Harvard, Cambridge, MA 02142, USA"
+            },
+            {
+              "institution_ids": [
+                "https://openalex.org/I4210110987"
+              ],
+              "raw_affiliation_string": "Department of Chemistry, MIT, Cambridge, MA 02142, USA"
+            },
+            {
+              "institution_ids": [
+                "https://openalex.org/I63966007"
+              ],
+              "raw_affiliation_string": "Institute for Medical Engineering and Science, Massachusetts Institute of Technology (MIT), Cambridge, MA 02139, USA"
+            },
+            {
+              "institution_ids": [
+                "https://openalex.org/I2802422659"
+              ],
+              "raw_affiliation_string": "Ragon Institute of Massachusetts General Hospital, MIT and Harvard University, Cambridge, MA 02139, USA"
+            }
+          ],
+          "author": {
+            "display_name": "Alex S. Genshaft",
+            "id": "https://openalex.org/A5043236849",
+            "orcid": "https://orcid.org/0000-0003-2714-4154"
+          },
+          "author_position": "middle",
+          "countries": [
+            "US"
+          ],
+          "institutions": [
+            {
+              "country_code": "US",
+              "display_name": "Ragon Institute of MGH, MIT and Harvard",
+              "id": "https://openalex.org/I2802422659",
+              "lineage": [
+                "https://openalex.org/I136199984",
+                "https://openalex.org/I2802422659",
+                "https://openalex.org/I4210087915",
+                "https://openalex.org/I48633490",
+                "https://openalex.org/I63966007"
+              ],
+              "ror": "https://ror.org/053r20n13",
+              "type": "healthcare"
+            },
+            {
+              "country_code": "US",
+              "display_name": "Massachusetts Institute of Technology",
+              "id": "https://openalex.org/I63966007",
+              "lineage": [
+                "https://openalex.org/I63966007"
+              ],
+              "ror": "https://ror.org/042nb2s44",
+              "type": "education"
+            },
+            {
+              "country_code": "US",
+              "display_name": "IIT@MIT",
+              "id": "https://openalex.org/I4210110987",
+              "lineage": [
+                "https://openalex.org/I30771326",
+                "https://openalex.org/I4210110987"
+              ],
+              "ror": "https://ror.org/01wp8zh54",
+              "type": "facility"
+            },
+            {
+              "country_code": "US",
+              "display_name": "Broad Institute",
+              "id": "https://openalex.org/I107606265",
+              "lineage": [
+                "https://openalex.org/I107606265"
+              ],
+              "ror": "https://ror.org/05a0ya142",
+              "type": "funder"
+            }
+          ],
+          "is_corresponding": false,
+          "raw_affiliation_strings": [
+            "Broad Institute of MIT and Harvard, Cambridge, MA 02142, USA",
+            "Department of Chemistry, MIT, Cambridge, MA 02142, USA",
+            "Institute for Medical Engineering and Science, Massachusetts Institute of Technology (MIT), Cambridge, MA 02139, USA",
+            "Ragon Institute of Massachusetts General Hospital, MIT and Harvard University, Cambridge, MA 02139, USA"
+          ],
+          "raw_author_name": "Alex S. Genshaft"
+        },
+        {
+          "affiliations": [
+            {
+              "institution_ids": [
+                "https://openalex.org/I107606265"
+              ],
+              "raw_affiliation_string": "Broad Institute of MIT and Harvard, Cambridge, MA 02142, USA"
+            },
+            {
+              "institution_ids": [
+                "https://openalex.org/I136199984"
+              ],
+              "raw_affiliation_string": "Division of Health Sciences and Technology, Harvard Medical School, Boston, MA 02115, USA"
+            },
+            {
+              "institution_ids": [
+                "https://openalex.org/I63966007"
+              ],
+              "raw_affiliation_string": "Institute for Medical Engineering and Science, Massachusetts Institute of Technology (MIT), Cambridge, MA 02139, USA"
+            },
+            {
+              "institution_ids": [
+                "https://openalex.org/I2802422659"
+              ],
+              "raw_affiliation_string": "Ragon Institute of Massachusetts General Hospital, MIT and Harvard University, Cambridge, MA 02139, USA"
+            }
+          ],
+          "author": {
+            "display_name": "Tudor Hughes",
+            "id": "https://openalex.org/A5007950856",
+            "orcid": "https://orcid.org/0000-0002-5764-5884"
+          },
+          "author_position": "middle",
+          "countries": [
+            "US"
+          ],
+          "institutions": [
+            {
+              "country_code": "US",
+              "display_name": "Harvard University",
+              "id": "https://openalex.org/I136199984",
+              "lineage": [
+                "https://openalex.org/I136199984"
+              ],
+              "ror": "https://ror.org/03vek6s52",
+              "type": "education"
+            },
+            {
+              "country_code": "US",
+              "display_name": "Massachusetts Institute of Technology",
+              "id": "https://openalex.org/I63966007",
+              "lineage": [
+                "https://openalex.org/I63966007"
+              ],
+              "ror": "https://ror.org/042nb2s44",
+              "type": "education"
+            },
+            {
+              "country_code": "US",
+              "display_name": "Broad Institute",
+              "id": "https://openalex.org/I107606265",
+              "lineage": [
+                "https://openalex.org/I107606265"
+              ],
+              "ror": "https://ror.org/05a0ya142",
+              "type": "funder"
+            },
+            {
+              "country_code": "US",
+              "display_name": "Ragon Institute of MGH, MIT and Harvard",
+              "id": "https://openalex.org/I2802422659",
+              "lineage": [
+                "https://openalex.org/I136199984",
+                "https://openalex.org/I2802422659",
+                "https://openalex.org/I4210087915",
+                "https://openalex.org/I48633490",
+                "https://openalex.org/I63966007"
+              ],
+              "ror": "https://ror.org/053r20n13",
+              "type": "healthcare"
+            }
+          ],
+          "is_corresponding": false,
+          "raw_affiliation_strings": [
+            "Broad Institute of MIT and Harvard, Cambridge, MA 02142, USA",
+            "Division of Health Sciences and Technology, Harvard Medical School, Boston, MA 02115, USA",
+            "Institute for Medical Engineering and Science, Massachusetts Institute of Technology (MIT), Cambridge, MA 02139, USA",
+            "Ragon Institute of Massachusetts General Hospital, MIT and Harvard University, Cambridge, MA 02139, USA"
+          ],
+          "raw_author_name": "Travis K. Hughes"
+        },
+        {
+          "affiliations": [
+            {
+              "institution_ids": [
+                "https://openalex.org/I107606265"
+              ],
+              "raw_affiliation_string": "Broad Institute of MIT and Harvard, Cambridge, MA 02142, USA"
+            },
+            {
+              "institution_ids": [
+                "https://openalex.org/I136199984"
+              ],
+              "raw_affiliation_string": "Division of Health Sciences and Technology, Harvard Medical School, Boston, MA 02115, USA"
+            },
+            {
+              "institution_ids": [
+                "https://openalex.org/I63966007"
+              ],
+              "raw_affiliation_string": "Institute for Medical Engineering and Science, Massachusetts Institute of Technology (MIT), Cambridge, MA 02139, USA"
+            },
+            {
+              "institution_ids": [
+                "https://openalex.org/I2802422659"
+              ],
+              "raw_affiliation_string": "Ragon Institute of Massachusetts General Hospital, MIT and Harvard University, Cambridge, MA 02139, USA"
+            }
+          ],
+          "author": {
+            "display_name": "Carly G.K. Ziegler",
+            "id": "https://openalex.org/A5071722168",
+            "orcid": "https://orcid.org/0000-0002-8279-7150"
+          },
+          "author_position": "middle",
+          "countries": [
+            "US"
+          ],
+          "institutions": [
+            {
+              "country_code": "US",
+              "display_name": "Broad Institute",
+              "id": "https://openalex.org/I107606265",
+              "lineage": [
+                "https://openalex.org/I107606265"
+              ],
+              "ror": "https://ror.org/05a0ya142",
+              "type": "funder"
+            },
+            {
+              "country_code": "US",
+              "display_name": "Massachusetts Institute of Technology",
+              "id": "https://openalex.org/I63966007",
+              "lineage": [
+                "https://openalex.org/I63966007"
+              ],
+              "ror": "https://ror.org/042nb2s44",
+              "type": "education"
+            },
+            {
+              "country_code": "US",
+              "display_name": "Ragon Institute of MGH, MIT and Harvard",
+              "id": "https://openalex.org/I2802422659",
+              "lineage": [
+                "https://openalex.org/I136199984",
+                "https://openalex.org/I2802422659",
+                "https://openalex.org/I4210087915",
+                "https://openalex.org/I48633490",
+                "https://openalex.org/I63966007"
+              ],
+              "ror": "https://ror.org/053r20n13",
+              "type": "healthcare"
+            },
+            {
+              "country_code": "US",
+              "display_name": "Harvard University",
+              "id": "https://openalex.org/I136199984",
+              "lineage": [
+                "https://openalex.org/I136199984"
+              ],
+              "ror": "https://ror.org/03vek6s52",
+              "type": "education"
+            }
+          ],
+          "is_corresponding": false,
+          "raw_affiliation_strings": [
+            "Broad Institute of MIT and Harvard, Cambridge, MA 02142, USA",
+            "Division of Health Sciences and Technology, Harvard Medical School, Boston, MA 02115, USA",
+            "Institute for Medical Engineering and Science, Massachusetts Institute of Technology (MIT), Cambridge, MA 02139, USA",
+            "Ragon Institute of Massachusetts General Hospital, MIT and Harvard University, Cambridge, MA 02139, USA"
+          ],
+          "raw_author_name": "Carly G. K. Ziegler"
+        },
+        {
+          "affiliations": [
+            {
+              "institution_ids": [
+                "https://openalex.org/I107606265"
+              ],
+              "raw_affiliation_string": "Broad Institute of MIT and Harvard, Cambridge, MA 02142, USA"
+            },
+            {
+              "institution_ids": [
+                "https://openalex.org/I4210110987"
+              ],
+              "raw_affiliation_string": "Department of Chemistry, MIT, Cambridge, MA 02142, USA"
+            },
+            {
+              "institution_ids": [
+                "https://openalex.org/I63966007"
+              ],
+              "raw_affiliation_string": "Institute for Medical Engineering and Science, Massachusetts Institute of Technology (MIT), Cambridge, MA 02139, USA"
+            },
+            {
+              "institution_ids": [
+                "https://openalex.org/I2802422659"
+              ],
+              "raw_affiliation_string": "Ragon Institute of Massachusetts General Hospital, MIT and Harvard University, Cambridge, MA 02139, USA"
+            }
+          ],
+          "author": {
+            "display_name": "Samuel W. Kazer",
+            "id": "https://openalex.org/A5042037427",
+            "orcid": "https://orcid.org/0000-0002-7380-9594"
+          },
+          "author_position": "middle",
+          "countries": [
+            "US"
+          ],
+          "institutions": [
+            {
+              "country_code": "US",
+              "display_name": "Ragon Institute of MGH, MIT and Harvard",
+              "id": "https://openalex.org/I2802422659",
+              "lineage": [
+                "https://openalex.org/I136199984",
+                "https://openalex.org/I2802422659",
+                "https://openalex.org/I4210087915",
+                "https://openalex.org/I48633490",
+                "https://openalex.org/I63966007"
+              ],
+              "ror": "https://ror.org/053r20n13",
+              "type": "healthcare"
+            },
+            {
+              "country_code": "US",
+              "display_name": "Massachusetts Institute of Technology",
+              "id": "https://openalex.org/I63966007",
+              "lineage": [
+                "https://openalex.org/I63966007"
+              ],
+              "ror": "https://ror.org/042nb2s44",
+              "type": "education"
+            },
+            {
+              "country_code": "US",
+              "display_name": "IIT@MIT",
+              "id": "https://openalex.org/I4210110987",
+              "lineage": [
+                "https://openalex.org/I30771326",
+                "https://openalex.org/I4210110987"
+              ],
+              "ror": "https://ror.org/01wp8zh54",
+              "type": "facility"
+            },
+            {
+              "country_code": "US",
+              "display_name": "Broad Institute",
+              "id": "https://openalex.org/I107606265",
+              "lineage": [
+                "https://openalex.org/I107606265"
+              ],
+              "ror": "https://ror.org/05a0ya142",
+              "type": "funder"
+            }
+          ],
+          "is_corresponding": false,
+          "raw_affiliation_strings": [
+            "Broad Institute of MIT and Harvard, Cambridge, MA 02142, USA",
+            "Department of Chemistry, MIT, Cambridge, MA 02142, USA",
+            "Institute for Medical Engineering and Science, Massachusetts Institute of Technology (MIT), Cambridge, MA 02139, USA",
+            "Ragon Institute of Massachusetts General Hospital, MIT and Harvard University, Cambridge, MA 02139, USA"
+          ],
+          "raw_author_name": "Samuel W. Kazer"
+        },
+        {
+          "affiliations": [
+            {
+              "institution_ids": [
+                "https://openalex.org/I107606265"
+              ],
+              "raw_affiliation_string": "Broad Institute of MIT and Harvard, Cambridge, MA 02142, USA"
+            },
+            {
+              "institution_ids": [
+                "https://openalex.org/I4210110987"
+              ],
+              "raw_affiliation_string": "Department of Chemistry, MIT, Cambridge, MA 02142, USA"
+            },
+            {
+              "institution_ids": [
+                "https://openalex.org/I63966007"
+              ],
+              "raw_affiliation_string": "Institute for Medical Engineering and Science, Massachusetts Institute of Technology (MIT), Cambridge, MA 02139, USA"
+            },
+            {
+              "institution_ids": [
+                "https://openalex.org/I2802422659"
+              ],
+              "raw_affiliation_string": "Ragon Institute of Massachusetts General Hospital, MIT and Harvard University, Cambridge, MA 02139, USA"
+            }
+          ],
+          "author": {
+            "display_name": "Aleth Gaillard",
+            "id": "https://openalex.org/A5000725089",
+            "orcid": null
+          },
+          "author_position": "middle",
+          "countries": [
+            "US"
+          ],
+          "institutions": [
+            {
+              "country_code": "US",
+              "display_name": "IIT@MIT",
+              "id": "https://openalex.org/I4210110987",
+              "lineage": [
+                "https://openalex.org/I30771326",
+                "https://openalex.org/I4210110987"
+              ],
+              "ror": "https://ror.org/01wp8zh54",
+              "type": "facility"
+            },
+            {
+              "country_code": "US",
+              "display_name": "Broad Institute",
+              "id": "https://openalex.org/I107606265",
+              "lineage": [
+                "https://openalex.org/I107606265"
+              ],
+              "ror": "https://ror.org/05a0ya142",
+              "type": "funder"
+            },
+            {
+              "country_code": "US",
+              "display_name": "Ragon Institute of MGH, MIT and Harvard",
+              "id": "https://openalex.org/I2802422659",
+              "lineage": [
+                "https://openalex.org/I136199984",
+                "https://openalex.org/I2802422659",
+                "https://openalex.org/I4210087915",
+                "https://openalex.org/I48633490",
+                "https://openalex.org/I63966007"
+              ],
+              "ror": "https://ror.org/053r20n13",
+              "type": "healthcare"
+            },
+            {
+              "country_code": "US",
+              "display_name": "Massachusetts Institute of Technology",
+              "id": "https://openalex.org/I63966007",
+              "lineage": [
+                "https://openalex.org/I63966007"
+              ],
+              "ror": "https://ror.org/042nb2s44",
+              "type": "education"
+            }
+          ],
+          "is_corresponding": false,
+          "raw_affiliation_strings": [
+            "Broad Institute of MIT and Harvard, Cambridge, MA 02142, USA",
+            "Department of Chemistry, MIT, Cambridge, MA 02142, USA",
+            "Institute for Medical Engineering and Science, Massachusetts Institute of Technology (MIT), Cambridge, MA 02139, USA",
+            "Ragon Institute of Massachusetts General Hospital, MIT and Harvard University, Cambridge, MA 02139, USA"
+          ],
+          "raw_author_name": "Aleth Gaillard"
+        },
+        {
+          "affiliations": [
+            {
+              "institution_ids": [
+                "https://openalex.org/I107606265"
+              ],
+              "raw_affiliation_string": "Broad Institute of MIT and Harvard, Cambridge, MA 02142, USA"
+            },
+            {
+              "institution_ids": [
+                "https://openalex.org/I4210110987"
+              ],
+              "raw_affiliation_string": "Department of Chemistry, MIT, Cambridge, MA 02142, USA"
+            },
+            {
+              "institution_ids": [
+                "https://openalex.org/I63966007"
+              ],
+              "raw_affiliation_string": "Institute for Medical Engineering and Science, Massachusetts Institute of Technology (MIT), Cambridge, MA 02139, USA"
+            },
+            {
+              "institution_ids": [
+                "https://openalex.org/I2802422659"
+              ],
+              "raw_affiliation_string": "Ragon Institute of Massachusetts General Hospital, MIT and Harvard University, Cambridge, MA 02139, USA"
+            }
+          ],
+          "author": {
+            "display_name": "Kellie E. Kolb",
+            "id": "https://openalex.org/A5008374226",
+            "orcid": "https://orcid.org/0000-0001-8840-7363"
+          },
+          "author_position": "middle",
+          "countries": [
+            "US"
+          ],
+          "institutions": [
+            {
+              "country_code": "US",
+              "display_name": "Broad Institute",
+              "id": "https://openalex.org/I107606265",
+              "lineage": [
+                "https://openalex.org/I107606265"
+              ],
+              "ror": "https://ror.org/05a0ya142",
+              "type": "funder"
+            },
+            {
+              "country_code": "US",
+              "display_name": "IIT@MIT",
+              "id": "https://openalex.org/I4210110987",
+              "lineage": [
+                "https://openalex.org/I30771326",
+                "https://openalex.org/I4210110987"
+              ],
+              "ror": "https://ror.org/01wp8zh54",
+              "type": "facility"
+            },
+            {
+              "country_code": "US",
+              "display_name": "Ragon Institute of MGH, MIT and Harvard",
+              "id": "https://openalex.org/I2802422659",
+              "lineage": [
+                "https://openalex.org/I136199984",
+                "https://openalex.org/I2802422659",
+                "https://openalex.org/I4210087915",
+                "https://openalex.org/I48633490",
+                "https://openalex.org/I63966007"
+              ],
+              "ror": "https://ror.org/053r20n13",
+              "type": "healthcare"
+            },
+            {
+              "country_code": "US",
+              "display_name": "Massachusetts Institute of Technology",
+              "id": "https://openalex.org/I63966007",
+              "lineage": [
+                "https://openalex.org/I63966007"
+              ],
+              "ror": "https://ror.org/042nb2s44",
+              "type": "education"
+            }
+          ],
+          "is_corresponding": false,
+          "raw_affiliation_strings": [
+            "Broad Institute of MIT and Harvard, Cambridge, MA 02142, USA",
+            "Department of Chemistry, MIT, Cambridge, MA 02142, USA",
+            "Institute for Medical Engineering and Science, Massachusetts Institute of Technology (MIT), Cambridge, MA 02139, USA",
+            "Ragon Institute of Massachusetts General Hospital, MIT and Harvard University, Cambridge, MA 02139, USA"
+          ],
+          "raw_author_name": "Kellie E. Kolb"
+        },
+        {
+          "affiliations": [
+            {
+              "institution_ids": [
+                "https://openalex.org/I107606265"
+              ],
+              "raw_affiliation_string": "Broad Institute of MIT and Harvard, Cambridge, MA 02142, USA"
+            }
+          ],
+          "author": {
+            "display_name": "Alexandra\u2013Chlo\u00e9 Villani",
+            "id": "https://openalex.org/A5047691305",
+            "orcid": "https://orcid.org/0000-0001-7461-0408"
+          },
+          "author_position": "middle",
+          "countries": [
+            "US"
+          ],
+          "institutions": [
+            {
+              "country_code": "US",
+              "display_name": "Broad Institute",
+              "id": "https://openalex.org/I107606265",
+              "lineage": [
+                "https://openalex.org/I107606265"
+              ],
+              "ror": "https://ror.org/05a0ya142",
+              "type": "funder"
+            }
+          ],
+          "is_corresponding": false,
+          "raw_affiliation_strings": [
+            "Broad Institute of MIT and Harvard, Cambridge, MA 02142, USA"
+          ],
+          "raw_author_name": "Alexandra-Chlo\u00e9 Villani"
+        },
+        {
+          "affiliations": [
+            {
+              "institution_ids": [
+                "https://openalex.org/I107606265"
+              ],
+              "raw_affiliation_string": "Broad Institute of MIT and Harvard, Cambridge, MA 02142, USA"
+            }
+          ],
+          "author": {
+            "display_name": "Cory M. Johannessen",
+            "id": "https://openalex.org/A5022484206",
+            "orcid": "https://orcid.org/0000-0002-2618-1036"
+          },
+          "author_position": "middle",
+          "countries": [
+            "US"
+          ],
+          "institutions": [
+            {
+              "country_code": "US",
+              "display_name": "Broad Institute",
+              "id": "https://openalex.org/I107606265",
+              "lineage": [
+                "https://openalex.org/I107606265"
+              ],
+              "ror": "https://ror.org/05a0ya142",
+              "type": "funder"
+            }
+          ],
+          "is_corresponding": false,
+          "raw_affiliation_strings": [
+            "Broad Institute of MIT and Harvard, Cambridge, MA 02142, USA"
+          ],
+          "raw_author_name": "Cory M. Johannessen"
+        },
+        {
+          "affiliations": [
+            {
+              "institution_ids": [
+                "https://openalex.org/I107606265"
+              ],
+              "raw_affiliation_string": "Broad Institute of MIT and Harvard, Cambridge, MA 02142, USA"
+            }
+          ],
+          "author": {
+            "display_name": "Aleksandr Andreev",
+            "id": "https://openalex.org/A5103717432",
+            "orcid": null
+          },
+          "author_position": "middle",
+          "countries": [
+            "US"
+          ],
+          "institutions": [
+            {
+              "country_code": "US",
+              "display_name": "Broad Institute",
+              "id": "https://openalex.org/I107606265",
+              "lineage": [
+                "https://openalex.org/I107606265"
+              ],
+              "ror": "https://ror.org/05a0ya142",
+              "type": "funder"
+            }
+          ],
+          "is_corresponding": false,
+          "raw_affiliation_strings": [
+            "Broad Institute of MIT and Harvard, Cambridge, MA 02142, USA"
+          ],
+          "raw_author_name": "Aleksandr Y. Andreev"
+        },
+        {
+          "affiliations": [
+            {
+              "institution_ids": [
+                "https://openalex.org/I107606265"
+              ],
+              "raw_affiliation_string": "Broad Institute of MIT and Harvard, Cambridge, MA 02142, USA"
+            },
+            {
+              "institution_ids": [
+                "https://openalex.org/I4210117453"
+              ],
+              "raw_affiliation_string": "Center for Cancer Precision Medicine, Dana-Farber Cancer Institute, Boston, MA 02215, USA"
+            },
+            {
+              "institution_ids": [
+                "https://openalex.org/I4210117453",
+                "https://openalex.org/I136199984"
+              ],
+              "raw_affiliation_string": "Department of Medical Oncology, Dana-Farber Cancer Institute, Harvard Medical School, Boston, MA 02215, USA"
+            }
+          ],
+          "author": {
+            "display_name": "Eliezer M. Van Allen",
+            "id": "https://openalex.org/A5039044023",
+            "orcid": "https://orcid.org/0000-0002-0201-4444"
+          },
+          "author_position": "middle",
+          "countries": [
+            "US"
+          ],
+          "institutions": [
+            {
+              "country_code": "US",
+              "display_name": "Harvard University",
+              "id": "https://openalex.org/I136199984",
+              "lineage": [
+                "https://openalex.org/I136199984"
+              ],
+              "ror": "https://ror.org/03vek6s52",
+              "type": "education"
+            },
+            {
+              "country_code": "US",
+              "display_name": "Broad Institute",
+              "id": "https://openalex.org/I107606265",
+              "lineage": [
+                "https://openalex.org/I107606265"
+              ],
+              "ror": "https://ror.org/05a0ya142",
+              "type": "funder"
+            },
+            {
+              "country_code": "US",
+              "display_name": "Dana-Farber Cancer Institute",
+              "id": "https://openalex.org/I4210117453",
+              "lineage": [
+                "https://openalex.org/I4210117453"
+              ],
+              "ror": "https://ror.org/02jzgtq86",
+              "type": "facility"
+            }
+          ],
+          "is_corresponding": false,
+          "raw_affiliation_strings": [
+            "Broad Institute of MIT and Harvard, Cambridge, MA 02142, USA",
+            "Center for Cancer Precision Medicine, Dana-Farber Cancer Institute, Boston, MA 02215, USA",
+            "Department of Medical Oncology, Dana-Farber Cancer Institute, Harvard Medical School, Boston, MA 02215, USA"
+          ],
+          "raw_author_name": "Eliezer M. Van Allen"
+        },
+        {
+          "affiliations": [
+            {
+              "institution_ids": [
+                "https://openalex.org/I1283280774",
+                "https://openalex.org/I136199984"
+              ],
+              "raw_affiliation_string": "Department of Surgical Oncology, Brigham and Women\u2019s Hospital, Harvard Medical School, Boston, MA 02115, USA"
+            },
+            {
+              "institution_ids": [
+                "https://openalex.org/I4210117453",
+                "https://openalex.org/I136199984"
+              ],
+              "raw_affiliation_string": "Department of Surgical Oncology, Dana-Farber Cancer Institute, Harvard Medical School, Boston, MA 02215, USA"
+            },
+            {
+              "institution_ids": [
+                "https://openalex.org/I1283280774",
+                "https://openalex.org/I136199984"
+              ],
+              "raw_affiliation_string": "Department of Surgical Oncology, Brigham and Women's Hospital, Harvard Medical School, Boston, MA 02115, USA"
+            }
+          ],
+          "author": {
+            "display_name": "Monica M. Bertagnolli",
+            "id": "https://openalex.org/A5017709484",
+            "orcid": "https://orcid.org/0000-0002-0248-3849"
+          },
+          "author_position": "middle",
+          "countries": [
+            "US"
+          ],
+          "institutions": [
+            {
+              "country_code": "US",
+              "display_name": "Harvard University",
+              "id": "https://openalex.org/I136199984",
+              "lineage": [
+                "https://openalex.org/I136199984"
+              ],
+              "ror": "https://ror.org/03vek6s52",
+              "type": "education"
+            },
+            {
+              "country_code": "US",
+              "display_name": "Dana-Farber Cancer Institute",
+              "id": "https://openalex.org/I4210117453",
+              "lineage": [
+                "https://openalex.org/I4210117453"
+              ],
+              "ror": "https://ror.org/02jzgtq86",
+              "type": "facility"
+            },
+            {
+              "country_code": "US",
+              "display_name": "Brigham and Women's Hospital",
+              "id": "https://openalex.org/I1283280774",
+              "lineage": [
+                "https://openalex.org/I1283280774",
+                "https://openalex.org/I48633490"
+              ],
+              "ror": "https://ror.org/04b6nzv94",
+              "type": "healthcare"
+            }
+          ],
+          "is_corresponding": false,
+          "raw_affiliation_strings": [
+            "Department of Surgical Oncology, Brigham and Women\u2019s Hospital, Harvard Medical School, Boston, MA 02115, USA",
+            "Department of Surgical Oncology, Dana-Farber Cancer Institute, Harvard Medical School, Boston, MA 02215, USA",
+            "Department of Surgical Oncology, Brigham and Women's Hospital, Harvard Medical School, Boston, MA 02115, USA"
+          ],
+          "raw_author_name": "Monica Bertagnolli"
+        },
+        {
+          "affiliations": [
+            {
+              "institution_ids": [],
+              "raw_affiliation_string": "HMS LINCS Center and Laboratory of Systems Pharmacology, Harvard Medical School, Boston, MA 02115, USA"
+            },
+            {
+              "institution_ids": [],
+              "raw_affiliation_string": "Ludwig Center at Harvard, Boston, MA 02215, USA"
+            },
+            {
+              "institution_ids": [],
+              "raw_affiliation_string": "Program in Therapeutic Sciences, Department of Systems Biology, Harvard Medical School, Boston, MA 02115, USA"
+            }
+          ],
+          "author": {
+            "display_name": "Peter K. Sorger",
+            "id": "https://openalex.org/A5063426870",
+            "orcid": "https://orcid.org/0000-0002-3364-1838"
+          },
+          "author_position": "middle",
+          "countries": [],
+          "institutions": [],
+          "is_corresponding": false,
+          "raw_affiliation_strings": [
+            "HMS LINCS Center and Laboratory of Systems Pharmacology, Harvard Medical School, Boston, MA 02115, USA",
+            "Ludwig Center at Harvard, Boston, MA 02215, USA",
+            "Program in Therapeutic Sciences, Department of Systems Biology, Harvard Medical School, Boston, MA 02115, USA"
+          ],
+          "raw_author_name": "Peter K. Sorger"
+        },
+        {
+          "affiliations": [
+            {
+              "institution_ids": [
+                "https://openalex.org/I4210087915"
+              ],
+              "raw_affiliation_string": "Division of Medical Oncology, Massachusetts General Hospital Cancer Center, Boston, MA 02114, USA"
+            }
+          ],
+          "author": {
+            "display_name": "Ryan J. Sullivan",
+            "id": "https://openalex.org/A5008479799",
+            "orcid": "https://orcid.org/0000-0001-5344-6645"
+          },
+          "author_position": "middle",
+          "countries": [
+            "US"
+          ],
+          "institutions": [
+            {
+              "country_code": "US",
+              "display_name": "Massachusetts General Hospital",
+              "id": "https://openalex.org/I4210087915",
+              "lineage": [
+                "https://openalex.org/I4210087915",
+                "https://openalex.org/I48633490"
+              ],
+              "ror": "https://ror.org/002pd6e78",
+              "type": "healthcare"
+            }
+          ],
+          "is_corresponding": false,
+          "raw_affiliation_strings": [
+            "Division of Medical Oncology, Massachusetts General Hospital Cancer Center, Boston, MA 02114, USA"
+          ],
+          "raw_author_name": "Ryan J. Sullivan"
+        },
+        {
+          "affiliations": [
+            {
+              "institution_ids": [
+                "https://openalex.org/I4210087915"
+              ],
+              "raw_affiliation_string": "Division of Medical Oncology, Massachusetts General Hospital Cancer Center, Boston, MA 02114, USA"
+            }
+          ],
+          "author": {
+            "display_name": "Keith T. Flaherty",
+            "id": "https://openalex.org/A5023174631",
+            "orcid": "https://orcid.org/0000-0002-3402-0478"
+          },
+          "author_position": "middle",
+          "countries": [
+            "US"
+          ],
+          "institutions": [
+            {
+              "country_code": "US",
+              "display_name": "Massachusetts General Hospital",
+              "id": "https://openalex.org/I4210087915",
+              "lineage": [
+                "https://openalex.org/I4210087915",
+                "https://openalex.org/I48633490"
+              ],
+              "ror": "https://ror.org/002pd6e78",
+              "type": "healthcare"
+            }
+          ],
+          "is_corresponding": false,
+          "raw_affiliation_strings": [
+            "Division of Medical Oncology, Massachusetts General Hospital Cancer Center, Boston, MA 02114, USA"
+          ],
+          "raw_author_name": "Keith T. Flaherty"
+        },
+        {
+          "affiliations": [
+            {
+              "institution_ids": [
+                "https://openalex.org/I4210087915"
+              ],
+              "raw_affiliation_string": "Division of Medical Oncology, Massachusetts General Hospital Cancer Center, Boston, MA 02114, USA"
+            }
+          ],
+          "author": {
+            "display_name": "Dennie T. Frederick",
+            "id": "https://openalex.org/A5047185974",
+            "orcid": "https://orcid.org/0000-0003-3355-5267"
+          },
+          "author_position": "middle",
+          "countries": [
+            "US"
+          ],
+          "institutions": [
+            {
+              "country_code": "US",
+              "display_name": "Massachusetts General Hospital",
+              "id": "https://openalex.org/I4210087915",
+              "lineage": [
+                "https://openalex.org/I4210087915",
+                "https://openalex.org/I48633490"
+              ],
+              "ror": "https://ror.org/002pd6e78",
+              "type": "healthcare"
+            }
+          ],
+          "is_corresponding": false,
+          "raw_affiliation_strings": [
+            "Division of Medical Oncology, Massachusetts General Hospital Cancer Center, Boston, MA 02114, USA"
+          ],
+          "raw_author_name": "Dennie T. Frederick"
+        },
+        {
+          "affiliations": [
+            {
+              "institution_ids": [
+                "https://openalex.org/I107606265"
+              ],
+              "raw_affiliation_string": "Broad Institute of MIT and Harvard, Cambridge, MA 02142, USA"
+            }
+          ],
+          "author": {
+            "display_name": "Judit Jan\u00e9\u2010Valbuena",
+            "id": "https://openalex.org/A5007565104",
+            "orcid": "https://orcid.org/0000-0002-5651-1745"
+          },
+          "author_position": "middle",
+          "countries": [
+            "US"
+          ],
+          "institutions": [
+            {
+              "country_code": "US",
+              "display_name": "Broad Institute",
+              "id": "https://openalex.org/I107606265",
+              "lineage": [
+                "https://openalex.org/I107606265"
+              ],
+              "ror": "https://ror.org/05a0ya142",
+              "type": "funder"
+            }
+          ],
+          "is_corresponding": false,
+          "raw_affiliation_strings": [
+            "Broad Institute of MIT and Harvard, Cambridge, MA 02142, USA"
+          ],
+          "raw_author_name": "Judit Jan\u00e9-Valbuena"
+        },
+        {
+          "affiliations": [
+            {
+              "institution_ids": [
+                "https://openalex.org/I1283280774",
+                "https://openalex.org/I136199984"
+              ],
+              "raw_affiliation_string": "Department of Surgical Oncology, Brigham and Women\u2019s Hospital, Harvard Medical School, Boston, MA 02115, USA"
+            },
+            {
+              "institution_ids": [
+                "https://openalex.org/I4210117453",
+                "https://openalex.org/I136199984"
+              ],
+              "raw_affiliation_string": "Department of Surgical Oncology, Dana-Farber Cancer Institute, Harvard Medical School, Boston, MA 02215, USA"
+            },
+            {
+              "institution_ids": [
+                "https://openalex.org/I1283280774",
+                "https://openalex.org/I136199984"
+              ],
+              "raw_affiliation_string": "Department of Surgical Oncology, Brigham and Women's Hospital, Harvard Medical School, Boston, MA 02115, USA"
+            }
+          ],
+          "author": {
+            "display_name": "Charles H. Yoon",
+            "id": "https://openalex.org/A5017860475",
+            "orcid": "https://orcid.org/0000-0003-1231-3840"
+          },
+          "author_position": "middle",
+          "countries": [
+            "US"
+          ],
+          "institutions": [
+            {
+              "country_code": "US",
+              "display_name": "Dana-Farber Cancer Institute",
+              "id": "https://openalex.org/I4210117453",
+              "lineage": [
+                "https://openalex.org/I4210117453"
+              ],
+              "ror": "https://ror.org/02jzgtq86",
+              "type": "facility"
+            },
+            {
+              "country_code": "US",
+              "display_name": "Brigham and Women's Hospital",
+              "id": "https://openalex.org/I1283280774",
+              "lineage": [
+                "https://openalex.org/I1283280774",
+                "https://openalex.org/I48633490"
+              ],
+              "ror": "https://ror.org/04b6nzv94",
+              "type": "healthcare"
+            },
+            {
+              "country_code": "US",
+              "display_name": "Harvard University",
+              "id": "https://openalex.org/I136199984",
+              "lineage": [
+                "https://openalex.org/I136199984"
+              ],
+              "ror": "https://ror.org/03vek6s52",
+              "type": "education"
+            }
+          ],
+          "is_corresponding": true,
+          "raw_affiliation_strings": [
+            "Department of Surgical Oncology, Brigham and Women\u2019s Hospital, Harvard Medical School, Boston, MA 02115, USA",
+            "Department of Surgical Oncology, Dana-Farber Cancer Institute, Harvard Medical School, Boston, MA 02215, USA",
+            "Department of Surgical Oncology, Brigham and Women's Hospital, Harvard Medical School, Boston, MA 02115, USA"
+          ],
+          "raw_author_name": "Charles H. Yoon"
+        },
+        {
+          "affiliations": [
+            {
+              "institution_ids": [
+                "https://openalex.org/I107606265"
+              ],
+              "raw_affiliation_string": "Broad Institute of MIT and Harvard, Cambridge, MA 02142, USA"
+            }
+          ],
+          "author": {
+            "display_name": "Orit Rozenblatt\u2013Rosen",
+            "id": "https://openalex.org/A5071415389",
+            "orcid": "https://orcid.org/0000-0001-6313-3570"
+          },
+          "author_position": "middle",
+          "countries": [
+            "US"
+          ],
+          "institutions": [
+            {
+              "country_code": "US",
+              "display_name": "Broad Institute",
+              "id": "https://openalex.org/I107606265",
+              "lineage": [
+                "https://openalex.org/I107606265"
+              ],
+              "ror": "https://ror.org/05a0ya142",
+              "type": "funder"
+            }
+          ],
+          "is_corresponding": true,
+          "raw_affiliation_strings": [
+            "Broad Institute of MIT and Harvard, Cambridge, MA 02142, USA"
+          ],
+          "raw_author_name": "Orit Rozenblatt-Rosen"
+        },
+        {
+          "affiliations": [
+            {
+              "institution_ids": [
+                "https://openalex.org/I107606265"
+              ],
+              "raw_affiliation_string": "Broad Institute of MIT and Harvard, Cambridge, MA 02142, USA"
+            },
+            {
+              "institution_ids": [
+                "https://openalex.org/I4210110987"
+              ],
+              "raw_affiliation_string": "Department of Chemistry, MIT, Cambridge, MA 02142, USA"
+            },
+            {
+              "institution_ids": [
+                "https://openalex.org/I136199984"
+              ],
+              "raw_affiliation_string": "Division of Health Sciences and Technology, Harvard Medical School, Boston, MA 02115, USA"
+            },
+            {
+              "institution_ids": [
+                "https://openalex.org/I63966007"
+              ],
+              "raw_affiliation_string": "Institute for Medical Engineering and Science, Massachusetts Institute of Technology (MIT), Cambridge, MA 02139, USA"
+            },
+            {
+              "institution_ids": [
+                "https://openalex.org/I2802422659"
+              ],
+              "raw_affiliation_string": "Ragon Institute of Massachusetts General Hospital, MIT and Harvard University, Cambridge, MA 02139, USA"
+            },
+            {
+              "institution_ids": [
+                "https://openalex.org/I4210087915"
+              ],
+              "raw_affiliation_string": "Department of Immunology, Massachusetts General Hospital, Boston, MA 02114, USA"
+            }
+          ],
+          "author": {
+            "display_name": "Alex K. Shalek",
+            "id": "https://openalex.org/A5083743078",
+            "orcid": "https://orcid.org/0000-0001-5670-8778"
+          },
+          "author_position": "middle",
+          "countries": [
+            "US"
+          ],
+          "institutions": [
+            {
+              "country_code": "US",
+              "display_name": "Harvard University",
+              "id": "https://openalex.org/I136199984",
+              "lineage": [
+                "https://openalex.org/I136199984"
+              ],
+              "ror": "https://ror.org/03vek6s52",
+              "type": "education"
+            },
+            {
+              "country_code": "US",
+              "display_name": "Massachusetts Institute of Technology",
+              "id": "https://openalex.org/I63966007",
+              "lineage": [
+                "https://openalex.org/I63966007"
+              ],
+              "ror": "https://ror.org/042nb2s44",
+              "type": "education"
+            },
+            {
+              "country_code": "US",
+              "display_name": "Massachusetts General Hospital",
+              "id": "https://openalex.org/I4210087915",
+              "lineage": [
+                "https://openalex.org/I4210087915",
+                "https://openalex.org/I48633490"
+              ],
+              "ror": "https://ror.org/002pd6e78",
+              "type": "healthcare"
+            },
+            {
+              "country_code": "US",
+              "display_name": "Broad Institute",
+              "id": "https://openalex.org/I107606265",
+              "lineage": [
+                "https://openalex.org/I107606265"
+              ],
+              "ror": "https://ror.org/05a0ya142",
+              "type": "funder"
+            },
+            {
+              "country_code": "US",
+              "display_name": "IIT@MIT",
+              "id": "https://openalex.org/I4210110987",
+              "lineage": [
+                "https://openalex.org/I30771326",
+                "https://openalex.org/I4210110987"
+              ],
+              "ror": "https://ror.org/01wp8zh54",
+              "type": "facility"
+            },
+            {
+              "country_code": "US",
+              "display_name": "Ragon Institute of MGH, MIT and Harvard",
+              "id": "https://openalex.org/I2802422659",
+              "lineage": [
+                "https://openalex.org/I136199984",
+                "https://openalex.org/I2802422659",
+                "https://openalex.org/I4210087915",
+                "https://openalex.org/I48633490",
+                "https://openalex.org/I63966007"
+              ],
+              "ror": "https://ror.org/053r20n13",
+              "type": "healthcare"
+            }
+          ],
+          "is_corresponding": true,
+          "raw_affiliation_strings": [
+            "Broad Institute of MIT and Harvard, Cambridge, MA 02142, USA",
+            "Department of Chemistry, MIT, Cambridge, MA 02142, USA",
+            "Division of Health Sciences and Technology, Harvard Medical School, Boston, MA 02115, USA",
+            "Institute for Medical Engineering and Science, Massachusetts Institute of Technology (MIT), Cambridge, MA 02139, USA",
+            "Ragon Institute of Massachusetts General Hospital, MIT and Harvard University, Cambridge, MA 02139, USA",
+            "Department of Immunology, Massachusetts General Hospital, Boston, MA 02114, USA"
+          ],
+          "raw_author_name": "Alex K. Shalek"
+        },
+        {
+          "affiliations": [
+            {
+              "institution_ids": [
+                "https://openalex.org/I107606265"
+              ],
+              "raw_affiliation_string": "Broad Institute of MIT and Harvard, Cambridge, MA 02142, USA"
+            },
+            {
+              "institution_ids": [
+                "https://openalex.org/I63966007"
+              ],
+              "raw_affiliation_string": "Department of Biology and Koch Institute, MIT, Boston, MA 02142, USA"
+            },
+            {
+              "institution_ids": [
+                "https://openalex.org/I1344073410"
+              ],
+              "raw_affiliation_string": "Howard Hughes Medical Institute, Chevy Chase, MD 20815, USA"
+            }
+          ],
+          "author": {
+            "display_name": "Aviv Regev",
+            "id": "https://openalex.org/A5004067604",
+            "orcid": "https://orcid.org/0000-0003-3293-3158"
+          },
+          "author_position": "middle",
+          "countries": [
+            "US"
+          ],
+          "institutions": [
+            {
+              "country_code": "US",
+              "display_name": "Howard Hughes Medical Institute",
+              "id": "https://openalex.org/I1344073410",
+              "lineage": [
+                "https://openalex.org/I1344073410"
+              ],
+              "ror": "https://ror.org/006w34k90",
+              "type": "facility"
+            },
+            {
+              "country_code": "US",
+              "display_name": "Broad Institute",
+              "id": "https://openalex.org/I107606265",
+              "lineage": [
+                "https://openalex.org/I107606265"
+              ],
+              "ror": "https://ror.org/05a0ya142",
+              "type": "funder"
+            },
+            {
+              "country_code": "US",
+              "display_name": "Massachusetts Institute of Technology",
+              "id": "https://openalex.org/I63966007",
+              "lineage": [
+                "https://openalex.org/I63966007"
+              ],
+              "ror": "https://ror.org/042nb2s44",
+              "type": "education"
+            }
+          ],
+          "is_corresponding": true,
+          "raw_affiliation_strings": [
+            "Broad Institute of MIT and Harvard, Cambridge, MA 02142, USA",
+            "Department of Biology and Koch Institute, MIT, Boston, MA 02142, USA",
+            "Howard Hughes Medical Institute, Chevy Chase, MD 20815, USA"
+          ],
+          "raw_author_name": "Aviv Regev"
+        },
+        {
+          "affiliations": [
+            {
+              "institution_ids": [
+                "https://openalex.org/I107606265"
+              ],
+              "raw_affiliation_string": "Broad Institute of MIT and Harvard, Cambridge, MA 02142, USA"
+            },
+            {
+              "institution_ids": [
+                "https://openalex.org/I4210117453"
+              ],
+              "raw_affiliation_string": "Center for Cancer Precision Medicine, Dana-Farber Cancer Institute, Boston, MA 02215, USA"
+            },
+            {
+              "institution_ids": [
+                "https://openalex.org/I4210117453",
+                "https://openalex.org/I136199984"
+              ],
+              "raw_affiliation_string": "Department of Medical Oncology, Dana-Farber Cancer Institute, Harvard Medical School, Boston, MA 02215, USA"
+            },
+            {
+              "institution_ids": [],
+              "raw_affiliation_string": "Ludwig Center at Harvard, Boston, MA 02215, USA"
+            }
+          ],
+          "author": {
+            "display_name": "Levi A. Garraway",
+            "id": "https://openalex.org/A5055048393",
+            "orcid": "https://orcid.org/0000-0003-3739-0471"
+          },
+          "author_position": "last",
+          "countries": [
+            "US"
+          ],
+          "institutions": [
+            {
+              "country_code": "US",
+              "display_name": "Dana-Farber Cancer Institute",
+              "id": "https://openalex.org/I4210117453",
+              "lineage": [
+                "https://openalex.org/I4210117453"
+              ],
+              "ror": "https://ror.org/02jzgtq86",
+              "type": "facility"
+            },
+            {
+              "country_code": "US",
+              "display_name": "Broad Institute",
+              "id": "https://openalex.org/I107606265",
+              "lineage": [
+                "https://openalex.org/I107606265"
+              ],
+              "ror": "https://ror.org/05a0ya142",
+              "type": "funder"
+            },
+            {
+              "country_code": "US",
+              "display_name": "Harvard University",
+              "id": "https://openalex.org/I136199984",
+              "lineage": [
+                "https://openalex.org/I136199984"
+              ],
+              "ror": "https://ror.org/03vek6s52",
+              "type": "education"
+            }
+          ],
+          "is_corresponding": true,
+          "raw_affiliation_strings": [
+            "Broad Institute of MIT and Harvard, Cambridge, MA 02142, USA",
+            "Center for Cancer Precision Medicine, Dana-Farber Cancer Institute, Boston, MA 02215, USA",
+            "Department of Medical Oncology, Dana-Farber Cancer Institute, Harvard Medical School, Boston, MA 02215, USA",
+            "Ludwig Center at Harvard, Boston, MA 02215, USA"
+          ],
+          "raw_author_name": "Levi A. Garraway"
+        }
+      ],
+      "awards": [
+        {
+          "display_name": null,
+          "funder_award_id": "K99CA194163",
+          "funder_display_name": "National Cancer Institute",
+          "funder_id": "https://openalex.org/F4320337351",
+          "id": "https://openalex.org/G210252843"
+        },
+        {
+          "display_name": null,
+          "funder_award_id": "DP2 OD020839",
+          "funder_display_name": "National Institutes of Health",
+          "funder_id": "https://openalex.org/F4320332161",
+          "id": "https://openalex.org/G4405334196"
+        },
+        {
+          "display_name": null,
+          "funder_award_id": "P30-CA14051",
+          "funder_display_name": "National Cancer Institute",
+          "funder_id": "https://openalex.org/F4320337351",
+          "id": "https://openalex.org/G4599875761"
+        },
+        {
+          "display_name": null,
+          "funder_award_id": "1U24CA180922",
+          "funder_display_name": "National Cancer Institute",
+          "funder_id": "https://openalex.org/F4320337351",
+          "id": "https://openalex.org/G7002830512"
+        },
+        {
+          "display_name": null,
+          "funder_award_id": "P50GM107618",
+          "funder_display_name": "National Institutes of Health",
+          "funder_id": "https://openalex.org/F4320332161",
+          "id": "https://openalex.org/G7024278996"
+        }
+      ],
+      "best_oa_location": {
+        "id": "doi:10.1126/science.aad0501",
+        "is_accepted": true,
+        "is_oa": true,
+        "is_published": true,
+        "landing_page_url": "https://doi.org/10.1126/science.aad0501",
+        "license": null,
+        "license_id": null,
+        "pdf_url": "https://science.sciencemag.org/content/sci/352/6282/189.full.pdf",
+        "raw_source_name": "Science",
+        "raw_type": "journal-article",
+        "source": {
+          "display_name": "Science",
+          "host_organization": "https://openalex.org/P4310315823",
+          "host_organization_lineage": [
+            "https://openalex.org/P4310315823"
+          ],
+          "host_organization_lineage_names": [
+            "American Association for the Advancement of Science"
+          ],
+          "host_organization_name": "American Association for the Advancement of Science",
+          "id": "https://openalex.org/S3880285",
+          "is_core": true,
+          "is_in_doaj": false,
+          "is_oa": false,
+          "issn": [
+            "0036-8075",
+            "1095-9203"
+          ],
+          "issn_l": "0036-8075",
+          "type": "journal"
+        },
+        "version": "publishedVersion"
+      },
+      "biblio": {
+        "first_page": "189",
+        "issue": "6282",
+        "last_page": "196",
+        "volume": "352"
+      },
+      "citation_normalized_percentile": {
+        "is_in_top_10_percent": true,
+        "is_in_top_1_percent": true,
+        "value": 0.99981648
+      },
+      "cited_by_count": 5037,
+      "cited_by_percentile_year": {
+        "max": 100,
+        "min": 89
+      },
+      "concepts": [
+        {
+          "display_name": "Microphthalmia-associated transcription factor",
+          "id": "https://openalex.org/C177504595",
+          "level": 4,
+          "score": 0.8129913806915283,
+          "wikidata": "https://www.wikidata.org/wiki/Q336500"
+        },
+        {
+          "display_name": "Biology",
+          "id": "https://openalex.org/C86803240",
+          "level": 0,
+          "score": 0.7482107281684875,
+          "wikidata": "https://www.wikidata.org/wiki/Q420"
+        },
+        {
+          "display_name": "Melanoma",
+          "id": "https://openalex.org/C2777658100",
+          "level": 2,
+          "score": 0.5874714851379395,
+          "wikidata": "https://www.wikidata.org/wiki/Q180614"
+        },
+        {
+          "display_name": "Single-cell analysis",
+          "id": "https://openalex.org/C2776950831",
+          "level": 3,
+          "score": 0.5800632834434509,
+          "wikidata": "https://www.wikidata.org/wiki/Q15635432"
+        },
+        {
+          "display_name": "Stromal cell",
+          "id": "https://openalex.org/C16930146",
+          "level": 2,
+          "score": 0.5575392246246338,
+          "wikidata": "https://www.wikidata.org/wiki/Q4381253"
+        },
+        {
+          "display_name": "Cancer research",
+          "id": "https://openalex.org/C502942594",
+          "level": 1,
+          "score": 0.5488196611404419,
+          "wikidata": "https://www.wikidata.org/wiki/Q3421914"
+        },
+        {
+          "display_name": "Cell",
+          "id": "https://openalex.org/C1491633281",
+          "level": 2,
+          "score": 0.5463736653327942,
+          "wikidata": "https://www.wikidata.org/wiki/Q7868"
+        },
+        {
+          "display_name": "Transcriptome",
+          "id": "https://openalex.org/C162317418",
+          "level": 4,
+          "score": 0.530523419380188,
+          "wikidata": "https://www.wikidata.org/wiki/Q252857"
+        },
+        {
+          "display_name": "Tumor microenvironment",
+          "id": "https://openalex.org/C2776107976",
+          "level": 3,
+          "score": 0.45704489946365356,
+          "wikidata": "https://www.wikidata.org/wiki/Q1786433"
+        },
+        {
+          "display_name": "RNA-Seq",
+          "id": "https://openalex.org/C107397762",
+          "level": 5,
+          "score": 0.44440677762031555,
+          "wikidata": "https://www.wikidata.org/wiki/Q2542347"
+        },
+        {
+          "display_name": "RNA",
+          "id": "https://openalex.org/C67705224",
+          "level": 3,
+          "score": 0.43886223435401917,
+          "wikidata": "https://www.wikidata.org/wiki/Q11053"
+        },
+        {
+          "display_name": "Immune system",
+          "id": "https://openalex.org/C8891405",
+          "level": 2,
+          "score": 0.4384799301624298,
+          "wikidata": "https://www.wikidata.org/wiki/Q1059"
+        },
+        {
+          "display_name": "Transcription factor",
+          "id": "https://openalex.org/C86339819",
+          "level": 3,
+          "score": 0.4339463412761688,
+          "wikidata": "https://www.wikidata.org/wiki/Q407384"
+        },
+        {
+          "display_name": "Context (archaeology)",
+          "id": "https://openalex.org/C2779343474",
+          "level": 2,
+          "score": 0.4190811216831207,
+          "wikidata": "https://www.wikidata.org/wiki/Q3109175"
+        },
+        {
+          "display_name": "Immune checkpoint",
+          "id": "https://openalex.org/C2780851360",
+          "level": 4,
+          "score": 0.41014936566352844,
+          "wikidata": "https://www.wikidata.org/wiki/Q21686041"
+        },
+        {
+          "display_name": "Immunotherapy",
+          "id": "https://openalex.org/C2777701055",
+          "level": 3,
+          "score": 0.27009689807891846,
+          "wikidata": "https://www.wikidata.org/wiki/Q1427096"
+        },
+        {
+          "display_name": "Genetics",
+          "id": "https://openalex.org/C54355233",
+          "level": 1,
+          "score": 0.2293325662612915,
+          "wikidata": "https://www.wikidata.org/wiki/Q7162"
+        },
+        {
+          "display_name": "Gene expression",
+          "id": "https://openalex.org/C150194340",
+          "level": 3,
+          "score": 0.2077549397945404,
+          "wikidata": "https://www.wikidata.org/wiki/Q26972"
+        },
+        {
+          "display_name": "Gene",
+          "id": "https://openalex.org/C104317684",
+          "level": 2,
+          "score": 0.17163467407226562,
+          "wikidata": "https://www.wikidata.org/wiki/Q7187"
+        },
+        {
+          "display_name": "Tumor cells",
+          "id": "https://openalex.org/C3020616263",
+          "level": 2,
+          "score": 0.14399757981300354,
+          "wikidata": "https://www.wikidata.org/wiki/Q1216998"
+        },
+        {
+          "display_name": "Paleontology",
+          "id": "https://openalex.org/C151730666",
+          "level": 1,
+          "score": 0.0,
+          "wikidata": "https://www.wikidata.org/wiki/Q7205"
+        }
+      ],
+      "content_urls": {
+        "grobid_xml": "https://content.openalex.org/works/W2332292689.grobid-xml",
+        "pdf": "https://content.openalex.org/works/W2332292689.pdf"
+      },
+      "corresponding_author_ids": [
+        "https://openalex.org/A5004067604",
+        "https://openalex.org/A5005251958",
+        "https://openalex.org/A5017860475",
+        "https://openalex.org/A5052100404",
+        "https://openalex.org/A5055048393",
+        "https://openalex.org/A5071415389",
+        "https://openalex.org/A5083743078"
+      ],
+      "corresponding_institution_ids": [
+        "https://openalex.org/I107606265",
+        "https://openalex.org/I1283280774",
+        "https://openalex.org/I1344073410",
+        "https://openalex.org/I136199984",
+        "https://openalex.org/I2802422659",
+        "https://openalex.org/I4210087915",
+        "https://openalex.org/I4210110987",
+        "https://openalex.org/I4210117453",
+        "https://openalex.org/I63966007"
+      ],
+      "countries_distinct_count": 2,
+      "counts_by_year": [
+        {
+          "cited_by_count": 91,
+          "year": 2026
+        },
+        {
+          "cited_by_count": 657,
+          "year": 2025
+        },
+        {
+          "cited_by_count": 730,
+          "year": 2024
+        },
+        {
+          "cited_by_count": 686,
+          "year": 2023
+        },
+        {
+          "cited_by_count": 666,
+          "year": 2022
+        },
+        {
+          "cited_by_count": 692,
+          "year": 2021
+        },
+        {
+          "cited_by_count": 568,
+          "year": 2020
+        },
+        {
+          "cited_by_count": 385,
+          "year": 2019
+        },
+        {
+          "cited_by_count": 289,
+          "year": 2018
+        },
+        {
+          "cited_by_count": 210,
+          "year": 2017
+        },
+        {
+          "cited_by_count": 46,
+          "year": 2016
+        },
+        {
+          "cited_by_count": 1,
+          "year": 2015
+        },
+        {
+          "cited_by_count": 1,
+          "year": 2014
+        },
+        {
+          "cited_by_count": 1,
+          "year": 2013
+        },
+        {
+          "cited_by_count": 2,
+          "year": 2012
+        }
+      ],
+      "created_date": "2025-10-10T00:00:00",
+      "display_name": "Dissecting the multicellular ecosystem of metastatic melanoma by single-cell RNA-seq",
+      "doi": "https://doi.org/10.1126/science.aad0501",
+      "funders": [
+        {
+          "display_name": "Howard Hughes Medical Institute",
+          "id": "https://openalex.org/F4320306082",
+          "ror": "https://ror.org/006w34k90"
+        },
+        {
+          "display_name": "Human Frontier Science Program",
+          "id": "https://openalex.org/F4320307846",
+          "ror": "https://ror.org/02ebx7v45"
+        },
+        {
+          "display_name": "Melanoma Research Alliance",
+          "id": "https://openalex.org/F4320308296",
+          "ror": "https://ror.org/025ck6r46"
+        },
+        {
+          "display_name": "Dr. Miriam and Sheldon G. Adelson Medical Research Foundation",
+          "id": "https://openalex.org/F4320308854",
+          "ror": "https://ror.org/0001ew531"
+        },
+        {
+          "display_name": "Dana-Farber Cancer Institute",
+          "id": "https://openalex.org/F4320310151",
+          "ror": "https://ror.org/02jzgtq86"
+        },
+        {
+          "display_name": "Broad Institute",
+          "id": "https://openalex.org/F4320314070",
+          "ror": "https://ror.org/05a0ya142"
+        },
+        {
+          "display_name": "Searle Scholars Program",
+          "id": "https://openalex.org/F4320314849",
+          "ror": null
+        },
+        {
+          "display_name": "National Institutes of Health",
+          "id": "https://openalex.org/F4320332161",
+          "ror": "https://ror.org/01cwqze88"
+        },
+        {
+          "display_name": "Klarman Cell Observatory, Broad Institute",
+          "id": "https://openalex.org/F4320333572",
+          "ror": null
+        },
+        {
+          "display_name": "National Cancer Institute",
+          "id": "https://openalex.org/F4320337351",
+          "ror": "https://ror.org/040gcmg81"
+        }
+      ],
+      "fwci": 147.7788,
+      "has_content": {
+        "grobid_xml": true,
+        "pdf": true
+      },
+      "has_fulltext": false,
+      "id": "https://openalex.org/W2332292689",
+      "ids": {
+        "doi": "https://doi.org/10.1126/science.aad0501",
+        "mag": "2332292689",
+        "openalex": "https://openalex.org/W2332292689",
+        "pmid": "https://pubmed.ncbi.nlm.nih.gov/27124452"
+      },
+      "indexed_in": [
+        "crossref",
+        "pubmed"
+      ],
+      "institutions": [],
+      "institutions_distinct_count": 37,
+      "is_paratext": false,
+      "is_retracted": false,
+      "is_xpac": false,
+      "keywords": [
+        {
+          "display_name": "Microphthalmia-associated transcription factor",
+          "id": "https://openalex.org/keywords/microphthalmia-associated-transcription-factor",
+          "score": 0.8129913806915283
+        },
+        {
+          "display_name": "Biology",
+          "id": "https://openalex.org/keywords/biology",
+          "score": 0.7482107281684875
+        },
+        {
+          "display_name": "Melanoma",
+          "id": "https://openalex.org/keywords/melanoma",
+          "score": 0.5874714851379395
+        },
+        {
+          "display_name": "Single-cell analysis",
+          "id": "https://openalex.org/keywords/single-cell-analysis",
+          "score": 0.5800632834434509
+        },
+        {
+          "display_name": "Stromal cell",
+          "id": "https://openalex.org/keywords/stromal-cell",
+          "score": 0.5575392246246338
+        },
+        {
+          "display_name": "Cancer research",
+          "id": "https://openalex.org/keywords/cancer-research",
+          "score": 0.5488196611404419
+        },
+        {
+          "display_name": "Cell",
+          "id": "https://openalex.org/keywords/cell",
+          "score": 0.5463736653327942
+        },
+        {
+          "display_name": "Transcriptome",
+          "id": "https://openalex.org/keywords/transcriptome",
+          "score": 0.530523419380188
+        },
+        {
+          "display_name": "Tumor microenvironment",
+          "id": "https://openalex.org/keywords/tumor-microenvironment",
+          "score": 0.45704489946365356
+        },
+        {
+          "display_name": "RNA-Seq",
+          "id": "https://openalex.org/keywords/rna-seq",
+          "score": 0.44440677762031555
+        },
+        {
+          "display_name": "RNA",
+          "id": "https://openalex.org/keywords/rna",
+          "score": 0.43886223435401917
+        },
+        {
+          "display_name": "Immune system",
+          "id": "https://openalex.org/keywords/immune-system",
+          "score": 0.4384799301624298
+        },
+        {
+          "display_name": "Transcription factor",
+          "id": "https://openalex.org/keywords/transcription-factor",
+          "score": 0.4339463412761688
+        },
+        {
+          "display_name": "Context (archaeology)",
+          "id": "https://openalex.org/keywords/context",
+          "score": 0.4190811216831207
+        },
+        {
+          "display_name": "Immune checkpoint",
+          "id": "https://openalex.org/keywords/immune-checkpoint",
+          "score": 0.41014936566352844
+        },
+        {
+          "display_name": "Immunotherapy",
+          "id": "https://openalex.org/keywords/immunotherapy",
+          "score": 0.27009689807891846
+        },
+        {
+          "display_name": "Genetics",
+          "id": "https://openalex.org/keywords/genetics",
+          "score": 0.2293325662612915
+        },
+        {
+          "display_name": "Gene expression",
+          "id": "https://openalex.org/keywords/gene-expression",
+          "score": 0.2077549397945404
+        },
+        {
+          "display_name": "Gene",
+          "id": "https://openalex.org/keywords/gene",
+          "score": 0.17163467407226562
+        },
+        {
+          "display_name": "Tumor cells",
+          "id": "https://openalex.org/keywords/tumor-cells",
+          "score": 0.14399757981300354
+        }
+      ],
+      "language": "en",
+      "locations": [
+        {
+          "id": "doi:10.1126/science.aad0501",
+          "is_accepted": true,
+          "is_oa": true,
+          "is_published": true,
+          "landing_page_url": "https://doi.org/10.1126/science.aad0501",
+          "license": null,
+          "license_id": null,
+          "pdf_url": "https://science.sciencemag.org/content/sci/352/6282/189.full.pdf",
+          "raw_source_name": "Science",
+          "raw_type": "journal-article",
+          "source": {
+            "display_name": "Science",
+            "host_organization": "https://openalex.org/P4310315823",
+            "host_organization_lineage": [
+              "https://openalex.org/P4310315823"
+            ],
+            "host_organization_lineage_names": [
+              "American Association for the Advancement of Science"
+            ],
+            "host_organization_name": "American Association for the Advancement of Science",
+            "id": "https://openalex.org/S3880285",
+            "is_core": true,
+            "is_in_doaj": false,
+            "is_oa": false,
+            "issn": [
+              "0036-8075",
+              "1095-9203"
+            ],
+            "issn_l": "0036-8075",
+            "type": "journal"
+          },
+          "version": "publishedVersion"
+        },
+        {
+          "id": "pmid:27124452",
+          "is_accepted": true,
+          "is_oa": false,
+          "is_published": true,
+          "landing_page_url": "https://pubmed.ncbi.nlm.nih.gov/27124452",
+          "license": null,
+          "license_id": null,
+          "pdf_url": null,
+          "raw_source_name": "Science (New York, N.Y.)",
+          "raw_type": null,
+          "source": {
+            "display_name": "PubMed",
+            "host_organization": "https://openalex.org/I1299303238",
+            "host_organization_lineage": [
+              "https://openalex.org/I1299303238"
+            ],
+            "host_organization_lineage_names": [],
+            "host_organization_name": "National Institutes of Health",
+            "id": "https://openalex.org/S4306525036",
+            "is_core": false,
+            "is_in_doaj": false,
+            "is_oa": false,
+            "issn": null,
+            "issn_l": null,
+            "type": "repository"
+          },
+          "version": "publishedVersion"
+        },
+        {
+          "id": "pmh:oai:europepmc.org:3911846",
+          "is_accepted": false,
+          "is_oa": false,
+          "is_published": false,
+          "landing_page_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/4944528",
+          "license": null,
+          "license_id": null,
+          "pdf_url": null,
+          "raw_source_name": null,
+          "raw_type": "Text",
+          "source": {
+            "display_name": "Europe PMC (PubMed Central)",
+            "host_organization": "https://openalex.org/I1303153112",
+            "host_organization_lineage": [
+              "https://openalex.org/I1303153112"
+            ],
+            "host_organization_lineage_names": [],
+            "host_organization_name": "European Bioinformatics Institute",
+            "id": "https://openalex.org/S4306400806",
+            "is_core": false,
+            "is_in_doaj": false,
+            "is_oa": false,
+            "issn": null,
+            "issn_l": null,
+            "type": "repository"
+          },
+          "version": "submittedVersion"
+        },
+        {
+          "id": "pmh:oai:pubmedcentral.nih.gov:4944528",
+          "is_accepted": false,
+          "is_oa": true,
+          "is_published": false,
+          "landing_page_url": "http://doi.org/10.1126/science.aad0501",
+          "license": null,
+          "license_id": null,
+          "pdf_url": null,
+          "raw_source_name": "",
+          "raw_type": "Text",
+          "source": {
+            "display_name": "PubMed Central",
+            "host_organization": "https://openalex.org/I1299303238",
+            "host_organization_lineage": [
+              "https://openalex.org/I1299303238"
+            ],
+            "host_organization_lineage_names": [],
+            "host_organization_name": "National Institutes of Health",
+            "id": "https://openalex.org/S2764455111",
+            "is_core": false,
+            "is_in_doaj": false,
+            "is_oa": false,
+            "issn": null,
+            "issn_l": null,
+            "type": "repository"
+          },
+          "version": "submittedVersion"
+        }
+      ],
+      "locations_count": 4,
+      "mesh": [
+        {
+          "descriptor_name": "Base Sequence",
+          "descriptor_ui": "D001483",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Base Sequence",
+          "descriptor_ui": "D001483",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Base Sequence",
+          "descriptor_ui": "D001483",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Base Sequence",
+          "descriptor_ui": "D001483",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Base Sequence",
+          "descriptor_ui": "D001483",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Base Sequence",
+          "descriptor_ui": "D001483",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Cell Communication",
+          "descriptor_ui": "D002450",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Cell Communication",
+          "descriptor_ui": "D002450",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Cell Communication",
+          "descriptor_ui": "D002450",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Cell Communication",
+          "descriptor_ui": "D002450",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Cell Communication",
+          "descriptor_ui": "D002450",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Cell Communication",
+          "descriptor_ui": "D002450",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Cell Cycle",
+          "descriptor_ui": "D002453",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Cell Cycle",
+          "descriptor_ui": "D002453",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Cell Cycle",
+          "descriptor_ui": "D002453",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Cell Cycle",
+          "descriptor_ui": "D002453",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Cell Cycle",
+          "descriptor_ui": "D002453",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Cell Cycle",
+          "descriptor_ui": "D002453",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Humans",
+          "descriptor_ui": "D006801",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Humans",
+          "descriptor_ui": "D006801",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Humans",
+          "descriptor_ui": "D006801",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Humans",
+          "descriptor_ui": "D006801",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Humans",
+          "descriptor_ui": "D006801",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Humans",
+          "descriptor_ui": "D006801",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Immunotherapy",
+          "descriptor_ui": "D007167",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Immunotherapy",
+          "descriptor_ui": "D007167",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Immunotherapy",
+          "descriptor_ui": "D007167",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Immunotherapy",
+          "descriptor_ui": "D007167",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Immunotherapy",
+          "descriptor_ui": "D007167",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Immunotherapy",
+          "descriptor_ui": "D007167",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Lymphocyte Activation",
+          "descriptor_ui": "D008213",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Lymphocyte Activation",
+          "descriptor_ui": "D008213",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Lymphocyte Activation",
+          "descriptor_ui": "D008213",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Lymphocyte Activation",
+          "descriptor_ui": "D008213",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Lymphocyte Activation",
+          "descriptor_ui": "D008213",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Lymphocyte Activation",
+          "descriptor_ui": "D008213",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Melanoma",
+          "descriptor_ui": "D008545",
+          "is_major_topic": false,
+          "qualifier_name": "genetics",
+          "qualifier_ui": "Q000235"
+        },
+        {
+          "descriptor_name": "Melanoma",
+          "descriptor_ui": "D008545",
+          "is_major_topic": false,
+          "qualifier_name": "genetics",
+          "qualifier_ui": "Q000235"
+        },
+        {
+          "descriptor_name": "Melanoma",
+          "descriptor_ui": "D008545",
+          "is_major_topic": false,
+          "qualifier_name": "genetics",
+          "qualifier_ui": "Q000235"
+        },
+        {
+          "descriptor_name": "Melanoma",
+          "descriptor_ui": "D008545",
+          "is_major_topic": false,
+          "qualifier_name": "genetics",
+          "qualifier_ui": "Q000235"
+        },
+        {
+          "descriptor_name": "Melanoma",
+          "descriptor_ui": "D008545",
+          "is_major_topic": false,
+          "qualifier_name": "genetics",
+          "qualifier_ui": "Q000235"
+        },
+        {
+          "descriptor_name": "Melanoma",
+          "descriptor_ui": "D008545",
+          "is_major_topic": false,
+          "qualifier_name": "genetics",
+          "qualifier_ui": "Q000235"
+        },
+        {
+          "descriptor_name": "Melanoma",
+          "descriptor_ui": "D008545",
+          "is_major_topic": false,
+          "qualifier_name": "secondary",
+          "qualifier_ui": "Q000556"
+        },
+        {
+          "descriptor_name": "Melanoma",
+          "descriptor_ui": "D008545",
+          "is_major_topic": false,
+          "qualifier_name": "secondary",
+          "qualifier_ui": "Q000556"
+        },
+        {
+          "descriptor_name": "Melanoma",
+          "descriptor_ui": "D008545",
+          "is_major_topic": false,
+          "qualifier_name": "secondary",
+          "qualifier_ui": "Q000556"
+        },
+        {
+          "descriptor_name": "Melanoma",
+          "descriptor_ui": "D008545",
+          "is_major_topic": false,
+          "qualifier_name": "secondary",
+          "qualifier_ui": "Q000556"
+        },
+        {
+          "descriptor_name": "Melanoma",
+          "descriptor_ui": "D008545",
+          "is_major_topic": false,
+          "qualifier_name": "secondary",
+          "qualifier_ui": "Q000556"
+        },
+        {
+          "descriptor_name": "Melanoma",
+          "descriptor_ui": "D008545",
+          "is_major_topic": false,
+          "qualifier_name": "secondary",
+          "qualifier_ui": "Q000556"
+        },
+        {
+          "descriptor_name": "Melanoma",
+          "descriptor_ui": "D008545",
+          "is_major_topic": false,
+          "qualifier_name": "therapy",
+          "qualifier_ui": "Q000628"
+        },
+        {
+          "descriptor_name": "Melanoma",
+          "descriptor_ui": "D008545",
+          "is_major_topic": false,
+          "qualifier_name": "therapy",
+          "qualifier_ui": "Q000628"
+        },
+        {
+          "descriptor_name": "Melanoma",
+          "descriptor_ui": "D008545",
+          "is_major_topic": false,
+          "qualifier_name": "therapy",
+          "qualifier_ui": "Q000628"
+        },
+        {
+          "descriptor_name": "Melanoma",
+          "descriptor_ui": "D008545",
+          "is_major_topic": false,
+          "qualifier_name": "therapy",
+          "qualifier_ui": "Q000628"
+        },
+        {
+          "descriptor_name": "Melanoma",
+          "descriptor_ui": "D008545",
+          "is_major_topic": false,
+          "qualifier_name": "therapy",
+          "qualifier_ui": "Q000628"
+        },
+        {
+          "descriptor_name": "Melanoma",
+          "descriptor_ui": "D008545",
+          "is_major_topic": false,
+          "qualifier_name": "therapy",
+          "qualifier_ui": "Q000628"
+        },
+        {
+          "descriptor_name": "Neoplasm Metastasis",
+          "descriptor_ui": "D009362",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Neoplasm Metastasis",
+          "descriptor_ui": "D009362",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Neoplasm Metastasis",
+          "descriptor_ui": "D009362",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Neoplasm Metastasis",
+          "descriptor_ui": "D009362",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Neoplasm Metastasis",
+          "descriptor_ui": "D009362",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Neoplasm Metastasis",
+          "descriptor_ui": "D009362",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "RNA",
+          "descriptor_ui": "D012313",
+          "is_major_topic": false,
+          "qualifier_name": "genetics",
+          "qualifier_ui": "Q000235"
+        },
+        {
+          "descriptor_name": "RNA",
+          "descriptor_ui": "D012313",
+          "is_major_topic": false,
+          "qualifier_name": "genetics",
+          "qualifier_ui": "Q000235"
+        },
+        {
+          "descriptor_name": "RNA",
+          "descriptor_ui": "D012313",
+          "is_major_topic": false,
+          "qualifier_name": "genetics",
+          "qualifier_ui": "Q000235"
+        },
+        {
+          "descriptor_name": "RNA",
+          "descriptor_ui": "D012313",
+          "is_major_topic": false,
+          "qualifier_name": "genetics",
+          "qualifier_ui": "Q000235"
+        },
+        {
+          "descriptor_name": "RNA",
+          "descriptor_ui": "D012313",
+          "is_major_topic": false,
+          "qualifier_name": "genetics",
+          "qualifier_ui": "Q000235"
+        },
+        {
+          "descriptor_name": "RNA",
+          "descriptor_ui": "D012313",
+          "is_major_topic": false,
+          "qualifier_name": "genetics",
+          "qualifier_ui": "Q000235"
+        },
+        {
+          "descriptor_name": "Skin Neoplasms",
+          "descriptor_ui": "D012878",
+          "is_major_topic": false,
+          "qualifier_name": "pathology",
+          "qualifier_ui": "Q000473"
+        },
+        {
+          "descriptor_name": "Skin Neoplasms",
+          "descriptor_ui": "D012878",
+          "is_major_topic": false,
+          "qualifier_name": "pathology",
+          "qualifier_ui": "Q000473"
+        },
+        {
+          "descriptor_name": "Skin Neoplasms",
+          "descriptor_ui": "D012878",
+          "is_major_topic": false,
+          "qualifier_name": "pathology",
+          "qualifier_ui": "Q000473"
+        },
+        {
+          "descriptor_name": "Skin Neoplasms",
+          "descriptor_ui": "D012878",
+          "is_major_topic": false,
+          "qualifier_name": "pathology",
+          "qualifier_ui": "Q000473"
+        },
+        {
+          "descriptor_name": "Skin Neoplasms",
+          "descriptor_ui": "D012878",
+          "is_major_topic": false,
+          "qualifier_name": "pathology",
+          "qualifier_ui": "Q000473"
+        },
+        {
+          "descriptor_name": "Skin Neoplasms",
+          "descriptor_ui": "D012878",
+          "is_major_topic": false,
+          "qualifier_name": "pathology",
+          "qualifier_ui": "Q000473"
+        },
+        {
+          "descriptor_name": "T-Lymphocytes",
+          "descriptor_ui": "D013601",
+          "is_major_topic": false,
+          "qualifier_name": "immunology",
+          "qualifier_ui": "Q000276"
+        },
+        {
+          "descriptor_name": "T-Lymphocytes",
+          "descriptor_ui": "D013601",
+          "is_major_topic": false,
+          "qualifier_name": "immunology",
+          "qualifier_ui": "Q000276"
+        },
+        {
+          "descriptor_name": "T-Lymphocytes",
+          "descriptor_ui": "D013601",
+          "is_major_topic": false,
+          "qualifier_name": "immunology",
+          "qualifier_ui": "Q000276"
+        },
+        {
+          "descriptor_name": "T-Lymphocytes",
+          "descriptor_ui": "D013601",
+          "is_major_topic": false,
+          "qualifier_name": "immunology",
+          "qualifier_ui": "Q000276"
+        },
+        {
+          "descriptor_name": "T-Lymphocytes",
+          "descriptor_ui": "D013601",
+          "is_major_topic": false,
+          "qualifier_name": "immunology",
+          "qualifier_ui": "Q000276"
+        },
+        {
+          "descriptor_name": "T-Lymphocytes",
+          "descriptor_ui": "D013601",
+          "is_major_topic": false,
+          "qualifier_name": "immunology",
+          "qualifier_ui": "Q000276"
+        },
+        {
+          "descriptor_name": "T-Lymphocytes",
+          "descriptor_ui": "D013601",
+          "is_major_topic": false,
+          "qualifier_name": "pathology",
+          "qualifier_ui": "Q000473"
+        },
+        {
+          "descriptor_name": "T-Lymphocytes",
+          "descriptor_ui": "D013601",
+          "is_major_topic": false,
+          "qualifier_name": "pathology",
+          "qualifier_ui": "Q000473"
+        },
+        {
+          "descriptor_name": "T-Lymphocytes",
+          "descriptor_ui": "D013601",
+          "is_major_topic": false,
+          "qualifier_name": "pathology",
+          "qualifier_ui": "Q000473"
+        },
+        {
+          "descriptor_name": "T-Lymphocytes",
+          "descriptor_ui": "D013601",
+          "is_major_topic": false,
+          "qualifier_name": "pathology",
+          "qualifier_ui": "Q000473"
+        },
+        {
+          "descriptor_name": "T-Lymphocytes",
+          "descriptor_ui": "D013601",
+          "is_major_topic": false,
+          "qualifier_name": "pathology",
+          "qualifier_ui": "Q000473"
+        },
+        {
+          "descriptor_name": "T-Lymphocytes",
+          "descriptor_ui": "D013601",
+          "is_major_topic": false,
+          "qualifier_name": "pathology",
+          "qualifier_ui": "Q000473"
+        },
+        {
+          "descriptor_name": "Stromal Cells",
+          "descriptor_ui": "D017154",
+          "is_major_topic": false,
+          "qualifier_name": "pathology",
+          "qualifier_ui": "Q000473"
+        },
+        {
+          "descriptor_name": "Stromal Cells",
+          "descriptor_ui": "D017154",
+          "is_major_topic": false,
+          "qualifier_name": "pathology",
+          "qualifier_ui": "Q000473"
+        },
+        {
+          "descriptor_name": "Stromal Cells",
+          "descriptor_ui": "D017154",
+          "is_major_topic": false,
+          "qualifier_name": "pathology",
+          "qualifier_ui": "Q000473"
+        },
+        {
+          "descriptor_name": "Stromal Cells",
+          "descriptor_ui": "D017154",
+          "is_major_topic": false,
+          "qualifier_name": "pathology",
+          "qualifier_ui": "Q000473"
+        },
+        {
+          "descriptor_name": "Stromal Cells",
+          "descriptor_ui": "D017154",
+          "is_major_topic": false,
+          "qualifier_name": "pathology",
+          "qualifier_ui": "Q000473"
+        },
+        {
+          "descriptor_name": "Stromal Cells",
+          "descriptor_ui": "D017154",
+          "is_major_topic": false,
+          "qualifier_name": "pathology",
+          "qualifier_ui": "Q000473"
+        },
+        {
+          "descriptor_name": "Sequence Analysis, RNA",
+          "descriptor_ui": "D017423",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Sequence Analysis, RNA",
+          "descriptor_ui": "D017423",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Sequence Analysis, RNA",
+          "descriptor_ui": "D017423",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Sequence Analysis, RNA",
+          "descriptor_ui": "D017423",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Sequence Analysis, RNA",
+          "descriptor_ui": "D017423",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Sequence Analysis, RNA",
+          "descriptor_ui": "D017423",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Drug Resistance, Neoplasm",
+          "descriptor_ui": "D019008",
+          "is_major_topic": false,
+          "qualifier_name": "genetics",
+          "qualifier_ui": "Q000235"
+        },
+        {
+          "descriptor_name": "Drug Resistance, Neoplasm",
+          "descriptor_ui": "D019008",
+          "is_major_topic": false,
+          "qualifier_name": "genetics",
+          "qualifier_ui": "Q000235"
+        },
+        {
+          "descriptor_name": "Drug Resistance, Neoplasm",
+          "descriptor_ui": "D019008",
+          "is_major_topic": false,
+          "qualifier_name": "genetics",
+          "qualifier_ui": "Q000235"
+        },
+        {
+          "descriptor_name": "Drug Resistance, Neoplasm",
+          "descriptor_ui": "D019008",
+          "is_major_topic": false,
+          "qualifier_name": "genetics",
+          "qualifier_ui": "Q000235"
+        },
+        {
+          "descriptor_name": "Drug Resistance, Neoplasm",
+          "descriptor_ui": "D019008",
+          "is_major_topic": false,
+          "qualifier_name": "genetics",
+          "qualifier_ui": "Q000235"
+        },
+        {
+          "descriptor_name": "Drug Resistance, Neoplasm",
+          "descriptor_ui": "D019008",
+          "is_major_topic": false,
+          "qualifier_name": "genetics",
+          "qualifier_ui": "Q000235"
+        },
+        {
+          "descriptor_name": "Genomics",
+          "descriptor_ui": "D023281",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Genomics",
+          "descriptor_ui": "D023281",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Genomics",
+          "descriptor_ui": "D023281",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Genomics",
+          "descriptor_ui": "D023281",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Genomics",
+          "descriptor_ui": "D023281",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Genomics",
+          "descriptor_ui": "D023281",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Endothelial Cells",
+          "descriptor_ui": "D042783",
+          "is_major_topic": false,
+          "qualifier_name": "pathology",
+          "qualifier_ui": "Q000473"
+        },
+        {
+          "descriptor_name": "Endothelial Cells",
+          "descriptor_ui": "D042783",
+          "is_major_topic": false,
+          "qualifier_name": "pathology",
+          "qualifier_ui": "Q000473"
+        },
+        {
+          "descriptor_name": "Endothelial Cells",
+          "descriptor_ui": "D042783",
+          "is_major_topic": false,
+          "qualifier_name": "pathology",
+          "qualifier_ui": "Q000473"
+        },
+        {
+          "descriptor_name": "Endothelial Cells",
+          "descriptor_ui": "D042783",
+          "is_major_topic": false,
+          "qualifier_name": "pathology",
+          "qualifier_ui": "Q000473"
+        },
+        {
+          "descriptor_name": "Endothelial Cells",
+          "descriptor_ui": "D042783",
+          "is_major_topic": false,
+          "qualifier_name": "pathology",
+          "qualifier_ui": "Q000473"
+        },
+        {
+          "descriptor_name": "Endothelial Cells",
+          "descriptor_ui": "D042783",
+          "is_major_topic": false,
+          "qualifier_name": "pathology",
+          "qualifier_ui": "Q000473"
+        },
+        {
+          "descriptor_name": "Microphthalmia-Associated Transcription Factor",
+          "descriptor_ui": "D051739",
+          "is_major_topic": false,
+          "qualifier_name": "metabolism",
+          "qualifier_ui": "Q000378"
+        },
+        {
+          "descriptor_name": "Microphthalmia-Associated Transcription Factor",
+          "descriptor_ui": "D051739",
+          "is_major_topic": false,
+          "qualifier_name": "metabolism",
+          "qualifier_ui": "Q000378"
+        },
+        {
+          "descriptor_name": "Microphthalmia-Associated Transcription Factor",
+          "descriptor_ui": "D051739",
+          "is_major_topic": false,
+          "qualifier_name": "metabolism",
+          "qualifier_ui": "Q000378"
+        },
+        {
+          "descriptor_name": "Microphthalmia-Associated Transcription Factor",
+          "descriptor_ui": "D051739",
+          "is_major_topic": false,
+          "qualifier_name": "metabolism",
+          "qualifier_ui": "Q000378"
+        },
+        {
+          "descriptor_name": "Microphthalmia-Associated Transcription Factor",
+          "descriptor_ui": "D051739",
+          "is_major_topic": false,
+          "qualifier_name": "metabolism",
+          "qualifier_ui": "Q000378"
+        },
+        {
+          "descriptor_name": "Microphthalmia-Associated Transcription Factor",
+          "descriptor_ui": "D051739",
+          "is_major_topic": false,
+          "qualifier_name": "metabolism",
+          "qualifier_ui": "Q000378"
+        },
+        {
+          "descriptor_name": "Single-Cell Analysis",
+          "descriptor_ui": "D059010",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Single-Cell Analysis",
+          "descriptor_ui": "D059010",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Single-Cell Analysis",
+          "descriptor_ui": "D059010",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Single-Cell Analysis",
+          "descriptor_ui": "D059010",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Single-Cell Analysis",
+          "descriptor_ui": "D059010",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Single-Cell Analysis",
+          "descriptor_ui": "D059010",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Tumor Microenvironment",
+          "descriptor_ui": "D059016",
+          "is_major_topic": true,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Tumor Microenvironment",
+          "descriptor_ui": "D059016",
+          "is_major_topic": true,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Tumor Microenvironment",
+          "descriptor_ui": "D059016",
+          "is_major_topic": true,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Tumor Microenvironment",
+          "descriptor_ui": "D059016",
+          "is_major_topic": true,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Tumor Microenvironment",
+          "descriptor_ui": "D059016",
+          "is_major_topic": true,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Tumor Microenvironment",
+          "descriptor_ui": "D059016",
+          "is_major_topic": true,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Transcriptome",
+          "descriptor_ui": "D059467",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Transcriptome",
+          "descriptor_ui": "D059467",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Transcriptome",
+          "descriptor_ui": "D059467",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Transcriptome",
+          "descriptor_ui": "D059467",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Transcriptome",
+          "descriptor_ui": "D059467",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        },
+        {
+          "descriptor_name": "Transcriptome",
+          "descriptor_ui": "D059467",
+          "is_major_topic": false,
+          "qualifier_name": null,
+          "qualifier_ui": null
+        }
+      ],
+      "open_access": {
+        "any_repository_has_fulltext": true,
+        "is_oa": true,
+        "oa_status": "bronze",
+        "oa_url": "https://science.sciencemag.org/content/sci/352/6282/189.full.pdf"
+      },
+      "primary_location": {
+        "id": "doi:10.1126/science.aad0501",
+        "is_accepted": true,
+        "is_oa": true,
+        "is_published": true,
+        "landing_page_url": "https://doi.org/10.1126/science.aad0501",
+        "license": null,
+        "license_id": null,
+        "pdf_url": "https://science.sciencemag.org/content/sci/352/6282/189.full.pdf",
+        "raw_source_name": "Science",
+        "raw_type": "journal-article",
+        "source": {
+          "display_name": "Science",
+          "host_organization": "https://openalex.org/P4310315823",
+          "host_organization_lineage": [
+            "https://openalex.org/P4310315823"
+          ],
+          "host_organization_lineage_names": [
+            "American Association for the Advancement of Science"
+          ],
+          "host_organization_name": "American Association for the Advancement of Science",
+          "id": "https://openalex.org/S3880285",
+          "is_core": true,
+          "is_in_doaj": false,
+          "is_oa": false,
+          "issn": [
+            "0036-8075",
+            "1095-9203"
+          ],
+          "issn_l": "0036-8075",
+          "type": "journal"
+        },
+        "version": "publishedVersion"
+      },
+      "primary_topic": {
+        "display_name": "CAR-T cell therapy research",
+        "domain": {
+          "display_name": "Health Sciences",
+          "id": "https://openalex.org/domains/4"
+        },
+        "field": {
+          "display_name": "Medicine",
+          "id": "https://openalex.org/fields/27"
+        },
+        "id": "https://openalex.org/T11491",
+        "score": 0.9991999864578247,
+        "subfield": {
+          "display_name": "Oncology",
+          "id": "https://openalex.org/subfields/2730"
+        }
+      },
+      "publication_date": "2016-04-07",
+      "publication_year": 2016,
+      "referenced_works": [
+        "https://openalex.org/W135658021",
+        "https://openalex.org/W1526404082",
+        "https://openalex.org/W1536612607",
+        "https://openalex.org/W1673310716",
+        "https://openalex.org/W1834835434",
+        "https://openalex.org/W1950829641",
+        "https://openalex.org/W1969621613",
+        "https://openalex.org/W1981291019",
+        "https://openalex.org/W1983774108",
+        "https://openalex.org/W1998728654",
+        "https://openalex.org/W1999574084",
+        "https://openalex.org/W2008878539",
+        "https://openalex.org/W2010121426",
+        "https://openalex.org/W2015009944",
+        "https://openalex.org/W2017187984",
+        "https://openalex.org/W2018173663",
+        "https://openalex.org/W2018775174",
+        "https://openalex.org/W2019552331",
+        "https://openalex.org/W2019607817",
+        "https://openalex.org/W2030017878",
+        "https://openalex.org/W2032211985",
+        "https://openalex.org/W2037610638",
+        "https://openalex.org/W2039017973",
+        "https://openalex.org/W2040353461",
+        "https://openalex.org/W2043398720",
+        "https://openalex.org/W2043746859",
+        "https://openalex.org/W2049491375",
+        "https://openalex.org/W2049553585",
+        "https://openalex.org/W2052005627",
+        "https://openalex.org/W2065121554",
+        "https://openalex.org/W2076154138",
+        "https://openalex.org/W2076936113",
+        "https://openalex.org/W2097995306",
+        "https://openalex.org/W2101653483",
+        "https://openalex.org/W2102212449",
+        "https://openalex.org/W2103441770",
+        "https://openalex.org/W2104347254",
+        "https://openalex.org/W2104885590",
+        "https://openalex.org/W2105712639",
+        "https://openalex.org/W2107429737",
+        "https://openalex.org/W2110768394",
+        "https://openalex.org/W2113756065",
+        "https://openalex.org/W2117692326",
+        "https://openalex.org/W2118982164",
+        "https://openalex.org/W2119180969",
+        "https://openalex.org/W2119896120",
+        "https://openalex.org/W2124985265",
+        "https://openalex.org/W2127956110",
+        "https://openalex.org/W2130473166",
+        "https://openalex.org/W2131040858",
+        "https://openalex.org/W2134672574",
+        "https://openalex.org/W2135707184",
+        "https://openalex.org/W2138601221",
+        "https://openalex.org/W2140258573",
+        "https://openalex.org/W2145599882",
+        "https://openalex.org/W2145896896",
+        "https://openalex.org/W2146290346",
+        "https://openalex.org/W2158416296",
+        "https://openalex.org/W2159220884",
+        "https://openalex.org/W2159715390",
+        "https://openalex.org/W2160834915",
+        "https://openalex.org/W2166662937",
+        "https://openalex.org/W2170490448",
+        "https://openalex.org/W2184331293",
+        "https://openalex.org/W2187089797",
+        "https://openalex.org/W2222086386",
+        "https://openalex.org/W2560367415",
+        "https://openalex.org/W2572174216",
+        "https://openalex.org/W2592935721",
+        "https://openalex.org/W3011926296"
+      ],
+      "referenced_works_count": 70,
+      "related_works": [
+        "https://openalex.org/W2110517464",
+        "https://openalex.org/W1595732636",
+        "https://openalex.org/W2908056899",
+        "https://openalex.org/W2016114470",
+        "https://openalex.org/W2713351076",
+        "https://openalex.org/W2062767635",
+        "https://openalex.org/W2945954586",
+        "https://openalex.org/W2942193912",
+        "https://openalex.org/W3114485724",
+        "https://openalex.org/W4255420075"
+      ],
+      "relevance_score": 8945.953,
+      "sustainable_development_goals": [
+        {
+          "display_name": "Good health and well-being",
+          "id": "https://metadata.un.org/sdg/3",
+          "score": 0.7099999785423279
+        }
+      ],
+      "title": "Dissecting the multicellular ecosystem of metastatic melanoma by single-cell RNA-seq",
+      "topics": [
+        {
+          "display_name": "CAR-T cell therapy research",
+          "domain": {
+            "display_name": "Health Sciences",
+            "id": "https://openalex.org/domains/4"
+          },
+          "field": {
+            "display_name": "Medicine",
+            "id": "https://openalex.org/fields/27"
+          },
+          "id": "https://openalex.org/T11491",
+          "score": 0.9991999864578247,
+          "subfield": {
+            "display_name": "Oncology",
+            "id": "https://openalex.org/subfields/2730"
+          }
+        },
+        {
+          "display_name": "Cancer Immunotherapy and Biomarkers",
+          "domain": {
+            "display_name": "Health Sciences",
+            "id": "https://openalex.org/domains/4"
+          },
+          "field": {
+            "display_name": "Medicine",
+            "id": "https://openalex.org/fields/27"
+          },
+          "id": "https://openalex.org/T10158",
+          "score": 0.9991000294685364,
+          "subfield": {
+            "display_name": "Oncology",
+            "id": "https://openalex.org/subfields/2730"
+          }
+        },
+        {
+          "display_name": "Single-cell and spatial transcriptomics",
+          "domain": {
+            "display_name": "Life Sciences",
+            "id": "https://openalex.org/domains/1"
+          },
+          "field": {
+            "display_name": "Biochemistry, Genetics and Molecular Biology",
+            "id": "https://openalex.org/fields/13"
+          },
+          "id": "https://openalex.org/T11289",
+          "score": 0.9988999962806702,
+          "subfield": {
+            "display_name": "Molecular Biology",
+            "id": "https://openalex.org/subfields/1312"
+          }
+        }
+      ],
+      "type": "article",
+      "updated_date": "2026-03-11T14:59:36.786465"
+    }
+  ]
+}

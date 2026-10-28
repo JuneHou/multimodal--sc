@@ -1,11 +1,11 @@
 """lb_skill_traces — read the skill-arm transcripts cell by cell and count what they show (plan approved 2026-09-24).
 
-Every count is printed with its denominator; every phrase-list hit is stored with +-90 characters of context in an
+The P10 error of an answer is her notebook 10 held-out joint_validation_nmse (lb_skill_score.her_heldout_rows).
+No comparison uses a tolerance. Every count is printed with its denominator; every phrase-list hit is stored with +-90 characters of context in an
 evidence column; a sample of the non-hits of each list is printed so the lists can be corrected before a figure is
 quoted. Discarded phrase candidates are kept below as comments with the reason.
 
-Questions (plan table): H1 harness friction; H2 token cap; A1 says the answer is the last month; A2 had a non-P09
-alternative in its own runs and submitted P09; A3 stated criterion; A4 distinct settings across parcels; B1 reasons
+Questions (plan table): H1 harness friction; H2 token cap; A1 says the answer is the last month; A3 stated criterion; A4 distinct settings across parcels; B1 reasons
 for raw / exhaustive / zeta 0 / inverse-variance; B2 choices changed after a fit; C1 program class by AST; C2 blow-up
 mechanism; C3 thinking states a simplification; I1 iteration vs matching error; D1 DeepSeek failures.
 
@@ -25,11 +25,11 @@ import pandas as pd
 
 import lb_lib as lb
 import lb_skill_loop as L
+import lb_skill_score as K
 
 PAD = 90
 SHORT = {"DeepSeek-V4.1-Flash-thinking-low": "DeepSeek", "GLM-5.3": "GLM", "gpt-oss-120b": "gpt-oss", "openai:gpt-5.5": "GPT-5.5"}
 ARMS = ("shc_configure", "shc_design", "shc_implement")
-TOL = {"sentinel1": 0.006, "sentinel2": 0.0006}          # fit.py prints 2 / 3 decimals; the models copy the print
 
 # ----------------------------------------------------------------------------- phrase lists (case-insensitive)
 SAYS_LAST_MONTH = [r"persist", r"\bP09\b", r"last (observed |actual )?(month|value|observation|period)",
@@ -83,20 +83,14 @@ def load():
     for (m, pid), r in recs.items():
         p = base[pid[:-len(r["experiment"][4:]) - 1] + "_shc"]
         r["_base"] = p
-        r["_p09"] = {b: p["train"][b][-1] for b in p["train"]}
-        r["_metric"] = (float(np.mean([lb.her_nmse(p["truth"][b], r["values"][b], p["train"][b]) for b in p["truth"]]))
-                        if r.get("ok") else np.nan)
+        r["_metric"] = metric_of(r, r["values"]) if r.get("ok") else np.nan
         out.append(r)
     return out
 
 
-def is_p09(r, vals):
-    return vals is not None and all(abs(vals[b] - r["_p09"][b]) <= TOL[r["sensor"]] for b in r["_p09"])
-
-
 def metric_of(r, vals):
-    p = r["_base"]
-    return float(np.mean([lb.her_nmse(p["truth"][b], vals[b], p["train"][b]) for b in p["truth"]]))
+    """Her held-out joint_validation_nmse of a prediction for this cell."""
+    return K.joint_validation_nmse(K.her_heldout_rows(r["_base"], vals))
 
 
 # ----------------------------------------------------------------------------- C1: program class by AST
@@ -165,7 +159,7 @@ def analyse(recs):
         last_think = " ".join(think(s) for s in steps[-2:])
         row = {"experiment": exp, "arm": exp[4:], "model": SHORT.get(m, m), "sensor": r["sensor"], "site_id": r["site_id"],
                "prompt_id": r["prompt_id"], "ok": bool(r.get("ok")), "ended": r.get("ended"), "n_steps": r.get("n_steps"),
-               "metric": r["_metric"], "answer_is_p09": is_p09(r, r.get("values")) if r.get("ok") else None,
+               "metric": r["_metric"],
                "fit_runs": len(fits), "blocks_kept_final": len(fits[-1]["donor_ids"]) if fits else None}
         # H1 / H2
         row["turns_no_fence"] = sum(1 for s in steps if (s.get("command") or {}).get("kind") == "error")
@@ -181,10 +175,6 @@ def analyse(recs):
         row["reasoning_chars_max"] = max((len(think(s)) for s in steps), default=0)
         # A1
         row["says_last_month"] = hits(rat, SAYS_LAST_MONTH) or hits(last_think, SAYS_LAST_MONTH)
-        # A2
-        alt = [f for f in fits if len(f["donor_ids"]) >= 2 or not is_p09(r, f["predictions"])]
-        row["alternative_in_own_runs"] = bool(alt) if len(fits) > 1 else None
-        row["alternative_had_lower_mse"] = (min(f["fit_mse"] for f in alt) < fits[-1]["fit_mse"] - 1e-12) if alt and fits else None
         # A3
         row["criterion_min_error"] = hits(rat, MIN_ERROR)
         row["criterion_stability"] = hits(rat, STABILITY)
@@ -213,7 +203,7 @@ def analyse(recs):
                     if mm:
                         prog = mm.group(2); row["program_inline"] = True; break
             cls, solver, constraint = program_class(prog)
-            if r.get("ok") and len(set(round(v, 6) for v in r["values"].values())) == 1 and len(r["values"]) > 1:
+            if r.get("ok") and len(set(r["values"].values())) == 1 and len(r["values"]) > 1:
                 cls = "bug: one value for every band"           # e.g. a mean taken across bands
             row["program_class"], row["program_solver"], row["program_constraint"] = cls, solver, constraint
             wstep = next((s for s in steps if "predict.py" in ((s.get("command") or {}).get("text") or "") and "cat >" in (s.get("command") or {}).get("text", "")), None)
@@ -224,7 +214,7 @@ def analyse(recs):
             row["program_weight_sum"] = sum(w) if w else np.nan
         # I1
         if len(fits) > 1 and r.get("ok"):
-            row["final_is_min_mse"] = fits[-1]["fit_mse"] <= min(f["fit_mse"] for f in fits) + 1e-12
+            row["final_is_min_mse"] = fits[-1]["fit_mse"] <= min(f["fit_mse"] for f in fits)
             row["metric_first_run"] = metric_of(r, fits[0]["predictions"])
             row["metric_final"] = r["_metric"]
         # D1
@@ -260,12 +250,6 @@ def report(T):
     print("  misses (single-block cells whose rationale did not match):")
     for _, x in T[(T.arm == "configure") & T.ok & (T.blocks_kept_final == 1) & (T.says_last_month == "")].head(6).iterrows():
         print(f"    {x.model:8s} {x.prompt_id}: {(x.final_spec)[:0]}{str(next((r for r in RECS if r['prompt_id']==x.prompt_id and SHORT.get(r['model'])==x.model), {}).get('rationale'))[:160]!r}")
-    print("\n=== A2. configure, cells with >1 fitter run: a non-P09 alternative existed in the model's own runs and P09 was submitted; and it had a lower matching error ===")
-    for m in models:
-        g = T[(T.arm == "configure") & (T.model == m) & T.ok & (T.fit_runs > 1)]
-        a = g[g.alternative_in_own_runs == True]
-        print(f"  {m:8s} cells with >1 run {len(g):2d}; alternative existed {len(a):2d}; submitted P09 anyway {int(a.answer_is_p09.sum()):2d}; "
-              f"of those the alternative had lower matching error {int((a.answer_is_p09 & (a.alternative_had_lower_mse == True)).sum()):2d}")
     print("\n=== A3. stated criterion in the rationale (multi-label), A and B ===")
     for arm in ("configure", "design"):
         for m in models:
@@ -321,7 +305,7 @@ def report(T):
             g = T[(T.arm == arm) & (T.model == m) & T.ok & (T.fit_runs > 1)]
             if len(g):
                 print(f"  {arm:9s} {m:8s} n={len(g):2d} (median runs {int(g.fit_runs.median())}): final = min error {frac(int(g.final_is_min_mse.sum()), len(g))}; "
-                      f"P10 error mean {g.metric_first_run.mean():.3f} -> {g.metric_final.mean():.3f}; better {int((g.metric_final < g.metric_first_run - 1e-12).sum())}, worse {int((g.metric_final > g.metric_first_run + 1e-12).sum())}")
+                      f"P10 error mean {g.metric_first_run.mean():.3f} -> {g.metric_final.mean():.3f}; better {int((g.metric_final < g.metric_first_run).sum())}, worse {int((g.metric_final > g.metric_first_run).sum())}")
     print("\n=== D1. DeepSeek: how cells ended; fitter runs per cell; gateway error reasons ===")
     g = T[T.model == "DeepSeek"]
     for arm in ("configure", "design", "implement"):

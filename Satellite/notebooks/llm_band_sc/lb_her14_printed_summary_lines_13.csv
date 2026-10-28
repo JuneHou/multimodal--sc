@@ -1,0 +1,6 @@
+line
+Tests: 286 site-band combinations
+"  A, SHC replication: 1000 bootstrap draws, p floor 0.0010"
+"  B, CWZ moving block: 144 to 306 shifts, p floor 0.0069 to 0.0033"
+Totals: SHC bootstrap rejects 204 of 286; CWZ moving block rejects 112; 14.3 expected by chance; the two disagree on 96 tests.
+stated setting is n short relative to T0): 0.231 to 0.321

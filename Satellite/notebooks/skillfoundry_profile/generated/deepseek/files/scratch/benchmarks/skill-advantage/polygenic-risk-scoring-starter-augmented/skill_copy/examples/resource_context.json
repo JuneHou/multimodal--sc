@@ -1,0 +1,20 @@
+{
+  "domain_name": "Genomics",
+  "domain_slug": "genomics",
+  "leaf_name": "Polygenic risk scoring",
+  "leaf_slug": "polygenic-risk-scoring",
+  "skill_name": "Polygenic risk scoring Starter",
+  "skill_slug": "polygenic-risk-scoring-starter",
+  "source_resource_ids": [
+    "prsice-docs",
+    "plink2-docs"
+  ],
+  "starter_objectives": [
+    "Review the primary materials for Polygenic risk scoring.",
+    "Define the smallest reproducible input/output contract.",
+    "Capture a smoke command or toy example.",
+    "Promote the starter to sandbox verification once runtime details are stable.",
+    "Capture one extra PRSice-2 scoring validation path."
+  ],
+  "taxonomy_key": "genomics"
+}

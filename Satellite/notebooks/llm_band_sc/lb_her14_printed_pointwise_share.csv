@@ -1,0 +1,12 @@
+sensor,band,periods,excludes_zero,share,median_half_width
+sentinel1,VH,990,134,0.1354,1.3399
+sentinel1,VV,990,168,0.1697,1.1723
+sentinel1,VV_minus_VH,990,219,0.2212,0.5343
+sentinel2,B11,1283,155,0.1208,825.9557
+sentinel2,B12,1283,158,0.1231,637.7108
+sentinel2,B2,1283,121,0.0943,939.3310
+sentinel2,B3,1283,123,0.0959,787.5679
+sentinel2,B4,1283,122,0.0951,756.1428
+sentinel2,B8,1283,267,0.2081,990.8580
+sentinel2,NDVI,1283,221,0.1723,0.2388
+sentinel2,NDWI,1283,132,0.1029,0.2701

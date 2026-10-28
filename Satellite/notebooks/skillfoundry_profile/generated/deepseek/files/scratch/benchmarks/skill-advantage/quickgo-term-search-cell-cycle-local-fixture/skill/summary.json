@@ -1,0 +1,23 @@
+{
+  "number_of_hits": 2148,
+  "query": "cell cycle",
+  "result_origin": "local_fixture",
+  "source_url": "https://www.ebi.ac.uk/QuickGO/services/ontology/go/search",
+  "term_count": 2,
+  "terms": [
+    {
+      "aspect": "biological_process",
+      "definition": "The progression of a cell through the phases of growth and division.",
+      "id": "GO:0007049",
+      "is_obsolete": false,
+      "name": "cell cycle"
+    },
+    {
+      "aspect": "biological_process",
+      "definition": "Any process involved in the progression of the cell cycle.",
+      "id": "GO:0022402",
+      "is_obsolete": false,
+      "name": "cell cycle process"
+    }
+  ]
+}

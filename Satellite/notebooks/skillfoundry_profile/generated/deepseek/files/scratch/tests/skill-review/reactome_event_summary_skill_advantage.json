@@ -1,0 +1,145 @@
+{
+  "aggregate": {
+    "baseline": {
+      "average_deliverable_rate": 0.334,
+      "perfect_case_count": 0,
+      "success_rate": 0.5
+    },
+    "skill": {
+      "average_deliverable_rate": 1.0,
+      "perfect_case_count": 2,
+      "success_rate": 1.0
+    }
+  },
+  "cases": [
+    {
+      "baseline": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 0.667,
+          "deliverables": {
+            "compartments_present": false,
+            "display_name_present": true,
+            "review_status_present": false,
+            "schema_class_present": true,
+            "source_url_correct": true,
+            "species_present": true,
+            "stable_id_normalized": true,
+            "summary_exists": true,
+            "summary_text_present": false
+          },
+          "perfect": false
+        },
+        "execution": {
+          "duration_seconds": 0.138,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": []
+        }
+      },
+      "case": "reactome-event-summary-canonical",
+      "description": "Reactome event summary on a stable ID input, comparing the maintained wrapper against a raw ad hoc fetch.",
+      "skill": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 1.0,
+          "deliverables": {
+            "compartments_present": true,
+            "display_name_present": true,
+            "review_status_present": true,
+            "schema_class_present": true,
+            "source_url_correct": true,
+            "species_present": true,
+            "stable_id_normalized": true,
+            "summary_exists": true,
+            "summary_text_present": true
+          },
+          "perfect": true
+        },
+        "execution": {
+          "duration_seconds": 0.132,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": []
+        }
+      }
+    },
+    {
+      "baseline": {
+        "evaluation": {
+          "command_succeeded": false,
+          "deliverable_rate": 0.0,
+          "deliverables": {
+            "compartments_present": false,
+            "display_name_present": false,
+            "review_status_present": false,
+            "schema_class_present": false,
+            "source_url_correct": false,
+            "species_present": false,
+            "stable_id_normalized": false,
+            "summary_exists": false,
+            "summary_text_present": false
+          },
+          "perfect": false
+        },
+        "execution": {
+          "duration_seconds": 0.114,
+          "returncode": 1,
+          "stderr_tail": [
+            "Traceback (most recent call last):",
+            "  File \"<string>\", line 14, in <module>",
+            "  File \"/data/wang/junh/envs/skillfoundry/lib/python3.11/urllib/request.py\", line 216, in urlopen",
+            "    return opener.open(url, data, timeout)",
+            "           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+            "  File \"/data/wang/junh/envs/skillfoundry/lib/python3.11/urllib/request.py\", line 525, in open",
+            "    response = meth(req, response)",
+            "               ^^^^^^^^^^^^^^^^^^^",
+            "  File \"/data/wang/junh/envs/skillfoundry/lib/python3.11/urllib/request.py\", line 634, in http_response",
+            "    response = self.parent.error(",
+            "               ^^^^^^^^^^^^^^^^^^",
+            "  File \"/data/wang/junh/envs/skillfoundry/lib/python3.11/urllib/request.py\", line 563, in error",
+            "    return self._call_chain(*args)",
+            "           ^^^^^^^^^^^^^^^^^^^^^^^",
+            "  File \"/data/wang/junh/envs/skillfoundry/lib/python3.11/urllib/request.py\", line 496, in _call_chain",
+            "    result = func(*args)",
+            "             ^^^^^^^^^^^",
+            "  File \"/data/wang/junh/envs/skillfoundry/lib/python3.11/urllib/request.py\", line 643, in http_error_default",
+            "    raise HTTPError(req.full_url, code, msg, hdrs, fp)",
+            "urllib.error.HTTPError: HTTP Error 404: Not Found"
+          ],
+          "stdout_tail": []
+        }
+      },
+      "case": "reactome-event-summary-noisy-input",
+      "description": "Reactome event summary on a stable ID input, comparing the maintained wrapper against a raw ad hoc fetch.",
+      "skill": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 1.0,
+          "deliverables": {
+            "compartments_present": true,
+            "display_name_present": true,
+            "review_status_present": true,
+            "schema_class_present": true,
+            "source_url_correct": true,
+            "species_present": true,
+            "stable_id_normalized": true,
+            "summary_exists": true,
+            "summary_text_present": true
+          },
+          "perfect": true
+        },
+        "execution": {
+          "duration_seconds": 0.125,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": []
+        }
+      }
+    }
+  ],
+  "summary": {
+    "skill_better_on_deliverable_rate": true,
+    "skill_better_on_success_rate": true
+  }
+}

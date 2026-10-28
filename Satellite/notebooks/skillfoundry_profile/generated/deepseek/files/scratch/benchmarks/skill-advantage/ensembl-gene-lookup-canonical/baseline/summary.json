@@ -1,0 +1,18 @@
+{
+  "lookup": {
+    "display_name": "BRCA1",
+    "end": 43170245,
+    "id": "ENSG00000012048",
+    "start": 43044292
+  },
+  "query": {
+    "species": "homo_sapiens",
+    "symbol": "BRCA1"
+  },
+  "xrefs": [
+    {
+      "id": "ENSG00000012048",
+      "type": "gene"
+    }
+  ]
+}

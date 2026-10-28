@@ -1,0 +1,20 @@
+{
+  "domain_name": "Physics and Astronomy",
+  "domain_slug": "physics-and-astronomy",
+  "leaf_name": "PDE / CFD simulation workflows",
+  "leaf_slug": "pde-cfd-simulation-workflows",
+  "skill_name": "PDE / CFD simulation workflows Starter",
+  "skill_slug": "pde-cfd-simulation-workflows-starter",
+  "source_resource_ids": [
+    "dedalus-docs",
+    "yt-overview"
+  ],
+  "starter_objectives": [
+    "Review the primary materials for PDE / CFD simulation workflows.",
+    "Define the smallest reproducible input/output contract.",
+    "Capture a smoke command or toy example.",
+    "Promote the starter to sandbox verification once runtime details are stable.",
+    "Sketch one finite-volume or spectral discretization choice for the first executable prototype."
+  ],
+  "taxonomy_key": "physics_and_astronomy"
+}

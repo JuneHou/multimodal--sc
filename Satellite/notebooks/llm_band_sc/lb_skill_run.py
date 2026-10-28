@@ -24,6 +24,15 @@ SKILLS = {"shc-configure": "shc_configure", "shc-design": "shc_design", "shc-imp
 RATE_LIMIT_CODES, RATE_LIMIT_RETRIES, RATE_LIMIT_WAIT = (429, 503), 5, 60
 
 
+def resume_set(path):
+    """Cells that already hold a model result and are never run again: those whose record ended with an answer or
+    at the step cap. Until 2026-10-13 only answered cells were skipped, so a rerun re-sampled every step-cap cell
+    (18 DeepSeek design cells, deleted). A cell whose only record ended in a call error is run again."""
+    if not path.exists():
+        return set()
+    return {r["prompt_id"] for r in map(json.loads, open(path)) if r.get("ended") in ("answer", "step_cap")}
+
+
 def make_call(spec_model, seed, key, effort, timeout, max_tokens):
     def call(messages):
         for k in range(RATE_LIMIT_RETRIES + 1):
@@ -101,7 +110,7 @@ def main():
         prov, model, _ = lb.parse_model(spec_model)
         key = lb.api_key(prov)
         out = out_dir / f"lb_replies_{exp}_{lb.safe_name(spec_model)}_{a.effort}.jsonl"
-        done = {json.loads(l)["prompt_id"] for l in open(out) if json.loads(l).get("ok")} if out.exists() else set()
+        done = resume_set(out)
         print(f"{spec_model} / {a.skill} (effort {a.effort}, step cap {a.step_cap}) -> {out.name}; {len(done)} done")
         call = make_call(spec_model, a.seed, key, effort, a.timeout, a.max_tokens)
         with open(out, "a") as f:

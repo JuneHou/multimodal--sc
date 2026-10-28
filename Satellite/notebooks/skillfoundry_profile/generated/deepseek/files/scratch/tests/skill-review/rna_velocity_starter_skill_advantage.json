@@ -1,0 +1,170 @@
+{
+  "aggregate": {
+    "baseline": {
+      "average_deliverable_rate": 0.413,
+      "perfect_case_count": 0,
+      "success_rate": 0.667
+    },
+    "skill": {
+      "average_deliverable_rate": 1.0,
+      "perfect_case_count": 3,
+      "success_rate": 1.0
+    }
+  },
+  "cases": [
+    {
+      "baseline": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 0.667,
+          "deliverables": {
+            "leaf_slug_matches": true,
+            "promotion_checklist_complete": false,
+            "skill_slug_matches": true,
+            "source_resource_ids_match": true,
+            "starter_steps_complete": false,
+            "summary_exists": true
+          },
+          "perfect": false
+        },
+        "execution": {
+          "duration_seconds": 0.024,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": []
+        }
+      },
+      "case": "rna-velocity-starter-canonical-summary",
+      "description": "RNA velocity starter on the canonical output path.",
+      "skill": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 1.0,
+          "deliverables": {
+            "leaf_slug_matches": true,
+            "promotion_checklist_complete": true,
+            "skill_slug_matches": true,
+            "source_resource_ids_match": true,
+            "starter_steps_complete": true,
+            "summary_exists": true
+          },
+          "perfect": true
+        },
+        "execution": {
+          "duration_seconds": 0.032,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": []
+        }
+      }
+    },
+    {
+      "baseline": {
+        "evaluation": {
+          "command_succeeded": false,
+          "deliverable_rate": 0.0,
+          "deliverables": {
+            "leaf_slug_matches": false,
+            "promotion_checklist_complete": false,
+            "skill_slug_matches": false,
+            "source_resource_ids_match": false,
+            "starter_steps_complete": false,
+            "summary_exists": false
+          },
+          "perfect": false
+        },
+        "execution": {
+          "duration_seconds": 0.022,
+          "returncode": 1,
+          "stderr_tail": [
+            "Traceback (most recent call last):",
+            "  File \"<string>\", line 13, in <module>",
+            "  File \"/data/wang/junh/envs/skillfoundry/lib/python3.11/pathlib.py\", line 1078, in write_text",
+            "    with self.open(mode='w', encoding=encoding, errors=errors, newline=newline) as f:",
+            "         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+            "  File \"/data/wang/junh/envs/skillfoundry/lib/python3.11/pathlib.py\", line 1044, in open",
+            "    return io.open(self, mode, buffering, encoding, errors, newline)",
+            "           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+            "FileNotFoundError: [Errno 2] No such file or directory: '/data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/skillfoundry_profile/work/deepseek/scratch/benchmarks/skill-advantage/rna-velocity-starter-nested-output/baseline/nested/summary.json'"
+          ],
+          "stdout_tail": []
+        }
+      },
+      "case": "rna-velocity-starter-nested-output",
+      "description": "RNA velocity starter on a nested output path that must be created by the maintained wrapper.",
+      "skill": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 1.0,
+          "deliverables": {
+            "leaf_slug_matches": true,
+            "promotion_checklist_complete": true,
+            "skill_slug_matches": true,
+            "source_resource_ids_match": true,
+            "starter_steps_complete": true,
+            "summary_exists": true
+          },
+          "perfect": true
+        },
+        "execution": {
+          "duration_seconds": 0.027,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": []
+        }
+      }
+    },
+    {
+      "baseline": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 0.571,
+          "deliverables": {
+            "leaf_slug_matches": true,
+            "promotion_checklist_complete": false,
+            "promotion_checklist_mentions_verification": false,
+            "skill_slug_matches": true,
+            "source_resource_ids_match": true,
+            "starter_steps_complete": false,
+            "summary_exists": true
+          },
+          "perfect": false
+        },
+        "execution": {
+          "duration_seconds": 0.024,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": []
+        }
+      },
+      "case": "rna-velocity-starter-promotion-checklist",
+      "description": "RNA velocity starter with an explicit promotion checklist audit.",
+      "skill": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 1.0,
+          "deliverables": {
+            "leaf_slug_matches": true,
+            "promotion_checklist_complete": true,
+            "promotion_checklist_mentions_verification": true,
+            "skill_slug_matches": true,
+            "source_resource_ids_match": true,
+            "starter_steps_complete": true,
+            "summary_exists": true
+          },
+          "perfect": true
+        },
+        "execution": {
+          "duration_seconds": 0.027,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": []
+        }
+      }
+    }
+  ],
+  "summary": {
+    "skill_better_on_deliverable_rate": true,
+    "skill_better_on_success_rate": true
+  }
+}

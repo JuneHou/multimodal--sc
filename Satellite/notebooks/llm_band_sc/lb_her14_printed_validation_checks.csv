@@ -1,0 +1,4 @@
+check,passed,cases
+1. Weights sum to one,52,52
+2. Weights are non-negative,52,52
+4. Stacked fit error within nu at m*,0,52

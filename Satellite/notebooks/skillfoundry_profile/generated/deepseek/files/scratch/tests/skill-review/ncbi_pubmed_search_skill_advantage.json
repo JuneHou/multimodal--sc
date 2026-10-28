@@ -1,0 +1,132 @@
+{
+  "aggregate": {
+    "baseline": {
+      "average_deliverable_rate": 0.636,
+      "perfect_case_count": 0,
+      "success_rate": 1.0
+    },
+    "skill": {
+      "average_deliverable_rate": 1.0,
+      "perfect_case_count": 2,
+      "success_rate": 1.0
+    }
+  },
+  "cases": [
+    {
+      "baseline": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 0.636,
+          "deliverables": {
+            "querytranslation_recorded": true,
+            "search_count_recorded": true,
+            "search_ids_match": true,
+            "search_retmax_match": true,
+            "summary_exists": true,
+            "summary_journals_complete": false,
+            "summary_pubdates_complete": false,
+            "summary_records_complete": false,
+            "summary_titles_complete": false,
+            "summary_uids_match": true,
+            "term_recorded": true
+          },
+          "perfect": false
+        },
+        "execution": {
+          "duration_seconds": 0.025,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": []
+        }
+      },
+      "case": "ncbi-pubmed-search-single-cell-top-hit",
+      "description": "PubMed search benchmark on a canonical single-cell query, contrasting structured ESummary coverage with a minimal ad hoc E-utilities writer.",
+      "skill": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 1.0,
+          "deliverables": {
+            "querytranslation_recorded": true,
+            "search_count_recorded": true,
+            "search_ids_match": true,
+            "search_retmax_match": true,
+            "summary_exists": true,
+            "summary_journals_complete": true,
+            "summary_pubdates_complete": true,
+            "summary_records_complete": true,
+            "summary_titles_complete": true,
+            "summary_uids_match": true,
+            "term_recorded": true
+          },
+          "perfect": true
+        },
+        "execution": {
+          "duration_seconds": 0.057,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": []
+        }
+      }
+    },
+    {
+      "baseline": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 0.636,
+          "deliverables": {
+            "querytranslation_recorded": true,
+            "search_count_recorded": true,
+            "search_ids_match": true,
+            "search_retmax_match": true,
+            "summary_exists": true,
+            "summary_journals_complete": false,
+            "summary_pubdates_complete": false,
+            "summary_records_complete": false,
+            "summary_titles_complete": false,
+            "summary_uids_match": true,
+            "term_recorded": true
+          },
+          "perfect": false
+        },
+        "execution": {
+          "duration_seconds": 0.025,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": []
+        }
+      },
+      "case": "ncbi-pubmed-search-single-cell-top-three",
+      "description": "PubMed search benchmark on a canonical single-cell query, contrasting structured ESummary coverage with a minimal ad hoc E-utilities writer.",
+      "skill": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 1.0,
+          "deliverables": {
+            "querytranslation_recorded": true,
+            "search_count_recorded": true,
+            "search_ids_match": true,
+            "search_retmax_match": true,
+            "summary_exists": true,
+            "summary_journals_complete": true,
+            "summary_pubdates_complete": true,
+            "summary_records_complete": true,
+            "summary_titles_complete": true,
+            "summary_uids_match": true,
+            "term_recorded": true
+          },
+          "perfect": true
+        },
+        "execution": {
+          "duration_seconds": 0.06,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": []
+        }
+      }
+    }
+  ],
+  "summary": {
+    "skill_better_on_deliverable_rate": true,
+    "skill_better_on_success_rate": false
+  }
+}

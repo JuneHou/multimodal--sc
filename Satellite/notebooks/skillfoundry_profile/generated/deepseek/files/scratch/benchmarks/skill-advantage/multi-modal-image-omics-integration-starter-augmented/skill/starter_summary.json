@@ -1,0 +1,23 @@
+{
+  "skill_slug": "multi-modal-image-omics-integration-starter",
+  "skill_name": "Multi-modal image-omics integration Starter",
+  "status": "implemented",
+  "leaf_slug": "multi-modal-image-omics-integration",
+  "leaf_name": "Multi-modal image-omics integration",
+  "domain_slug": "imaging-and-phenotype-analysis",
+  "source_resource_ids": [
+    "tangram-github"
+  ],
+  "starter_steps": [
+    "Review the primary materials for Multi-modal image-omics integration.",
+    "Define the smallest reproducible input/output contract.",
+    "Capture a smoke command or toy example.",
+    "Promote the starter to sandbox verification once runtime details are stable.",
+    "Add a compact cross-modal sanity check that links image features to omics annotations."
+  ],
+  "promotion_checklist": [
+    "Add a runnable example or toy dataset.",
+    "Add a repository-level smoke or integration test.",
+    "Promote status to sandbox_verified after checks pass."
+  ]
+}
