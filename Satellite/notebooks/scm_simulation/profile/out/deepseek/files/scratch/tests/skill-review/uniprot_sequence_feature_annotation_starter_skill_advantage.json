@@ -1,0 +1,128 @@
+{
+  "aggregate": {
+    "baseline": {
+      "average_deliverable_rate": 0.6,
+      "perfect_case_count": 0,
+      "success_rate": 1.0
+    },
+    "skill": {
+      "average_deliverable_rate": 1.0,
+      "perfect_case_count": 2,
+      "success_rate": 1.0
+    }
+  },
+  "cases": [
+    {
+      "baseline": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 0.6,
+          "deliverables": {
+            "accession_matches": true,
+            "entry_id_matches": true,
+            "feature_count_positive": true,
+            "feature_type_counts_present": false,
+            "representative_feature_span_present": false,
+            "representative_features_present": false,
+            "sequence_length_matches": true,
+            "source_url_matches": true,
+            "summary_exists": true,
+            "top_feature_types_present": false
+          },
+          "perfect": false
+        },
+        "execution": {
+          "duration_seconds": 0.02,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": []
+        }
+      },
+      "case": "uniprot-sequence-feature-annotation-starter-p04637",
+      "description": "UniProt sequence-feature annotation on P04637 with a skill wrapper and an ad hoc baseline.",
+      "skill": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 1.0,
+          "deliverables": {
+            "accession_matches": true,
+            "entry_id_matches": true,
+            "feature_count_positive": true,
+            "feature_type_counts_present": true,
+            "representative_feature_span_present": true,
+            "representative_features_present": true,
+            "sequence_length_matches": true,
+            "source_url_matches": true,
+            "summary_exists": true,
+            "top_feature_types_present": true
+          },
+          "perfect": true
+        },
+        "execution": {
+          "duration_seconds": 0.081,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": []
+        }
+      }
+    },
+    {
+      "baseline": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 0.6,
+          "deliverables": {
+            "accession_matches": true,
+            "entry_id_matches": true,
+            "feature_count_positive": true,
+            "feature_type_counts_present": false,
+            "representative_feature_span_present": false,
+            "representative_features_present": false,
+            "sequence_length_matches": true,
+            "source_url_matches": true,
+            "summary_exists": true,
+            "top_feature_types_present": false
+          },
+          "perfect": false
+        },
+        "execution": {
+          "duration_seconds": 0.024,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": []
+        }
+      },
+      "case": "uniprot-sequence-feature-annotation-starter-p38398",
+      "description": "UniProt sequence-feature annotation on P38398 with a skill wrapper and an ad hoc baseline.",
+      "skill": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 1.0,
+          "deliverables": {
+            "accession_matches": true,
+            "entry_id_matches": true,
+            "feature_count_positive": true,
+            "feature_type_counts_present": true,
+            "representative_feature_span_present": true,
+            "representative_features_present": true,
+            "sequence_length_matches": true,
+            "source_url_matches": true,
+            "summary_exists": true,
+            "top_feature_types_present": true
+          },
+          "perfect": true
+        },
+        "execution": {
+          "duration_seconds": 0.078,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": []
+        }
+      }
+    }
+  ],
+  "summary": {
+    "skill_better_on_deliverable_rate": true,
+    "skill_better_on_success_rate": false
+  }
+}

@@ -1,0 +1,22 @@
+<section id="example" data-transition="fade" style="background:#F7F6F2;color:#17212B;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:24px">
+<p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#0E6B73">Example · DGP 1 · counterfactuals and one answer</p>
+<h2 style="font-family:'Source Serif 4', Georgia, serif;font-size:60px;font-weight:600;line-height:1.1;color:#17212B">All answers miss the same periods on DGP 1</h2>
+<div style="display:flex;gap:44px;align-items:start">
+<img src="/_blob/8be7f7519adf174e3608d5e4d13594a4" alt="True untreated path, README Section 3 counterfactual and each answer's counterfactual on DGP 1, one panel per skill format" style="width:920px;height:600px">
+<div style="width:700px;display:flex;flex-direction:column;gap:14px">
+<p style="font-size:24px;font-weight:600;color:#0E6B73">gpt‑oss‑120b · scm‑configure · rationale</p>
+<div style="display:flex;flex-direction:column;background:#1E2A35;padding:18px 22px;border-radius:12px">
+<p style="font-size:24px;line-height:1.35;color:#E6EBE5">Used all pre‑treatment periods (1‑40) to fit the synthetic control with predictors Z1, Z2 and the pre‑treatment outcome (mean). Donor pool includes all 29 untreated units. Synth chose V automatically and donor weights sum to 1. The synthetic control values for periods 41‑60 are taken directly from the fit output; the average treatment effect (observed minus synthetic) over these 20 periods is -1.236, indicating a negative impact of the treatment.</p>
+</div>
+<table style="font-size:24px;font-variant-numeric:tabular-nums;color:#17212B">
+<tr style="background:#DDE3DD"><th style="width:70%;text-align:left;padding:2px 10px">average effect</th><th style="width:30%;text-align:right;padding:2px 10px">value</th></tr>
+<tr style="background:#FFFFFF"><td style="padding:2px 10px">reported in the answer</td><td style="text-align:right;padding:2px 10px">−1.236</td></tr>
+<tr style="background:#FFFFFF"><td style="padding:2px 10px">mean gap of its counterfactual</td><td style="text-align:right;padding:2px 10px">−2.819</td></tr>
+<tr style="background:#FFFFFF"><td style="padding:2px 10px">true effect</td><td style="text-align:right;padding:2px 10px">−3</td></tr>
+</table>
+<p style="font-size:24px;line-height:1.4;color:#17212B">Every answer misses the true path by more than 1 in the same direction at periods 45, 48, 52 and 57. The average this answer states differs from the mean gap of its own counterfactual.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#5B6670">DGP 1, periods 41 to 60, one panel per skill format. Rationale verbatim from the answer record.</p>
+<aside>Under the profile skills the four models’ answers coincide, so each profile panel shows one line. DeepSeek‑V4.1‑Flash gave no configure or design answer, so those panels hold three models.</aside>
+</section>

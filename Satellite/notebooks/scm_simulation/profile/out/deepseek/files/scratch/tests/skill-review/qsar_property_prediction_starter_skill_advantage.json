@@ -1,0 +1,116 @@
+{
+  "aggregate": {
+    "baseline": {
+      "average_deliverable_rate": 0.667,
+      "perfect_case_count": 0,
+      "success_rate": 1.0
+    },
+    "skill": {
+      "average_deliverable_rate": 1.0,
+      "perfect_case_count": 2,
+      "success_rate": 1.0
+    }
+  },
+  "cases": [
+    {
+      "baseline": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 0.667,
+          "deliverables": {
+            "leaf_context_present": true,
+            "promotion_checklist_complete": true,
+            "source_resource_ids_match": true,
+            "starter_steps_complete": false,
+            "structured_summary_present": false,
+            "summary_exists": true
+          },
+          "perfect": false
+        },
+        "execution": {
+          "duration_seconds": 0.0,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": [
+            "wrote /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/scm_simulation/profile/work/deepseek/scratch/benchmarks/skill-advantage/qsar-property-prediction-starter-summary/baseline/starter_notes.md"
+          ]
+        }
+      },
+      "case": "qsar-property-prediction-starter-summary",
+      "description": "QSAR / property prediction starter summary benchmark emphasizing structured context propagation and checklist capture.",
+      "skill": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 1.0,
+          "deliverables": {
+            "leaf_context_present": true,
+            "promotion_checklist_complete": true,
+            "source_resource_ids_match": true,
+            "starter_steps_complete": true,
+            "structured_summary_present": true,
+            "summary_exists": true
+          },
+          "perfect": true
+        },
+        "execution": {
+          "duration_seconds": 0.027,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": []
+        }
+      }
+    },
+    {
+      "baseline": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 0.667,
+          "deliverables": {
+            "leaf_context_present": true,
+            "promotion_checklist_complete": true,
+            "source_resource_ids_match": true,
+            "starter_steps_complete": false,
+            "structured_summary_present": false,
+            "summary_exists": true
+          },
+          "perfect": false
+        },
+        "execution": {
+          "duration_seconds": 0.0,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": [
+            "wrote /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/scm_simulation/profile/work/deepseek/scratch/benchmarks/skill-advantage/qsar-property-prediction-starter-checklist/baseline/starter_notes.md"
+          ]
+        }
+      },
+      "case": "qsar-property-prediction-starter-checklist",
+      "description": "QSAR / property prediction starter checklist benchmark emphasizing objective coverage and structured output.",
+      "skill": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 1.0,
+          "deliverables": {
+            "leaf_context_present": true,
+            "promotion_checklist_complete": true,
+            "source_resource_ids_match": true,
+            "starter_steps_complete": true,
+            "structured_summary_present": true,
+            "summary_exists": true
+          },
+          "perfect": true
+        },
+        "execution": {
+          "duration_seconds": 0.025,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": []
+        }
+      }
+    }
+  ],
+  "summary": {
+    "skill_better_on_deliverable_rate": true,
+    "skill_better_on_success_rate": false
+  }
+}

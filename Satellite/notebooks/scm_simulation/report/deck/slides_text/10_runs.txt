@@ -1,0 +1,17 @@
+Runs
+Every model gets the same task and 12 steps
+Four solver models
+gpt‑oss‑120b, GLM‑5.3 and DeepSeek‑V4.1‑Flash‑thinking‑low run through ARC and GPT‑5.5 through OpenAI, all at low effort. A reply may use 16,000 tokens, a DeepSeek reply 32,000.
+A sandbox per case
+The model works in a bash shell with R 4.3.3, Synth 1.1-10 and Python, without network access. Each command may run for 120 seconds. A case ends at a valid answer or after 12 steps.
+Eight cases per model
+Each model estimates the effect on the DGP 1 and DGP 2 panels under each of the four formats. The model sees the panel only through commands it runs.
+Estimate the effect of a treatment on the unit `treated` in the panel `dgp1_panel.csv`. The unit
+`treated` was treated in periods 41 to 60, and the units `donor_01` to `donor_29` were never treated.
+Estimate the treated unit's outcome `Y_observed` without treatment in each period from 41 to 60, and
+the average effect over those periods.
+The working directory holds a skill for this task:
+scm-configure. Estimate the effect of a treatment on one treated unit … and running the bundled fitter. …
+The first message for a profile skill leaves out the second teal line with the skill’s name and description.
+Run settings recorded with every case. First message for DGP 1 under scm‑configure, verbatim, with … where text is left out.
+NOTES: The system message tells the model that each reply runs as one bash command block, that its output comes back in the following message, and that nothing outside the working directory is visible.

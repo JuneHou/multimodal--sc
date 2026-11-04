@@ -1,0 +1,21 @@
+<section id="design" data-transition="fade" style="background:#F7F6F2;color:#17212B;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#0E6B73">Example · scm‑design · SKILL.md</p>
+<h2 style="font-family:'Source Serif 4', Georgia, serif;font-size:60px;font-weight:600;line-height:1.1;color:#17212B">scm‑design adds the paper’s two alternatives</h2>
+<div style="display:flex;flex-direction:column;background:#1E2A35;padding:28px 32px;border-radius:12px">
+<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:24px;line-height:1.25;color:#7FC4C9;white-space:nowrap">name: scm-design</p>
+<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:24px;line-height:1.25;color:#E6EBE5;white-space:nowrap">## Everything is yours to decide</p>
+<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:24px;line-height:1.25;color:#E6EBE5;white-space:nowrap">`spec.json` holds two kinds of field. The settings are the 13 arguments of Synth's `dataprep` and</p>
+<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:24px;line-height:1.25;color:#E6EBE5;white-space:nowrap">`synth` listed in `references/settings.md`. The choices are the paper's alternatives to what Synth fixes</p>
+<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:24px;line-height:1.25;color:#E6EBE5;white-space:nowrap">in its code (Abadie, Diamond and Hainmueller …, p. 496):</p>
+<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:24px;line-height:1.25;color:#F2B880;white-space:nowrap">- `weights`, `convex` (every donor weight at least 0, summing to one, the paper's definition and</p>
+<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:24px;line-height:1.25;color:#F2B880;white-space:nowrap">&#160;&#160;Synth's) or `extrapolation` (summing to one, any weight may be below 0 or above one)</p>
+<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:24px;line-height:1.25;color:#F2B880;white-space:nowrap">- `interpolation_penalty`, `none` or `distance`, which adds `penalty_lambda` times each donor's weight</p>
+<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:24px;line-height:1.25;color:#F2B880;white-space:nowrap">&#160;&#160;times its distance from the treated unit's predictors, so that distant donors are kept out</p>
+<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:24px;line-height:1.25;color:#E6EBE5;white-space:nowrap">`references/settings.md` defines every field and the rules that tie them. `penalty_lambda` is given</p>
+<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:24px;line-height:1.25;color:#E6EBE5;white-space:nowrap">exactly when `interpolation_penalty` is `distance`, and `distance` requires `convex` weights. …</p>
+<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:24px;line-height:1.25;color:#E6EBE5;white-space:nowrap">3. Write `spec.json`, then run `Rscript scripts/fit.R spec.json`. It prints the predictors and V, …</p>
+</div>
+<p style="font-size:26px;line-height:1.45;color:#17212B">Every scm‑design answer kept convex weights without a penalty, the estimator that scm‑configure fixes. The two skills differ in what the model is offered, and the answers used the same estimator under both.</p>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#5B6670">Excerpt of the skill’s SKILL.md, verbatim lines, with … where text is left out.</p>
+<aside>The orange lines are the two choices scm‑design adds to the 13 settings. With convex weights and no penalty, the fitter runs every line of Synth’s code unchanged.</aside>
+</section>

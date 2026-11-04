@@ -1,0 +1,55 @@
+{
+  "attempts": [
+    {
+      "attempt": 1,
+      "duration_seconds": 455.988,
+      "retryable_disconnect": false,
+      "returncode": 0,
+      "stderr_tail": [
+        "+++ b/tests/smoke/test_local_skills.py",
+        "@@ -130,6 +130,35 @@",
+        "             self.assertEqual(payload[\"top_markers_by_group\"][\"group_a\"][0][\"gene\"], \"GeneA\")",
+        "             self.assertEqual(payload[\"top_markers_by_group\"][\"group_b\"][0][\"gene\"], \"GeneC\")",
+        " ",
+        "+    def test_synth_single_treated_unit_scm_runtime(self) -> None:",
+        "+        with tempfile.TemporaryDirectory() as tmp_dir:",
+        "+            answer_path = Path(tmp_dir) / \"answer.json\"",
+        "+            diagnostics_path = Path(tmp_dir) / \"diagnostics.json\"",
+        "+            subprocess.run(",
+        "+                [",
+        "+                    \"Rscript\",",
+        "+                    \"skills/statistical-and-machine-learning-foundations-for-science/synth-single-treated-unit-scm/scripts/run_synth_single_treated_unit_scm.R\",",
+        "+                    \"--panel\",",
+        "+                    \"skills/statistical-and-machine-learning-foundations-for-science/synth-single-treated-unit-scm/examples/toy_tobacco_panel.csv\",",
+        "+                    \"--treated-periods\",",
+        "+                    \"2006,2007,2008\",",
+        "+                    \"--out\",",
+        "+                    str(answer_path),",
+        "+                    \"--diagnostics-out\",",
+        "+                    str(diagnostics_path),",
+        "+                ],",
+        "+                cwd=ROOT,",
+        "+                check=True,",
+        "+                capture_output=True,",
+        "+                text=True,",
+        "+                timeout=180,",
+        "+            )",
+        "+            payload = json.loads(answer_path.read_text(encoding=\"utf-8\"))",
+        "+            diagnostics = json.loads(diagnostics_path.read_text(encoding=\"utf-8\"))",
+        "+            self.assertEqual(sorted(payload[\"counterfactual\"].keys()), [\"2006\", \"2007\", \"2008\"])",
+        "+            self.assertLess(payload[\"att\"], -1.0)",
+        "+            self.assertLess(diagnostics[\"pre_rmspe\"], 0.02)",
+        "+",
+        " ",
+        " if __name__ == \"__main__\":",
+        "     unittest.main()",
+        "",
+        "tokens used",
+        "216,330"
+      ],
+      "stdout_tail": [
+        "{\"blockers\":[\"`python3 -m unittest tests.smoke.test_local_skills -v` is not clean in this checkout for reasons unrelated to the new SCM skill: two pre-existing Scanpy tests fail because `slurm/envs/scanpy/bin/python` is missing, and one Snakemake smoke test errors independently.\"],\"next_steps\":[\"Add placebo/permutation inference if future SCM tasks need significance testing instead of point estimates only.\",\"Restore the missing Scanpy/Snakemake smoke prerequisites before expecting the full `tests.smoke.test_local_skills` suite to pass end-to-end.\"],\"repo_changes\":[\"skills/statistical-and-machine-learning-foundations-for-science/synth-single-treated-unit-scm/\",\"registry/resources.jsonl\",\"registry/resources_dedup.jsonl\",\"registry/skills.jsonl\",\"registry/update_log.md\",\"tests/smoke/test_local_skills.py\",\"tests/integration/test_build_site.py\",\"reports/framework-runs/20261031-150438-scm-gpt-5.4/manifest.json\",\"reports/framework-runs/20261031-150438-scm-gpt-5.4/stages/01-design-skill/result.json\",\"site/skills.json\",\"site/tree.json\",\"site/graph.json\",\"site/framework_runs.json\"],\"resources_touched\":[\"synthetic-control-methods-jasa-2010\",\"synth-cran-package\"],\"selected_topics\":[\"causal-inference\",\"synthetic-control\",\"panel-data\"],\"skills_touched\":[\"synth-single-treated-unit-scm\"],\"slurm_jobs\":[],\"stage\":\"design_skill\",\"summary\":\"Built a verified R/Synth skill for single-treated-unit panel synthetic control. The new skill auto-detects a single `*_panel.csv` or accepts `--panel`, validates the panel, estimates treated-period counterfactuals with `Synth`, writes the required `answer.json`, and can emit diagnostics. I also added deterministic example data and outputs, skill-local tests, a repository smoke assertion, registry/resource entries, site rebuilds, and a framework-run report manifest.\",\"tests_run\":[\"python3 scripts/validate_repository.py\",\"python3 scripts/build_site.py\",\"python3 -m unittest discover -s skills/statistical-and-machine-learning-foundations-for-science/synth-single-treated-unit-scm/tests -p 'test_*.py'\",\"python3 -m unittest tests.integration.test_build_site -v\",\"python3 -m unittest tests.smoke.test_local_skills.LocalSkillSmokeTests.test_synth_single_treated_unit_scm_runtime -v\",\"python3 -m unittest tests.smoke.test_local_skills -v (fails in this checkout due unrelated missing Scanpy env and a Snakemake smoke error)\"]}"
+      ]
+    }
+  ]
+}

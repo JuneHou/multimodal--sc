@@ -1,0 +1,185 @@
+{
+  "aggregate": {
+    "baseline": {
+      "average_deliverable_rate": 0.4,
+      "perfect_case_count": 0,
+      "success_rate": 1.0
+    },
+    "skill": {
+      "average_deliverable_rate": 1.0,
+      "perfect_case_count": 3,
+      "success_rate": 1.0
+    }
+  },
+  "cases": [
+    {
+      "baseline": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 0.4,
+          "deliverables": {
+            "first_result_preserved": true,
+            "meta_page_matches": false,
+            "meta_per_page_matches": false,
+            "meta_present": false,
+            "output_parent_created": true,
+            "request_params_preserved": false,
+            "request_url_recorded": false,
+            "result_count_matches": true,
+            "results_present": false,
+            "summary_exists": true
+          },
+          "perfect": false
+        },
+        "execution": {
+          "duration_seconds": 0.023,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": []
+        }
+      },
+      "case": "openalex-literature-search-single-cell",
+      "description": "OpenAlex literature search wrapper benchmark comparing structured JSON preservation against a minimal ad hoc summary.",
+      "skill": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 1.0,
+          "deliverables": {
+            "first_result_preserved": true,
+            "meta_page_matches": true,
+            "meta_per_page_matches": true,
+            "meta_present": true,
+            "output_parent_created": true,
+            "request_params_preserved": true,
+            "request_url_recorded": true,
+            "result_count_matches": true,
+            "results_present": true,
+            "summary_exists": true
+          },
+          "perfect": true
+        },
+        "execution": {
+          "duration_seconds": 0.059,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": []
+        }
+      }
+    },
+    {
+      "baseline": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 0.4,
+          "deliverables": {
+            "first_result_preserved": true,
+            "meta_page_matches": false,
+            "meta_per_page_matches": false,
+            "meta_present": false,
+            "output_parent_created": true,
+            "request_params_preserved": false,
+            "request_url_recorded": false,
+            "result_count_matches": true,
+            "results_present": false,
+            "summary_exists": true
+          },
+          "perfect": false
+        },
+        "execution": {
+          "duration_seconds": 0.024,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": []
+        }
+      },
+      "case": "openalex-literature-search-spatial-transcriptomics",
+      "description": "OpenAlex literature search wrapper benchmark comparing structured JSON preservation against a minimal ad hoc summary.",
+      "skill": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 1.0,
+          "deliverables": {
+            "first_result_preserved": true,
+            "meta_page_matches": true,
+            "meta_per_page_matches": true,
+            "meta_present": true,
+            "output_parent_created": true,
+            "request_params_preserved": true,
+            "request_url_recorded": true,
+            "result_count_matches": true,
+            "results_present": true,
+            "summary_exists": true
+          },
+          "perfect": true
+        },
+        "execution": {
+          "duration_seconds": 0.062,
+          "returncode": 0,
+          "stderr_tail": [
+            "<string>:33: SyntaxWarning: \"is\" with a literal. Did you mean \"==\"?",
+            "<string>:62: SyntaxWarning: \"is\" with a literal. Did you mean \"==\"?"
+          ],
+          "stdout_tail": []
+        }
+      }
+    },
+    {
+      "baseline": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 0.4,
+          "deliverables": {
+            "first_result_preserved": true,
+            "meta_page_matches": false,
+            "meta_per_page_matches": false,
+            "meta_present": false,
+            "output_parent_created": true,
+            "request_params_preserved": false,
+            "request_url_recorded": false,
+            "result_count_matches": true,
+            "results_present": false,
+            "summary_exists": true
+          },
+          "perfect": false
+        },
+        "execution": {
+          "duration_seconds": 0.024,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": []
+        }
+      },
+      "case": "openalex-literature-search-gwas-methods",
+      "description": "OpenAlex literature search wrapper benchmark comparing structured JSON preservation against a minimal ad hoc summary.",
+      "skill": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 1.0,
+          "deliverables": {
+            "first_result_preserved": true,
+            "meta_page_matches": true,
+            "meta_per_page_matches": true,
+            "meta_present": true,
+            "output_parent_created": true,
+            "request_params_preserved": true,
+            "request_url_recorded": true,
+            "result_count_matches": true,
+            "results_present": true,
+            "summary_exists": true
+          },
+          "perfect": true
+        },
+        "execution": {
+          "duration_seconds": 0.07,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": []
+        }
+      }
+    }
+  ],
+  "summary": {
+    "skill_better_on_deliverable_rate": true,
+    "skill_better_on_success_rate": false
+  }
+}

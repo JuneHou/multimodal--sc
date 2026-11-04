@@ -1,0 +1,15 @@
+Sources
+Every number has a source file
+numbers | file, under Satellite/ |
+Data and ground truth | data/simulation/simulation_data/dgp1_panel.csv, dgp2_panel.csv, ground_truth.csv and config.json, described in data/simulation/README.md |
+Paper | Abadie, Diamond and Hainmueller, Synthetic Control Methods for Comparative Case Studies, the PDF in notebooks/scm_simulation/profile/work/gpt-5.4/paper/ |
+Reference rows | notebooks/scm_simulation/her_section3.R (README Section 3), arm_checks.R with method.py ADH_WAY (ADH specification), her_tables.py known_factor_row (every factor known) |
+Three checks | notebooks/scm_simulation/results/table_4_1.csv, table_4_2.csv and table_4_3.csv by her_tables.py, and her_section3_errors.csv |
+Answers and runs | notebooks/scm_simulation/runs/simulation/, runs/simulation_profile-gpt-5.4/ and runs/simulation_profile-deepseek/, scored in results/scores.csv by score.py |
+Specifications | notebooks/scm_simulation/results/specs_answers.csv by report/specs.py, and results/steps_profile.csv |
+Replications | notebooks/scm_simulation/results/luck_replications.csv by report/luck.py |
+Figures | notebooks/scm_simulation/report/figures.py, written to report/deck/figs/ |
+Skill texts | notebooks/scm_simulation/skills/, profile/skills/ and profile/request.md, collected in review/model_texts.md |
+Number registry | NUMBERS.md at the repository root, section written by notebooks/scm_simulation/report/number_rows.py |
+Files behind every number in the slides and figures.
+NOTES: Every number in the slides has a row in the number registry, with the file it was read from and how it was computed.

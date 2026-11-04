@@ -1,0 +1,18 @@
+{
+ "scm-configure/SKILL.md": "7ca07a316a5a66942f74d29d0e363f13e09555b35aedc3f86b5f839a4e56a264",
+ "scm-configure/references/method.md": "8becbdb3feb9b5a0e204665bb25e310d94e651a69647af79fcdc99d054dfdad4",
+ "scm-configure/references/settings.md": "5cd5afd3ffb038b72b5abeda30f91d47c057ff7e31a800b9452768f21e06038c",
+ "scm-configure/scripts/show_data.py": "69958de6377b3deea465148de9a0bf32de42fb27288b9c18c2d2e062c616b385",
+ "scm-configure/scripts/fit.R": "36746d2c8fcb77143d1c491ba3716eafe4d5c3ab8b2ae639f064339429092df1",
+ "scm-configure/scripts/scm_fields.R": "7db998407806d191c0a7adefaab62f70bffd9f3b56ebeb909150d49c72b5464a",
+ "scm-configure/scripts/synth_fit.R": "77e45973c09509f32553797aa2e821de1b3edf018727b0a39db20367a3ea2068",
+ "scm-configure/scripts/scm_native.R": "c4f6fea57faac57eabfcf2c7c9c10144809fde1aefc992b0824d742dae7095cf",
+ "scm-design/SKILL.md": "1db073c6ffb6e41766ed45e0b473222c2bfd7b95bc7aca90261bbdc22f07ebc7",
+ "scm-design/references/method.md": "8becbdb3feb9b5a0e204665bb25e310d94e651a69647af79fcdc99d054dfdad4",
+ "scm-design/references/settings.md": "00c61702161f0aefa76b3230a5abb80323f32c69eb5207bdd66ed3a216e0b5cb",
+ "scm-design/scripts/show_data.py": "69958de6377b3deea465148de9a0bf32de42fb27288b9c18c2d2e062c616b385",
+ "scm-design/scripts/fit.R": "5d5c167aa67fe61a66940fd4fae707125552be0fb511fd5b2bcf5d74f5cc72fe",
+ "scm-design/scripts/scm_fields.R": "7db998407806d191c0a7adefaab62f70bffd9f3b56ebeb909150d49c72b5464a",
+ "scm-design/scripts/synth_fit.R": "77e45973c09509f32553797aa2e821de1b3edf018727b0a39db20367a3ea2068",
+ "scm-design/scripts/scm_native.R": "c4f6fea57faac57eabfcf2c7c9c10144809fde1aefc992b0824d742dae7095cf"
+}

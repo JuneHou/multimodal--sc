@@ -1,0 +1,24 @@
+{
+  "skill_slug": "gpu-jobs-starter",
+  "skill_name": "GPU jobs Starter",
+  "status": "implemented",
+  "leaf_slug": "gpu-jobs",
+  "leaf_name": "GPU jobs",
+  "domain_slug": "hpc",
+  "source_resource_ids": [
+    "slurm-gres-docs",
+    "slurm-job-arrays"
+  ],
+  "starter_steps": [
+    "Review the primary materials for GPU jobs.",
+    "Define the smallest reproducible input/output contract.",
+    "Capture a smoke command or toy example.",
+    "Promote the starter to sandbox verification once runtime details are stable.",
+    "Include one job-array variant in the starter plan."
+  ],
+  "promotion_checklist": [
+    "Add a runnable example or toy dataset.",
+    "Add a repository-level smoke or integration test.",
+    "Promote status to sandbox_verified after checks pass."
+  ]
+}

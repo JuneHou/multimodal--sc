@@ -1,0 +1,33 @@
+{
+ "package": "Synth",
+ "version": "1.1-10",
+ "installed_at": "/data/wang/junh/envs/rsynth/lib/R/library/Synth",
+ "files": {
+  "CITATION": "44d8821bac4ad36556a32cf544a0ee7375aaf88944a9fc529dae6190e51581de",
+  "DESCRIPTION": "d1b1ed404b27a7b47e12b5492c17ffe319465228aa76444d70cb08bc68cb1d11",
+  "INDEX": "5251b97ca2daeab383f10fe846f95a5c9acabd6d045ed5bea9c6d85bf7f1fef3",
+  "Meta/Rd.rds": "b3804cd2e777496350126b8830ee463fd9d8d07ed3341e8966d5349ea786a438",
+  "Meta/data.rds": "a3acc6519570f3df7b81df932d41e08ea9c5cd8cea6191db57c0f0b8cc45dc1f",
+  "Meta/features.rds": "c2b8497d90ea570203bb214fc9b322aa1ed6365669dcb579554562f9253f5745",
+  "Meta/hsearch.rds": "67c5541470d0fe27b9e3acd62502c6db588a6c6754b59852ce7028f0e819c02c",
+  "Meta/links.rds": "bd67030b1fd43cd6ecb4eb2146d12e6dc74c43356fad2ef573ab0e690e877fd0",
+  "Meta/nsInfo.rds": "e06ed10df72904460469a5cf8f8b277838d4f56d8c856eaa98daa1e56b3193a5",
+  "Meta/package.rds": "c4d1415e623cf8c3f587cc6351275bd1a9138cf9cac00342b2281227f76799aa",
+  "NAMESPACE": "ae80e3e645eda7594b2f77e2b96d65a9f30ac73d04d7ffa31d6edd7d998997fb",
+  "NEWS.md": "88f0c3b8cb90ba4f9a61cd2aa4ddb059f78c18220399026a0bb68cc0ad50dcad",
+  "R/Synth": "570ca456b280cdeb201ef5ebdf22dc8f80092e2c0c68e33c7f73340e420f3759",
+  "R/Synth.rdb": "fe682eaa5b98f75ca2125a823f3e0a08b79c6b0976784dbde45d28ab8b443d7e",
+  "R/Synth.rdx": "4466e7101d5b4f046423f63a702e29188d8b82f6625adeae5098c93bf2b1e819",
+  "data/basque.RData": "f75803a0a62735194ee2a30f9a68cc73a949216296aecd85040d3a0d46881a11",
+  "data/basque.rda": "9042c58081c630256778de35e7a4615ccd0ef23245217240f7cf09199f8376e4",
+  "data/synth.data.RData": "6cad5a9fd018026d6b5cbc5712dd9d1719dd8b80c94ff135a3d340d9eb405be0",
+  "data/synth.data.rda": "f0636068479d5656c3a91070fd0ff76530be135c85cbe30db95e9662f2dd7030",
+  "help/AnIndex": "e970b0e8343f5e53d569c64a56af85cf62a25b038728e3ef350f252432311bde",
+  "help/Synth.rdb": "48f89bca9ab546238c654c7ab64482101d2a3302b8357dd8a1743188fba1e14a",
+  "help/Synth.rdx": "75870b294c29327892cf9037db5a7ed78a70a22149b21ea536de168718a11cc7",
+  "help/aliases.rds": "08c4cae0647bcf44a6c38e04fca593cee40ad6270a0d9f3e228ed78f3532197e",
+  "help/paths.rds": "3613b3db9df73ec0f1b4628d9304b869a92e372808a24aedd30d4cb123a8c057",
+  "html/00Index.html": "dc10f57649050bce38dc856f6c3a4d511543dc777e40330a4109286cba3c9b33",
+  "html/R.css": "52144cf4c349f7f2cf131342f81bbc43c6514ba2274556815df88918fdeb189b"
+ }
+}

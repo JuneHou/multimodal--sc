@@ -1,0 +1,78 @@
+{
+  "accession": "P38398",
+  "annotation_score": null,
+  "entry_id": "BRCA1_HUMAN",
+  "feature_count": 5,
+  "feature_type_counts": {
+    "CHAIN": 1,
+    "DOMAIN": 2,
+    "REGION": 1,
+    "ZN_FING": 1
+  },
+  "gene_names": [
+    "BRCA1",
+    "RNF53"
+  ],
+  "organism_common_name": "Human",
+  "organism_scientific_name": "Homo sapiens",
+  "recommended_name": "Breast cancer type 1 susceptibility protein",
+  "representative_features": [
+    {
+      "description": "BRCT 1",
+      "end": 1736,
+      "evidence_count": 0,
+      "feature_id": null,
+      "span": "1642-1736",
+      "start": 1642,
+      "type": "DOMAIN"
+    },
+    {
+      "description": "Breast cancer type 1 susceptibility protein",
+      "end": 1863,
+      "evidence_count": 0,
+      "feature_id": null,
+      "span": "1-1863",
+      "start": 1,
+      "type": "CHAIN"
+    },
+    {
+      "description": "Disordered",
+      "end": 270,
+      "evidence_count": 0,
+      "feature_id": null,
+      "span": "230-270",
+      "start": 230,
+      "type": "REGION"
+    },
+    {
+      "description": "RING-type",
+      "end": 65,
+      "evidence_count": 0,
+      "feature_id": null,
+      "span": "24-65",
+      "start": 24,
+      "type": "ZN_FING"
+    }
+  ],
+  "sequence_length": 1863,
+  "source_url": "https://rest.uniprot.org/uniprotkb/P38398.json",
+  "taxonomy_id": 9606,
+  "top_feature_types": [
+    {
+      "count": 2,
+      "type": "DOMAIN"
+    },
+    {
+      "count": 1,
+      "type": "CHAIN"
+    },
+    {
+      "count": 1,
+      "type": "REGION"
+    },
+    {
+      "count": 1,
+      "type": "ZN_FING"
+    }
+  ]
+}

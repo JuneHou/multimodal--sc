@@ -1,0 +1,17 @@
+Example · scm‑design · SKILL.md
+scm‑design adds the paper’s two alternatives
+name: scm-design
+## Everything is yours to decide
+`spec.json` holds two kinds of field. The settings are the 13 arguments of Synth's `dataprep` and
+`synth` listed in `references/settings.md`. The choices are the paper's alternatives to what Synth fixes
+in its code (Abadie, Diamond and Hainmueller …, p. 496):
+- `weights`, `convex` (every donor weight at least 0, summing to one, the paper's definition and
+Synth's) or `extrapolation` (summing to one, any weight may be below 0 or above one)
+- `interpolation_penalty`, `none` or `distance`, which adds `penalty_lambda` times each donor's weight
+times its distance from the treated unit's predictors, so that distant donors are kept out
+`references/settings.md` defines every field and the rules that tie them. `penalty_lambda` is given
+exactly when `interpolation_penalty` is `distance`, and `distance` requires `convex` weights. …
+3. Write `spec.json`, then run `Rscript scripts/fit.R spec.json`. It prints the predictors and V, …
+Every scm‑design answer kept convex weights without a penalty, the estimator that scm‑configure fixes. The two skills differ in what the model is offered, and the answers used the same estimator under both.
+Excerpt of the skill’s SKILL.md, verbatim lines, with … where text is left out.
+NOTES: The orange lines are the two choices scm‑design adds to the 13 settings. With convex weights and no penalty, the fitter runs every line of Synth’s code unchanged.

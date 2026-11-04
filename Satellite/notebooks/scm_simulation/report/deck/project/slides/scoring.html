@@ -1,0 +1,18 @@
+<section id="scoring" data-transition="fade" style="background:#EEF0EC;color:#17212B;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#0E6B73">Scoring · the README’s three checks</p>
+<h2 style="font-family:'Source Serif 4', Georgia, serif;font-size:60px;font-weight:600;line-height:1.1;color:#17212B">Every answer is checked three ways</h2>
+<table style="font-size:24px;font-variant-numeric:tabular-nums;color:#17212B">
+<tr style="background:#DDE3DD"><th style="width:9%;text-align:left;padding:6px 12px">section</th><th style="width:24%;text-align:left;padding:6px 12px">measure</th><th style="width:53%;text-align:left;padding:6px 12px">computed as</th><th style="width:14%;text-align:left;padding:6px 12px">uses the truth</th></tr>
+<tr style="background:#F7F6F2"><td style="padding:6px 12px">4.1</td><td style="padding:6px 12px">counterfactual RMSE</td><td style="padding:6px 12px">root mean square of Ŷ<sup>N</sup> − Y<sup>N</sup> over periods 41 to 60</td><td style="padding:6px 12px">yes</td></tr>
+<tr style="background:#F7F6F2"><td style="padding:6px 12px">4.1</td><td style="padding:6px 12px">ATT error</td><td style="padding:6px 12px">reported ATT minus the true effect −3</td><td style="padding:6px 12px">yes</td></tr>
+<tr style="background:#F7F6F2"><td style="padding:6px 12px">4.1</td><td style="padding:6px 12px">relative ATT error</td><td style="padding:6px 12px">absolute ATT error divided by 3</td><td style="padding:6px 12px">yes</td></tr>
+<tr style="background:#FFFFFF"><td style="padding:6px 12px">4.2</td><td style="padding:6px 12px">pre-treatment RMSPE</td><td style="padding:6px 12px">root mean square of the treated outcome minus the weighted donors over periods 1 to 40</td><td style="padding:6px 12px">no</td></tr>
+<tr style="background:#FFFFFF"><td style="padding:6px 12px">4.2</td><td style="padding:6px 12px">covariate balance</td><td style="padding:6px 12px">root mean square of Z1 and Z2 minus the weighted donors at period 40</td><td style="padding:6px 12px">no</td></tr>
+<tr style="background:#F7F6F2"><td style="padding:6px 12px">4.3</td><td style="padding:6px 12px">leave one donor out</td><td style="padding:6px 12px">largest change in the ATT when one donor with positive weight is left out and the weights refitted</td><td style="padding:6px 12px">no</td></tr>
+<tr style="background:#F7F6F2"><td style="padding:6px 12px">4.3</td><td style="padding:6px 12px">leave one period out</td><td style="padding:6px 12px">CV-RMSE over periods 1 to 40, each period predicted from outcome weights fitted on the other 39</td><td style="padding:6px 12px">no</td></tr>
+<tr style="background:#F7F6F2"><td style="padding:6px 12px">4.3</td><td style="padding:6px 12px">held-out block</td><td style="padding:6px 12px">RMSE over periods 36 to 40 from outcome weights fitted on periods 1 to 35</td><td style="padding:6px 12px">no</td></tr>
+</table>
+<p style="font-size:26px;line-height:1.45;color:#4A5560">Section 4.1 scores each answer against the true untreated path and the true effect. Sections 4.2 and 4.3 use observed data only. The two checks that leave out periods fit weights on the outcome alone and give one value per process, the same for every answer.</p>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#5B6670">Measures of Sections 4.1, 4.2 and 4.3 of the simulation README.</p>
+<aside>For a configure or design answer, Sections 4.2 and 4.3 use the fit that produced it. For a profile answer they use the skill script’s specification refitted with Synth, which reproduces every answer within 0.0001 in every period.</aside>
+</section>

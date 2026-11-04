@@ -1,0 +1,138 @@
+{
+  "aggregate": {
+    "baseline": {
+      "average_deliverable_rate": 0.0,
+      "perfect_case_count": 0,
+      "success_rate": 0.0
+    },
+    "skill": {
+      "average_deliverable_rate": 1.0,
+      "perfect_case_count": 2,
+      "success_rate": 1.0
+    }
+  },
+  "cases": [
+    {
+      "baseline": {
+        "evaluation": {
+          "command_succeeded": false,
+          "deliverable_rate": 0.0,
+          "deliverables": {
+            "count_match": false,
+            "local_workflows_preserved": false,
+            "metadata_present": false,
+            "remote_workflow_count_preserved": false,
+            "remote_workflows_limited": false,
+            "summary_exists": false
+          },
+          "perfect": false
+        },
+        "execution": {
+          "duration_seconds": 0.02,
+          "returncode": 1,
+          "stderr_tail": [
+            "Traceback (most recent call last):",
+            "  File \"<string>\", line 6, in <module>",
+            "  File \"/data/wang/junh/envs/skillfoundry/lib/python3.11/json/__init__.py\", line 346, in loads",
+            "    return _default_decoder.decode(s)",
+            "           ^^^^^^^^^^^^^^^^^^^^^^^^^^",
+            "  File \"/data/wang/junh/envs/skillfoundry/lib/python3.11/json/decoder.py\", line 337, in decode",
+            "    obj, end = self.raw_decode(s, idx=_w(s, 0).end())",
+            "               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+            "  File \"/data/wang/junh/envs/skillfoundry/lib/python3.11/json/decoder.py\", line 353, in raw_decode",
+            "    obj, end = self.scan_once(s, idx)",
+            "               ^^^^^^^^^^^^^^^^^^^^^^",
+            "json.decoder.JSONDecodeError: Invalid control character at: line 18 column 42 (char 433)"
+          ],
+          "stdout_tail": []
+        }
+      },
+      "case": "nf-core-pipeline-list-pulled-three",
+      "description": "nf-core pipeline catalog wrapper against a malformed fixture for sorted output and bounded limits.",
+      "skill": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 1.0,
+          "deliverables": {
+            "count_match": true,
+            "local_workflows_preserved": true,
+            "metadata_present": true,
+            "remote_workflow_count_preserved": true,
+            "remote_workflows_limited": true,
+            "summary_exists": true
+          },
+          "perfect": true
+        },
+        "execution": {
+          "duration_seconds": 0.03,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": []
+        }
+      }
+    },
+    {
+      "baseline": {
+        "evaluation": {
+          "command_succeeded": false,
+          "deliverable_rate": 0.0,
+          "deliverables": {
+            "count_match": false,
+            "local_workflows_preserved": false,
+            "metadata_present": false,
+            "remote_workflow_count_preserved": false,
+            "remote_workflows_limited": false,
+            "summary_exists": false
+          },
+          "perfect": false
+        },
+        "execution": {
+          "duration_seconds": 0.019,
+          "returncode": 1,
+          "stderr_tail": [
+            "Traceback (most recent call last):",
+            "  File \"<string>\", line 6, in <module>",
+            "  File \"/data/wang/junh/envs/skillfoundry/lib/python3.11/json/__init__.py\", line 346, in loads",
+            "    return _default_decoder.decode(s)",
+            "           ^^^^^^^^^^^^^^^^^^^^^^^^^^",
+            "  File \"/data/wang/junh/envs/skillfoundry/lib/python3.11/json/decoder.py\", line 337, in decode",
+            "    obj, end = self.raw_decode(s, idx=_w(s, 0).end())",
+            "               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+            "  File \"/data/wang/junh/envs/skillfoundry/lib/python3.11/json/decoder.py\", line 353, in raw_decode",
+            "    obj, end = self.scan_once(s, idx)",
+            "               ^^^^^^^^^^^^^^^^^^^^^^",
+            "json.decoder.JSONDecodeError: Invalid control character at: line 18 column 42 (char 433)"
+          ],
+          "stdout_tail": []
+        }
+      },
+      "case": "nf-core-pipeline-list-release-five",
+      "description": "nf-core pipeline catalog wrapper against a malformed fixture for sorted output and bounded limits.",
+      "skill": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 1.0,
+          "deliverables": {
+            "count_match": true,
+            "local_workflows_preserved": true,
+            "metadata_present": true,
+            "remote_workflow_count_preserved": true,
+            "remote_workflows_limited": true,
+            "summary_exists": true
+          },
+          "perfect": true
+        },
+        "execution": {
+          "duration_seconds": 0.029,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": []
+        }
+      }
+    }
+  ],
+  "summary": {
+    "skill_better_on_deliverable_rate": true,
+    "skill_better_on_success_rate": true
+  }
+}

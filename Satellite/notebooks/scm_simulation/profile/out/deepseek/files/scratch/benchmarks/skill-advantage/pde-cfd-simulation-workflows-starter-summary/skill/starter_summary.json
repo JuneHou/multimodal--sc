@@ -1,0 +1,23 @@
+{
+  "skill_slug": "pde-cfd-simulation-workflows-starter",
+  "skill_name": "PDE / CFD simulation workflows Starter",
+  "status": "implemented",
+  "leaf_slug": "pde-cfd-simulation-workflows",
+  "leaf_name": "PDE / CFD simulation workflows",
+  "domain_slug": "physics-and-astronomy",
+  "source_resource_ids": [
+    "dedalus-docs",
+    "yt-overview"
+  ],
+  "starter_steps": [
+    "Review the primary materials for PDE / CFD simulation workflows.",
+    "Define the smallest reproducible input/output contract.",
+    "Capture a smoke command or toy example.",
+    "Promote the starter to sandbox verification once runtime details are stable."
+  ],
+  "promotion_checklist": [
+    "Add a runnable example or toy dataset.",
+    "Add a repository-level smoke or integration test.",
+    "Promote status to sandbox_verified after checks pass."
+  ]
+}

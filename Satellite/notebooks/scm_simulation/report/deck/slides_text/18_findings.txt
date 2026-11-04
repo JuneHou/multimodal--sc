@@ -1,0 +1,13 @@
+Findings
+The formats change who decides the specification
+Answer rate
+scm‑configure and scm‑design each have six answers of eight, because DeepSeek‑V4.1‑Flash reached the step limit in every case. Each profile skill has eight answers of eight.
+Agreement across models
+Under a profile skill the four models give one identical answer, since the script fixes the specification. Under scm‑configure and scm‑design the DGP 1 ATT error runs from 0.153 to 1.764 across models.
+Reported effects
+Every gpt‑oss‑120b answer under scm‑configure and scm‑design states an ATT that differs from the mean gap of its own counterfactual, by 0.27 to 1.58. Every other answer agrees with its counterfactual within 0.0001.
+Distance to the references
+On DGP 1 the GPT‑5.5 answers and the GPT‑5.4 profile skill use the same 42 predictors and reach a path error of 0.989 to 0.992, beside 0.984 for the ADH specification and 1.095 for README Section 3. No answer reaches the known‑factor 0.817.
+Each statement describes the shipped panels, one replication per process.
+Summary of the three checks, the specifications and the run records.
+NOTES: The profile skills remove the model’s choice of specification, and with it both the variation across models and the reporting errors. The GPT‑5.4 generator and GPT‑5.5 arrived at the same predictor set.

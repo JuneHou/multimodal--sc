@@ -1,0 +1,51 @@
+{
+  "name": "Synth Single Treated Unit SCM",
+  "slug": "synth-single-treated-unit-scm",
+  "domain": "statistical-and-machine-learning-foundations-for-science",
+  "topic_path": [
+    "statistical-and-machine-learning-foundations-for-science",
+    "causal-inference",
+    "synthetic-control"
+  ],
+  "status": "sandbox_verified",
+  "authorship": "Codex",
+  "created_at": "2026-10-31",
+  "updated_at": "2026-10-31",
+  "source_resources": [
+    "synthetic-control-methods-jasa-2010",
+    "synth-cran-package"
+  ],
+  "package_versions": {
+    "Synth": "1.1-10",
+    "jsonlite": "2.0.0"
+  },
+  "compute_requirements": "cpu+local-env",
+  "language": [
+    "R",
+    "CSV",
+    "JSON"
+  ],
+  "tags": [
+    "synthetic-control",
+    "causal-inference",
+    "panel-data",
+    "single-treated-unit",
+    "synth"
+  ],
+  "aliases": [
+    "synthetic control",
+    "single treated unit scm",
+    "synth synthetic control"
+  ],
+  "test_commands": [
+    "Rscript skills/statistical-and-machine-learning-foundations-for-science/synth-single-treated-unit-scm/scripts/run_synth_single_treated_unit_scm.R --panel skills/statistical-and-machine-learning-foundations-for-science/synth-single-treated-unit-scm/examples/toy_tobacco_panel.csv --treated-periods 2006,2007,2008 --out scratch/synth-single-treated-unit-scm/answer.json --diagnostics-out scratch/synth-single-treated-unit-scm/diagnostics.json",
+    "python3 -m unittest discover -s skills/statistical-and-machine-learning-foundations-for-science/synth-single-treated-unit-scm/tests -p 'test_*.py'"
+  ],
+  "last_verified_at": "2026-10-31",
+  "freshness_risk": "low",
+  "related_skills": [
+    "dowhy-average-treatment-effect-starter",
+    "pymc-bayesian-linear-regression-starter"
+  ]
+}
+

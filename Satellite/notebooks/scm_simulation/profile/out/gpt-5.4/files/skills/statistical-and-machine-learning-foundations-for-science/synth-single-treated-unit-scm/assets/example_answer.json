@@ -1,0 +1,10 @@
+{
+  "counterfactual": {
+    "2006": 15.0189,
+    "2007": 15.2242,
+    "2008": 15.4294
+  },
+  "att": -2.1909,
+  "rationale": "Estimated with Synth 1.1.10 using 4 donor units, predictors Z1, Z2 averaged over pre-treatment periods, and lagged Y_observed for each pre-treatment period. Pre-treatment RMSPE was 0.0081. Largest donor weights: donor_d=0.691, donor_a=0.248, donor_b=0.055. ATT is observed minus counterfactual over periods 2006, 2007, 2008."
+}
+

@@ -1,0 +1,19 @@
+{
+  "domain_name": "Transcriptomics",
+  "domain_slug": "transcriptomics",
+  "leaf_name": "Pseudobulk analysis",
+  "leaf_slug": "pseudobulk-analysis",
+  "skill_name": "Pseudobulk analysis Starter",
+  "skill_slug": "pseudobulk-analysis-starter",
+  "source_resource_ids": [
+    "muscat-vignette"
+  ],
+  "starter_objectives": [
+    "Review the primary materials for Pseudobulk analysis.",
+    "Define the smallest reproducible input/output contract.",
+    "Capture a smoke command or toy example.",
+    "Promote the starter to sandbox verification once runtime details are stable.",
+    "Capture one pseudobulk contrast sanity check for the downstream runtime implementation."
+  ],
+  "taxonomy_key": "transcriptomics"
+}

@@ -1,0 +1,14 @@
+Scoring · the README’s three checks
+Every answer is checked three ways
+section | measure | computed as | uses the truth |
+4.1 | counterfactual RMSE | root mean square of ŶN − YN over periods 41 to 60 | yes |
+4.1 | ATT error | reported ATT minus the true effect −3 | yes |
+4.1 | relative ATT error | absolute ATT error divided by 3 | yes |
+4.2 | pre-treatment RMSPE | root mean square of the treated outcome minus the weighted donors over periods 1 to 40 | no |
+4.2 | covariate balance | root mean square of Z1 and Z2 minus the weighted donors at period 40 | no |
+4.3 | leave one donor out | largest change in the ATT when one donor with positive weight is left out and the weights refitted | no |
+4.3 | leave one period out | CV-RMSE over periods 1 to 40, each period predicted from outcome weights fitted on the other 39 | no |
+4.3 | held-out block | RMSE over periods 36 to 40 from outcome weights fitted on periods 1 to 35 | no |
+Section 4.1 scores each answer against the true untreated path and the true effect. Sections 4.2 and 4.3 use observed data only. The two checks that leave out periods fit weights on the outcome alone and give one value per process, the same for every answer.
+Measures of Sections 4.1, 4.2 and 4.3 of the simulation README.
+NOTES: For a configure or design answer, Sections 4.2 and 4.3 use the fit that produced it. For a profile answer they use the skill script’s specification refitted with Synth, which reproduces every answer within 0.0001 in every period.

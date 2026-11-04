@@ -1,0 +1,8 @@
+# CODEX_HOME for the SkillFoundry generator runs (run_generator.sh). No key is stored here: the OpenAI key comes from
+# CODEX_API_KEY and the OpenRouter key from OPENROUTER_API_KEY, both exported in Jun's terminal.
+
+[model_providers.openrouter]
+name = "OpenRouter"
+base_url = "https://openrouter.ai/api/v1"
+env_key = "OPENROUTER_API_KEY"
+wire_api = "responses"

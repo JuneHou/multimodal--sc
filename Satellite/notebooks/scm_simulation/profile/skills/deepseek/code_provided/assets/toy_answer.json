@@ -1,0 +1,18 @@
+{
+  "counterfactual": {
+    "1989": 41.0237,
+    "1990": 40.9931,
+    "1991": 42.524,
+    "1992": 41.3668,
+    "1993": 41.6273,
+    "1994": 43.3177,
+    "1995": 41.7908,
+    "1996": 42.8861,
+    "1997": 42.3252,
+    "1998": 44.322,
+    "1999": 43.7948,
+    "2000": 45.2519
+  },
+  "att": -7.4455,
+  "rationale": "Synthetic control (Abadie, Diamond & Hainmueller 2010) fit with the Synth R package (v1.1.10). Treated unit 'treated'; 15 donor units; predictors [Z1, Z2]; pre-treatment window 1980-1988 (9 periods); pre-treatment MSPE=0.7731. Counterfactual for 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000 is the donor-weighted trajectory; ATT = mean(observed - synthetic) over 12 treated period(s) = -7.4455. Donor weights (positive): 7=0.251, 16=0.058, 6=0.058, 2=0.057, 3=0.055, 10=0.055, 14=0.054, 11=0.054, 5=0.053, 8=0.053, 12=0.052, 13=0.052, 4=0.050, 9=0.050, 15=0.049."
+}

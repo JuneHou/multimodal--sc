@@ -1,0 +1,27 @@
+<section id="findings" data-transition="fade" style="background:#F7F6F2;color:#17212B;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:24px">
+<p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#0E6B73">Findings</p>
+<h2 style="font-family:'Source Serif 4', Georgia, serif;font-size:60px;font-weight:600;line-height:1.1;color:#17212B">The formats change who decides the specification</h2>
+<div style="display:flex;gap:24px">
+<div style="width:816px;display:flex;flex-direction:column;gap:12px;background:#FFFFFF;padding:24px 32px;border:1px solid #D3D8D2;border-radius:12px">
+<h3 style="font-size:28px;font-weight:600;color:#0E6B73">Answer rate</h3>
+<p style="font-size:26px;line-height:1.45;color:#4A5560">scm‑configure and scm‑design each have six answers of eight, because DeepSeek‑V4.1‑Flash reached the step limit in every case. Each profile skill has eight answers of eight.</p>
+</div>
+<div style="width:816px;display:flex;flex-direction:column;gap:12px;background:#FFFFFF;padding:24px 32px;border:1px solid #D3D8D2;border-radius:12px">
+<h3 style="font-size:28px;font-weight:600;color:#0E6B73">Agreement across models</h3>
+<p style="font-size:26px;line-height:1.45;color:#4A5560">Under a profile skill the four models give one identical answer, since the script fixes the specification. Under scm‑configure and scm‑design the DGP 1 ATT error runs from 0.153 to 1.764 across models.</p>
+</div>
+</div>
+<div style="display:flex;gap:24px">
+<div style="width:816px;display:flex;flex-direction:column;gap:12px;background:#FFFFFF;padding:24px 32px;border:1px solid #D3D8D2;border-radius:12px">
+<h3 style="font-size:28px;font-weight:600;color:#0E6B73">Reported effects</h3>
+<p style="font-size:26px;line-height:1.45;color:#4A5560">Every gpt‑oss‑120b answer under scm‑configure and scm‑design states an ATT that differs from the mean gap of its own counterfactual, by 0.27 to 1.58. Every other answer agrees with its counterfactual within 0.0001.</p>
+</div>
+<div style="width:816px;display:flex;flex-direction:column;gap:12px;background:#FFFFFF;padding:24px 32px;border:1px solid #D3D8D2;border-radius:12px">
+<h3 style="font-size:28px;font-weight:600;color:#0E6B73">Distance to the references</h3>
+<p style="font-size:26px;line-height:1.45;color:#4A5560">On DGP 1 the GPT‑5.5 answers and the GPT‑5.4 profile skill use the same 42 predictors and reach a path error of 0.989 to 0.992, beside 0.984 for the ADH specification and 1.095 for README Section 3. No answer reaches the known‑factor 0.817.</p>
+</div>
+</div>
+<p style="font-size:26px;line-height:1.45;color:#17212B">Each statement describes the shipped panels, one replication per process.</p>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#5B6670">Summary of the three checks, the specifications and the run records.</p>
+<aside>The profile skills remove the model’s choice of specification, and with it both the variation across models and the reporting errors. The GPT‑5.4 generator and GPT‑5.5 arrived at the same predictor set.</aside>
+</section>

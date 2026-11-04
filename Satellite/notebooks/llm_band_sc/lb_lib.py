@@ -453,15 +453,25 @@ def call_turns(model, messages, seed=0, max_tokens=8000, timeout=600, key=None, 
     ARC: streams (SSE) when max_tokens exceeds ARC_BUFFERED_CAP or stream=True — the proxy's buffered mode is
     capped at 8000 tokens. In streaming, raw_response holds the fully reassembled message (every delta field,
     lossless for text), the set of delta keys, the usage chunk and the chunk count, rather than every one-token
-    chunk verbatim. Non-streaming: raw_response is the entire response JSON."""
+    chunk verbatim. Non-streaming: raw_response is the entire response JSON.
+    max_tokens=None sends no length field at all, so the reply length is the provider's default maximum, and every
+    ARC call then streams, since ARC's buffered mode caps replies at 8000 tokens (Jun, ~/.claude/CLAUDE.md: "you will
+    NEVER NEVER NEVER set token limit for what ever experiment which ever model", 2026-11-04)."""
     prov, model, _ = parse_model(model)
     key = key or api_key(prov)
     if prov == "arc":
-        body = {"model": model, "messages": messages, "temperature": 0, "max_tokens": max_tokens, "seed": seed}
+        body = {"model": model, "messages": messages, "temperature": 0, "seed": seed}
+        if max_tokens is not None:
+            body["max_tokens"] = max_tokens
         url, auth = f"{BASE}/chat/completions", {"Authorization": f"Bearer {key}"}
-        use_stream = (max_tokens > ARC_BUFFERED_CAP) if stream is None else bool(stream)
+        if stream is not None:
+            use_stream = bool(stream)
+        else:
+            use_stream = max_tokens is None or max_tokens > ARC_BUFFERED_CAP
     else:
-        body = {"model": model, "messages": messages, "seed": seed, "max_completion_tokens": max_tokens}
+        body = {"model": model, "messages": messages, "seed": seed}
+        if max_tokens is not None:
+            body["max_completion_tokens"] = max_tokens
         base = HOKIE_BASE if prov == "hokie" else OPENAI_BASE
         auth = {"api-key": key} if prov == "hokie" else {"Authorization": f"Bearer {key}"}
         url = f"{base}/chat/completions"

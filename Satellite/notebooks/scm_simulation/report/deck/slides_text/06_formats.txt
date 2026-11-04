@@ -1,0 +1,10 @@
+Skill formats
+The formats differ in who writes the method
+format | code the model runs | what the model decides | what the code fixes |
+scm‑configure | a fitter that runs Synth 1.1-10 unchanged | 13 Synth settings, the predictors and their periods, the donor pool, V or its search, the optimizers and the solver’s precision | convex weights, no penalty |
+scm‑design | the same fitter with the paper’s two alternatives added | the 13 settings, convex or extrapolation weights, and a distance penalty with its size | Synth’s own code |
+profile, GPT‑5.4 generator | an R script that GPT‑5.4 wrote through SkillFoundry from the paper and Synth’s source | how to call the script | Z1 and Z2 means and the outcome at each pre-treatment period, V searched |
+profile, DeepSeek generator | an R script that DeepSeek‑V4.1‑Flash wrote the same way | how to call the script, with options for predictors, outcome lags, V and optimizers | by default Z1 and Z2 means, V searched |
+Under scm‑configure and scm‑design the model writes the specification itself and runs the fitter at it. Under a profile skill the generator’s script holds the specification, and the model calls the script.
+Contents of each skill as the solver models received it.
+NOTES: scm‑configure and scm‑design each hold a method reference, a settings reference, a data viewer and the fitter. Each SkillFoundry generator received the same request, the paper and Synth’s CRAN source.

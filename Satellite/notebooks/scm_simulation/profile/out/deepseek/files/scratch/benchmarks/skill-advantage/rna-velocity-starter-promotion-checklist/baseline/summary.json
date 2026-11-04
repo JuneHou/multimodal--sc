@@ -1,0 +1,14 @@
+{
+  "leaf_slug": "rna-velocity",
+  "promotion_checklist": [
+    "Check the starter output."
+  ],
+  "skill_slug": "rna-velocity-starter",
+  "source_resource_ids": [
+    "scvelo-docs"
+  ],
+  "starter_steps": [
+    "Review the primary materials for RNA velocity.",
+    "Define the smallest reproducible input/output contract."
+  ]
+}

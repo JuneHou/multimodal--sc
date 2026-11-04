@@ -1,0 +1,23 @@
+{
+  "skill_slug": "germline-pipelines-starter",
+  "skill_name": "Germline pipelines Starter",
+  "status": "implemented",
+  "leaf_slug": "germline-pipelines",
+  "leaf_name": "Germline pipelines",
+  "domain_slug": "genomics",
+  "source_resource_ids": [
+    "gatk-docs"
+  ],
+  "starter_steps": [
+    "Review the primary materials for Germline pipelines.",
+    "Define the smallest reproducible input/output contract.",
+    "Capture a smoke command or toy example.",
+    "Promote the starter to sandbox verification once runtime details are stable.",
+    "Capture one concrete interval-list example for the starter plan."
+  ],
+  "promotion_checklist": [
+    "Add a runnable example or toy dataset.",
+    "Add a repository-level smoke or integration test.",
+    "Promote status to sandbox_verified after checks pass."
+  ]
+}

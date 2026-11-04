@@ -1,0 +1,34 @@
+{
+  "limit": 2,
+  "number_of_hits": 2148,
+  "query": "cell cycle",
+  "result_count": 2,
+  "result_origin": "ad_hoc_passthrough",
+  "results": [
+    {
+      "aspect": "biological_process",
+      "definition": {
+        "text": "The progression of a cell through the phases of growth and division."
+      },
+      "id": "GO:0007049",
+      "isObsolete": false,
+      "name": "cell cycle",
+      "synonyms": [
+        "cell-division cycle"
+      ]
+    },
+    {
+      "ancestors": [
+        "GO:0007049"
+      ],
+      "aspect": "biological_process",
+      "definition": {
+        "text": "Any process involved in the progression of the cell cycle."
+      },
+      "id": "GO:0022402",
+      "isObsolete": false,
+      "name": "cell cycle process"
+    }
+  ],
+  "source_url": null
+}

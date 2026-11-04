@@ -1,0 +1,22 @@
+{
+  "skill_slug": "workflow-generation-agents-starter",
+  "skill_name": "Workflow generation agents Starter",
+  "status": "implemented",
+  "leaf_slug": "workflow-generation-agents",
+  "leaf_name": "Workflow generation agents",
+  "domain_slug": "scientific-agents-and-automation",
+  "source_resource_ids": [
+    "llamaindex-workflows-docs"
+  ],
+  "starter_steps": [
+    "Review the primary materials for Workflow generation agents.",
+    "Define the smallest reproducible input/output contract.",
+    "Capture a smoke command or toy example.",
+    "Promote the starter to sandbox verification once runtime details are stable."
+  ],
+  "promotion_checklist": [
+    "Add a runnable example or toy dataset.",
+    "Add a repository-level smoke or integration test.",
+    "Promote status to sandbox_verified after checks pass."
+  ]
+}

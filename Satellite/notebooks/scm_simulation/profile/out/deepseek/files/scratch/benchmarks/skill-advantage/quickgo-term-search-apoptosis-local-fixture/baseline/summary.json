@@ -1,0 +1,25 @@
+{
+  "limit": 1,
+  "number_of_hits": 352,
+  "query": "apoptosis",
+  "result_count": 1,
+  "result_origin": "ad_hoc_passthrough",
+  "results": [
+    {
+      "ancestors": [
+        "GO:0006915"
+      ],
+      "aspect": "biological_process",
+      "definition": {
+        "text": "The execution phase of programmed cell death with apoptotic bodies and membrane blebbing."
+      },
+      "id": "GO:0097194",
+      "isObsolete": false,
+      "name": "execution phase of apoptosis",
+      "synonyms": [
+        "apoptotic execution phase"
+      ]
+    }
+  ],
+  "source_url": null
+}

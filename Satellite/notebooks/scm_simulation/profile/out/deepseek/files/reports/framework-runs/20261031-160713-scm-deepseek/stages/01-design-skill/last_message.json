@@ -1,0 +1,22 @@
+Work complete. Summary of what was built and verified:
+
+**New skill: `skills/statistical-and-machine-learning-foundations-for-science/synthetic-control-att-starter`**
+
+An operator-grade synthetic control skill (Abadie, Diamond & Hainmueller 2010) that turns a `*_panel.csv` into the required `answer.json` (`counterfactual`, `att`, `rationale`).
+
+- `scripts/estimate_synthetic_control.R` — fits `dataprep()`+`synth()`, projects the donor-weighted `Y0plot` to the treated periods, computes ATT; supports `--lag-periods`, `--custom-v`, `--genoud`, `--allow-fallback`, auto-discovers a lone `*_panel.csv`, and emits stdout JSON + optional diagnostics.
+- `scripts/inspect_panel.py` — panel validation (blocking issues vs. warnings).
+- `scripts/make_example_panel.py` — deterministic panel with a known injected effect.
+- `scripts/validate_answer.py` — contract and ATT-consistency validator.
+- `SKILL.md` with all required sections, a numbered Procedure with exact commands and decision checkpoints, a realistic usage example, a separate CI/smoke path, Environment Setup, 5 troubleshooting modes, and Validation.
+- `examples/tobacco_panel.csv`, `assets/toy_answer.json`, `assets/toy_summary.json`, and `assets/robustness_sweep.sbatch` (Slurm job-array exercise).
+
+**Verified results**
+- ATT ≈ `-7.45` (true effect `-8`), pre-treatment MSPE < 1; `validate_answer.py` returns `"status":"ok"`.
+- Skill tests: 6 passed. Repo smoke: 2 passed. `make smoke-synthetic-control`: `{"status":"ok","method":"synth","att":-7.4455}`.
+- `validate_repository.py`: 377 resources, 268 skills. `audit_skill_suite.py`: 268/268 smoke-covered.
+
+**Registry/report updates**
+- Registered `synth-r-package` and `abadie-diamond-hainmueller-2010`; added the skill to `skills.jsonl`; added a `synthetic_control` alias; added the `smoke-synthetic-control` Make target; refreshed `site/{tree,skills,graph}.json` and `registry/update_log.md`; wrote the stage summary under `reports/framework-runs/20261031-160713-scm-deepseek/stages/01-design-skill/summary.md`.
+
+Note: `experiments.md` and the planning files are gitignored runtime artifacts not present in this checkout, so no update there. Two pre-existing integration failures (`test_audit_skill_suite_reports_full_coverage`, `test_stage_model_routing_uses_expected_models_and_efforts`) and the missing-Slurm-env benchmark/smoke errors reproduce identically on the unmodified checkout and are unrelated to this skill.

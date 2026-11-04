@@ -1,0 +1,12 @@
+Data · two simulated panels
+Two simulated panels hold a known effect of −3
+DGP 1 · shared factors
+Y = δt + θt′Zi + λt′μi + εit
+Equation 1 of the paper. Every unit loads on four latent factors that all units share, and the covariates Z1 and Z2 stay fixed over time.
+DGP 2 · no shared shocks
+Yt+1 = 0.5 Yt + β′Zt+1 + ut+1
+Equation 5 of the paper. Each unit follows its own autoregression with its own shocks, and the covariates move with the outcome.
+[image: The treated unit's true untreated path and the README Section 3 synthetic control for DGP 1 and DGP 2]
+Both panels hold 30 units, 1 treated and 29 donors, over 60 periods. Treatment lowers the treated unit’s outcome by 3 in each of periods 41 to 60, and each process was drawn once.
+The treated unit’s true untreated path and the README Section 3 synthetic control, periods 1 to 60.
+NOTES: The panels hold observable data only. The ground truth gives the treated unit’s untreated path and the effect in every period, and it is used only to score finished answers. In both processes the treated unit is drawn from the same distributions as the donors, so no set of true donor weights exists.

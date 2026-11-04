@@ -1,0 +1,91 @@
+{
+  "counts": {
+    "local_workflows": 1,
+    "remote_workflows": 5
+  },
+  "local_workflows": [
+    {
+      "full_name": "nextflow-io/hello",
+      "last_pull_date": "2026-03-11 15:30:44",
+      "local_path": "/home/shuaikes/.nextflow/assets/nextflow-io/hello"
+    }
+  ],
+  "remote_workflows": [
+    {
+      "archived": false,
+      "full_name": "nf-core/abotyper",
+      "name": "abotyper",
+      "note": "catalog entry for abotyper
+line two for repair testing",
+      "releases": [
+        {
+          "nextflow_version": "!>=24.10.5",
+          "nf_core_version": "3.3.2",
+          "published_at": "2025-09-17T01:10:52Z",
+          "tag_name": "dev"
+        }
+      ],
+      "stargazers_count": 1
+    },
+    {
+      "archived": false,
+      "full_name": "nf-core/airrflow",
+      "name": "airrflow",
+      "note": "catalog entry for airrflow",
+      "releases": [
+        {
+          "nextflow_version": "!>=25.04.0",
+          "nf_core_version": "3.5.1",
+          "published_at": "2026-02-02T22:16:51Z",
+          "tag_name": "5.0.0"
+        }
+      ],
+      "stargazers_count": 74
+    },
+    {
+      "archived": false,
+      "full_name": "nf-core/alleleexpression",
+      "name": "alleleexpression",
+      "note": "catalog entry for alleleexpression",
+      "releases": [
+        {
+          "nextflow_version": "!>=23.04.0",
+          "nf_core_version": "3.3.1",
+          "published_at": "2026-01-13T11:20:47Z",
+          "tag_name": "dev"
+        }
+      ],
+      "stargazers_count": 2
+    },
+    {
+      "archived": false,
+      "full_name": "nf-core/ampliseq",
+      "name": "ampliseq",
+      "note": "catalog entry for ampliseq",
+      "releases": [
+        {
+          "nextflow_version": "!>=25.04.8",
+          "nf_core_version": "3.5.1",
+          "published_at": "2026-01-23T09:42:08Z",
+          "tag_name": "2.16.1"
+        }
+      ],
+      "stargazers_count": 236
+    },
+    {
+      "archived": false,
+      "full_name": "nf-core/atacseq",
+      "name": "atacseq",
+      "note": "catalog entry for atacseq",
+      "releases": [
+        {
+          "nextflow_version": "!>=23.04.0",
+          "nf_core_version": null,
+          "published_at": "2023-08-07T22:00:22Z",
+          "tag_name": "2.1.2"
+        }
+      ],
+      "stargazers_count": 220
+    }
+  ]
+}

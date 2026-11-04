@@ -1,0 +1,112 @@
+{
+  "aggregate": {
+    "baseline": {
+      "average_deliverable_rate": 0.583,
+      "perfect_case_count": 0,
+      "success_rate": 1.0
+    },
+    "skill": {
+      "average_deliverable_rate": 1.0,
+      "perfect_case_count": 2,
+      "success_rate": 1.0
+    }
+  },
+  "cases": [
+    {
+      "baseline": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 0.833,
+          "deliverables": {
+            "accessions_correct": true,
+            "detail_metadata_complete": false,
+            "query_normalized": true,
+            "study_count_correct": true,
+            "summary_exists": true,
+            "total_studies_correct": true
+          },
+          "perfect": false
+        },
+        "execution": {
+          "duration_seconds": 0.021,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": []
+        }
+      },
+      "case": "metabolights-study-search-canonical",
+      "description": "MetaboLights study search benchmark comparing the maintained wrapper against a minimal ad hoc summary.",
+      "skill": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 1.0,
+          "deliverables": {
+            "accessions_correct": true,
+            "detail_metadata_complete": true,
+            "query_normalized": true,
+            "study_count_correct": true,
+            "summary_exists": true,
+            "total_studies_correct": true
+          },
+          "perfect": true
+        },
+        "execution": {
+          "duration_seconds": 0.053,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": []
+        }
+      }
+    },
+    {
+      "baseline": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 0.333,
+          "deliverables": {
+            "accessions_correct": false,
+            "detail_metadata_complete": false,
+            "query_normalized": false,
+            "study_count_correct": false,
+            "summary_exists": true,
+            "total_studies_correct": true
+          },
+          "perfect": false
+        },
+        "execution": {
+          "duration_seconds": 0.022,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": []
+        }
+      },
+      "case": "metabolights-study-search-normalized-multi",
+      "description": "MetaboLights study search benchmark comparing the maintained wrapper against a minimal ad hoc summary.",
+      "skill": {
+        "evaluation": {
+          "command_succeeded": true,
+          "deliverable_rate": 1.0,
+          "deliverables": {
+            "accessions_correct": true,
+            "detail_metadata_complete": true,
+            "query_normalized": true,
+            "study_count_correct": true,
+            "summary_exists": true,
+            "total_studies_correct": true
+          },
+          "perfect": true
+        },
+        "execution": {
+          "duration_seconds": 0.052,
+          "returncode": 0,
+          "stderr_tail": [],
+          "stdout_tail": []
+        }
+      }
+    }
+  ],
+  "summary": {
+    "skill_better_on_deliverable_rate": true,
+    "skill_better_on_success_rate": false
+  }
+}

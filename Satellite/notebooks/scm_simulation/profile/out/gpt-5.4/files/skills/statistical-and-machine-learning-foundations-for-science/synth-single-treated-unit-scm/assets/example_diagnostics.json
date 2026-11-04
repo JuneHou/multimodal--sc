@@ -1,0 +1,61 @@
+{
+  "panel_file": "examples/toy_tobacco_panel.csv",
+  "treated_unit_id": "treated",
+  "donor_units": [
+    "donor_a",
+    "donor_b",
+    "donor_c",
+    "donor_d"
+  ],
+  "predictors": [
+    "Z1",
+    "Z2"
+  ],
+  "outcome_column": "Y_observed",
+  "pre_periods": [
+    "2001",
+    "2002",
+    "2003",
+    "2004",
+    "2005"
+  ],
+  "target_periods": [
+    "2006",
+    "2007",
+    "2008"
+  ],
+  "pre_rmspe": 0.0081,
+  "att": -2.1909,
+  "donor_weights": [
+    {
+      "unit_id": "donor_a",
+      "weight": 0.2477
+    },
+    {
+      "unit_id": "donor_b",
+      "weight": 0.055
+    },
+    {
+      "unit_id": "donor_c",
+      "weight": 0.0063
+    },
+    {
+      "unit_id": "donor_d",
+      "weight": 0.691
+    }
+  ],
+  "top_donors": [
+    {
+      "unit_id": "donor_d",
+      "weight": 0.691
+    },
+    {
+      "unit_id": "donor_a",
+      "weight": 0.2477
+    },
+    {
+      "unit_id": "donor_b",
+      "weight": 0.055
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+Design a skill for {task} with the {method_name} method of {authors}. The paper, {paper_title}, is at `paper/{paper_file}`.{code} The agent that uses the skill works in a directory holding {data} It {answer} The agent has a bash shell and no network access.

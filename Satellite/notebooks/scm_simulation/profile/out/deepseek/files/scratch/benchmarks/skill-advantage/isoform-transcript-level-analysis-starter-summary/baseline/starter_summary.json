@@ -1,0 +1,8 @@
+{
+  "leaf_slug": "isoform-transcript-level-analysis",
+  "skill_slug": "isoform-transcript-level-analysis-starter",
+  "starter_steps": [
+    "Review IsoformSwitchAnalyzeR documentation.",
+    "Draft a minimal analysis plan."
+  ]
+}

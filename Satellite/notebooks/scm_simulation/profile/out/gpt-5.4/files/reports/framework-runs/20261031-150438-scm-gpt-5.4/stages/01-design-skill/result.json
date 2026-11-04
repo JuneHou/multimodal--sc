@@ -1,0 +1,41 @@
+{
+  "stage": "design_skill",
+  "summary": "Added a verified local Synth-based skill for single-treated-unit panel synthetic control, anchored it to the canonical paper and CRAN package, and wired deterministic smoke plus build-site coverage.",
+  "selected_topics": [
+    "causal-inference",
+    "synthetic-control",
+    "panel-data"
+  ],
+  "skills_touched": [
+    "synth-single-treated-unit-scm"
+  ],
+  "resources_touched": [
+    "synthetic-control-methods-jasa-2010",
+    "synth-cran-package"
+  ],
+  "tests_run": [
+    "python3 scripts/validate_repository.py",
+    "python3 scripts/build_site.py",
+    "python3 -m unittest discover -s skills/statistical-and-machine-learning-foundations-for-science/synth-single-treated-unit-scm/tests -p 'test_*.py'",
+    "python3 -m unittest tests.integration.test_build_site -v",
+    "python3 -m unittest tests.smoke.test_local_skills.LocalSkillSmokeTests.test_synth_single_treated_unit_scm_runtime -v"
+  ],
+  "slurm_jobs": [],
+  "repo_changes": [
+    "registry/resources.jsonl",
+    "registry/resources_dedup.jsonl",
+    "registry/skills.jsonl",
+    "registry/update_log.md",
+    "site/framework_runs.json",
+    "site/graph.json",
+    "site/skills.json",
+    "site/tree.json",
+    "tests/integration/test_build_site.py",
+    "tests/smoke/test_local_skills.py",
+    "skills/statistical-and-machine-learning-foundations-for-science/synth-single-treated-unit-scm/"
+  ],
+  "blockers": [],
+  "next_steps": [
+    "Extend the skill with placebo or permutation inference if a future task needs significance testing rather than point estimation only."
+  ]
+}

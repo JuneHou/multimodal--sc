@@ -1,0 +1,31 @@
+{
+  "search": {
+    "esearchresult": {
+      "count": "37852",
+      "idlist": [
+        "41811354"
+      ],
+      "querytranslation": "\"single cell gene expression analysis\"[MeSH Terms] OR (\"single cell\"[All Fields] AND \"gene\"[All Fields] AND \"expression\"[All Fields] AND \"analysis\"[All Fields]) OR \"single cell gene expression analysis\"[All Fields] OR (\"single\"[All Fields] AND \"cell\"[All Fields] AND \"rna\"[All Fields] AND \"seq\"[All Fields]) OR \"single cell rna seq\"[All Fields]",
+      "retmax": "1",
+      "retstart": "0",
+      "translationset": [
+        {
+          "from": "single-cell RNA-seq",
+          "to": "\"single-cell gene expression analysis\"[MeSH Terms] OR (\"single-cell\"[All Fields] AND \"gene\"[All Fields] AND \"expression\"[All Fields] AND \"analysis\"[All Fields]) OR \"single-cell gene expression analysis\"[All Fields] OR (\"single\"[All Fields] AND \"cell\"[All Fields] AND \"rna\"[All Fields] AND \"seq\"[All Fields]) OR \"single cell rna seq\"[All Fields]"
+        }
+      ]
+    },
+    "header": {
+      "type": "esearch",
+      "version": "0.3"
+    }
+  },
+  "summary": {
+    "result": {
+      "uids": [
+        "41811354"
+      ]
+    }
+  },
+  "term": "single-cell RNA-seq"
+}

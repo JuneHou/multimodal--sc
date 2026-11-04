@@ -1,0 +1,21 @@
+Example · scm‑configure · SKILL.md
+scm‑configure leaves 13 Synth arguments open
+name: scm-configure
+The fitter makes these choices for you: every donor weight is at least 0 and the weights sum to one, as
+the paper defines a synthetic control, and no penalty is added to the weight fit. Everything else is
+Synth's own code, unchanged.
+You decide the settings, all 13, in `settings.json`:
+- `special_predictors`, predictors given one by one, each a variable (`Z1`, `Z2` or `Y_observed`), …
+- `predictors` and `predictors_op`, variables summarized with one summary over `time_predictors_prior`
+- `time_predictors_prior`, the periods over which `predictors` are summarized
+- `time_optimize_ssr`, the outcome periods whose mean squared prediction error chooses V when V is searched
+- `controls_identifier`, the donor pool
+- `custom_v`, the predictor weights V, one positive number per predictor, or null to let Synth search V
+- `optimxmethod` and `genoud`, the optimizers of the V search
+- `quadopt`, `margin_ipop`, `sigf_ipop` and `bound_ipop`, the solver of the donor weights and its precision
+3. Write `settings.json`, then run `Rscript scripts/fit.R settings.json`. It prints the predictors and V, …
+5. Finish by writing `answer.json`, with one value for every treated period the task names:
+{"counterfactual": {"<period>": <value>, ...}, "att": <value>, "rationale": "<why these settings, …>"}
+The skill also holds a method reference, a settings reference with each field’s type and range, and a data viewer.
+Excerpt of the skill’s SKILL.md, verbatim lines, with … where text is left out.
+NOTES: The orange lines are the settings the model decides. The fitter refuses a file with a field missing or out of range and names the field. The model may run the fitter several times, and every run is recorded.
