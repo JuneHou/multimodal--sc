@@ -1,0 +1,25 @@
+{
+  "mode": "best",
+  "groups": {
+    "treatment": {
+      "rows_merged": 6610,
+      "groups_affected": 3305,
+      "ndvi_spread_median": 0.0018687009791580056,
+      "ndvi_spread_p95": 0.016727421913814242,
+      "ndvi_spread_max": 0.29089517105492535,
+      "evi_spread_median": 0.0012123760979768639,
+      "evi_spread_max": 0.41997673970938737,
+      "evi_from_other_granule": 148
+    },
+    "control": {
+      "rows_merged": 129978,
+      "groups_affected": 60899,
+      "ndvi_spread_median": 0.0013694243381298932,
+      "ndvi_spread_p95": 0.03891173483187718,
+      "ndvi_spread_max": 0.9705137560057648,
+      "evi_spread_median": 0.0008638805392406357,
+      "evi_spread_max": 0.9919252021877139,
+      "evi_from_other_granule": 1595
+    }
+  }
+}

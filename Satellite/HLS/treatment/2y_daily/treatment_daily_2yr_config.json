@@ -1,0 +1,22 @@
+{
+  "start": "2023-09-27",
+  "end_exclusive": "2025-09-28",
+  "patch_side_m": 3840,
+  "patch_crs": "EPSG:5070",
+  "min_denom": 0.01,
+  "datasets": {
+    "L30": "NASA/HLS/HLSL30/v002",
+    "S30": "NASA/HLS/HLSS30/v002"
+  },
+  "ndvi_spatial_stat": "median",
+  "evi_spatial_stat": "median",
+  "evi_range": [
+    -1.0,
+    2.5
+  ],
+  "extraction_version": "pixel_ndvi_evi_spatial_median_v2",
+  "band_spatial_stat": "mean",
+  "quality_spatial_stat": "mean",
+  "quality_denominator": "full_patch",
+  "observation_unit": "site_acquisition_granule"
+}

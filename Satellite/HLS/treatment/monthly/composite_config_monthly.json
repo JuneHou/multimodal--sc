@@ -1,0 +1,26 @@
+{
+  "write_aggregate": true,
+  "overpass": "best",
+  "min_evi_coverage": null,
+  "designs": [
+    "conus_random10"
+  ],
+  "hls_root": "/Users/gaoyujuan/REAP Dropbox/Gao yujuan/Virginia Tech/CALS/datasets/flooding/HLS",
+  "cadences": [
+    "monthly"
+  ],
+  "min_ndvi_coverage": 0.1,
+  "min_site_coverage": 0.5,
+  "event_boundary": "split",
+  "roster": "fixed",
+  "roster_min_pre_periods": 2,
+  "allow_missing_designs": false,
+  "on_duplicate_conflict": "error",
+  "stat": "median",
+  "site_agg": "mean",
+  "out_tag": null,
+  "ndvi_spatial_stat": "median",
+  "extraction_version": "pixel_ndvi_evi_spatial_median_v2",
+  "event": "2024-09-27",
+  "biweek_origin": "2023-09-25"
+}
