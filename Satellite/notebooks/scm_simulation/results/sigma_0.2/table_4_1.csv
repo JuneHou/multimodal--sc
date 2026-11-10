@@ -1,0 +1,34 @@
+arm,model,case,answered,note,cf_rmse,att_error,rel_att_error
+README Section 3,,dgp1,True,"mc_results_r/sigma_0.2, replication 1",0.297846340247489,0.0060101890670343,0.0020033963556781
+README Section 3,,dgp2,True,"mc_results_r/sigma_0.2, replication 1",0.182862254119095,-0.0966086676375695,0.0322028892125232
+every factor known,,dgp1,True,"generator, shipped seed",0.16333436452641834,-0.029484513875609686,0.009828171291869895
+scm-configure,DeepSeek-V4.1-Flash-thinking-low,dgp1,True,matched fit,0.3338147242178069,0.0273011447131303,0.0091003815710434
+scm-configure,DeepSeek-V4.1-Flash-thinking-low,dgp2,False,,,,
+scm-configure,GLM-5.3,dgp1,True,matched fit,0.3230815615914205,0.0142252947131304,0.0047417649043768
+scm-configure,GLM-5.3,dgp2,True,matched fit,0.2169388634237511,-0.1166783698709323,0.0388927899569774
+scm-configure,gpt-oss-120b,dgp1,True,matched fit,0.8527089927293187,0.2513502947131307,0.0837834315710435
+scm-configure,gpt-oss-120b,dgp2,True,matched fit,0.2205409940875993,-0.1728320198709325,0.0576106732903108
+scm-design,DeepSeek-V4.1-Flash-thinking-low,dgp1,False,,,,
+scm-design,DeepSeek-V4.1-Flash-thinking-low,dgp2,False,,,,
+scm-design,GLM-5.3,dgp1,True,matched fit,0.3214537473743538,0.0143174447131304,0.0047724815710434
+scm-design,GLM-5.3,dgp2,True,matched fit,0.2167668574334572,-0.1102920198709318,0.0367640066236439
+scm-design,gpt-oss-120b,dgp1,True,matched fit,0.7149076377107035,0.1994960947131305,0.0664986982377102
+scm-design,gpt-oss-120b,dgp2,True,matched fit,0.2113980683265627,-0.1296669698709327,0.0432223232903109
+profile-gpt-5.4,DeepSeek-V4.1-Flash-thinking-low,dgp1,True,skill script's specification,0.2911811041652887,0.0066984947131309,0.0022328315710436
+profile-gpt-5.4,DeepSeek-V4.1-Flash-thinking-low,dgp2,True,skill script's specification,0.1885761207512759,-0.1015789698709328,0.0338596566236442
+profile-gpt-5.4,GLM-5.3,dgp1,True,skill script's specification,0.2911811041652887,0.0066984947131309,0.0022328315710436
+profile-gpt-5.4,GLM-5.3,dgp2,True,skill script's specification,0.1885761207512759,-0.1015789698709328,0.0338596566236442
+profile-gpt-5.4,gpt-oss-120b,dgp1,True,skill script's specification,0.2911811041652887,0.0066984947131309,0.0022328315710436
+profile-gpt-5.4,gpt-oss-120b,dgp2,True,skill script's specification,0.1885761207512759,-0.1015789698709328,0.0338596566236442
+profile-deepseek,DeepSeek-V4.1-Flash-thinking-low,dgp1,True,skill script's specification,0.5853311706441998,0.1452084947131302,0.0484028315710434
+profile-deepseek,DeepSeek-V4.1-Flash-thinking-low,dgp2,True,skill script's specification,0.3750284456691536,-0.2838589698709328,0.0946196566236442
+profile-deepseek,GLM-5.3,dgp1,True,skill script's specification,0.5853311706441998,0.1452084947131302,0.0484028315710434
+profile-deepseek,GLM-5.3,dgp2,True,skill script's specification,0.3750284456691536,-0.2838589698709328,0.0946196566236442
+profile-deepseek,gpt-oss-120b,dgp1,True,skill script's specification,0.5853311706441998,0.1452084947131302,0.0484028315710434
+profile-deepseek,gpt-oss-120b,dgp2,True,skill script's specification,0.3750284456691536,-0.2838589698709328,0.0946196566236442
+scm-four-design,DeepSeek-V4.1-Flash-thinking-low,dgp1,True,matched fit,0.2911679955530105,0.0067018947131307,0.0022339649043769
+scm-four-design,DeepSeek-V4.1-Flash-thinking-low,dgp2,True,matched fit,0.2926465453107806,-0.2094767198709322,0.0698255732903107
+scm-four-design,GLM-5.3,dgp1,True,matched fit,0.2911679955530105,0.0067018947131307,0.0022339649043769
+scm-four-design,GLM-5.3,dgp2,True,matched fit,0.1885745727762881,-0.1015741698709322,0.033858056623644
+scm-four-design,gpt-oss-120b,dgp1,True,matched fit,0.2911679955530105,0.0067018947131307,0.0022339649043769
+scm-four-design,gpt-oss-120b,dgp2,True,matched fit,0.1885031328751428,-0.0984013198709323,0.0328004399569774

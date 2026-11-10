@@ -1,0 +1,140 @@
+sigma 1.0: 18 distinct specifications refitted; refits that do not reproduce their fit within 0.0001: []
+
+== sigma 1.0 table 4_1
+                    arm                            model case  answered                                  note  cf_rmse  att_error  rel_att_error
+       README Section 3                                  dgp1      True mc_results_r/sigma_1.0, replication 1 1.094787   0.144384       0.048128
+       README Section 3                                  dgp2      True mc_results_r/sigma_1.0, replication 1 0.890833  -0.534323       0.178108
+     every factor known                                  dgp1      True               generator, shipped seed 0.816672  -0.147423       0.049141
+ADH paper specification                                  dgp1      True                          arm_checks.R 0.984431   0.196265       0.065422
+ADH paper specification                                  dgp2      True                          arm_checks.R 0.827408  -0.452822       0.150941
+          scm-configure DeepSeek-V4.1-Flash-thinking-low dgp1     False                                   NaN      NaN        NaN            NaN
+          scm-configure DeepSeek-V4.1-Flash-thinking-low dgp2     False                                   NaN      NaN        NaN            NaN
+          scm-configure                          GLM-5.3 dgp1      True                           matched fit 1.240458   0.326435       0.108812
+          scm-configure                          GLM-5.3 dgp2      True  closest fit, 7.3e-07 from the answer 0.771429  -0.044783       0.014928
+          scm-configure                     gpt-oss-120b dgp1      True                           matched fit 1.234853   1.764000       0.588000
+          scm-configure                     gpt-oss-120b dgp2      True                           matched fit 0.960649  -1.535246       0.511749
+          scm-configure                   openai:gpt-5.5 dgp1      True                           matched fit 0.991865   0.164441       0.054814
+          scm-configure                   openai:gpt-5.5 dgp2      True                           matched fit 0.899224  -0.515847       0.171949
+             scm-design DeepSeek-V4.1-Flash-thinking-low dgp1     False                                   NaN      NaN        NaN            NaN
+             scm-design DeepSeek-V4.1-Flash-thinking-low dgp2     False                                   NaN      NaN        NaN            NaN
+             scm-design                          GLM-5.3 dgp1      True  closest fit, 8.2e-07 from the answer 1.240457   0.326435       0.108812
+             scm-design                          GLM-5.3 dgp2      True                           matched fit 0.828724  -0.159251       0.053084
+             scm-design                     gpt-oss-120b dgp1      True                           matched fit 1.046669   0.764000       0.254667
+             scm-design                     gpt-oss-120b dgp2      True                           matched fit 0.940915  -0.896000       0.298667
+             scm-design                   openai:gpt-5.5 dgp1      True                           matched fit 0.989190   0.153183       0.051061
+             scm-design                   openai:gpt-5.5 dgp2      True                           matched fit 0.899172  -0.515725       0.171908
+        profile-gpt-5.4 DeepSeek-V4.1-Flash-thinking-low dgp1      True          skill script's specification 0.992399   0.164700       0.054900
+        profile-gpt-5.4 DeepSeek-V4.1-Flash-thinking-low dgp2      True          skill script's specification 0.899157  -0.515700       0.171900
+        profile-gpt-5.4                          GLM-5.3 dgp1      True          skill script's specification 0.992399   0.164700       0.054900
+        profile-gpt-5.4                          GLM-5.3 dgp2      True          skill script's specification 0.899157  -0.515700       0.171900
+        profile-gpt-5.4                     gpt-oss-120b dgp1      True          skill script's specification 0.992399   0.164700       0.054900
+        profile-gpt-5.4                     gpt-oss-120b dgp2      True          skill script's specification 0.899157  -0.515700       0.171900
+        profile-gpt-5.4                   openai:gpt-5.5 dgp1      True          skill script's specification 0.992399   0.164700       0.054900
+        profile-gpt-5.4                   openai:gpt-5.5 dgp2      True          skill script's specification 0.899157  -0.515700       0.171900
+       profile-deepseek DeepSeek-V4.1-Flash-thinking-low dgp1      True          skill script's specification 1.027013   0.075000       0.025000
+       profile-deepseek DeepSeek-V4.1-Flash-thinking-low dgp2      True          skill script's specification 0.848596  -0.317000       0.105667
+       profile-deepseek                          GLM-5.3 dgp1      True          skill script's specification 1.027013   0.075000       0.025000
+       profile-deepseek                          GLM-5.3 dgp2      True          skill script's specification 0.848596  -0.317000       0.105667
+       profile-deepseek                     gpt-oss-120b dgp1      True          skill script's specification 1.027013   0.075000       0.025000
+       profile-deepseek                     gpt-oss-120b dgp2      True          skill script's specification 0.848596  -0.317000       0.105667
+       profile-deepseek                   openai:gpt-5.5 dgp1      True          skill script's specification 1.027013   0.075000       0.025000
+       profile-deepseek                   openai:gpt-5.5 dgp2      True          skill script's specification 0.848596  -0.317000       0.105667
+
+== sigma 1.0 table 4_2
+                    arm                            model case  answered                                  note  pre_rmspe  covariate_balance
+       README Section 3                                  dgp1      True mc_results_r/sigma_1.0, replication 1   0.987679       2.513671e-01
+       README Section 3                                  dgp2      True mc_results_r/sigma_1.0, replication 1   0.744611       1.967771e-01
+     every factor known                                  dgp1      True               generator, shipped seed   0.943855                NaN
+ADH paper specification                                  dgp1      True                          arm_checks.R   0.953408       1.248249e-01
+ADH paper specification                                  dgp2      True                          arm_checks.R   0.967928       3.246987e-01
+          scm-configure DeepSeek-V4.1-Flash-thinking-low dgp1     False                                   NaN        NaN                NaN
+          scm-configure DeepSeek-V4.1-Flash-thinking-low dgp2     False                                   NaN        NaN                NaN
+          scm-configure                          GLM-5.3 dgp1      True                           matched fit   1.056925       3.465668e-02
+          scm-configure                          GLM-5.3 dgp2      True  closest fit, 7.3e-07 from the answer   0.842579       3.410504e-01
+          scm-configure                     gpt-oss-120b dgp1      True                           matched fit   1.459477       2.011568e-03
+          scm-configure                     gpt-oss-120b dgp2      True                           matched fit   0.948110       2.307310e-01
+          scm-configure                   openai:gpt-5.5 dgp1      True                           matched fit   0.945177       1.568165e-01
+          scm-configure                   openai:gpt-5.5 dgp2      True                           matched fit   0.734125       2.661214e-01
+             scm-design DeepSeek-V4.1-Flash-thinking-low dgp1     False                                   NaN        NaN                NaN
+             scm-design DeepSeek-V4.1-Flash-thinking-low dgp2     False                                   NaN        NaN                NaN
+             scm-design                          GLM-5.3 dgp1      True  closest fit, 8.2e-07 from the answer   1.056925       3.465668e-02
+             scm-design                          GLM-5.3 dgp2      True                           matched fit   0.882746       2.991643e-01
+             scm-design                     gpt-oss-120b dgp1      True                           matched fit   1.347472       4.918563e-02
+             scm-design                     gpt-oss-120b dgp2      True                           matched fit   1.099705       3.128580e-01
+             scm-design                   openai:gpt-5.5 dgp1      True                           matched fit   0.944145       1.601793e-01
+             scm-design                   openai:gpt-5.5 dgp2      True                           matched fit   0.734125       2.661562e-01
+        profile-gpt-5.4 DeepSeek-V4.1-Flash-thinking-low dgp1      True          skill script's specification   0.945178       1.569842e-01
+        profile-gpt-5.4 DeepSeek-V4.1-Flash-thinking-low dgp2      True          skill script's specification   0.734125       2.661562e-01
+        profile-gpt-5.4                          GLM-5.3 dgp1      True          skill script's specification   0.945178       1.569842e-01
+        profile-gpt-5.4                          GLM-5.3 dgp2      True          skill script's specification   0.734125       2.661562e-01
+        profile-gpt-5.4                     gpt-oss-120b dgp1      True          skill script's specification   0.945178       1.569842e-01
+        profile-gpt-5.4                     gpt-oss-120b dgp2      True          skill script's specification   0.734125       2.661562e-01
+        profile-gpt-5.4                   openai:gpt-5.5 dgp1      True          skill script's specification   0.945178       1.569842e-01
+        profile-gpt-5.4                   openai:gpt-5.5 dgp2      True          skill script's specification   0.734125       2.661562e-01
+       profile-deepseek DeepSeek-V4.1-Flash-thinking-low dgp1      True          skill script's specification   1.388431       1.363804e-07
+       profile-deepseek DeepSeek-V4.1-Flash-thinking-low dgp2      True          skill script's specification   1.014867       3.297416e-01
+       profile-deepseek                          GLM-5.3 dgp1      True          skill script's specification   1.388431       1.363804e-07
+       profile-deepseek                          GLM-5.3 dgp2      True          skill script's specification   1.014867       3.297416e-01
+       profile-deepseek                     gpt-oss-120b dgp1      True          skill script's specification   1.388431       1.363804e-07
+       profile-deepseek                     gpt-oss-120b dgp2      True          skill script's specification   1.014867       3.297416e-01
+       profile-deepseek                   openai:gpt-5.5 dgp1      True          skill script's specification   1.388431       1.363804e-07
+       profile-deepseek                   openai:gpt-5.5 dgp2      True          skill script's specification   1.014867       3.297416e-01
+
+== sigma 1.0 table 4_3
+                    arm                            model case  answered                                  note  lodo_max_abs_att_change lodo_donor  lodo_donor_weight  n_positive  cv_rmse  block_rmse
+       README Section 3                                  dgp1      True mc_results_r/sigma_1.0, replication 1                 0.147861        NaN                NaN         8.0 1.175705    1.822656
+       README Section 3                                  dgp2      True mc_results_r/sigma_1.0, replication 1                 0.115264        NaN                NaN        10.0 0.940182    1.045789
+     every factor known                                  dgp1      True               generator, shipped seed                      NaN        NaN                NaN         NaN      NaN         NaN
+ADH paper specification                                  dgp1      True                          arm_checks.R                 0.141396   donor_28           0.341224         5.0      NaN         NaN
+ADH paper specification                                  dgp2      True                          arm_checks.R                 0.224755   donor_03           0.195243        28.0      NaN         NaN
+          scm-configure DeepSeek-V4.1-Flash-thinking-low dgp1     False                                   NaN                      NaN        NaN                NaN         NaN      NaN         NaN
+          scm-configure DeepSeek-V4.1-Flash-thinking-low dgp2     False                                   NaN                      NaN        NaN                NaN         NaN      NaN         NaN
+          scm-configure                          GLM-5.3 dgp1      True                           matched fit                 0.173932   donor_23           0.417394         4.0      NaN         NaN
+          scm-configure                          GLM-5.3 dgp2      True  closest fit, 7.3e-07 from the answer                 0.374575   donor_17           0.102346         5.0      NaN         NaN
+          scm-configure                     gpt-oss-120b dgp1      True                           matched fit                 0.125309   donor_27           0.033319        28.0      NaN         NaN
+          scm-configure                     gpt-oss-120b dgp2      True                           matched fit                 0.265396   donor_03           0.130390        28.0      NaN         NaN
+          scm-configure                   openai:gpt-5.5 dgp1      True                           matched fit                 0.129921   donor_23           0.215474         9.0      NaN         NaN
+          scm-configure                   openai:gpt-5.5 dgp2      True                           matched fit                 0.157165   donor_02           0.096519        11.0      NaN         NaN
+             scm-design DeepSeek-V4.1-Flash-thinking-low dgp1     False                                   NaN                      NaN        NaN                NaN         NaN      NaN         NaN
+             scm-design DeepSeek-V4.1-Flash-thinking-low dgp2     False                                   NaN                      NaN        NaN                NaN         NaN      NaN         NaN
+             scm-design                          GLM-5.3 dgp1      True  closest fit, 8.2e-07 from the answer                 0.172782   donor_23           0.417394         4.0      NaN         NaN
+             scm-design                          GLM-5.3 dgp2      True                           matched fit                 0.260106   donor_17           0.237435         5.0      NaN         NaN
+             scm-design                     gpt-oss-120b dgp1      True                           matched fit                 0.058731   donor_10           0.321780        29.0      NaN         NaN
+             scm-design                     gpt-oss-120b dgp2      True                           matched fit                 0.312715   donor_03           0.131215        29.0      NaN         NaN
+             scm-design                   openai:gpt-5.5 dgp1      True                           matched fit                 0.118649   donor_23           0.212217         8.0      NaN         NaN
+             scm-design                   openai:gpt-5.5 dgp2      True                           matched fit                 0.130715   donor_02           0.096571        11.0      NaN         NaN
+        profile-gpt-5.4 DeepSeek-V4.1-Flash-thinking-low dgp1      True          skill script's specification                 0.130191   donor_23           0.215764         9.0      NaN         NaN
+        profile-gpt-5.4 DeepSeek-V4.1-Flash-thinking-low dgp2      True          skill script's specification                 0.157294   donor_02           0.096571        11.0      NaN         NaN
+        profile-gpt-5.4                          GLM-5.3 dgp1      True          skill script's specification                 0.130191   donor_23           0.215764         9.0      NaN         NaN
+        profile-gpt-5.4                          GLM-5.3 dgp2      True          skill script's specification                 0.157294   donor_02           0.096571        11.0      NaN         NaN
+        profile-gpt-5.4                     gpt-oss-120b dgp1      True          skill script's specification                 0.130191   donor_23           0.215764         9.0      NaN         NaN
+        profile-gpt-5.4                     gpt-oss-120b dgp2      True          skill script's specification                 0.157294   donor_02           0.096571        11.0      NaN         NaN
+        profile-gpt-5.4                   openai:gpt-5.5 dgp1      True          skill script's specification                 0.130191   donor_23           0.215764         9.0      NaN         NaN
+        profile-gpt-5.4                   openai:gpt-5.5 dgp2      True          skill script's specification                 0.157294   donor_02           0.096571        11.0      NaN         NaN
+       profile-deepseek DeepSeek-V4.1-Flash-thinking-low dgp1      True          skill script's specification                 0.186400   donor_10           0.455935        29.0      NaN         NaN
+       profile-deepseek DeepSeek-V4.1-Flash-thinking-low dgp2      True          skill script's specification                 0.560413   donor_03           0.326309        29.0      NaN         NaN
+       profile-deepseek                          GLM-5.3 dgp1      True          skill script's specification                 0.186400   donor_10           0.455935        29.0      NaN         NaN
+       profile-deepseek                          GLM-5.3 dgp2      True          skill script's specification                 0.560413   donor_03           0.326309        29.0      NaN         NaN
+       profile-deepseek                     gpt-oss-120b dgp1      True          skill script's specification                 0.186400   donor_10           0.455935        29.0      NaN         NaN
+       profile-deepseek                     gpt-oss-120b dgp2      True          skill script's specification                 0.560413   donor_03           0.326309        29.0      NaN         NaN
+       profile-deepseek                   openai:gpt-5.5 dgp1      True          skill script's specification                 0.186400   donor_10           0.455935        29.0      NaN         NaN
+       profile-deepseek                   openai:gpt-5.5 dgp2      True          skill script's specification                 0.560413   donor_03           0.326309        29.0      NaN         NaN
+refit vs the answer's own fit, max over answers: 4.916067793003798e-05
+
+======== comparison with the moved tables
+table 4.1: rows old 37 new 37 {'both': 37, 'left_only': 0, 'right_only': 0}
+   cf_rmse: largest change, README Section 3 rows 1.33e-05, every other row 0.00e+00
+   att_error: largest change, README Section 3 rows 4.28e-05, every other row 0.00e+00
+   rel_att_error: largest change, README Section 3 rows 1.43e-05, every other row 0.00e+00
+table 4.2: rows old 37 new 37 {'both': 37, 'left_only': 0, 'right_only': 0}
+   pre_rmspe: largest change, README Section 3 rows 1.22e-05, every other row 0.00e+00
+   covariate_balance: largest change, README Section 3 rows 8.37e-05, every other row 0.00e+00
+table 4.3: rows old 37 new 37 {'both': 37, 'left_only': 0, 'right_only': 0}
+   lodo_max_abs_att_change: largest change, README Section 3 rows 7.04e-04, every other row 2.68e-01
+   n_positive: largest change, README Section 3 rows 0.00e+00, every other row 2.50e+01
+             arm   model case  lodo_max_abs_att_change_old  lodo_max_abs_att_change_new  n_positive_old  n_positive_new
+README Section 3         dgp1                       0.1477                       0.1479             8.0             8.0
+README Section 3         dgp2                       0.1146                       0.1153            10.0            10.0
+   scm-configure GLM-5.3 dgp1                       0.1761                       0.1739            29.0             4.0
+   scm-configure GLM-5.3 dgp2                       0.4762                       0.3746            29.0             5.0
+      scm-design GLM-5.3 dgp2                       0.5284                       0.2601            29.0             5.0

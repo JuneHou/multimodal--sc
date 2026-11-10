@@ -1,0 +1,7 @@
+row,README Section 5,"gpt-oss-120b, without donors","GLM-5.3, without donors","DeepSeek-V4.1-Flash-thinking-low, without donors","gpt-oss-120b, with donors","GLM-5.3, with donors","DeepSeek-V4.1-Flash-thinking-low, with donors"
+ATT bias,+0.004,-0.1900589698709334,no answer,-0.1802289698709325,-0.15490896987093228,no answer,-0.14530896987093245
+"ATT RMSE (README) / absolute ATT error (one run, answers)",0.131,0.1900589698709334,no answer,0.1802289698709325,0.15490896987093228,no answer,0.14530896987093245
+counterfactual RMSE,0.290,0.24317811052855667,no answer,0.2306641159772245,0.21349805554947898,no answer,0.22320715595237692
+within ±0.25 of the truth,95%,yes,no answer,yes,yes,no answer,yes
+within ±0.50 of the truth,100%,yes,no answer,yes,yes,no answer,yes
+answered at effort,no model call,default,no answer,default,default,no answer,default

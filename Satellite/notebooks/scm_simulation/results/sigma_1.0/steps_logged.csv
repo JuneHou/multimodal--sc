@@ -1,0 +1,17 @@
+data,skill,model,records,steps,steps_with_reasoning,median_chars
+simulation,scm-configure,DeepSeek-V4.1-Flash-thinking-low,2,24,20,1554.5
+simulation,scm-configure,GLM-5.3,2,13,7,112.0
+simulation,scm-configure,gpt-oss-120b,2,18,18,55.5
+simulation,scm-configure,openai:gpt-5.5,2,10,0,
+simulation,scm-design,DeepSeek-V4.1-Flash-thinking-low,2,24,20,1233.0
+simulation,scm-design,GLM-5.3,2,16,8,111.5
+simulation,scm-design,gpt-oss-120b,2,21,21,75.0
+simulation,scm-design,openai:gpt-5.5,2,10,0,
+simulation,profile-deepseek,DeepSeek-V4.1-Flash-thinking-low,2,10,8,83.0
+simulation,profile-deepseek,GLM-5.3,2,6,0,
+simulation,profile-deepseek,gpt-oss-120b,2,6,6,25.0
+simulation,profile-deepseek,openai:gpt-5.5,2,7,0,
+simulation,profile-gpt-5.4,DeepSeek-V4.1-Flash-thinking-low,2,8,6,70.0
+simulation,profile-gpt-5.4,GLM-5.3,2,7,0,
+simulation,profile-gpt-5.4,gpt-oss-120b,2,10,10,25.0
+simulation,profile-gpt-5.4,openai:gpt-5.5,2,7,0,

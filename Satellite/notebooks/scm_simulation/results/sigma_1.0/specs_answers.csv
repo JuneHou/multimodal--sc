@@ -1,0 +1,16 @@
+arm,model,case,fit,n_predictors,predictors,V,optimizers,time_optimize_ssr,donors,weights,interpolation_penalty
+README Section 3,,dgp1 and dgp2,"README Section 3, computed from its formulas",42,"Z1, Z2 at 40 · Y_observed at each of 1–40",equal,,,29,convex,none
+scm-configure,gpt-oss-120b,dgp1,matched fit,3,"Z1, Z2, Y_observed mean over 1–40",searched,Nelder-Mead,1–40,29,convex,none
+scm-configure,gpt-oss-120b,dgp2,matched fit,2,"Z1, Z2 mean over 1–40",searched,Nelder-Mead,1–40,29,convex,none
+scm-configure,GLM-5.3,dgp1,matched fit,6,"Y_observed mean over 1–10, 11–20, 21–30, 31–40 · Z1, Z2 mean over 1, 20",searched,BFGS Nelder-Mead spg ucminf,1–40,29,convex,none
+scm-configure,GLM-5.3,dgp2,"closest fit, 7.3e-07 from the answer",6,"Y_observed mean over 1–10, 11–20, 21–30, 31–40 · Z1, Z2 mean over 1–40",searched,All,1–40,29,convex,none
+scm-configure,openai:gpt-5.5,dgp1,matched fit,42,"Z1, Z2 mean over 1–40 · Y_observed at each of 1–40",searched,BFGS Nelder-Mead L-BFGS-B,1–40,29,convex,none
+scm-configure,openai:gpt-5.5,dgp2,matched fit,42,"Y_observed at each of 1–40 · Z1, Z2 mean over 1–40",searched,BFGS Nelder-Mead,1–40,29,convex,none
+scm-four-design,gpt-oss-120b,dgp1,matched fit,42,"Z1, Z2 mean over 1, 40 · Y_observed at each of 1–40",searched,Nelder-Mead BFGS,1–40,29,convex,none
+scm-four-design,gpt-oss-120b,dgp2,matched fit,42,"Z1, Z2 mean over 1–40 · Y_observed at each of 1–40",searched,Nelder-Mead BFGS,1–40,29,convex,none
+scm-four-design,GLM-5.3,dgp1,matched fit,42,"Z1, Z2 mean over 1–40 · Y_observed at each of 1–40",searched,Nelder-Mead BFGS,1–40,29,convex,none
+scm-four-design,GLM-5.3,dgp2,matched fit,5,"Z1, Z2 mean over 1–30 · Y_observed sum over 1–10, 11–20, 21–30",searched,Nelder-Mead BFGS,31–40,29,convex,none
+profile-gpt-5.4,all four models,dgp1,skill script's specification,42,"Z1, Z2 mean over 1–40 · Y_observed at each of 1–40",searched,Nelder-Mead BFGS,1–40,29,convex,none
+profile-gpt-5.4,all four models,dgp2,skill script's specification,42,"Z1, Z2 mean over 1–40 · Y_observed at each of 1–40",searched,Nelder-Mead BFGS,1–40,29,convex,none
+profile-deepseek,all four models,dgp1,skill script's specification,2,"Z1, Z2 mean over 1–40",searched,Nelder-Mead BFGS,1–40,29,convex,none
+profile-deepseek,all four models,dgp2,skill script's specification,2,"Z1, Z2 mean over 1–40",searched,Nelder-Mead BFGS,1–40,29,convex,none
