@@ -7,8 +7,8 @@ sharpness. Rscript only computes the README Section 3 weights (her_section3.R); 
     F2  fig2_case_dgp1       DGP 1, periods 41 to 60: the true untreated path, the README Section 3 counterfactual and
                              every answer's counterfactual, one panel per skill format
     F3  fig3_luck            DGP 1 ATT error, one line per reference and per skill format: the counterfactual that
-                             knows every factor over 11 replications (luck.py), then README Section 3, the ADH
-                             specification and every answer on the shipped replication
+                             knows every factor over 11 replications (luck.py), then README Section 3 and every
+                             answer on the shipped replication
 
 Slide slots, in figure inches at 100 slide pixels each: F1 10.4 by 4.8, F2 9.2 by 6.0, F3 9.6 by 6.0. Every label is
 17 pt.
@@ -29,16 +29,26 @@ OUT = HERE / "report" / "deck" / "figs"
 SKILL = Path.home() / ".claude" / "skills" / "nature-figure" / "scripts"
 sys.path.insert(0, str(SKILL))
 from audit_panel_alignment import require_matplotlib_panel_alignment  # noqa: E402
+sys.path.insert(0, str(HERE.parent / "sc_skills"))
+import scs_method  # noqa: E402
+MOD = scs_method.load_module("../../scm_simulation")
 
-DATA = HERE.parents[1] / "data" / "simulation" / "simulation_data"
+DATA = HERE.parents[1] / "data" / "simulation" / "simulation_data" / "sigma_1.0"   # the deck's figures are sigma = 1
 RSCRIPT = "/data/wang/junh/envs/rsynth/bin/Rscript"
 
+# DeepSeek-V4.1-Flash is not a solver model of the deck (Jun "drop all deepseek in this artifact", "Solver model only",
+# 2026-11-06); the profile skill the DeepSeek generator wrote stays
 MODELS = [("gpt-oss-120b", "gpt-oss-120b", "#0F4D92"), ("GLM-5.3", "GLM-5.3", "#42949E"),
-          ("DeepSeek-V4.1-Flash-thinking-low", "DeepSeek-V4.1-Flash", "#9A4D8E"),
           ("openai:gpt-5.5", "GPT-5.5", "#B64342")]
-FORMATS = [("scm-configure", "scm-configure"), ("scm-design", "scm-design"),
+DROPPED_SOLVER = "DeepSeek"
+# the deck's scm-design is the four-choice design skill, arm scm-four-design (Jun 2026-11-06 "keep only four variable
+# case as scm-design")
+FORMATS = [("scm-configure", "scm-configure"), ("scm-four-design", "scm-design"),
            ("profile-gpt-5.4", "profile, GPT-5.4 generator"), ("profile-deepseek", "profile, DeepSeek generator")]
 TRUE_C, README_C, PROFILE_C = "#272727", "#767676", "#0E6B73"
+# the y axis of figures 1 and 2 is the treated unit's Y without treatment, Y_1t^N as the method slide writes it
+# (Jun 2026-11-06 "out come is vague", "legend too long", "README is enough")
+YN = "Y₁ₜᴺ"                                      # Y₁ₜᴺ as plain characters, side by side
 
 mpl.rcParams.update({
     "font.family": "sans-serif", "font.sans-serif": ["DejaVu Sans"], "svg.fonttype": "none", "pdf.fonttype": 42,
@@ -83,17 +93,19 @@ def readme_path(case):
 def answers(case):
     """{(format, model): counterfactual series over 41..60} from the last record of each case."""
     out = {}
-    for p in sorted((HERE / "runs").glob("simulation*/*.jsonl")):
-        last = {}
-        for line in p.read_text().splitlines():
-            r = json.loads(line)
-            last[r["prompt_id"]] = r
-        for r in last.values():
-            if r["case"] != case or not r["ok"]:
-                continue
-            fmt = r["skill"] if p.parent.name == "simulation" else p.parent.name[len("simulation_"):]
-            cf = r["answer"]["prediction"]["counterfactual"]
-            out[(fmt, r["model"])] = pd.Series({int(k): v for k, v in cf.items()}).sort_index()
+    for fmt, folder in MOD.record_folders("1.0").items():
+        if fmt not in dict(FORMATS):                 # the deck's arms only; the two-choice scm-design is not in it
+            continue
+        for p in sorted(folder.glob("*.jsonl")):
+            last = {}
+            for line in p.read_text().splitlines():
+                r = json.loads(line)
+                last[r["prompt_id"]] = r
+            for r in last.values():
+                if r["case"] != case or not r["ok"] or r["model"].startswith(DROPPED_SOLVER):
+                    continue
+                cf = r["answer"]["prediction"]["counterfactual"]
+                out[(fmt, r["model"])] = pd.Series({int(k): v for k, v in cf.items()}).sort_index()
     return out
 
 
@@ -102,13 +114,13 @@ def fig1():
     for ax, case, title in zip(axes, ("dgp1", "dgp2"), ("DGP 1, shared factors", "DGP 2, no shared shocks")):
         tr, sp = truth(case), readme_path(case)
         ax.axvspan(40.5, 60.5, color="#EEF0EC", zorder=0)
-        ax.plot(tr.index, tr.values, color=TRUE_C, label="treated unit, true untreated path")
-        ax.plot(sp.index, sp.values, color=README_C, linestyle="--", label="README Section 3 synthetic control")
+        ax.plot(tr.index, tr.values, color=TRUE_C, label="true")
+        ax.plot(sp.index, sp.values, color=README_C, linestyle="--", label="README")
         ax.set_title(title, loc="left")
         ax.set_xlabel("period")
         ax.set_xlim(0.5, 60.5)
         ax.set_xticks([1, 10, 20, 30, 40, 50, 60])
-    axes[0].set_ylabel("outcome without treatment")
+    axes[0].set_ylabel(YN)
     axes[1].text(41.5, 0.97, "treated", transform=axes[1].get_xaxis_transform(), va="top", color="#4D4D4D")
     h, l = axes[0].get_legend_handles_labels()
     fig.legend(h, l, loc="lower center", ncol=1, bbox_to_anchor=(0.5, 0.0))
@@ -121,11 +133,11 @@ def fig2():
     fig, axes = plt.subplots(2, 2, figsize=(9.2, 6.0), sharex=True, sharey=True)
     for ax, (fmt, label) in zip(axes.flat, FORMATS):
         x = list(range(41, 61))
-        ax.plot(x, tr.loc[x].values, color=TRUE_C, label="true untreated path")
-        ax.plot(x, rd.loc[x].values, color=README_C, linestyle="--", label="README Section 3")
+        ax.plot(x, tr.loc[x].values, color=TRUE_C, label="true")
+        ax.plot(x, rd.loc[x].values, color=README_C, linestyle="--", label="README")
         if fmt.startswith("profile"):
             s = ans[(fmt, "openai:gpt-5.5")]
-            ax.plot(s.index, s.values, color=PROFILE_C, label="all four models")
+            ax.plot(s.index, s.values, color=PROFILE_C, label="all three models")
         else:
             for key, name, col in MODELS:                 # DeepSeek-V4.1-Flash answered no configure or design case
                 if (fmt, key) in ans:
@@ -136,30 +148,30 @@ def fig2():
     for ax in axes[1]:
         ax.set_xlabel("period")
     for ax in axes[:, 0]:
-        ax.set_ylabel("outcome")
-    handles = [mpl.lines.Line2D([], [], color=TRUE_C, label="true untreated path"),
-               mpl.lines.Line2D([], [], color=README_C, linestyle="--", label="README Section 3"),
+        ax.set_ylabel(YN)
+    handles = [mpl.lines.Line2D([], [], color=TRUE_C, label="true"),
+               mpl.lines.Line2D([], [], color=README_C, linestyle="--", label="README"),
                *[mpl.lines.Line2D([], [], color=c, label=n) for k, n, c in MODELS
                  if any((f, k) in ans for f, _ in FORMATS[:2])],
-               mpl.lines.Line2D([], [], color=PROFILE_C, label="profile, all four models")]
+               mpl.lines.Line2D([], [], color=PROFILE_C, label="profile, all three models")]
     fig.legend(handles=handles, loc="lower center", ncol=2, bbox_to_anchor=(0.5, 0.0))
     fig.tight_layout(rect=(0, 0.2, 1, 1))
     save(fig, "fig2_case_dgp1")
 
 
 def fig3():
-    luck = pd.read_csv(HERE / "results" / "luck_replications.csv")
-    t41 = pd.read_csv(HERE / "results" / "table_4_1.csv")
-    t41 = t41[t41.case == "dgp1"]
-    rows = ["every factor known", "README Section 3", "ADH paper specification", *[f for f, _ in FORMATS]]
-    labels = ["every factor known", "README Section 3", "ADH specification", "scm-configure", "scm-design",
+    luck = pd.read_csv(MOD.results_folder("1.0") / "luck_replications.csv")
+    t41 = pd.read_csv(MOD.results_folder("1.0") / "table_4_1.csv")
+    t41 = t41[(t41.case == "dgp1") & ~t41.model.astype(str).str.startswith(DROPPED_SOLVER)]
+    rows = ["every factor known", "README Section 3", *[f for f, _ in FORMATS]]
+    labels = ["every factor known", "README Section 3", "scm-configure", "scm-design",
               "profile, GPT-5.4", "profile, DeepSeek"]
     y = {r: len(rows) - 1 - i for i, r in enumerate(rows)}
     fig, ax = plt.subplots(figsize=(9.6, 6.0))
     v = luck.att_error_known_factors
     ax.scatter(v[1:], [y["every factor known"]] * (len(v) - 1), s=110, color="#A8A8A8", zorder=3)
     ax.scatter(v[:1], [y["every factor known"]], s=150, color=TRUE_C, zorder=4)
-    for ref in ("README Section 3", "ADH paper specification"):
+    for ref in ("README Section 3",):
         r = t41[t41.arm == ref]
         ax.scatter(r.att_error, [y[ref]] * len(r), s=130, color=README_C, zorder=3)
     for fmt, _ in FORMATS:
@@ -180,11 +192,11 @@ def fig3():
     ax.set_ylim(-0.6, len(rows) - 0.4)
     ax.spines["left"].set_visible(False)
     ax.tick_params(axis="y", length=0)
-    answered = set(t41[t41.arm.isin(["scm-configure", "scm-design"]) & t41.answered].model)
+    answered = set(t41[t41.arm.isin(["scm-configure", "scm-four-design"]) & t41.answered].model)
     dot = lambda c, l, s=10: mpl.lines.Line2D([], [], marker="o", linestyle="", color=c, markersize=s, label=l)
     handles = [dot(TRUE_C, "shipped replication"), dot("#A8A8A8", "ten new replications"),
                *[dot(c, n) for k, n, c in MODELS if k in answered],
-               dot(PROFILE_C, "profile, all four models")]
+               dot(PROFILE_C, "profile, all three models")]
     fig.legend(handles=handles, loc="lower center", ncol=2, bbox_to_anchor=(0.5, 0.0))
     fig.tight_layout(rect=(0, 0.2, 1, 1))
     save(fig, "fig3_luck")

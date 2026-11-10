@@ -1,0 +1,17 @@
+Results · DGP 2 · σ = 0.5
+On DGP 2 at σ = 0.5 four of six cases come within 0.25 of the true effect
+| README Section 5 | configure gpt‑oss | configure GLM | design gpt‑oss | design GLM | profile GPT‑5.4 | profile DeepSeek |
+ATT bias | +0.012 | −0.380 | −0.193 | −0.247 | −0.247 | −0.247 | −0.505 |
+ATT RMSE | 0.263 | 0.380 | 0.193 | 0.247 | 0.247 | 0.247 | 0.505 |
+counterfactual RMSE | 0.640 | 0.514 | 0.496 | 0.446 | 0.446 | 0.446 | 0.665 |
+— random noise | 0.546 | 0.509 | 0.570 | 0.537 | 0.537 | 0.537 | 0.591 |
+pre-treatment RMSPE | 0.492 | 0.463 | 0.477 | 0.358 | 0.358 | 0.358 | 0.700 |
+covariate balance | 0.192 | 0.201 | 0.293 | 0.273 | 0.273 | 0.273 | 0.286 |
+within ±0.25 of the truth | 67% | no | yes | yes | yes | yes | no |
+within ±0.50 of the truth | 94% | yes | yes | yes | yes | yes | no |
+donors carrying weight | 8.8 | 29 | 5 | 9 | 9 | 9 | 29 |
+CV-RMSE ÷ pre-treatment RMSPE | 1.21 | 1.03 | 1.49 (16) | 1.26 | 1.26 | 1.26 | 1.01 |
+max ATT shift, drop one donor | 0.086 | 0.024 | failed (0) | 0.075 | 0.075 | 0.075 | 0.387 |
+Both scm‑design answers equal the GPT‑5.4 profile skill’s answer, 0.247 below the true effect, with the lowest counterfactual RMSE, 0.446. Every leave‑one‑donor‑out refit of GLM‑5.3 under scm‑configure failed.
+README Section 5 rows, DGP 2, σ = 0.5. README column, the collaborator’s mean over 1,000 replications, the leave‑one‑out rows over 100. Every other column, one answer. A number in brackets counts the refits that worked.
+NOTES: An answer’s ATT is the mean over periods 41 to 60 of the treated unit’s outcome minus the answer’s counterfactual, as the collaborator’s code computes it. ATT bias is its error, ATT RMSE the error’s absolute value, and each within row says whether the error lies within the bound. Random noise is σ√(1 + Σw²) at the answer’s own weights.

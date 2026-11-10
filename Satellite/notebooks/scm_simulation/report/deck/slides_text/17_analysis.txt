@@ -1,8 +1,0 @@
-Analysis · one replication per process
-One replication cannot rank the formats
-[image: DGP 1 ATT error of the known-factor counterfactual over 11 replications, the two fixed specifications and every answer]
-The treated unit’s own noise is part of its true untreated path. The counterfactual that knows every DGP 1 factor misses the effect by the mean of that noise, −0.147 on the shipped panel.
-Across 11 replications of the same generator that miss has standard deviation 0.252 and runs from −0.567 to +0.402. Apart from gpt‑oss‑120b, every answer’s DGP 1 ATT error lies between 0.075 and 0.326, inside that range.
-DGP 2 shares no shock across units, and over periods 1 to 40 the treated unit’s outcome correlates 0.08 with the donor average. Ranking the formats needs repeated replications compared panel by panel.
-DGP 1 ATT error of the known‑factor counterfactual over 11 replications, and of the two fixed specifications and every answer on the shipped panel.
-NOTES: The ten new replications run the data generator unchanged with seeds 1 to 10. The unit of analysis is the replication, so the shipped panels give one observation per process, and the formats and models are compared on the same observation. Each format and model ran once, so a model’s run‑to‑run variation is unmeasured.

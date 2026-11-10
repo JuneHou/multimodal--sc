@@ -2,9 +2,9 @@
 
 The fit behind an answer is her_tables.fit_behind: the fit scs_steps matches to a configure or design answer, else the
 recorded fit closest to it, and for a profile answer the skill script's fixed specification. The two reference
-specifications (README Section 3 and the ADH paper's) come first, from method.README_WAY and method.ADH_WAY.
+specification (README Section 3) comes first, from method.README_WAY.
 
-    python report/specs.py      writes results/specs_answers.csv and prints it
+    python report/specs.py      writes results/sigma_1.0/specs_answers.csv and prints it (the sigma = 1 answers)
 """
 import sys
 from pathlib import Path
@@ -15,7 +15,9 @@ HERE = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(HERE))
 import her_tables as h  # noqa: E402
 
-ORDER_ARM = ["README Section 3", "ADH paper specification", "scm-configure", "scm-design", "profile-gpt-5.4",
+# the deck's scm-design is the four-choice design skill, arm scm-four-design (Jun 2026-11-06 "keep only four variable
+# case as scm-design")
+ORDER_ARM = ["README Section 3", "scm-configure", "scm-four-design", "profile-gpt-5.4",
              "profile-deepseek"]
 ORDER_MODEL = ["", "gpt-oss-120b", "GLM-5.3", "DeepSeek-V4.1-Flash-thinking-low", "openai:gpt-5.5", "all four models"]
 
@@ -63,7 +65,12 @@ def describe(spec):
         parts.append(f"{names} {s['op']} over {span(s['periods'])}" if len(s["periods"]) > 1
                      else f"{names} at {s['periods'][0]}")
         i = j + 1
-    n = len(spec["predictors"]) + len(sp)
+    combos = spec.get("outcome_combinations") or []      # scm-four-design's outcome summaries, after the special ones
+    if combos:
+        ws = {float(w) for c in combos for w in c.values()}
+        op = "sum" if ws == {1.0} else "weighted sum"
+        parts.append(f"Y_observed {op} over " + ", ".join(span(sorted(int(t) for t in c)) for c in combos))
+    n = len(spec["predictors"]) + len(sp) + len(combos)
     return n, " · ".join(parts)
 
 
@@ -79,13 +86,12 @@ def row(arm, model, case, spec, note):
 
 def main():
     readme = dict(h.mod.README_WAY)
-    rows = [row("README Section 3", "", "dgp1 and dgp2", readme, "README Section 3, computed from its formulas"),
-            row("ADH paper specification", "", "dgp1 and dgp2", h.adh_spec(), "the ADH paper's choices on this data")]
+    rows = [row("README Section 3", "", "dgp1 and dgp2", readme, "README Section 3, computed from its formulas")]
     seen = set()
     for arm, r in h.answers():
-        if not r["ok"]:
+        if not r["ok"] or arm not in ORDER_ARM:          # the deck's arms only; the two-choice scm-design is not in it
             continue
-        spec, _, note = h.fit_behind(arm, r)
+        spec, _, note = h.fit_behind(arm, r, h.mod.USES["simulation"])
         if arm.startswith("profile"):
             if (arm, r["case"]) in seen:
                 continue
@@ -97,7 +103,7 @@ def main():
     df["_a"] = df.arm.map(ORDER_ARM.index)
     df["_m"] = df.model.map(ORDER_MODEL.index)
     df = df.sort_values(["_a", "_m", "case"]).drop(columns=["_a", "_m"])
-    df.to_csv(HERE / "results" / "specs_answers.csv", index=False)
+    df.to_csv(h.mod.results_folder("1.0") / "specs_answers.csv", index=False)
     pd.set_option("display.width", 250)
     pd.set_option("display.max_colwidth", 90)
     print(df.to_string(index=False))

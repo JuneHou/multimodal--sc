@@ -1,0 +1,16 @@
+Sources
+Every number has a source file
+numbers | file, under Satellite/ |
+Data and ground truth | data/simulation/simulation_data/sigma_<σ>/dgp1_panel.csv, dgp2_panel.csv, ground_truth.csv and config.json for σ = 1.0, 0.5 and 0.2, described in data/simulation/README.md |
+Paper | Abadie, Diamond and Hainmueller, Synthetic Control Methods for Comparative Case Studies, the PDF in notebooks/scm_simulation/profile/work/gpt-5.4/paper/ |
+Reference rows | data/simulation/mc_results_r/sigma_<σ>/mc_replications_dgp1.csv and _dgp2.csv, replication 1 (README Section 3); notebooks/scm_simulation/her_tables.py known_factor_row (every factor known) |
+Results tables | notebooks/scm_simulation/results/sigma_<σ>/table_4_1.csv, table_4_2.csv and table_4_3.csv by her_tables.py, its refits run through arm_checks.R, and noise_floor.csv by noise_floor.py; the README column copied from data/simulation/README.md Section 5; the slides by report/eval_slides.py |
+Answers and runs | notebooks/scm_simulation/scm-configure/sigma_<σ>/, scm-four-design/sigma_<σ>/ (scm‑design), skill_profile/gpt-5.4/sigma_<σ>/ and skill_profile/deepseek/sigma_<σ>/, scored in results/sigma_<σ>/scores.csv by score.py |
+Specifications | notebooks/scm_simulation/results/sigma_1.0/specs_answers.csv by report/specs.py, and results/sigma_1.0/steps_profile.csv |
+Replications | notebooks/scm_simulation/results/sigma_1.0/luck_replications.csv by report/luck.py |
+Reported ATTs | notebooks/scm_simulation/results/sigma_<σ>/att_check.csv by report/att_check.py, from the records at all three σ |
+Figures | notebooks/scm_simulation/report/figures.py, written to report/deck/figs/; the README Section 3 path of figures 1 and 2 from her_section3.R |
+Skill texts | notebooks/scm_simulation/skills/scm-configure/, four_design/skills/scm-four-design/ (scm‑design), profile/skills/ and profile/request.md, collected in review/model_texts.md and review/model_texts_four_design.md |
+Number registry | NUMBERS.md at the repository root, section written by notebooks/scm_simulation/report/number_rows.py |
+Files behind every number in the slides and figures.
+NOTES: Every number in the slides has a row in the number registry, with the file it was read from and how it was computed.

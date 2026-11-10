@@ -19,7 +19,8 @@ class SpecError(ValueError):
 KIND_LABEL = {"int": "<int>", "float": "<float>", "int_or_null": "<int or null>", "positive_list": "<list of numbers>",
               "enum": "<one of the listed values>", "bool": "<true or false>", "name_list": "<list of names>",
               "predictor_list": '<list of {"variable": <name>, "periods": <list of periods>, "op": <name>}>',
-              "positive_list_or_null": "<list of numbers, or null>"}
+              "positive_list_or_null": "<list of numbers, or null>",
+              "option": '<an object: "option" and the values that option carries>'}
 
 
 def _whole_periods(v):
@@ -90,6 +91,28 @@ def typed(field, kind, allowed, v, errors):
                 errors.append(f"field '{field}': entry {i} op {e['op']!r} is not one of {list(allowed['ops'])}")
                 return None
             out.append({"variable": e["variable"], "periods": [int(x) for x in e["periods"]], "op": e["op"]})
+        return out
+    if kind == "option":
+        if not isinstance(v, dict) or "option" not in v:
+            errors.append(f"field '{field}': expected an object with \"option\" and the values that option carries, "
+                          f"got {v!r}"); return None
+        o = v["option"]
+        if not isinstance(o, str) or o not in allowed:
+            errors.append(f"field '{field}': option {o!r} is not one of {list(allowed)}"); return None
+        vals = allowed[o]["values"]
+        got = [k for k in v if k != "option"]
+        if set(got) != set(vals):
+            errors.append(f"field '{field}': option {o!r} carries " + (", ".join(f"'{k}'" for k in vals) or "no values")
+                          + ", got " + (", ".join(f"'{k}'" for k in got) or "none")); return None
+        out = {"option": o}
+        for k, f in vals.items():
+            if f.kind is None:                          # typed by the method's checks
+                out[k] = v[k]
+                continue
+            x = typed(f"{field}.{k}", f.kind, f.allowed, v[k], errors)
+            if x is None and not (f.kind in ("int_or_null", "positive_list_or_null") and v[k] is None):
+                return None
+            out[k] = x
         return out
     raise AssertionError(kind)
 

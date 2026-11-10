@@ -1,0 +1,11 @@
+Analysis · how each reported ATT was written
+Most typed ATTs disagree with the answers’ own counterfactuals
+how the ATT reached the answer | solver models | answers | ATT differs |
+typed as a number | gpt‑oss‑120b under scm‑configure and scm‑design | 11 | 8 |
+computed in code | GLM‑5.3 under both skills, GPT‑5.5 under scm‑configure, one gpt‑oss‑120b answer under scm‑design | 15 | 2 |
+written by the skill’s script | all three under both profile skills | 28 | 0 |
+In three of the eight typed ATTs that differ, the number typed is the gap of a single period, 41 or 60, from the fitter’s table. The other five appear in no earlier output of their run.
+The computed ATTs that differ
+Both are under scm‑design. gpt‑oss‑120b at σ = 0.5 on DGP 1 wrote a counterfactual of 0 in every period and an ATT of 0, against −2.977 from that counterfactual. GLM‑5.3 at σ = 0.2 on DGP 2 subtracted its counterfactual from the period 41 outcome in every period and reported −3.324, against −3.102 from its own counterfactual. A case ends at the step that writes a valid answer, so neither model saw the ATT it wrote.
+All 54 answers at shock SD σ = 1, 0.5 and 0.2, the SD of εit in DGP 1 and of ut in DGP 2. An ATT differs when it lies more than 0.0001 from the mean gap of the answer’s own counterfactual over periods 41 to 60.
+NOTES: The ATT rows of the results tables use the ATT of each answer’s counterfactual, as the collaborator’s code computes it. How an ATT was written is read from the last command that writes the answer file, and an ATT written there as a number counts as typed.

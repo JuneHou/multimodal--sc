@@ -1,11 +1,9 @@
-Reference rows
-Three reference rows bound what an answer can reach
+References
+The README column is the Section 3 specification over 1,000 replications
 README Section 3
-The simulation README’s specification. Z1 and Z2 at period 40 and the outcome at each of periods 1 to 40 make 42 predictors, each scaled by its standard deviation over the 30 units. V is the identity and the convex weights are solved exactly.
-ADH specification
-The paper’s predictor choices for California, placed at the same points of this pre-treatment window. The predictors are Z1 and Z2 averaged over periods 23 to 40 and the outcome at periods 12, 23 and 40. Synth searches V to fit the outcome over periods 1 to 40.
+The simulation README’s specification. Z1 and Z2 at period 40 and the outcome at each of periods 1 to 40 make 42 predictors, each scaled by its standard deviation over the 30 units. V is the identity, and the convex weights come from Synth’s solver.
 Every factor known
-The counterfactual δt + θt′Z1 + λt′μ1, rebuilt from the DGP 1 generator. Its only error is the treated unit’s own noise, which no weighting of donors can predict. DGP 2 shares no term across units and has no such reference.
-The known-factor counterfactual removes every error a method can remove on DGP 1. The README and ADH specifications show what two fixed choices of predictors and V reach on the same panels.
-Specifications from the simulation README, the paper’s California study and the data generator.
-NOTES: The README prints no results, so the README Section 3 values are computed from its formulas. The ADH specification maps each predictor year of the California study to the period at the same fraction of this 40-period pre-treatment window. Both fixed specifications appear first in every results table.
+The counterfactual δt + θt′Z1 + λt′μ1, rebuilt from the DGP 1 generator. Its only error is the treated unit’s own noise, which no weighting of donors can predict.
+The README column of every results table averages the Section 3 specification over the collaborator’s 1,000 replications. The known‑factor counterfactual removes every error a method can remove on DGP 1, and the analysis of one replication compares the answers with it.
+Specifications from the simulation README and the data generator.
+NOTES: The README column copies the collaborator’s Section 5 results, which fit every replication with the Section 3 specification.

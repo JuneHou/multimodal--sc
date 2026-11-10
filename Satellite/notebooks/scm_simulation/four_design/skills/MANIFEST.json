@@ -1,0 +1,20 @@
+{
+ "scm-four-configure/SKILL.md": "7e08621045a68cde95c62cc940d37e79de6df08b217c1000096fdbdcbe7af5c9",
+ "scm-four-configure/references/method.md": "8becbdb3feb9b5a0e204665bb25e310d94e651a69647af79fcdc99d054dfdad4",
+ "scm-four-configure/references/settings.md": "e16981461e946a4fbb5b6952aa38ce2800d50dc295b3001aa77049ea9943c128",
+ "scm-four-configure/scripts/show_data.py": "69958de6377b3deea465148de9a0bf32de42fb27288b9c18c2d2e062c616b385",
+ "scm-four-configure/scripts/fit.R": "259975d67644f625701b0c04780416de5388f2a2a72a34801c944ebb9e232ee0",
+ "scm-four-configure/scripts/four_fields.R": "8316dcc3ac321f0d7781c7a1b00ec31ae8e8ce478bdf29d28933d682cd06e31f",
+ "scm-four-configure/scripts/four_translate.R": "cd43c60702d576d65bc77e69da657439bc4bdbdb506c47b113100ab6f809edaa",
+ "scm-four-configure/scripts/synth_fit.R": "77e45973c09509f32553797aa2e821de1b3edf018727b0a39db20367a3ea2068",
+ "scm-four-configure/scripts/scm_native.R": "c4f6fea57faac57eabfcf2c7c9c10144809fde1aefc992b0824d742dae7095cf",
+ "scm-four-design/SKILL.md": "8eb94e6524a19eab048cb27b291c4f686018d9e419c6ce77da5ed229c9fdc2a9",
+ "scm-four-design/references/method.md": "8becbdb3feb9b5a0e204665bb25e310d94e651a69647af79fcdc99d054dfdad4",
+ "scm-four-design/references/settings.md": "d90905e9a52b5c79235107edc6934858833668c83bf08e0deb82c0b70fcda37e",
+ "scm-four-design/scripts/show_data.py": "69958de6377b3deea465148de9a0bf32de42fb27288b9c18c2d2e062c616b385",
+ "scm-four-design/scripts/fit.R": "2d6a3a25b52188f75fab889cbdc6aa4065671c9ec725538a5b5d6461f30e0c30",
+ "scm-four-design/scripts/four_fields.R": "8316dcc3ac321f0d7781c7a1b00ec31ae8e8ce478bdf29d28933d682cd06e31f",
+ "scm-four-design/scripts/four_translate.R": "cd43c60702d576d65bc77e69da657439bc4bdbdb506c47b113100ab6f809edaa",
+ "scm-four-design/scripts/synth_fit.R": "77e45973c09509f32553797aa2e821de1b3edf018727b0a39db20367a3ea2068",
+ "scm-four-design/scripts/scm_native.R": "c4f6fea57faac57eabfcf2c7c9c10144809fde1aefc992b0824d742dae7095cf"
+}

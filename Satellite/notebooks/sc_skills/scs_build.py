@@ -46,7 +46,38 @@ def skill_md(pkg, fmt):
 
 
 def _choice_shape(f):
+    if f.kind == "option":                    # departure 2: "option" and each value, with the options that carry it
+        out = {"option": "<" + "|".join(f.allowed) + ">"}
+        for spec in f.allowed.values():
+            for k, vf in spec["values"].items():
+                if k not in out:
+                    users = [a for a, sa in f.allowed.items() if k in sa["values"]]
+                    out[k] = f"{vf.meaning.partition(': ')[0]}, only with {' or '.join(users)}"
+        return out
     return "<true|false>" if f.kind == "bool" else "<" + "|".join(f.allowed) + ">"
+
+
+def _choice_options(f):
+    if f.kind == "option":
+        return ", ".join(f"`{a}`" + (" with " + " and ".join(f"`{k}`" for k in s["values"]) if s["values"] else "")
+                         for a, s in f.allowed.items())
+    return ", ".join(f"`{a}`" for a in f.allowed) if f.kind == "enum" else "`true`, `false`"
+
+
+def _option_values(S):
+    """Rows of the values the options carry, for choices of the kind "option" (none for other packages)."""
+    rows = []
+    for name, f in S.choices.items():
+        if f.kind != "option":
+            continue
+        for a, s in f.allowed.items():
+            for k, vf in s["values"].items():
+                rng, sep, why = vf.meaning.partition(": ")
+                rows.append(f"| `{name}` | `{a}` | `{k}` | {rng} | {why} |")
+    if not rows:
+        return []
+    return ["", "## Values the options carry", "", "| choice | option | value | type and range | meaning |",
+            "|---|---|---|---|---|"] + rows
 
 
 def settings_md(pkg, fmt):
@@ -62,10 +93,10 @@ def settings_md(pkg, fmt):
     if fmt == "design":
         out += ["", "## Choices", "", "| field | options | meaning |", "|---|---|---|"]
         for name, f in S.choices.items():
-            opts = ", ".join(f"`{a}`" for a in f.allowed) if f.kind == "enum" else "`true`, `false`"
-            out.append(f"| `{name}` | {opts} | {f.meaning} |")
+            out.append(f"| `{name}` | {_choice_options(f)} | {f.meaning} |")
         for name, (f, label, shape) in S.optional.items():
             out.append(f"| `{name}` | {label} | {f.meaning} |")
+        out += _option_values(S)
         out += ["", "## Rules that tie the fields together", ""] + [f"- {r}" for r in S.rules]
         shape = {**{k: KIND_LABEL[f.kind] for k, f in S.settings.items()},
                  **{k: _choice_shape(f) for k, f in S.choices.items()},

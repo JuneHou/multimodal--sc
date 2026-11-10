@@ -12,7 +12,8 @@ Reproduction of the existing SHC skills (packages that carry OLD, the implementa
     same_fits       scs_fit gives the same fit as the old fit on every case at the reference values, and on the
                     native engine for one non-reference spec per case
 
-    python scs_tests.py --method <method> [test ...]      every test, or the named ones
+    python scs_tests.py --method <method> [--use <use>] [test ...]      every test, or the named ones, on one use
+                                                                         (the method's first use when --use is absent)
 """
 import os
 
@@ -21,6 +22,8 @@ for _v in ("OMP_NUM_THREADS", "MKL_NUM_THREADS", "OPENBLAS_NUM_THREADS"):     # 
 os.environ["MKL_THREADING_LAYER"] = "SEQUENTIAL"
 
 import argparse  # noqa: E402
+import atexit  # noqa: E402
+import shutil  # noqa: E402
 import itertools  # noqa: E402
 import json  # noqa: E402
 import math  # noqa: E402
@@ -36,8 +39,14 @@ OPTIONAL_VALUES = [None, [], ["x"], "x", ["VV"], ["VV", "VV"], ["B2", "NDVI"]]
 
 
 # ----------------------------------------------------------------------------- batteries
+def _choice_values(f):
+    if f.kind == "option":                    # each option with the package's example values (departure 2)
+        return tuple({"option": a, **s["example"]} for a, s in f.allowed.items())
+    return tuple(f.allowed) if f.kind == "enum" else (True, False)
+
+
 def choice_combinations(S):
-    opts = {k: (tuple(f.allowed) if f.kind == "enum" else (True, False)) for k, f in S.choices.items()}
+    opts = {k: _choice_values(f) for k, f in S.choices.items()}
     return [dict(zip(opts, c)) for c in itertools.product(*opts.values())]
 
 
@@ -209,13 +218,17 @@ def built(pkg):
     if pkg.name not in _BUILT:
         import scs_build
         root = Path(tempfile.mkdtemp(prefix="scs_build_"))
+        atexit.register(shutil.rmtree, root, ignore_errors=True)   # Jun "if we don't need, deleted after finish."
         scs_build.build(pkg, root)
         _BUILT[pkg.name] = root
     return _BUILT[pkg.name]
 
 
+USE_NAME = None                        # --use; None means the method's first use
+
+
 def _use(mod):
-    return next(iter(mod.USES.values()))
+    return mod.USES[USE_NAME] if USE_NAME else next(iter(mod.USES.values()))
 
 
 def test_build(pkg, mod):
@@ -548,9 +561,14 @@ REPRODUCTION = ["same_refusals", "same_dispatch", "same_fits", "same_steps"]
 def main(argv):
     ap = argparse.ArgumentParser()
     ap.add_argument("--method", required=True)
+    ap.add_argument("--use", default=None, help="the use whose cases the tests run on; the method's first use if absent")
     ap.add_argument("tests", nargs="*")
     a = ap.parse_args(argv)
+    global USE_NAME
+    USE_NAME = a.use
     mod = scs_method.load_module(a.method)
+    if a.use is not None and a.use not in mod.USES:
+        raise SystemExit(f"--use {a.use}: the method has the uses {', '.join(mod.USES)}")
     pkg = mod.PACKAGE
     names = a.tests or GENERIC + (REPRODUCTION if hasattr(mod, "OLD") else [])
     results = {}

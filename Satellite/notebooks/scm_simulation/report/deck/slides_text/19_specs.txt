@@ -1,0 +1,12 @@
+Analysis · what each model chose
+Five of the ten specifications the models chose give the GPT‑5.4 script’s predictors
+predictor set | count | V | chosen by |
+Z1, Z2 at 40 · outcome at each of 1–40 | 42 | identity | collaborator, README Section 3 |
+Z1, Z2 mean · outcome at each of 1–40 | 42 | searched | configure GPT‑5.5, design gpt‑oss, design GLM (DGP 1), generator GPT‑5.4 |
+Z1, Z2 mean | 2 | searched | configure gpt‑oss (DGP 2), generator DeepSeek |
+Z1, Z2 and outcome, each the mean over 1–40 | 3 | searched | configure gpt‑oss (DGP 1) |
+Z1, Z2 mean · outcome mean over 1–10, 11–20, 21–30, 31–40 | 6 | searched | configure GLM |
+Z1, Z2 mean over 1–30 · outcome sum over 1–10, 11–20, 21–30 | 5 | searched on 31–40 | design GLM (DGP 2) |
+In scm‑configure and scm‑design the solver model picks the predictors, and in a profile skill the generator picked them when it wrote the script. Every answer let Synth search V and kept all 29 donors with convex weights and no penalty.
+Predictor sets of the fits behind the σ = 1 answers, grouped. Covariate means are over periods 1 to 40 unless the row or the speaker notes give other periods.
+NOTES: Synth searches V in two nested steps. For a candidate V it fits the convex donor weights, then scores that synthetic control by the mean squared error of the treated unit’s outcome over the chosen pre‑treatment periods, and an optimizer changes V to make that error as small as possible. gpt‑oss‑120b under scm‑design on DGP 1 averaged the covariates over periods 1 and 40, which on DGP 1 gives the same values as periods 1 to 40. GLM‑5.3 under scm‑configure averaged them over periods 1 and 20 on DGP 1, and on DGP 2 no recorded fit equals its answer exactly, so the closest recorded fit stands behind it. The optimizers of each V search are listed in the specifications file named on the sources page.

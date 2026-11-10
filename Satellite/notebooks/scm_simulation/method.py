@@ -6,8 +6,14 @@ Every pipeline script in notebooks/sc_skills/ takes this package as ../../scm_si
     settings   Synth's own arguments (dataprep and synth), the model writes them in configure and design
     choices    the paper's alternatives to what Synth fixes in its body (p. 496): weights, interpolation_penalty
     engine     the reference engine runs Synth unchanged (synth_fit.R), the native engine runs scm_native.R
-    use        "simulation": the two shipped panels, one case each, scored later against ground_truth.csv
+    use        "simulation": the two shipped panels at outcome shock SD 1 (simulation_data/sigma_1.0/), one case each,
+               scored later against that folder's ground_truth.csv; "sigma_0.5" and "sigma_0.2": the same two panels
+               at the collaborator's lower noise levels, with the same file names and task text
+    records    record_folders(sigma): one folder per skill format and noise level, scm-configure/sigma_<s>/,
+               scm-design/sigma_<s>/, skill_profile/<generator>/sigma_<s>/; tables in results/sigma_<s>/
 """
+import atexit
+import dataclasses
 import json
 import math
 import os
@@ -27,8 +33,29 @@ from scs_loop import Use                                                        
 import scs_loop as _loop                                                                          # noqa: E402
 
 DATA = HERE.parents[1] / "data" / "simulation"
-PANELS = {"dgp1": DATA / "simulation_data" / "dgp1_panel.csv", "dgp2": DATA / "simulation_data" / "dgp2_panel.csv"}
-TRUTH = DATA / "simulation_data" / "ground_truth.csv"
+SIGMAS = ("1.0", "0.5", "0.2")           # the collaborator's three noise levels, simulation_data/sigma_<s>/
+PANELS_BY_SIGMA = {s: {g: DATA / "simulation_data" / f"sigma_{s}" / f"{g}_panel.csv" for g in ("dgp1", "dgp2")}
+                   for s in SIGMAS}
+TRUTH_BY_SIGMA = {s: DATA / "simulation_data" / f"sigma_{s}" / "ground_truth.csv" for s in SIGMAS}
+PANELS = PANELS_BY_SIGMA["1.0"]
+TRUTH = TRUTH_BY_SIGMA["1.0"]
+GENERATORS = ("gpt-5.4", "deepseek")
+
+
+def record_folders(sigma):
+    """{arm: folder of its records} at one noise level (plan use-nature-skills-analyze-wiggly-coral.md, departure 3 of
+    the noise-level plan; scm-four-design added by the plan at the top of that file)."""
+    return {"scm-configure": HERE / "scm-configure" / f"sigma_{sigma}", "scm-design": HERE / "scm-design" / f"sigma_{sigma}",
+            **{f"profile-{g}": HERE / "skill_profile" / g / f"sigma_{sigma}" for g in GENERATORS},
+            "scm-four-design": HERE / "scm-four-design" / f"sigma_{sigma}"}
+
+
+def results_folder(sigma):
+    return HERE / "results" / f"sigma_{sigma}"
+
+
+def use_name(sigma):
+    return "simulation" if sigma == "1.0" else f"sigma_{sigma}"
 PAPER = DATA / ("Synthetic Control Methods for Comparative Case Studies- Estimating the Effect of California’s "
                 "Tobacco Control Program.pdf")
 R_ENV = Path("/data/wang/junh/envs/rsynth")
@@ -164,8 +191,9 @@ SPEC = Spec(settings=SETTINGS, choices=CHOICES, optional=OPTIONAL, rules=RULES, 
 
 
 # ----------------------------------------------------------------------------- the use's cases and contexts
-def _case_files(name):
-    return {PANELS[name].name: PANELS[name].read_text()}
+def _case_files(name, sigma="1.0"):
+    path = PANELS_BY_SIGMA[sigma][name]
+    return {path.name: path.read_text()}
 
 
 def CONTEXTS():
@@ -180,6 +208,7 @@ def _trial_cases():
     global _TRIAL_DIR
     if _TRIAL_DIR is None:
         _TRIAL_DIR = Path(tempfile.mkdtemp(prefix="scm_trial_"))
+        atexit.register(shutil.rmtree, _TRIAL_DIR, ignore_errors=True)   # Jun "if we don't need, deleted after finish."
         for name in PANELS:
             (_TRIAL_DIR / name).mkdir()
             for fname, text in _case_files(name).items():
@@ -466,11 +495,11 @@ def _post_periods():
     return [str(t) for t in range(FIRST_TREATED, 61)]
 
 
-def _use_cases():
+def _use_cases(sigma="1.0"):
     out = []
-    for name in PANELS:
-        out.append({"prompt_id": f"scm_{name}", "id": {"case": name}, "files": _case_files(name),
-                    "ctx": {"case": name, "panel": str(PANELS[name])}})
+    for name, path in PANELS_BY_SIGMA[sigma].items():
+        out.append({"prompt_id": f"scm_{name}", "id": {"case": name}, "files": _case_files(name, sigma),
+                    "ctx": {"case": name, "panel": str(path)}})
     return out
 
 
@@ -540,21 +569,23 @@ USES = {"simulation": Use(name="simulation", cases=_use_cases, task_text=_task_t
                                           "period the task names and the average effect over those periods, and "
                                           "writes `answer.json` as {\"counterfactual\": {\"<period>\": <number>, "
                                           "...}, \"att\": <number>, \"rationale\": \"<text>\"}."))}
+for _s in SIGMAS[1:]:                    # the lower noise levels: the same use, that level's panels
+    USES[use_name(_s)] = dataclasses.replace(USES["simulation"], name=use_name(_s),
+                                             cases=(lambda s=_s: _use_cases(s)))
 
 
 # ----------------------------------------------------------------------------- compare steps
 def _steps_records():
-    """{(arm, model): {prompt_id: last record}} over runs/simulation*/ (score.arm names the arm)."""
+    """{(arm, model): {prompt_id: last record}} over the sigma = 1 record folders (record_folders)."""
     out = {}
-    for p in sorted((HERE / "runs").glob("simulation*/*.jsonl")):
-        recs = {}
-        for line in p.read_text().splitlines():
-            r = json.loads(line)
-            recs[r["prompt_id"]] = r                 # the last record of a case is the one kept
-        first = recs[next(iter(recs))]
-        folder = p.parent.name
-        arm = first["skill"] if folder == "simulation" else folder[len("simulation_"):]
-        out[(arm, first["model"])] = recs
+    for arm, folder in record_folders("1.0").items():
+        for p in sorted(folder.glob("*.jsonl")):
+            recs = {}
+            for line in p.read_text().splitlines():
+                r = json.loads(line)
+                recs[r["prompt_id"]] = r                 # the last record of a case is the one kept
+            first = recs[next(iter(recs))]
+            out[(arm, first["model"])] = recs
     return out
 
 
@@ -571,7 +602,7 @@ def _steps_reference_rows():
     import pandas as pd
     import scs_spec
     rows = []
-    for way, spec in REFERENCE_WAYS.items():
+    for way, spec in {"README way": README_WAY}.items():     # the ADH row dropped (Jun "drop all, b", 2026-11-04)
         for ctx in CONTEXTS():
             fit = ENGINE.reference(ctx, scs_spec.validate(SPEC, dict(spec), ctx))
             rows.append({"data": "simulation", "skill": way, "model": "", "case": ctx["case"],

@@ -1,14 +1,17 @@
-Scoring · the README’s three checks
-Every answer is checked three ways
-section | measure | computed as | uses the truth |
-4.1 | counterfactual RMSE | root mean square of ŶN − YN over periods 41 to 60 | yes |
-4.1 | ATT error | reported ATT minus the true effect −3 | yes |
-4.1 | relative ATT error | absolute ATT error divided by 3 | yes |
-4.2 | pre-treatment RMSPE | root mean square of the treated outcome minus the weighted donors over periods 1 to 40 | no |
-4.2 | covariate balance | root mean square of Z1 and Z2 minus the weighted donors at period 40 | no |
-4.3 | leave one donor out | largest change in the ATT when one donor with positive weight is left out and the weights refitted | no |
-4.3 | leave one period out | CV-RMSE over periods 1 to 40, each period predicted from outcome weights fitted on the other 39 | no |
-4.3 | held-out block | RMSE over periods 36 to 40 from outcome weights fitted on periods 1 to 35 | no |
-Section 4.1 scores each answer against the true untreated path and the true effect. Sections 4.2 and 4.3 use observed data only. The two checks that leave out periods fit weights on the outcome alone and give one value per process, the same for every answer.
-Measures of Sections 4.1, 4.2 and 4.3 of the simulation README.
-NOTES: For a configure or design answer, Sections 4.2 and 4.3 use the fit that produced it. For a profile answer they use the skill script’s specification refitted with Synth, which reproduces every answer within 0.0001 in every period.
+Scoring · the rows of README Section 5
+Every answer is scored on the README’s evaluation rows
+row in the tables | for one answer | README | Code |
+ATT bias | ATT̂ − (−3) | 4.1, 5 | lines 101, 169 |
+ATT RMSE | |ATT̂ + 3| | 5 | line 170 |
+counterfactual RMSE | √( 1/20 Σt=41…60 (Ŷ1tN − Y1tN)² ) | 4.1 | lines 95, 173 |
+— random noise | σ √( 1 + Σj ŵj² ) | 5 | lines 118, 182 |
+pre‑treatment RMSPE | √( 1/40 Σt=1…40 (Y1t − Σj ŵjYjt)² ) | 4.2 | lines 96, 175 |
+covariate balance | √( 1/2 Σr=1,2 (Z1r,40 − Σj ŵjZjr,40)² ) | 4.2 | lines 104, 176 |
+within ±0.25 of the truth | |ATT̂ + 3| ≤ 0.25, yes or no | 5 | line 187 |
+within ±0.50 of the truth | |ATT̂ + 3| ≤ 0.50, yes or no | 5 | line 188 |
+donors carrying weight | donors with ŵj > 0.001 | 5 | lines 105, 190 |
+CV‑RMSE ÷ pre‑treatment RMSPE | √( 1/40 Σs=1…40 es² ) ÷ RMSPE, es = Y1s − Σj ŵj(−s)Yjs | 4.3, 5 | lines 126–134, 194 |
+max ATT shift, drop one donor | maxj |ATT̂(−j) − ATT̂| over ŵj > 0.001 | 4.3 | lines 147–156, 196 |
+An answer’s ATT̂ is the mean over periods 41 to 60 of the treated unit’s outcome minus the answer’s counterfactual, as the collaborator’s code computes it. The README column averages each row over the collaborator’s 1,000 replications, the last two over 100. An answer’s leave‑one‑out refits use its own specification and search V again where the answer did, while the collaborator’s code fixes V at the identity.
+Rows of the results tables, the formula for one answer, and the README section and evaluation code lines that define each.
+NOTES: The first code line computes the measure for one replication and the second averages it over replications. For a configure or design answer the measures use the fit that produced it, and for a profile answer the skill script’s specification refitted with Synth, which reproduces every answer within 0.0001 in every period. An answer whose counterfactual no recorded fit gives has no fit behind it, and its rows that need a fit read no fit.

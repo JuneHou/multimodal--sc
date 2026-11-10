@@ -24,11 +24,15 @@ from typing import Callable, Optional
 HERE = Path(__file__).resolve().parent
 METHODS = HERE / "methods"
 KINDS = ("int", "float", "int_or_null", "positive_list", "enum", "bool",
-         "name_list", "predictor_list", "positive_list_or_null")
+         "name_list", "predictor_list", "positive_list_or_null", "option")
 # name_list              allowed = tuple of names; a list of distinct names from it (may be empty)
 # predictor_list         allowed = {"variables": tuple, "ops": tuple}; a list of {"variable", "periods", "op"} objects,
 #                        periods a non-empty list of whole numbers >= 1 (may be empty)
 # positive_list_or_null  allowed = predicate on a list, as positive_list; or null
+# option                 allowed = {option: {"values": {name: Field}, "example": {name: value}}}; an object holding
+#                        "option", one of the options, and exactly the values that option carries. A value's Field has
+#                        kind None when the method's own checks type it; its meaning is "<range>: <meaning>". The
+#                        example is used by the tests (plan use-nature-skills-analyze-wiggly-coral.md, departure 2)
 LANGUAGES = ("python", "R")
 COPY_MODES = ("functions", "cells", "package")
 
@@ -167,6 +171,18 @@ def validate(pkg):
                 bad.append(f"{group}.{name}: {f.kind} without options")
             if f.kind == "predictor_list" and not (isinstance(f.allowed, dict) and {"variables", "ops"} <= set(f.allowed)):
                 bad.append(f"{group}.{name}: predictor_list without variables and ops")
+            if f.kind == "option":
+                if not (isinstance(f.allowed, dict) and f.allowed):
+                    bad.append(f"{group}.{name}: option without options")
+                    continue
+                for o, spec in f.allowed.items():
+                    if not (isinstance(spec, dict) and set(spec) == {"values", "example"}
+                            and set(spec["example"]) == set(spec["values"])):
+                        bad.append(f"{group}.{name}: option {o!r} needs values and an example of each value")
+                        continue
+                    for k, vf in spec["values"].items():
+                        if vf.kind is not None and vf.kind not in KINDS[:-1]:
+                            bad.append(f"{group}.{name}: option {o!r} value {k!r} has kind {vf.kind!r}")
     missing_ref = [k for k in list(s.settings) + list(s.choices) if k not in s.reference]
     if missing_ref:
         bad.append(f"spec.reference lacks {missing_ref}")

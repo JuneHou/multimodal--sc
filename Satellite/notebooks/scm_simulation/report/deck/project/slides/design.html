@@ -1,21 +1,23 @@
 <section id="design" data-transition="fade" style="background:#F7F6F2;color:#17212B;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
 <p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#0E6B73">Example · scm‑design · SKILL.md</p>
-<h2 style="font-family:'Source Serif 4', Georgia, serif;font-size:60px;font-weight:600;line-height:1.1;color:#17212B">scm‑design adds the paper’s two alternatives</h2>
-<div style="display:flex;flex-direction:column;background:#1E2A35;padding:28px 32px;border-radius:12px">
-<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:24px;line-height:1.25;color:#7FC4C9;white-space:nowrap">name: scm-design</p>
-<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:24px;line-height:1.25;color:#E6EBE5;white-space:nowrap">## Everything is yours to decide</p>
-<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:24px;line-height:1.25;color:#E6EBE5;white-space:nowrap">`spec.json` holds two kinds of field. The settings are the 13 arguments of Synth's `dataprep` and</p>
-<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:24px;line-height:1.25;color:#E6EBE5;white-space:nowrap">`synth` listed in `references/settings.md`. The choices are the paper's alternatives to what Synth fixes</p>
-<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:24px;line-height:1.25;color:#E6EBE5;white-space:nowrap">in its code (Abadie, Diamond and Hainmueller …, p. 496):</p>
-<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:24px;line-height:1.25;color:#F2B880;white-space:nowrap">- `weights`, `convex` (every donor weight at least 0, summing to one, the paper's definition and</p>
-<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:24px;line-height:1.25;color:#F2B880;white-space:nowrap">&#160;&#160;Synth's) or `extrapolation` (summing to one, any weight may be below 0 or above one)</p>
-<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:24px;line-height:1.25;color:#F2B880;white-space:nowrap">- `interpolation_penalty`, `none` or `distance`, which adds `penalty_lambda` times each donor's weight</p>
-<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:24px;line-height:1.25;color:#F2B880;white-space:nowrap">&#160;&#160;times its distance from the treated unit's predictors, so that distant donors are kept out</p>
-<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:24px;line-height:1.25;color:#E6EBE5;white-space:nowrap">`references/settings.md` defines every field and the rules that tie them. `penalty_lambda` is given</p>
-<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:24px;line-height:1.25;color:#E6EBE5;white-space:nowrap">exactly when `interpolation_penalty` is `distance`, and `distance` requires `convex` weights. …</p>
-<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:24px;line-height:1.25;color:#E6EBE5;white-space:nowrap">3. Write `spec.json`, then run `Rscript scripts/fit.R spec.json`. It prints the predictors and V, …</p>
+<h2 style="font-family:'Source Serif 4', Georgia, serif;font-size:60px;font-weight:600;line-height:1.1;color:#17212B">scm‑design leaves four of the paper’s choices to the model</h2>
+<div style="display:flex;flex-direction:column;background:#FFFFFF;border:1px solid #D3D8D2;padding:28px 32px;border-radius:12px">
+<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:24px;line-height:1.25;color:#0E6B73;white-space:nowrap">name: scm-four-design</p>
+<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:24px;line-height:1.25;color:#17212B;white-space:nowrap">## Everything is yours to decide</p>
+<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:24px;line-height:1.25;color:#17212B;white-space:nowrap">`spec.json` holds four choices, the paper's options for building the synthetic control (Abadie, Diamond</p>
+<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:24px;line-height:1.25;color:#17212B;white-space:nowrap">and Hainmueller 2010, p. 496). … Every fit uses all 29 donors, and the Synth R package fits it with its</p>
+<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:24px;line-height:1.25;color:#17212B;white-space:nowrap">default optimizers and solver settings.</p>
+<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:24px;line-height:1.25;color:#A65300;white-space:nowrap">- `predictors`, `every_outcome` (Z1, Z2 and the outcome in each pre-treatment period, …) or `summaries`</p>
+<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:24px;line-height:1.25;color:#A65300;white-space:nowrap">&#160;&#160;(Z1, Z2 and "only a few linear combination of preintervention outcomes", …). …</p>
+<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:24px;line-height:1.25;color:#A65300;white-space:nowrap">- `v`, how the predictor weights V are chosen. `judgement` sets V from "subjective assessments of the</p>
+<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:24px;line-height:1.25;color:#A65300;white-space:nowrap">&#160;&#160;predictive power of the variables" and carries `values`, one weight per predictor. `pre_period_fit` …</p>
+<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:24px;line-height:1.25;color:#A65300;white-space:nowrap">&#160;&#160;`validation` fits the donor weights on "an initial training period" ending at `training_end`, …</p>
+<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:24px;line-height:1.25;color:#A65300;white-space:nowrap">- `weights`, `convex` (every donor weight at least 0, summing to one, …) or `extrapolation` (summing to one,</p>
+<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:24px;line-height:1.25;color:#A65300;white-space:nowrap">&#160;&#160;any weight may be below 0 or above one, "at the cost of allowing extrapolation").</p>
+<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:24px;line-height:1.25;color:#A65300;white-space:nowrap">- `penalty`, `none` or `distance`, "penalty terms specified as increasing functions of the distances" …</p>
+<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:24px;line-height:1.25;color:#17212B;white-space:nowrap">3. Write `spec.json`, then run `Rscript scripts/fit.R spec.json`. It prints the predictors and V, …</p>
 </div>
-<p style="font-size:26px;line-height:1.45;color:#17212B">Every scm‑design answer kept convex weights without a penalty, the estimator that scm‑configure fixes. The two skills differ in what the model is offered, and the answers used the same estimator under both.</p>
+<p style="font-size:26px;line-height:1.45;color:#17212B">At σ = 1 three of the four scm‑design answers took the outcome in every pre‑treatment period as predictors, with V fitted to the pre‑treatment outcome. GLM‑5.3 on DGP 2 took three outcome summaries, with V chosen on a validation stretch. All four chose convex weights and no penalty.</p>
 <p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#5B6670">Excerpt of the skill’s SKILL.md, verbatim lines, with … where text is left out.</p>
-<aside>The orange lines are the two choices scm‑design adds to the 13 settings. With convex weights and no penalty, the fitter runs every line of Synth’s code unchanged.</aside>
+<aside>The orange lines are the four choices the model makes. The skill’s own name is scm‑four‑design, and the deck calls it scm‑design.</aside>
 </section>

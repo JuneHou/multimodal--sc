@@ -1,20 +1,72 @@
 {
   "v": 4,
-  "createdOnFiles": {"v": 1, "at": "2026-11-01T22:08:00Z"},
-  "lists": "css",
-  "title": "SCM Skill Formats",
+  "attachments": {},
   "cover": "cover",
-  "order": ["cover", "data", "method", "references", "scoring", "formats", "configure", "design", "profile", "runs", "answered", "t41", "t42", "t43", "example", "specs", "analysis", "findings", "sources"],
-  "sections": {
-    "s1": {"description": "The question, the simulated data, the method and how answers are checked", "start": "cover"},
-    "s2": {"description": "How each skill format is built and how every model runs it", "start": "formats"},
-    "s3": {"description": "Every answer against the known effect, beside three reference rows", "start": "answered"},
-    "s4": {"description": "What one replication can show, the findings and the sources of every number", "start": "analysis"}
+  "createdOnFiles": {
+    "at": "2026-11-01T22:08:00Z",
+    "v": 1
   },
+  "designSystems": [],
   "faces": {
-    "ibm-plex-sans": {"family": "IBM Plex Sans", "href": "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&display=swap"},
-    "source-serif-4": {"family": "Source Serif 4", "href": "https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;600&display=swap"},
-    "ibm-plex-mono": {"family": "IBM Plex Mono", "href": "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400&display=swap"}
+    "ibm-plex-mono": {
+      "family": "IBM Plex Mono",
+      "href": "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400&display=swap"
+    },
+    "ibm-plex-sans": {
+      "family": "IBM Plex Sans",
+      "href": "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&display=swap"
+    },
+    "source-serif-4": {
+      "family": "Source Serif 4",
+      "href": "https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;600&display=swap"
+    }
   },
-  "designSystems": []
+  "lists": "css",
+  "order": [
+    "cover",
+    "method",
+    "data",
+    "references",
+    "scoring",
+    "formats",
+    "configure",
+    "design",
+    "profile",
+    "r10_dgp1",
+    "r10_dgp2",
+    "example",
+    "r05_dgp1",
+    "r05_dgp2",
+    "r02_dgp1",
+    "r02_dgp2",
+    "reporting",
+    "findings",
+    "specs",
+    "sources"
+  ],
+  "sections": {
+    "s1": {
+      "description": "The question, the simulated data, the method and how answers are checked",
+      "start": "cover"
+    },
+    "s2": {
+      "description": "How each skill format is built and how every model runs it",
+      "start": "formats"
+    },
+    "s3": {
+      "before": null,
+      "description": "Every answer at σ = 1 beside the collaborator’s README Section 5 results",
+      "start": "r10_dgp1"
+    },
+    "s3b": {
+      "description": "The same table at the noise levels σ = 0.5 and 0.2",
+      "start": "r05_dgp1"
+    },
+    "s4": {
+      "before": null,
+      "description": "What one replication can show, the findings and the sources of every number",
+      "start": "reporting"
+    }
+  },
+  "title": "SCM Skill Formats"
 }

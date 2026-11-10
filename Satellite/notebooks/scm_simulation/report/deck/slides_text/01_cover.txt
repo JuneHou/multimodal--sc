@@ -1,5 +1,5 @@
 Synthetic control skills · simulated data with a known effect
 Which skill format runs synthetic control best?
-Four skill formats and four language models estimate the effect of a treatment on two simulated panels whose true effect is known. Every answer is scored against the ground truth with the three checks of the simulation README.
+Four skill formats and three language models estimate the effect of a treatment on two simulated panels whose true effect is known. Every answer is scored on the evaluation rows of the simulation README.
 Synthetic control of Abadie, Diamond and Hainmueller, run through the Synth R package
-NOTES: The four formats are scm-configure, scm-design and two profile skills written by SkillFoundry generators. The four models are gpt-oss-120b, GLM-5.3, DeepSeek-V4.1-Flash and GPT-5.5. The two panels come from the simulation README’s two data-generating processes.
+NOTES: The two panels come from the simulation README’s two data-generating processes.

@@ -1,21 +1,17 @@
-<section id="references" data-transition="fade" style="background:#F7F6F2;color:#17212B;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
-<p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#0E6B73">Reference rows</p>
-<h2 style="font-family:'Source Serif 4', Georgia, serif;font-size:60px;font-weight:600;line-height:1.1;color:#17212B">Three reference rows bound what an answer can reach</h2>
-<div style="display:flex;gap:32px">
-<div style="width:533px;display:flex;flex-direction:column;gap:16px;background:#FFFFFF;padding:32px;border:1px solid #D3D8D2;border-radius:12px">
-<h3 style="font-family:'Source Serif 4', Georgia, serif;font-size:40px;font-weight:600;color:#0E6B73">README Section 3</h3>
-<p style="font-size:26px;line-height:1.45;color:#4A5560">The simulation README’s specification. Z1 and Z2 at period 40 and the outcome at each of periods 1 to 40 make 42 predictors, each scaled by its standard deviation over the 30 units. V is the identity and the convex weights are solved exactly.</p>
-</div>
-<div style="width:533px;display:flex;flex-direction:column;gap:16px;background:#FFFFFF;padding:32px;border:1px solid #D3D8D2;border-radius:12px">
-<h3 style="font-family:'Source Serif 4', Georgia, serif;font-size:40px;font-weight:600;color:#0E6B73">ADH specification</h3>
-<p style="font-size:26px;line-height:1.45;color:#4A5560">The paper’s predictor choices for California, placed at the same points of this pre-treatment window. The predictors are Z1 and Z2 averaged over periods 23 to 40 and the outcome at periods 12, 23 and 40. Synth searches V to fit the outcome over periods 1 to 40.</p>
-</div>
-<div style="width:533px;display:flex;flex-direction:column;gap:16px;background:#FFFFFF;padding:32px;border:1px solid #D3D8D2;border-radius:12px">
-<h3 style="font-family:'Source Serif 4', Georgia, serif;font-size:40px;font-weight:600;color:#0E6B73">Every factor known</h3>
-<p style="font-size:26px;line-height:1.45;color:#4A5560">The counterfactual δ<sub>t</sub> + θ<sub>t</sub>′Z<sub>1</sub> + λ<sub>t</sub>′μ<sub>1</sub>, rebuilt from the DGP 1 generator. Its only error is the treated unit’s own noise, which no weighting of donors can predict. DGP 2 shares no term across units and has no such reference.</p>
-</div>
-</div>
-<p style="font-size:26px;line-height:1.45;color:#17212B">The known-factor counterfactual removes every error a method can remove on DGP 1. The README and ADH specifications show what two fixed choices of predictors and V reach on the same panels.</p>
-<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#5B6670">Specifications from the simulation README, the paper’s California study and the data generator.</p>
-<aside>The README prints no results, so the README Section 3 values are computed from its formulas. The ADH specification maps each predictor year of the California study to the period at the same fraction of this 40-period pre-treatment window. Both fixed specifications appear first in every results table.</aside>
+<section id="references" data-transition="fade" hidden style="display:flex; flex-direction:column; gap:28px; padding:128px 128px 160px; background:#f7f6f2">
+  <p style="font-family:'IBM Plex Sans', Arial, sans-serif; font-size:24px; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:#0e6b73">References</p>
+  <h2 style="font-family:'Source Serif 4', Georgia, serif; font-size:60px; font-weight:600; line-height:1.1; color:#17212b">The README column is the Section 3 specification over 1,000 replications</h2>
+  <div style="display:flex; flex-direction:row; gap:32px">
+    <div style="width:816px; display:flex; flex-direction:column; gap:16px; padding:32px; background:#ffffff; border:1px solid #d3d8d2; border-radius:12px">
+      <h3 style="font-family:'Source Serif 4', Georgia, serif; font-size:40px; font-weight:600; color:#0e6b73">README Section 3</h3>
+      <p style="font-family:'IBM Plex Sans', Arial, sans-serif; font-size:26px; line-height:1.45; color:#4a5560">The simulation README’s specification. Z1 and Z2 at period 40 and the outcome at each of periods 1 to 40 make 42 predictors, <b>each scaled by its standard deviation over the 30 units.</b> <b>V is the identity, and the convex weights come from Synth’s solver.</b></p>
+    </div>
+    <div style="width:816px; display:flex; flex-direction:column; gap:16px; padding:32px; background:#ffffff; border:1px solid #d3d8d2; border-radius:12px">
+      <h3 style="font-family:'Source Serif 4', Georgia, serif; font-size:40px; font-weight:600; color:#0e6b73">Every factor known</h3>
+      <p style="font-family:'IBM Plex Sans', Arial, sans-serif; font-size:26px; line-height:1.45; color:#4a5560">The counterfactual δt + θt′Z1 + λt′μ1, rebuilt from the DGP 1 generator. Its only error is the treated unit’s own noise, which no weighting of donors can predict.</p>
+    </div>
+  </div>
+  <p style="font-family:'IBM Plex Sans', Arial, sans-serif; font-size:26px; line-height:1.45; color:#17212b">The README column of every results table averages the Section 3 specification over the collaborator’s 1,000 replications. The known‑factor counterfactual removes every error a method can remove on DGP 1, and the analysis of one replication compares the answers with it.</p>
+  <p style="position:absolute; bottom:64px; left:128px; width:1664px; font-family:'IBM Plex Sans', Arial, sans-serif; font-size:24px; color:#5b6670">Specifications from the simulation README and the data generator.</p>
+  <aside>The README column copies the collaborator’s Section 5 results, which fit every replication with the Section 3 specification.</aside>
 </section>

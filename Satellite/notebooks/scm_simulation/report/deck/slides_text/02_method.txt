@@ -1,0 +1,13 @@
+Method · synthetic control
+Synthetic control weights donors to match the treated unit
+The effect
+α1t = Y1t − Y1tN
+The effect in a treated period is the treated unit’s outcome minus its outcome without treatment. Its average over periods 41 to 60 is the ATT.
+The donor weights
+min (X1 − X0W)′ V (X1 − X0W)
+Each weight is at least zero and the weights sum to one. They bring the weighted donors’ predictors X0W as close as possible to the treated unit’s X1.
+The predictor weights V
+V diagonal, positive
+V sets how much each predictor counts. The paper chooses V so that the synthetic control’s outcome tracks the treated unit’s outcome before treatment.
+The predictors are the covariates and pre-treatment outcomes, each summarized over chosen periods. After treatment the weighted donors’ outcome is the counterfactual. The method leaves the predictors, V and the donor pool open, and the skill formats differ in who chooses them.
+Abadie, Diamond and Hainmueller, Section 2.2 on page 495 and Section 2.3 on page 496.

@@ -1,0 +1,17 @@
+Results · DGP 1 · σ = 0.5
+On DGP 1 at σ = 0.5 every case comes within 0.25 of the true effect
+| README Section 5 | configure gpt‑oss | configure GLM | design gpt‑oss | design GLM | profile GPT‑5.4 | profile DeepSeek |
+ATT bias | −0.008 | +0.216 | +0.151 | +0.023 | +0.059 | +0.059 | +0.118 |
+ATT RMSE | 0.208 | 0.216 | 0.151 | 0.023 | 0.059 | 0.059 | 0.118 |
+counterfactual RMSE | 0.871 | 0.940 | 0.782 | 1.545 | 0.545 | 0.545 | 0.705 |
+— random noise | 0.568 | 0.520 | 0.563 | no fit | 0.557 | 0.557 | 0.559 |
+pre-treatment RMSPE | 0.789 | 1.176 | 0.690 | no fit | 0.548 | 0.548 | 1.047 |
+covariate balance | 0.237 | 0.015 | 0.052 | no fit | 0.120 | 0.120 | 0.000 |
+within ±0.25 of the truth | 79% | yes | yes | yes | yes | yes | yes |
+within ±0.50 of the truth | 97% | yes | yes | yes | yes | yes | yes |
+donors carrying weight | 5.9 | 28 | 6 | no fit | 5 | 5 | 29 |
+CV-RMSE ÷ pre-treatment RMSPE | 1.12 | 1.00 | 0.80 (19) | no fit | 1.15 | 1.15 | 1.01 |
+max ATT shift, drop one donor | 0.084 | 0.104 | 0.006 (1) | no fit | 0.091 | 0.091 | 0.125 |
+gpt‑oss‑120b under scm‑design wrote a counterfactual of 0 in every period, which scores 0.023 above the true effect with the highest counterfactual RMSE, 1.545, and no fit behind it. GLM‑5.3 under scm‑design and the GPT‑5.4 profile skill give one answer, 0.059 above the true effect, with the lowest counterfactual RMSE, 0.545.
+README Section 5 rows, DGP 1, σ = 0.5. README column, the collaborator’s mean over 1,000 replications, the leave‑one‑out rows over 100. Every other column, one answer. A number in brackets counts the refits that worked.
+NOTES: An answer’s ATT is the mean over periods 41 to 60 of the treated unit’s outcome minus the answer’s counterfactual, as the collaborator’s code computes it. ATT bias is its error, ATT RMSE the error’s absolute value, and each within row says whether the error lies within the bound. Random noise is σ√(1 + Σw²) at the answer’s own weights.

@@ -1,0 +1,16 @@
+Results · DGP 1 · σ = 1.0
+On DGP 1 at σ = 1 six of seven cases come within 0.25 of the true effect
+| README Section 5 | configure gpt‑oss | configure GLM | configure GPT‑5.5 | design gpt‑oss | design GLM | profile GPT‑5.4 | profile DeepSeek |
+ATT bias | −0.017 | +0.181 | +0.326 | +0.164 | +0.165 | +0.165 | +0.165 | +0.075 |
+ATT RMSE | 0.317 | 0.181 | 0.326 | 0.164 | 0.165 | 0.165 | 0.165 | 0.075 |
+counterfactual RMSE | 1.368 | 1.235 | 1.240 | 0.992 | 0.992 | 0.992 | 0.992 | 1.027 |
+— random noise | 1.108 | 1.043 | 1.170 | 1.095 | 1.095 | 1.095 | 1.095 | 1.106 |
+pre-treatment RMSPE | 1.173 | 1.459 | 1.057 | 0.945 | 0.945 | 0.945 | 0.945 | 1.388 |
+covariate balance | 0.283 | 0.002 | 0.035 | 0.157 | 0.157 | 0.157 | 0.157 | 0.000 |
+within ±0.25 of the truth | 60% | yes | no | yes | yes | yes | yes | yes |
+within ±0.50 of the truth | 88% | yes | yes | yes | yes | yes | yes | yes |
+donors carrying weight | 7.5 | 28 | 4 | 9 | 9 | 9 | 9 | 29 |
+CV-RMSE ÷ pre-treatment RMSPE | 1.17 | 0.99 | 1.24 | 1.24 | 1.25 | 1.25 | 1.25 | 0.99 |
+max ATT shift, drop one donor | 0.121 | 0.125 | 0.174 | 0.130 | 0.130 | 0.130 | 0.130 | 0.186 |
+GLM‑5.3 under scm‑configure misses the effect by 0.326, and the DeepSeek profile skill comes closest, 0.075 above it. Both scm‑design answers equal the GPT‑5.4 profile skill’s answer, and with GPT‑5.5 under scm‑configure they have the lowest counterfactual RMSE, 0.992.
+NOTES: An answer’s ATT is the mean over periods 41 to 60 of the treated unit’s outcome minus the answer’s counterfactual, as the collaborator’s code computes it. ATT bias is its error, ATT RMSE the error’s absolute value, and each within row says whether the error lies within the bound. Random noise is σ√(1 + Σw²) at the answer’s own weights.

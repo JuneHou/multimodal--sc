@@ -1,19 +1,19 @@
-<section id="profile" data-transition="fade" style="background:#F7F6F2;color:#17212B;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
-<p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#0E6B73">Example · profile skills · request and scripts</p>
-<h2 style="font-family:'Source Serif 4', Georgia, serif;font-size:60px;font-weight:600;line-height:1.1;color:#17212B">A generator wrote each profile skill from the paper and Synth</h2>
-<div style="display:flex;flex-direction:column;background:#1E2A35;padding:28px 32px;border-radius:12px">
-<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:24px;line-height:1.25;color:#E6EBE5;white-space:nowrap">Design a skill for estimating the effect of a treatment on one treated unit from panel data on that unit</p>
-<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:24px;line-height:1.25;color:#E6EBE5;white-space:nowrap">and untreated donor units with the synthetic control method of Abadie, Diamond and Hainmueller. …</p>
-<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:24px;line-height:1.25;color:#E6EBE5;white-space:nowrap">The paper's own software, the Synth R package version 1.1-10, is at `code/Synth/`, and R 4.3.3 with</p>
-<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:24px;line-height:1.25;color:#E6EBE5;white-space:nowrap">Synth and jsonlite installed is available to the agent. … It estimates the treated unit's outcome</p>
-<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:24px;line-height:1.25;color:#E6EBE5;white-space:nowrap">without treatment in each treated period the task names and the average effect over those periods, …</p>
-</div>
-<table style="font-size:24px;color:#17212B">
-<tr style="background:#DDE3DD"><th style="width:20%;text-align:left;padding:6px 12px">profile skill</th><th style="width:20%;text-align:left;padding:6px 12px">skill name</th><th style="width:34%;text-align:left;padding:6px 12px">predictors its script fixes</th><th style="width:26%;text-align:left;padding:6px 12px">V</th></tr>
-<tr style="background:#FFFFFF"><td style="padding:6px 12px">GPT‑5.4 generator</td><td style="padding:6px 12px">synth‑single‑treated‑unit‑scm</td><td style="padding:6px 12px">Z1 and Z2 means over the pre-treatment periods and the outcome at each pre-treatment period</td><td style="padding:6px 12px">searched with Synth’s defaults</td></tr>
-<tr style="background:#F7F6F2"><td style="padding:6px 12px">DeepSeek generator</td><td style="padding:6px 12px">synthetic‑control‑att‑starter</td><td style="padding:6px 12px">Z1 and Z2 means over the pre-treatment periods, outcome lags only when an option asks</td><td style="padding:6px 12px">searched unless an option gives V</td></tr>
-</table>
-<p style="font-size:26px;line-height:1.45;color:#17212B">All 16 profile runs called the skill’s script at its default specification, passing only the panel, the periods and the output files, so under each profile skill the four solver models gave identical answers.</p>
-<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#5B6670">Excerpt of the request both generators received, verbatim, with … where text is left out, and the specification each generated script fixes.</p>
-<aside>Each generator ran the SkillFoundry pipeline with the paper and Synth’s CRAN source. The skill names are the ones the generators chose. A profile run is one solver model on one panel under one profile skill.</aside>
+<section id="profile" data-transition="fade" style="display:flex; flex-direction:column; gap:28px; padding:128px 128px 160px; background:#f7f6f2">
+  <p style="font-family:'IBM Plex Sans', Arial, sans-serif; font-size:24px; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:#0e6b73">Example · profile skills · request and scripts</p>
+  <h2 style="font-family:'Source Serif 4', Georgia, serif; font-size:60px; font-weight:600; line-height:1.1; color:#17212b">A generator wrote each profile skill from the paper and Synth</h2>
+  <div style="display:flex; flex-direction:column; padding:28px 32px; background:#ffffff; border:1px solid #d3d8d2; border-radius:12px">
+    <p style="font-family:'IBM Plex Mono', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#17212b">Design a skill for estimating the effect of a treatment on one treated unit from panel data on that unit</p>
+    <p style="font-family:'IBM Plex Mono', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#17212b">and untreated donor units with the synthetic control method of Abadie, Diamond and Hainmueller. …</p>
+    <p style="font-family:'IBM Plex Mono', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#17212b">The paper's own software, the Synth R package version 1.1-10, is at `code/Synth/`, and R 4.3.3 with</p>
+    <p style="font-family:'IBM Plex Mono', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#17212b">Synth and jsonlite installed is available to the agent. … It estimates the treated unit's outcome</p>
+    <p style="font-family:'IBM Plex Mono', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#17212b">without treatment in each treated period the task names and the average effect over those periods, …</p>
+  </div>
+  <table style="font-family:'IBM Plex Sans', Arial, sans-serif; font-size:26px; color:#17212b">
+    <tr style="background:#dde3dd"><th style="padding:6px 12px; width:20%">profile skill</th><th style="padding:6px 12px; width:20%">skill name</th><th style="padding:6px 12px; width:34%">predictors its script fixes</th><th style="padding:6px 12px; width:26%">V</th></tr>
+    <tr style="background:#ffffff"><td style="padding:6px 12px">GPT‑5.4 generator</td><td style="padding:6px 12px">synth‑single‑treated‑unit‑scm</td><td style="padding:6px 12px">Z1 and Z2 means over the pre-treatment periods and the outcome at each pre-treatment period</td><td style="padding:6px 12px">searched with Synth’s defaults</td></tr>
+    <tr style="background:#f7f6f2"><td style="padding:6px 12px">DeepSeek generator</td><td style="padding:6px 12px">synthetic‑control‑att‑starter</td><td style="padding:6px 12px">Z1 and Z2 means over the pre-treatment periods, outcome lags only when an option asks</td><td style="padding:6px 12px">same</td></tr>
+  </table>
+  <p style="font-family:'IBM Plex Sans', Arial, sans-serif; font-size:26px; line-height:1.45; color:#17212b">All 12 profile runs called the skill’s script at its default specification, passing only the panel, the periods and the output files, so under each profile skill the three solver models gave identical answers.</p>
+  <p style="position:absolute; bottom:64px; left:128px; width:1664px; font-family:'IBM Plex Sans', Arial, sans-serif; font-size:24px; color:#5b6670">Excerpt of the request both generators received, verbatim, with … where text is left out, and the specification each generated script fixes.</p>
+  <aside>Each generator ran the SkillFoundry pipeline with the paper and Synth’s CRAN source. The skill names are the ones the generators chose. A profile run is one solver model on one panel under one profile skill.</aside>
 </section>

@@ -6,7 +6,7 @@ noise eps_1t. A counterfactual that knows every factor makes an ATT error equal 
 in memory, unchanged, for the shipped seed and for ten new replications under its own --seed rule (DGP 1 uses seed s);
 nothing is written to data/.
 
-    python report/luck.py      writes results/luck_replications.csv and prints it
+    python report/luck.py      writes results/sigma_1.0/luck_replications.csv and prints it
 """
 import importlib.util
 from pathlib import Path
@@ -40,13 +40,13 @@ def known_factor_att_error(g, seed):
 def main():
     g = generator()
     Y0, _ = g.generate_equation1(g.SEED_DGP1)
-    truth = pd.read_csv(HERE.parents[1] / "data" / "simulation" / "simulation_data" / "ground_truth.csv")
+    truth = pd.read_csv(HERE.parents[1] / "data" / "simulation" / "simulation_data" / "sigma_1.0" / "ground_truth.csv")
     assert np.allclose(Y0[:, 0], truth[truth.dgp == "dgp1"].Y0_true.to_numpy()), "shipped replication not rebuilt"
     rows = [{"replication": "shipped", "seed": g.SEED_DGP1, "att_error_known_factors": known_factor_att_error(g, g.SEED_DGP1)}]
     rows += [{"replication": f"seed {s}", "seed": s, "att_error_known_factors": known_factor_att_error(g, s)}
              for s in range(1, 11)]
     df = pd.DataFrame(rows)
-    df.to_csv(HERE / "results" / "luck_replications.csv", index=False)
+    df.to_csv(HERE / "results" / "sigma_1.0" / "luck_replications.csv", index=False)
     v = df.att_error_known_factors
     print(df.to_string(index=False))
     print(f"\n{len(df)} replications: sd {v.std(ddof=1):.3f}, min {v.min():+.3f}, max {v.max():+.3f}")

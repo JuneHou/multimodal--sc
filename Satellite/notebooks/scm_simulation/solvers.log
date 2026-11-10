@@ -104,3 +104,134 @@ openai:gpt-5.5 / code_provided / simulation -> /data/wang/junh/githubs/latent-sy
   scm_dgp1_code_provided                   ok=True  steps= 3 ended=answer    fit_runs=0
   scm_dgp2_code_provided                   ok=True  steps= 4 ended=answer    fit_runs=0
 finished profile-gpt-5.4 2026-10-31T18:02:23-04:00
+solvers configure sigma 0.5 cases 1 models gpt-oss-120b GLM-5.3 DeepSeek-V4.1-Flash-thinking-low | /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/scm_simulation/skills/scm-configure | Python 3.11.15 | 2026-11-04T13:54:06-05:00
+gpt-oss-120b / scm-configure / sigma_0.5 -> /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/scm_simulation/scm-configure/sigma_0.5/scm-configure_gpt-oss-120b_low.jsonl; 0 done
+  scm_dgp1_scm-configure                   ok=True  steps= 8 ended=answer    fit_runs=1
+GLM-5.3 / scm-configure / sigma_0.5 -> /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/scm_simulation/scm-configure/sigma_0.5/scm-configure_GLM-5.3_low.jsonl; 0 done
+  scm_dgp1_scm-configure                   ok=True  steps= 6 ended=answer    fit_runs=1
+DeepSeek-V4.1-Flash-thinking-low / scm-configure / sigma_0.5 -> /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/scm_simulation/scm-configure/sigma_0.5/scm-configure_DeepSeek-V4.1-Flash-thinking-low_low.jsonl; 0 done
+  scm_dgp1_scm-configure                   ok=False steps=12 ended=step_cap  fit_runs=2
+finished configure sigma 0.5 2026-11-04T13:58:45-05:00
+solvers configure sigma 0.5 cases all models gpt-oss-120b GLM-5.3 DeepSeek-V4.1-Flash-thinking-low | /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/scm_simulation/skills/scm-configure | Python 3.11.15 | 2026-11-04T17:39:33-05:00
+gpt-oss-120b / scm-configure / sigma_0.5 -> /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/scm_simulation/scm-configure/sigma_0.5/scm-configure_gpt-oss-120b_low.jsonl; 1 done
+  scm_dgp2_scm-configure                   ok=True  steps= 9 ended=answer    fit_runs=1
+GLM-5.3 / scm-configure / sigma_0.5 -> /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/scm_simulation/scm-configure/sigma_0.5/scm-configure_GLM-5.3_low.jsonl; 1 done
+  scm_dgp2_scm-configure                   ok=True  steps= 5 ended=answer    fit_runs=1
+DeepSeek-V4.1-Flash-thinking-low / scm-configure / sigma_0.5 -> /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/scm_simulation/scm-configure/sigma_0.5/scm-configure_DeepSeek-V4.1-Flash-thinking-low_low.jsonl; 1 done
+  scm_dgp2_scm-configure                   ok=False steps=12 ended=step_cap  fit_runs=3
+finished configure sigma 0.5 2026-11-04T17:47:01-05:00
+solvers design sigma 0.5 cases all models gpt-oss-120b GLM-5.3 DeepSeek-V4.1-Flash-thinking-low | /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/scm_simulation/skills/scm-design | Python 3.11.15 | 2026-11-04T17:47:01-05:00
+gpt-oss-120b / scm-design / sigma_0.5 -> /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/scm_simulation/scm-design/sigma_0.5/scm-design_gpt-oss-120b_low.jsonl; 0 done
+  scm_dgp1_scm-design                      ok=True  steps=11 ended=answer    fit_runs=1
+  scm_dgp2_scm-design                      ok=True  steps= 9 ended=answer    fit_runs=1
+GLM-5.3 / scm-design / sigma_0.5 -> /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/scm_simulation/scm-design/sigma_0.5/scm-design_GLM-5.3_low.jsonl; 0 done
+  scm_dgp1_scm-design                      ok=True  steps= 5 ended=answer    fit_runs=1
+  scm_dgp2_scm-design                      ok=True  steps= 8 ended=answer    fit_runs=2
+DeepSeek-V4.1-Flash-thinking-low / scm-design / sigma_0.5 -> /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/scm_simulation/scm-design/sigma_0.5/scm-design_DeepSeek-V4.1-Flash-thinking-low_low.jsonl; 0 done
+  scm_dgp1_scm-design                      ok=False steps=12 ended=step_cap  fit_runs=6
+  scm_dgp2_scm-design                      ok=False steps=12 ended=step_cap  fit_runs=4
+finished design sigma 0.5 2026-11-04T18:33:09-05:00
+solvers profile-gpt-5.4 sigma 0.5 cases all models gpt-oss-120b GLM-5.3 DeepSeek-V4.1-Flash-thinking-low | /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/scm_simulation/profile/skills/gpt-5.4/code_provided | Python 3.11.15 | 2026-11-04T18:33:09-05:00
+gpt-oss-120b / code_provided / sigma_0.5 -> /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/scm_simulation/skill_profile/gpt-5.4/sigma_0.5/code_provided_gpt-oss-120b_low.jsonl; 0 done
+  scm_dgp1_code_provided                   ok=True  steps= 5 ended=answer    fit_runs=0
+  scm_dgp2_code_provided                   ok=True  steps= 4 ended=answer    fit_runs=0
+GLM-5.3 / code_provided / sigma_0.5 -> /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/scm_simulation/skill_profile/gpt-5.4/sigma_0.5/code_provided_GLM-5.3_low.jsonl; 0 done
+  scm_dgp1_code_provided                   ok=True  steps= 3 ended=answer    fit_runs=0
+  scm_dgp2_code_provided                   ok=True  steps= 3 ended=answer    fit_runs=0
+DeepSeek-V4.1-Flash-thinking-low / code_provided / sigma_0.5 -> /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/scm_simulation/skill_profile/gpt-5.4/sigma_0.5/code_provided_DeepSeek-V4.1-Flash-thinking-low_low.jsonl; 0 done
+  scm_dgp1_code_provided                   ok=True  steps= 4 ended=answer    fit_runs=0
+  scm_dgp2_code_provided                   ok=True  steps= 4 ended=answer    fit_runs=0
+finished profile-gpt-5.4 sigma 0.5 2026-11-04T18:34:56-05:00
+solvers profile-deepseek sigma 0.5 cases all models gpt-oss-120b GLM-5.3 DeepSeek-V4.1-Flash-thinking-low | /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/scm_simulation/profile/skills/deepseek/code_provided | Python 3.11.15 | 2026-11-04T18:34:56-05:00
+gpt-oss-120b / code_provided / sigma_0.5 -> /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/scm_simulation/skill_profile/deepseek/sigma_0.5/code_provided_gpt-oss-120b_low.jsonl; 0 done
+  scm_dgp1_code_provided                   ok=True  steps= 4 ended=answer    fit_runs=0
+  scm_dgp2_code_provided                   ok=True  steps= 3 ended=answer    fit_runs=0
+GLM-5.3 / code_provided / sigma_0.5 -> /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/scm_simulation/skill_profile/deepseek/sigma_0.5/code_provided_GLM-5.3_low.jsonl; 0 done
+  scm_dgp1_code_provided                   ok=True  steps= 3 ended=answer    fit_runs=0
+  scm_dgp2_code_provided                   ok=True  steps= 3 ended=answer    fit_runs=0
+DeepSeek-V4.1-Flash-thinking-low / code_provided / sigma_0.5 -> /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/scm_simulation/skill_profile/deepseek/sigma_0.5/code_provided_DeepSeek-V4.1-Flash-thinking-low_low.jsonl; 0 done
+  scm_dgp1_code_provided                   ok=True  steps= 4 ended=answer    fit_runs=0
+  scm_dgp2_code_provided                   ok=True  steps= 6 ended=answer    fit_runs=0
+finished profile-deepseek sigma 0.5 2026-11-04T18:35:47-05:00
+solvers configure sigma 0.2 cases all models gpt-oss-120b GLM-5.3 DeepSeek-V4.1-Flash-thinking-low | /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/scm_simulation/skills/scm-configure | Python 3.11.15 | 2026-11-04T18:35:47-05:00
+gpt-oss-120b / scm-configure / sigma_0.2 -> /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/scm_simulation/scm-configure/sigma_0.2/scm-configure_gpt-oss-120b_low.jsonl; 0 done
+  scm_dgp1_scm-configure                   ok=True  steps=10 ended=answer    fit_runs=1
+  scm_dgp2_scm-configure                   ok=True  steps= 8 ended=answer    fit_runs=1
+GLM-5.3 / scm-configure / sigma_0.2 -> /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/scm_simulation/scm-configure/sigma_0.2/scm-configure_GLM-5.3_low.jsonl; 0 done
+  scm_dgp1_scm-configure                   ok=True  steps= 7 ended=answer    fit_runs=2
+  scm_dgp2_scm-configure                   ok=True  steps= 5 ended=answer    fit_runs=1
+DeepSeek-V4.1-Flash-thinking-low / scm-configure / sigma_0.2 -> /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/scm_simulation/scm-configure/sigma_0.2/scm-configure_DeepSeek-V4.1-Flash-thinking-low_low.jsonl; 0 done
+  scm_dgp1_scm-configure                   ok=True  steps=12 ended=answer    fit_runs=3
+  scm_dgp2_scm-configure                   ok=False steps=12 ended=step_cap  fit_runs=4
+finished configure sigma 0.2 2026-11-04T18:45:54-05:00
+solvers design sigma 0.2 cases all models gpt-oss-120b GLM-5.3 DeepSeek-V4.1-Flash-thinking-low | /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/scm_simulation/skills/scm-design | Python 3.11.15 | 2026-11-04T18:45:54-05:00
+gpt-oss-120b / scm-design / sigma_0.2 -> /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/scm_simulation/scm-design/sigma_0.2/scm-design_gpt-oss-120b_low.jsonl; 0 done
+  scm_dgp1_scm-design                      ok=True  steps= 7 ended=answer    fit_runs=1
+  scm_dgp2_scm-design                      ok=True  steps= 8 ended=answer    fit_runs=1
+GLM-5.3 / scm-design / sigma_0.2 -> /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/scm_simulation/scm-design/sigma_0.2/scm-design_GLM-5.3_low.jsonl; 0 done
+  scm_dgp1_scm-design                      ok=True  steps= 7 ended=answer    fit_runs=1
+  scm_dgp2_scm-design                      ok=True  steps= 7 ended=answer    fit_runs=1
+DeepSeek-V4.1-Flash-thinking-low / scm-design / sigma_0.2 -> /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/scm_simulation/scm-design/sigma_0.2/scm-design_DeepSeek-V4.1-Flash-thinking-low_low.jsonl; 0 done
+  scm_dgp1_scm-design                      ok=False steps=12 ended=step_cap  fit_runs=5
+  scm_dgp2_scm-design                      ok=False steps=12 ended=step_cap  fit_runs=5
+finished design sigma 0.2 2026-11-04T18:59:24-05:00
+solvers profile-gpt-5.4 sigma 0.2 cases all models gpt-oss-120b GLM-5.3 DeepSeek-V4.1-Flash-thinking-low | /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/scm_simulation/profile/skills/gpt-5.4/code_provided | Python 3.11.15 | 2026-11-04T18:59:24-05:00
+gpt-oss-120b / code_provided / sigma_0.2 -> /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/scm_simulation/skill_profile/gpt-5.4/sigma_0.2/code_provided_gpt-oss-120b_low.jsonl; 0 done
+  scm_dgp1_code_provided                   ok=True  steps= 7 ended=answer    fit_runs=0
+  scm_dgp2_code_provided                   ok=True  steps= 7 ended=answer    fit_runs=0
+GLM-5.3 / code_provided / sigma_0.2 -> /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/scm_simulation/skill_profile/gpt-5.4/sigma_0.2/code_provided_GLM-5.3_low.jsonl; 0 done
+  scm_dgp1_code_provided                   ok=True  steps= 3 ended=answer    fit_runs=0
+  scm_dgp2_code_provided                   ok=True  steps= 3 ended=answer    fit_runs=0
+DeepSeek-V4.1-Flash-thinking-low / code_provided / sigma_0.2 -> /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/scm_simulation/skill_profile/gpt-5.4/sigma_0.2/code_provided_DeepSeek-V4.1-Flash-thinking-low_low.jsonl; 0 done
+  scm_dgp1_code_provided                   ok=True  steps= 4 ended=answer    fit_runs=0
+  scm_dgp2_code_provided                   ok=True  steps= 4 ended=answer    fit_runs=0
+finished profile-gpt-5.4 sigma 0.2 2026-11-04T19:02:49-05:00
+solvers profile-deepseek sigma 0.2 cases all models gpt-oss-120b GLM-5.3 DeepSeek-V4.1-Flash-thinking-low | /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/scm_simulation/profile/skills/deepseek/code_provided | Python 3.11.15 | 2026-11-04T19:02:49-05:00
+gpt-oss-120b / code_provided / sigma_0.2 -> /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/scm_simulation/skill_profile/deepseek/sigma_0.2/code_provided_gpt-oss-120b_low.jsonl; 0 done
+  scm_dgp1_code_provided                   ok=True  steps= 4 ended=answer    fit_runs=0
+  scm_dgp2_code_provided                   ok=True  steps= 3 ended=answer    fit_runs=0
+GLM-5.3 / code_provided / sigma_0.2 -> /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/scm_simulation/skill_profile/deepseek/sigma_0.2/code_provided_GLM-5.3_low.jsonl; 0 done
+  scm_dgp1_code_provided                   ok=True  steps= 3 ended=answer    fit_runs=0
+  scm_dgp2_code_provided                   ok=True  steps= 3 ended=answer    fit_runs=0
+DeepSeek-V4.1-Flash-thinking-low / code_provided / sigma_0.2 -> /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/scm_simulation/skill_profile/deepseek/sigma_0.2/code_provided_DeepSeek-V4.1-Flash-thinking-low_low.jsonl; 0 done
+  scm_dgp1_code_provided                   ok=True  steps= 4 ended=answer    fit_runs=0
+  scm_dgp2_code_provided                   ok=True  steps= 5 ended=answer    fit_runs=0
+finished profile-deepseek sigma 0.2 2026-11-04T19:04:00-05:00
+solvers four-design sigma 1.0 cases 1 models gpt-oss-120b GLM-5.3 DeepSeek-V4.1-Flash-thinking-low | /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/scm_simulation/four_design/skills/scm-four-design | Python 3.11.15 | 2026-11-05T20:41:18-05:00
+gpt-oss-120b / scm-four-design / simulation -> /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/scm_simulation/scm-four-design/sigma_1.0/scm-four-design_gpt-oss-120b_low.jsonl; 0 done
+  scm_dgp1_scm-four-design                 ok=True  steps=10 ended=answer    fit_runs=1
+GLM-5.3 / scm-four-design / simulation -> /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/scm_simulation/scm-four-design/sigma_1.0/scm-four-design_GLM-5.3_low.jsonl; 0 done
+  scm_dgp1_scm-four-design                 ok=True  steps= 7 ended=answer    fit_runs=3
+DeepSeek-V4.1-Flash-thinking-low / scm-four-design / simulation -> /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/scm_simulation/scm-four-design/sigma_1.0/scm-four-design_DeepSeek-V4.1-Flash-thinking-low_low.jsonl; 0 done
+  scm_dgp1_scm-four-design                 ok=False steps=12 ended=step_cap  fit_runs=4
+finished four-design sigma 1.0 2026-11-05T20:44:47-05:00
+solvers four-design sigma 1.0 cases all models gpt-oss-120b GLM-5.3 DeepSeek-V4.1-Flash-thinking-low | /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/scm_simulation/four_design/skills/scm-four-design | Python 3.11.15 | 2026-11-05T20:55:31-05:00
+gpt-oss-120b / scm-four-design / simulation -> /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/scm_simulation/scm-four-design/sigma_1.0/scm-four-design_gpt-oss-120b_low.jsonl; 1 done
+  scm_dgp2_scm-four-design                 ok=True  steps= 5 ended=answer    fit_runs=1
+GLM-5.3 / scm-four-design / simulation -> /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/scm_simulation/scm-four-design/sigma_1.0/scm-four-design_GLM-5.3_low.jsonl; 1 done
+  scm_dgp2_scm-four-design                 ok=True  steps= 7 ended=answer    fit_runs=2
+DeepSeek-V4.1-Flash-thinking-low / scm-four-design / simulation -> /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/scm_simulation/scm-four-design/sigma_1.0/scm-four-design_DeepSeek-V4.1-Flash-thinking-low_low.jsonl; 1 done
+  scm_dgp2_scm-four-design                 ok=False steps=12 ended=step_cap  fit_runs=7
+finished four-design sigma 1.0 2026-11-05T20:58:53-05:00
+solvers four-design sigma 0.5 cases all models gpt-oss-120b GLM-5.3 DeepSeek-V4.1-Flash-thinking-low | /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/scm_simulation/four_design/skills/scm-four-design | Python 3.11.15 | 2026-11-05T20:58:53-05:00
+gpt-oss-120b / scm-four-design / sigma_0.5 -> /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/scm_simulation/scm-four-design/sigma_0.5/scm-four-design_gpt-oss-120b_low.jsonl; 0 done
+  scm_dgp1_scm-four-design                 ok=True  steps= 7 ended=answer    fit_runs=1
+  scm_dgp2_scm-four-design                 ok=True  steps= 6 ended=answer    fit_runs=1
+GLM-5.3 / scm-four-design / sigma_0.5 -> /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/scm_simulation/scm-four-design/sigma_0.5/scm-four-design_GLM-5.3_low.jsonl; 0 done
+  scm_dgp1_scm-four-design                 ok=True  steps= 6 ended=answer    fit_runs=2
+  scm_dgp2_scm-four-design                 ok=True  steps= 6 ended=answer    fit_runs=2
+DeepSeek-V4.1-Flash-thinking-low / scm-four-design / sigma_0.5 -> /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/scm_simulation/scm-four-design/sigma_0.5/scm-four-design_DeepSeek-V4.1-Flash-thinking-low_low.jsonl; 0 done
+  scm_dgp1_scm-four-design                 ok=False steps=12 ended=step_cap  fit_runs=11
+  scm_dgp2_scm-four-design                 ok=True  steps=10 ended=answer    fit_runs=7
+finished four-design sigma 0.5 2026-11-05T21:05:29-05:00
+solvers four-design sigma 0.2 cases all models gpt-oss-120b GLM-5.3 DeepSeek-V4.1-Flash-thinking-low | /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/scm_simulation/four_design/skills/scm-four-design | Python 3.11.15 | 2026-11-05T21:05:29-05:00
+gpt-oss-120b / scm-four-design / sigma_0.2 -> /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/scm_simulation/scm-four-design/sigma_0.2/scm-four-design_gpt-oss-120b_low.jsonl; 0 done
+  scm_dgp1_scm-four-design                 ok=True  steps= 6 ended=answer    fit_runs=1
+  scm_dgp2_scm-four-design                 ok=True  steps= 7 ended=answer    fit_runs=1
+GLM-5.3 / scm-four-design / sigma_0.2 -> /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/scm_simulation/scm-four-design/sigma_0.2/scm-four-design_GLM-5.3_low.jsonl; 0 done
+  scm_dgp1_scm-four-design                 ok=True  steps= 5 ended=answer    fit_runs=1
+  scm_dgp2_scm-four-design                 ok=True  steps= 6 ended=answer    fit_runs=2
+DeepSeek-V4.1-Flash-thinking-low / scm-four-design / sigma_0.2 -> /data/wang/junh/githubs/latent-synthetic-control/Satellite/notebooks/scm_simulation/scm-four-design/sigma_0.2/scm-four-design_DeepSeek-V4.1-Flash-thinking-low_low.jsonl; 0 done
+  scm_dgp1_scm-four-design                 ok=True  steps= 9 ended=answer    fit_runs=6
+  scm_dgp2_scm-four-design                 ok=True  steps= 9 ended=answer    fit_runs=5
+finished four-design sigma 0.2 2026-11-05T21:11:05-05:00

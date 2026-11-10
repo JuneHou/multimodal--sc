@@ -7,7 +7,7 @@ Synth and jsonlite installed is available to the agent. … It estimates the tre
 without treatment in each treated period the task names and the average effect over those periods, …
 profile skill | skill name | predictors its script fixes | V |
 GPT‑5.4 generator | synth‑single‑treated‑unit‑scm | Z1 and Z2 means over the pre-treatment periods and the outcome at each pre-treatment period | searched with Synth’s defaults |
-DeepSeek generator | synthetic‑control‑att‑starter | Z1 and Z2 means over the pre-treatment periods, outcome lags only when an option asks | searched unless an option gives V |
-All 16 profile runs called the skill’s script at its default specification, passing only the panel, the periods and the output files, so under each profile skill the four solver models gave identical answers.
+DeepSeek generator | synthetic‑control‑att‑starter | Z1 and Z2 means over the pre-treatment periods, outcome lags only when an option asks | same |
+All 12 profile runs called the skill’s script at its default specification, passing only the panel, the periods and the output files, so under each profile skill the three solver models gave identical answers.
 Excerpt of the request both generators received, verbatim, with … where text is left out, and the specification each generated script fixes.
 NOTES: Each generator ran the SkillFoundry pipeline with the paper and Synth’s CRAN source. The skill names are the ones the generators chose. A profile run is one solver model on one panel under one profile skill.
