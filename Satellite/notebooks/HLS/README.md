@@ -6,12 +6,13 @@ Fitting code only -- no figure generation (the source repo's companion
 scripts, are both left out).
 
 ```
-HLS/
-├── hls_2y_shc/
-│   └── 04_shc_hls_2y.py        # per-site Synthetic Historical Control (SHC)
-└── hls_2y_random_control/
-    └── 02_ascm_hls_2y.R        # per-site (Augmented) Synthetic Control, CWZ conformal inference
+notebooks/HLS/
+├── 04_shc_hls_2y.py        # per-site Synthetic Historical Control (SHC)
+└── 02_ascm_hls_2y.R        # per-site (Augmented) Synthetic Control, CWZ conformal inference
 ```
+
+Input data both scripts read lives at `Satellite/HLS/panels/` (a sibling of
+`notebooks/`, not inside it -- see below).
 
 ## What input data each method actually needs
 
