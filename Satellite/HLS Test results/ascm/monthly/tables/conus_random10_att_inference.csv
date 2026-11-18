@@ -1,0 +1,5 @@
+design,cadence,estimator,window,n_sites,mean_att,median_att,sd_att,n_sites_positive,n_sites_negative,mean_pre_rmse,inference,conformal_grid_size,median_conformal_p_floor,n_sites_conformal_joint_p_lt05,n_sites_conformal_joint_available,n_sites_any_period_p_lt05
+conus_random10,monthly,scm,full_post,89,0.06202579964636941,0.042478859195837854,0.06573477417725612,84,5,0.07462111095796,CWZ conformal (per site); no interval on this mean,100,0.09090909090909091,2,89,0
+conus_random10,monthly,ascm,full_post,89,0.019650297513895056,0.017797754261741225,0.03814906544363837,70,19,0.03323085793727949,CWZ conformal (per site); no interval on this mean,100,0.09090909090909091,2,89,0
+conus_random10,monthly,scm,three_month,89,0.05771083134788349,0.038067500948772676,0.08359801180653781,68,20,0.07462111095796,CWZ conformal (per site); no interval on this mean,100,0.09090909090909091,2,89,0
+conus_random10,monthly,ascm,three_month,89,0.02128066623918375,0.017822161719508706,0.05386616864781195,59,29,0.03323085793727949,CWZ conformal (per site); no interval on this mean,100,0.09090909090909091,2,89,0

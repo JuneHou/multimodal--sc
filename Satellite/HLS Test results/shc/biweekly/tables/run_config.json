@@ -1,0 +1,31 @@
+{
+  "panels": "/Users/gaoyujuan/REAP Dropbox/Gao yujuan/Virginia Tech/CALS/test results/hls_2y_shc/panels",
+  "output": "/Users/gaoyujuan/REAP Dropbox/Gao yujuan/Virginia Tech/CALS/test results/hls_2y_shc/shc",
+  "cadence": [
+    "monthly",
+    "biweekly"
+  ],
+  "n_post": "damage",
+  "min_pre": 12,
+  "m_min": 4,
+  "m_max": null,
+  "nu_share": 0.1,
+  "zeta_share": 0.001,
+  "bw_grid_size": 50,
+  "bw_max": 0.4,
+  "strict_threshold": false,
+  "prefit_periods": 4,
+  "alternative": "two-sided",
+  "placebo_stride": null,
+  "placebo_season_match": false,
+  "placebos": true,
+  "no_figures": false,
+  "plot_sites": 6,
+  "an08_source_sha256": "9336bf49aac107073f821bf35e889ffdd2ce75ea023e54584a48711468a100e8",
+  "script_sha256": "5472615eab9d68db8724896d54f9d7af47b1781c6d9fd5c7fa1c742a1b2cf319",
+  "input_sha256": {
+    "site_periods_full_biweekly.csv": "1769f611c09bffad7e3bd85eb3509cdf27cdc2132eaffa3d78ccac4582c1d420"
+  },
+  "time_scale": "available observation positions; real calendar gaps retained",
+  "inference": "historical placebo ranks only; no t intervals, bootstrap or CWZ"
+}

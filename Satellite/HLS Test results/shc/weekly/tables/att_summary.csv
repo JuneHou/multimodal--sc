@@ -1,0 +1,2 @@
+cadence,n_sites,mean_att,median_att,n_fallback_fits,n_failed_sites,note
+weekly,89,0.007101750877931292,0.009082326640697413,0,0,Descriptive site averages; horizons/observed calendars may differ. No aggregate inference.
