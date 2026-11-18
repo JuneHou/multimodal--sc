@@ -30,23 +30,25 @@ for the treated side is the same `treatment/2y_daily/` data; the donor side
 is the `conus_random10` pool's daily NDVI, already in this repo under
 `Satellite/HLS/conus_random10/2y_daily/conus_random10_daily_2yr.csv`.
 
-## The gap: raw daily data vs. what these scripts actually read
+## Input data: `Satellite/HLS/panels/`
 
-Both scripts, as written, don't read the raw daily CSVs directly -- they read
-an intermediate **panel** build (one file per cadence: weekly/biweekly/monthly),
-produced by a separate `00_build_panels.py` that aggregates the raw daily data
-into per-site-per-period rows and assigns each treated site's donor pool:
+Both scripts read an intermediate **panel** build (one file per cadence:
+weekly/biweekly/monthly) rather than the raw daily CSVs directly. That panel
+build -- the actual output of a separate `00_build_panels.py` that aggregates
+the raw daily data (`treatment/2y_daily/`, `conus_random10/2y_daily/`) into
+per-site-per-period rows and assigns each treated site's donor pool -- is now
+pushed here too, at `Satellite/HLS/panels/`:
 
-- SHC: `<panels>/site_periods_full_<cadence>.csv` (or `site_periods_<cadence>.csv`)
-- ASCM: `<panels>/conus_random10_<cadence>_ndvi.csv`, `site_grids_<cadence>.csv`,
+- SHC reads `site_periods_full_<cadence>.csv` (falls back to
+  `site_periods_<cadence>.csv` if that doesn't exist)
+- ASCM reads `conus_random10_<cadence>_ndvi.csv`, `site_grids_<cadence>.csv`,
   `site_periods_<cadence>.csv`, `site_donors_<cadence>.csv`
+- `panel_inventory.csv` is a small metadata index `00_build_panels.py` also writes
 
-**That panel-build step is not pushed here.** The raw daily NDVI these panels
-are built from is already in this repo (`treatment/2y_daily/` and
-`conus_random10/2y_daily/`), but `00_build_panels.py` itself, and its output,
-are not -- so neither script will run against this repo's data as-is without
-either (a) that panel-builder being added too, or (b) rewriting the panel
-read in each script to aggregate the raw daily CSVs directly.
+`00_build_panels.py` itself is not pushed -- only its output. Point each
+script's panel path (`--panels` / `PANELS` in the R script) at
+`Satellite/HLS/panels/` and, once the absolute-path issue below is fixed,
+both should run against this repo's data as-is.
 
 ## Known portability issue
 

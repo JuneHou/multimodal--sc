@@ -1,0 +1,4 @@
+cadence,window_start,window_end,shared_periods,n_pre,n_post,event_period,event_side,treated_sites,skipped_sites,donor_pool,median_site_periods,median_site_donors
+monthly,2023-09-01,2025-09-30,25,13,12,2024-09-01,pre,89,0,791,19,10
+biweekly,2023-09-01,2025-09-30,53,24,29,2024-09-23,post,86,3,791,35,6
+weekly,2023-09-25,2025-03-27,77,44,33,2024-09-23,post,82,7,791,18,6
