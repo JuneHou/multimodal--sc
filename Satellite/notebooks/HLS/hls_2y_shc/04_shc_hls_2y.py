@@ -27,9 +27,6 @@ import hashlib
 import json
 from pathlib import Path
 
-import matplotlib
-matplotlib.use('Agg')
-import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from scipy.optimize import minimize
@@ -432,32 +429,8 @@ def historical_placebos(frame, n_post, actual_fit, args):
         status='ok' if k else 'no_eligible_placebos'), pd.DataFrame(audit)
 
 
-def plot_site(fit, site, cadence, output):
-    fig, axes = plt.subplots(2, 1, figsize=(11, 6), sharex=True)
-    colors = dict(all_in='#4576aa', selected='#d35439', single='#8c68a9')
-    for pool in POOLS:
-        path = fit['paths'].query('pool == @pool').sort_values('calendar_date')
-        axes[0].plot(path.calendar_date, path.counterfactual, color=colors[pool], label=pool)
-        axes[1].plot(path.calendar_date, path.effect, color=colors[pool], label=pool)
-    observed = fit['paths'].query("pool == 'selected'").sort_values('calendar_date')
-    axes[0].plot(observed.calendar_date, observed.observed, color='black', label='Observed')
-    for ax in axes:
-        ax.axvline(EVENT, color='grey', ls='--')
-        ax.grid(alpha=.2)
-        ax.legend(fontsize=8)
-    axes[0].set_ylabel('NDVI')
-    axes[1].set_ylabel('Observed - raw counterfactual')
-    axes[1].axhline(0, color='grey', lw=.7)
-    fig.suptitle(f'{site} | {cadence} | gaps retained; blocks use observation positions')
-    fig.tight_layout()
-    safe_site = ''.join(c if c.isalnum() or c in '-_' else '_' for c in str(site))
-    fig.savefig(output / f'{safe_site}_counterfactual_effect.png', dpi=170)
-    plt.close(fig)
-
-
 def fit_cadence(cadence, args):
     out = args.output / cadence / 'tables'
-    figures = args.output / cadence / 'figures'
     out.mkdir(parents=True, exist_ok=True)
     frames, eligibility = site_frames(args.panels, cadence, args)
     eligibility.to_csv(out / 'site_eligibility.csv', index=False)
@@ -491,9 +464,6 @@ def fit_cadence(cadence, args):
             reports.append(report)
             for name in collections:
                 collections[name].append(fit[name].assign(site=site, cadence=cadence))
-            if not args.no_figures and index <= args.plot_sites:
-                figures.mkdir(parents=True, exist_ok=True)
-                plot_site(fit, site, cadence, figures)
             print(f'{cadence} {index}/{len(frames)} {site}: m={int(row.m)}, '
                   f'mode={row.selection_mode}, ATT={row.mean_effect:+.4f}', flush=True)
         except (ValueError, RuntimeError, KeyError, IndexError) as exc:
@@ -564,8 +534,6 @@ def parse_args(argv=None):
     parser.add_argument('--placebo-stride', type=int, default=None, help='Default n_post: nonoverlapping pseudo-post positions')
     parser.add_argument('--placebo-season-match', action='store_true', help='Require same ordered month-of-year sequence for placebo post windows')
     parser.add_argument('--no-placebos', dest='placebos', action='store_false')
-    parser.add_argument('--no-figures', action='store_true')
-    parser.add_argument('--plot-sites', type=int, default=6)
     args = parser.parse_args(argv)
     if args.n_post not in ('damage', 'full'):
         try:
@@ -580,8 +548,7 @@ def parse_args(argv=None):
         or args.bw_max < 1 / args.min_pre
         or not np.isfinite([args.nu_share, args.zeta_share, args.bw_max]).all()
         or args.nu_share <= 0 or args.zeta_share < 0
-        or (args.placebo_stride is not None and args.placebo_stride < 1)
-        or args.plot_sites < 0):
+        or (args.placebo_stride is not None and args.placebo_stride < 1)):
         parser.error('Invalid matching, bandwidth, prefit or placebo settings')
     return args
 

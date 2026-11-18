@@ -1,69 +1,56 @@
-# HLS SHC / ASCM scripts (2-year treatment history)
+# HLS SHC / ASCM fitting scripts (2-year treatment history)
 
-Pushed from the private `CALS` project repo (Hurricane Helene NDVI analysis),
-commit date 2026-11-18. Two method scripts plus their figure-generation
-companions, each pair in its own subfolder mirroring the source repo's layout:
+Pushed from the private `CALS` project repo (Hurricane Helene NDVI analysis).
+Fitting code only -- no figure generation (the source repo's companion
+`_figures.py` scripts, and the plotting code that lived inside these two
+scripts, are both left out).
 
 ```
 HLS/
 ├── hls_2y_shc/
-│   ├── 04_shc_hls_2y.py        # per-site Synthetic Historical Control (SHC)
-│   └── _figures.py             # figures built from 04's own output tables
+│   └── 04_shc_hls_2y.py        # per-site Synthetic Historical Control (SHC)
 └── hls_2y_random_control/
-    ├── 02_ascm_hls_2y.R        # per-site (Augmented) Synthetic Control, CWZ conformal inference
-    └── _figures.py             # figures + effect maps; called by 02 at the end of its run
+    └── 02_ascm_hls_2y.R        # per-site (Augmented) Synthetic Control, CWZ conformal inference
 ```
 
-## What each script needs to run
+## What input data each method actually needs
 
-**`hls_2y_shc/04_shc_hls_2y.py`**
-- `<panels>/site_periods_full_<cadence>.csv` (weekly/biweekly/monthly) -- the only
-  real input; SHC has no donor panel.
+**SHC (`04_shc_hls_2y.py`)** has no donor sites at all -- a treated site's own
+earlier periods are its "donors". Its only real input is that one treated
+site's own NDVI history: a per-site, per-period panel of `(site, date,
+phase, ndvi)`, phase being `pre`/`post` relative to 2024-09-27. The
+**raw** source for that is the treated-site daily NDVI already in this repo
+under `Satellite/HLS/treatment/2y_daily/` (`treatment_daily_2yr.csv` and
+`per_site/*.csv`).
 
-**`hls_2y_shc/_figures.py`**
-- `04`'s own output tables (`site_paths.csv`, `site_summary.csv`, `site_weights.csv`)
-- `datasets/flooding/HLS/treatment/site_characteristics/treatment_site_landcover.csv`
+**ASCM (`02_ascm_hls_2y.R`)** fits each treated site against a donor pool via
+(augmented) synthetic control, so it needs NDVI for the treated site **and**
+its donor pool, plus which donors are assigned to which site. The raw source
+for the treated side is the same `treatment/2y_daily/` data; the donor side
+is the `conus_random10` pool's daily NDVI, already in this repo under
+`Satellite/HLS/conus_random10/2y_daily/conus_random10_daily_2yr.csv`.
 
-**`hls_2y_random_control/02_ascm_hls_2y.R`**
-- `<panels>/conus_random10_<cadence>_ndvi.csv`
-- `<panels>/site_grids_<cadence>.csv`
-- `<panels>/site_periods_<cadence>.csv`
-- `<panels>/site_donors_<cadence>.csv`
-- calls `_figures.py --method ascm --cadence <cadence>` itself at the end of each run
+## The gap: raw daily data vs. what these scripts actually read
 
-**`hls_2y_random_control/_figures.py`**
-- `02`'s own output tables (`ROOT/<method>/<cadence>/tables/...`)
-- `datasets/flooding/HLS/treatment/site_characteristics/treatment_site_landcover.csv`
-  and `treatment_landcover_average.csv`
-- `datasets/flooding/HLS/treatment/treatment_sites.csv`
-- `datasets/flooding/HLS/conus_random10/conus_random10_control_sites.csv`
-- `datasets/flooding/HLS/conus_random10/conus_random10_matched_pairs.csv`
-- `datasets/flooding/HLS/_work/site_selection/...` (donor/candidate site-selection tables)
+Both scripts, as written, don't read the raw daily CSVs directly -- they read
+an intermediate **panel** build (one file per cadence: weekly/biweekly/monthly),
+produced by a separate `00_build_panels.py` that aggregates the raw daily data
+into per-site-per-period rows and assigns each treated site's donor pool:
 
-## Checked against `Satellite/HLS/` in this repo (commit `d3d49973`)
+- SHC: `<panels>/site_periods_full_<cadence>.csv` (or `site_periods_<cadence>.csv`)
+- ASCM: `<panels>/conus_random10_<cadence>_ndvi.csv`, `site_grids_<cadence>.csv`,
+  `site_periods_<cadence>.csv`, `site_donors_<cadence>.csv`
 
-**Already present here**, same filenames:
-- `Satellite/HLS/treatment/treatment_sites.csv`
-- `Satellite/HLS/treatment/site_characteristics/treatment_site_landcover.csv`
-- `Satellite/HLS/treatment/site_characteristics/treatment_landcover_average.csv`
-- `Satellite/HLS/conus_random10/conus_random10_control_sites.csv`
-- `Satellite/HLS/conus_random10/conus_random10_matched_pairs.csv`
-
-**NOT present here** -- these are the actual primary inputs both method scripts read,
-and they are *derived* files (built by a separate `00_build_panels.py` panel-builder
-from the raw composites above, not pushed in this commit):
-- `site_periods_full_<cadence>.csv`, `site_periods_<cadence>.csv`
-- `conus_random10_<cadence>_ndvi.csv`
-- `site_grids_<cadence>.csv`, `site_donors_<cadence>.csv`
-- the `datasets/flooding/HLS/_work/site_selection/` donor/candidate tables
-
-So these two scripts will not run against this repo's current `Satellite/HLS/` data
-as-is -- the panel-building step (and the `_work/site_selection` tables) still needs
-to be run or pushed separately.
+**That panel-build step is not pushed here.** The raw daily NDVI these panels
+are built from is already in this repo (`treatment/2y_daily/` and
+`conus_random10/2y_daily/`), but `00_build_panels.py` itself, and its output,
+are not -- so neither script will run against this repo's data as-is without
+either (a) that panel-builder being added too, or (b) rewriting the panel
+read in each script to aggregate the raw daily CSVs directly.
 
 ## Known portability issue
 
-Every file here hardcodes the source machine's absolute path
-(`CALS = Path("/Users/gaoyujuan/REAP Dropbox/Gao yujuan/Virginia Tech/CALS")` in
-Python, the equivalent in R) rather than resolving relative to the repo. Update that
-constant at the top of each file before running them here.
+Both files hardcode the source machine's absolute path
+(`CALS = Path("/Users/gaoyujuan/REAP Dropbox/Gao yujuan/Virginia Tech/CALS")`
+in Python, the R equivalent) rather than resolving relative to the repo.
+Update that constant at the top of each file before running them here.

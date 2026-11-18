@@ -44,11 +44,11 @@
 # read from the panel's phase column -- never recomputed from date > EVENT,
 # which would silently flip monthly September to post.
 #
-# Figures and maps are produced by _figures.py, which this script calls at the
-# end, so one run of this file is the whole ASCM deliverable.
+# Fitting only -- no figures/maps. (The source script also calls _figures.py
+# at the end; that step, and the figures it makes, are not part of this copy.)
 #
 # Input : test results/validation/hls_flooding_128/hls_2y_random_control/panels/
-# Output: test results/validation/hls_flooding_128/hls_2y_random_control/ascm/<cadence>/{tables,figures,maps}/
+# Output: test results/validation/hls_flooding_128/hls_2y_random_control/ascm/<cadence>/tables/
 #
 #   Rscript 02_ascm_hls_2y.R                      # all three cadences
 #   Rscript 02_ascm_hls_2y.R --cadence weekly --grid-size 100
@@ -65,7 +65,6 @@ has_flag <- function(name) name %in% args
 CALS <- "/Users/gaoyujuan/REAP Dropbox/Gao yujuan/Virginia Tech/CALS"
 ROOT <- file.path(CALS, "test results", "validation", "hls_flooding_128", "hls_2y_random_control")
 PANELS <- file.path(ROOT, "panels")
-HERE <- file.path(CALS, "scripts", "validation", "hls_2y_random_control")
 DESIGN <- "conus_random10"
 
 cadences <- if (has_flag("--cadence")) {
@@ -81,7 +80,6 @@ CONF_GRID <- if (has_flag("--grid-size")) {
 }
 # Detects post-period deviation in EITHER direction, as CWZ intend.
 CONF_STAT <- function(x) sum(abs(x))
-SKIP_FIGURES <- has_flag("--no-figures")
 
 for (p in c("augsynth", "dplyr", "readr"))
   if (!requireNamespace(p, quietly = TRUE)) stop("Install R package: ", p)
@@ -398,12 +396,4 @@ fit_cadence <- function(cadence) {
 
 for (cadence in cadences) fit_cadence(cadence)
 
-if (!SKIP_FIGURES) {
-  for (cadence in cadences) {
-    message(sprintf("\nfigures and maps: ascm %s", cadence))
-    status <- system2("python3", c(shQuote(file.path(HERE, "_figures.py")),
-                                   "--method", "ascm", "--cadence", cadence))
-    if (status != 0) warning("figure step failed for ascm ", cadence)
-  }
-}
 message("\ndone")
